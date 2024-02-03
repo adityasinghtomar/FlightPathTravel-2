@@ -21,6 +21,7 @@ Route::get('/razorpay', 'RazorpayPaymentController@viewPayment')->name('razorpay
 // Route::post('/orderid-generate', 'RazorpayPaymentController@payment')->name('payment');
 Route::post('/orderid-generate', 'RazorpayPaymentController@orderIdGenerate')->name('payment');
 // Flight 
+Route::post('/city_details', 'HotelController@city_details')->name('flight-search');
 Route::get('/autocomplete-search', 'FlightController@autocompleteSearch');
 Route::get('/flight-search-result', 'FlightController@flight_search_result')->name('flight-search-result');
 Route::get('/flight_booking', 'FlightController@flight_booking')->name('flight-booking');

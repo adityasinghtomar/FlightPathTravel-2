@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Hotel_Model;
-use App\FileStatus_Model;
+use App\Hotel_City_Model;
 use App\UserDetails_Model;
 use Illuminate\Support\Facades\Http;
 
@@ -53,14 +53,33 @@ $ress = json_decode($ss);
 // print_r($ress);die;
 $token_id = $result->TokenId;
 $data = $ress->Destinations;
-
+// foreach($data as $state_){
+    
+//     $DestinationId =$state_->DestinationId;
+//     $CityName = $state_->CityName;
+    
+//      $user = new Hotel_City_Model;
+// 			 $user->name = $CityName;
+//               $user->city_id = $DestinationId;
+//                 $user->save();
+                
+    
+// }
 
         return view('flight/hotel-search-list',compact('data','token_id'));
     }
    
     public function hotel_search(Request $request)
     {
-        
+    $city_name = $request->city_name;   
+    $checkin_date = $request->checkin_date;
+    $checkout_date =$request->checkout_date;
+    $NoOfRoom =$request->NoOfRoom;
+    
+   $hotel1 =  Hotel_City_Model::where('name',$request->city_name)->first(); 
+   
+  if($hotel1){
+  $city_id = $hotel1->city_id ;
         $date =\Carbon\Carbon::createFromFormat('Y-m-d', $request->checkin_date)
                     ->format('d/m/Y');
         // print_r($date);die;
@@ -105,7 +124,7 @@ $json1='{
   "CheckInDate": "'.$date.'",
   "NoOfNights": "4",
   "CountryCode": "IN",
-  "CityId": "'.$request->Destination.'",
+  "CityId": "'.$city_id.'",
   "ResultCount": null,
   "PreferredCurrency": "INR",
   "GuestNationality": "IN",
@@ -134,9 +153,10 @@ $ress = json_decode($ss);
 
 $token_id = $result->TokenId;
     // print_r($ress);die;    
-        return view('flight/hotel-search-list',compact('ress','token_id','data'));
+        return view('flight/hotel-search-list',compact('ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
     }
     
+    }    
   public function hotel_information(Request $request)
     {
         $ResultIndex=$request->ResultIndex;
@@ -397,4 +417,13 @@ $data = array();
         $flight = Hotel_Model::get();
         return view('flight/admin/db-vender-flight',compact('flight'));
     }
+     public function city_details(Request $request)
+    {
+       $data['states'] = Hotel_City_Model::where('name',$request->country_id )
+                                //  ->orWhere('AIRPORTCODE', $request->country_id )
+                                ->get(["city_id"]);
+  
+        return response()->json($data);
+    }
+    
 }    

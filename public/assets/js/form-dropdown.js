@@ -25,6 +25,8 @@ $('.btn-add').on('click touchstart', function () {
     document.getElementById("myInput").value = value;
     document.getElementById("myInputA").value = value;
     document.getElementById("myInputAA").value = value;
+    document.getElementById("myInput122").value = value;
+    
     addValue(value);
     event.stopPropagation();
     event.preventDefault();
@@ -42,6 +44,8 @@ $('.btn-subtract').on('click touchstart', function () {
         document.getElementById("myInput").value = value;
         document.getElementById("myInputA").value = value;
         document.getElementById("myInputAA").value = value;
+        document.getElementById("myInput122").value = value;
+    
         addValue(value);
     }
     event.stopPropagation();
@@ -52,6 +56,7 @@ $('.btn-subtract').on('click touchstart', function () {
 $('.btn-add-c').on('click touchstart', function () {
     const value = ++i;
     $('.ccount').text(`${value}`);
+    document.getElementById("myInput1222").value = value;
     document.getElementById("myInput1").value = value;
     document.getElementById("myInputB").value = value;
     document.getElementById("myInputBB").value = value;
@@ -68,6 +73,7 @@ $('.btn-subtract-c').on('click touchstart', function () {
     } else {
         const value = --i;
         $('.ccount').text(`${value}`);
+        document.getElementById("myInput1222").value = value;
         document.getElementById("myInput1").value = value;
         document.getElementById("myInputBB").value = value;
         document.getElementById("myInputB").value = value;
@@ -82,6 +88,8 @@ $('.btn-subtract-c').on('click touchstart', function () {
 $('.btn-add-in').on('click touchstart', function () {
     const value = ++i;
     $('.incount').text(`${value}`);
+    document.getElementById("myInput1223").value = value;
+    
     document.getElementById("myInput2").value = value;
     document.getElementById("myInputC").value = value;
     document.getElementById("myInputCC").value = value;
@@ -100,6 +108,8 @@ $('.btn-subtract-in').on('click touchstart', function () {
         $('.incount').text(`${value}`);document.getElementById("myInput2").value = value;
     document.getElementById("myInputC").value = value;
     document.getElementById("myInputCC").value = value;
+    document.getElementById("myInput1223").value = value;
+    
         addValue(value);
     }
     event.stopPropagation();

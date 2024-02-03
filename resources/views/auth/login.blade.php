@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="public/assets/css/responsive.css" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/assets/img/favicon.png">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -617,7 +619,8 @@
                                                                     <div class="flight_Search_boxed date_flex_area">
                                                                         <div class="Journey_date">
                                                                             <p>Journey date</p>
-                                                                            <input type="date" id="demo" name="journey_date" class="dateget" required>
+                                                                            <input type="date" id="demo" name="journey_date" class="txtDate" required>
+                                                                           
                                                                             <span></span>
                                                                             <!--<p id="myId"></p>-->
                                                                         </div>
@@ -810,12 +813,12 @@
                                                                     <div class="flight_Search_boxed date_flex_area">
                                                                         <div class="Journey_date">
                                                                             <p>Journey date</p>
-                                                                            <input type="date" id="demo" name="journey_date" value="" required>
+                                                                            <input type="date" id="demo" name="journey_date" class="txtDate" value="" required>
                                                                             <span></span>
                                                                         </div>
                                                                         <div class="Journey_date">
                                                                             <p>Return date</p>
-                                                                            <input type="date" id="demo" name="return_date" value="" required>
+                                                                            <input type="date" id="demo" name="return_date" class="txtDate" value="" required>
                                                                             <span></span>
                                                                         </div>
                                                                     </div>
@@ -1008,7 +1011,7 @@
                                                                                 <div class="Journey_date">
                                                                                     <p>Journey date</p>
                                                                                     <input type="date" id="demo" name="journey_date"
-                                                                                        value="" required>
+                                                                                        value="" class="txtDate" required>
                                                                                     <span></span>
                                                                                 </div>
                                                                                 <!--<div class="Journey_date">-->
@@ -1193,7 +1196,7 @@
                                                                                 <div class="Journey_date">
                                                                                     <p>Journey date</p>
                                                                                     <input type="date" id="demo" name="journey_date1"
-                                                                                        value="" required>
+                                                                                        value="" class="txtDate" required>
                                                                                     <span></span>
                                                                                 </div>
                                                                                 <!--<div class="Journey_date">-->
@@ -1504,32 +1507,45 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="tour_search_form">
-                                            <form action="#!">
+                                             <form action="{{url('/hotel_search')}}" enctype="multipart/form-data" method="post">
+                                                      @csrf
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                                        <div class="flight_Search_boxed">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                                        <div class="flight_Search_boxed"> 
                                                             <p>Destination</p>
-                                                            <input type="text" placeholder="Where are you going?">
+                                                            <input list="ShowDataList" placeholder="From" name="city_name" class="selectpicker form-control city_id" id="state_id" style="background-color:#e98c0617; width:202px;" required>
+                                                                <datalist id="ShowDataList">
+                                                                <?php $data =\App\Hotel_City_Model::get(); ?>
+                                                                @foreach($data as $state_)
+                                                                    <option value="{{$state_->name}}">{{__($state_->name)}}</option>
+                                                                @endforeach
+                                                            </datalist>
+                                                            <span id="city_id"></span>
                                                             <span>Where are you going?</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                                         <div class="form_search_date">
                                                             <div class="flight_Search_boxed date_flex_area">
                                                                 <div class="Journey_date">
-                                                                    <p>Journey date</p>
-                                                                    <input type="date" value="2022-05-03">
-                                                                    <span>Thursday</span>
+                                                                    <p>Check In Date</p>
+                                                                    <input type="date" name="checkin_date" class="txtDate" required>
+                                                                    <span></span>
                                                                 </div>
-                                                                <div class="Journey_date">
-                                                                    <p>Return date</p>
-                                                                    <input type="date" value="2022-05-05">
-                                                                    <span>Thursday</span>
+                                                                <div class="Journey_date" >
+                                                                    <p>Check Out Date</p>
+                                                                    <input type="date" name="checkout_date" class="txtDate" required>
+                                                                    <span></span>
+                                                                </div>
+                                                                <div class="">
+                                                                    <p>No Of Rooms</p>
+                                                                    <input type="number" name="NoOfRoom" value="1" required>
+                                                                    <span></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2  col-md-6 col-sm-12 col-12">
+                                                    <div class="col-lg-2  col-md-2 col-sm-12 col-12">
                                                         <div class="flight_Search_boxed dropdown_passenger_area">
                                                             <p>Passenger, Class </p>
                                                             <div class="dropdown">
@@ -1543,7 +1559,7 @@
                                                                     aria-labelledby="dropdownMenuButton1">
                                                                     <div class="traveller-calulate-persons">
                                                                         <div class="passengers">
-                                                                            <h6>Passengers</h6>
+                                                                            <h6>Passengers</h6> 
                                                                             <div class="passengers-types">
                                                                                 <div class="passengers-type">
                                                                                     <div class="text"><span
@@ -1633,16 +1649,22 @@
                                                                                 </button>
                                                                             </div>
                                                                         </div>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <span>Business</span>
                                                         </div>
+                                                        <input type="hidden" name="adult" id="myInput122" value="1">
+                                                                        <input type="hidden" name="children" id="myInput1222">
+                                                                        <input type="hidden" name="infant" id="myInput1222">
                                                     </div>
                                                     <div class="top_form_search_button">
                                                         <button class="btn btn_theme btn_md">Search</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                                
                                         </div>
                                     </div>
                                 </div>
@@ -3909,7 +3931,35 @@ document.getElementById("demo").innerHTML = text;
             });
         });
     </script>
-    
+   
+    <script>
+        $(document).ready(function () {
+  
+            /*------------------------------------------
+            --------------------------------------------
+            Country Dropdown Change Event
+            --------------------------------------------
+            --------------------------------------------*/
+            $('.city_id').on('keyup',function(){
+                var idCountry = this.value;
+                $("#city_id").html('');
+                $.ajax({
+                    url: "/city_details",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result.states, function (key, value) {
+                            $("#city_id").append('<input type="hidden" name="Destination" value="'+ value.city_id +'">');
+                        });
+                   }
+                });
+            });
+        });
+    </script> 
  <script>
         $(document).ready(function () {
   
@@ -3942,6 +3992,21 @@ document.getElementById("demo").innerHTML = text;
         var r = weekdays[a.getDay()];
         document.getElementById("myId").innerHTML = r;
     }
+    $(function(){
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+
+    var minDate= year + '-' + month + '-' + day;
+
+    $('.txtDate').attr('min', minDate);
+});
 </script>    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 

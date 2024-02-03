@@ -30,9 +30,45 @@ class AdminController extends Controller
 // 		$booked_live_stream_count = Category_Model::count();
 // 		$live_stream_count = Category_Model::count();
 	
-		
+		        // Authenticate API
+$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+$url = $endpoint;
+                $json='{
+"ClientId": "ApiIntegrationNew",
+"UserName": "Flightpath",
+"Password": "Flight@1234", 
+"EndUserIp": "192.168.11.120"
+}';
+$ch = curl_init($url);
+$data =$json;
+$payload = $json;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$result1 = curl_exec($ch);
+$result = json_decode($result1);
+// Search City 
+
+$search1 = 'http://api.tektravels.com/SharedServices/StaticData.svc/rest/GetDestinationSearchStaticData'; // Replace with the actual flight search endpoint
+$json12='{ 
+"EndUserIp": "192.168.11.120",
+"TokenId": "'.$result->TokenId.'",
+"CountryCode" :"IN",
+"SearchType"  :"1"
+}'; 
+$ch = curl_init($search1);
+$payload12 = $json12;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload12);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$ss = curl_exec($ch);
+$ress = json_decode($ss);   
+// print_r($ress);die;
+$token_id = $result->TokenId;
+$data = $ress->Destinations;
+
         // return view('/admin/dashboard',compact('user_count'));
-        return view('flight/login');
+        return view('flight/login',compact('data','token_id'));
     }
 
     /**

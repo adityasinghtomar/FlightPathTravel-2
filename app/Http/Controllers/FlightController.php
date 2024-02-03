@@ -287,7 +287,8 @@ $url = $endpoint;
     $ArrTime = $request->ArrTime;
     $DepTime = $request->DepTime;
     $adult = $request->adult;
-    return view('flight/flight_booking_submission',compact('adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
+    $count = $request->count;
+    return view('flight/flight_booking_submission',compact('count','adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
     }	
 	
  public function flight_booking_det(Request $request)
@@ -1004,7 +1005,8 @@ $filterResult = Airport_Model::get();
      public function price_filter(Request $request)
     {
     //   print_r($request->from);die;
-$price_filter = $request->price_filter;    
+$price_filter = $request->price_filter;  
+$price_filter1 = $request->price_filter1;
 $from = $request->from;
 $to = $request->to;
 $journey_date = $request->journey_date;
@@ -1056,8 +1058,8 @@ $json1='{
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
 "AdultCount": "'.$adult.'",
-"ChildCount": "'.$children.'",
-"InfantCount": "'.$infant.'",
+"ChildCount": "0",
+"InfantCount": "0",
 "DirectFlight": "false",
 "OneStopFlight": "false",
 "JourneyType": "1",
@@ -1074,26 +1076,243 @@ $json1='{
         ],
 "Sources": null
 }';
+// $url = 'https://www.example.com/api';
 
+// Create a new cURL resource
 $ch = curl_init($search);
 
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
 $payload1 = $json1;
 
+// Attach encoded JSON string to the POST fields
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
 
+// Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 
+// Return response instead of outputting
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+// print_r("ddw");die; 
+// Execute the POST request
 $ss = curl_exec($ch);
 $ress = json_decode($ss);
+// foreach($ress as $res){
+//     $dat = $res->Results;
+//     foreach($dat as $dat1){
+//         foreach($dat1 as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+        //   foreach($Airport as $Origin1){
+        //   print_r( $Airport);
+        // } 
+    //     }
+        
+    //     }
+
+    //     }
+    // }
+// }
+// foreach($daa as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime[] = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+//         //   foreach($Airport as $Origin1){
+//         //   print_r( $Airport);
+//         // } 
+//         }
+//         }
+//         } 
+        // print_r($DestinationDepTime);
+//  die;
+// print_r($daa);die;
+
 $daa; 
+$fli_data = "dd";
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
-curl_close($ch); 
+curl_close($ch);  
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('price_filter','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('price_filter','price_filter1','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
+    }    
+  
+   //flight_classFilter 
+     public function flight_class(Request $request)
+    {
+    //   print_r($request->from);die;
+$from = $request->from;
+$to = $request->to;
+$journey_date = $request->journey_date;
+
+$adult = $request->adult;
+$children = $request->children;
+$infant = $request->infant;
+$cabin_class = $request->cabin_class;
+
+// Endpoint you want to access
+$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+
+$url = $endpoint;
+                $json='{
+"ClientId": "ApiIntegrationNew",
+"UserName": "Flightpath",
+"Password": "Flight@1234", 
+"EndUserIp": "192.168.11.120"
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($url);
+
+// Setup request to send json via POST
+$data =$json;
+$payload = $json;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Execute the POST request
+$result1 = curl_exec($ch);
+$result = json_decode($result1);
+// print_r($result->TokenId);die;
+// Search 
+$search = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Search/'; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+$json1='{
+"EndUserIp": "192.168.11.120",
+"TokenId": "'.$result->TokenId.'",
+"AdultCount": "'.$adult.'",
+"ChildCount": "0",
+"InfantCount": "0",
+"DirectFlight": "false",
+"OneStopFlight": "false",
+"JourneyType": "1",
+"FlightCabinClass":"'.$cabin_class.'",
+"PreferredAirlines": null,
+"Segments": [
+{
+"Origin": "'.$request->from.'",
+"Destination": "'.$request->to.'",
+"FlightCabinClass": "1",
+"PreferredDepartureTime": "'.$request->journey_date.'T00: 00: 00",
+"PreferredArrivalTime": "'.$request->journey_date.'T00: 00: 00"
+}
+        ],
+"Sources": null
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($search);
+
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
+$payload1 = $json1;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// print_r("ddw");die; 
+// Execute the POST request
+$ss = curl_exec($ch);
+$ress = json_decode($ss);
+// foreach($ress as $res){
+//     $dat = $res->Results;
+//     foreach($dat as $dat1){
+//         foreach($dat1 as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+        //   foreach($Airport as $Origin1){
+        //   print_r( $Airport);
+        // } 
+    //     }
+        
+    //     }
+
+    //     }
+    // }
+// }
+// foreach($daa as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime[] = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+//         //   foreach($Airport as $Origin1){
+//         //   print_r( $Airport);
+//         // } 
+//         }
+//         }
+//         } 
+        // print_r($DestinationDepTime);
+//  die;
+// print_r($daa);die;
+
+$daa; 
+$fli_data = "dd";
+$token_id = $result->TokenId;
+// Close cURL resource 
+//  print_r($ress);die;
+curl_close($ch);  
+$filterResult = Airport_Model::get(); 
+        return view('flight/flight_search_result',compact('fli_data','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
     }    
     
     
@@ -1101,7 +1320,16 @@ $filterResult = Airport_Model::get();
      public function stops(Request $request)
     {
     //   print_r($request->from);die;
-$stops = $request->stops;    
+$stops = $request->stops;   
+if($stops =="one" ){
+    $stops1 ="true"; 
+}
+if($stops =="multi" ){
+    $stops1 ="false"; 
+}
+if($stops =="non" ){
+    $stops1 ="true"; 
+}
 $from = $request->from;
 $to = $request->to;
 $journey_date = $request->journey_date;
@@ -1153,10 +1381,10 @@ $json1='{
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
 "AdultCount": "'.$adult.'",
-"ChildCount": "'.$children.'",
-"InfantCount": "'.$infant.'",
-"DirectFlight": "'.$stops.'",
-"OneStopFlight": "'.$stops.'",
+"ChildCount": "0",
+"InfantCount": "0",
+"DirectFlight": "'.$stops1.'",
+"OneStopFlight": "'.$stops1.'",
 "JourneyType": "1",
 "FlightCabinClass":"'.$cabin_class.'",
 "PreferredAirlines": null,
@@ -1171,122 +1399,86 @@ $json1='{
         ],
 "Sources": null
 }';
-
-$ch = curl_init($search);
-
-$payload1 = $json1;
-
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
-
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-$ss = curl_exec($ch);
-$ress = json_decode($ss);
-$daa; 
-$token_id = $result->TokenId;
-// Close cURL resource 
-//  print_r($ress);die;
-curl_close($ch); 
-$filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
-    }    
-     // Flight Class Filter 
-     public function flight_class(Request $request)
-    {
-    //   print_r($request->from);die;
-$stops = $request->stops;    
-$from = $request->from;
-$to = $request->to;
-$journey_date = $request->journey_date;
- 
-$adult = $request->adult;
-$children = $request->children;
-$infant = $request->infant;
-$cabin_class = $request->cabin_class;
-
-// print_r($cabin_class);die;
-// Endpoint you want to access
-$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
-
-// Define your search parameters as an array
-
-$url = $endpoint;
-                $json='{
-"ClientId": "ApiIntegrationNew",
-"UserName": "Flightpath",
-"Password": "Flight@1234", 
-"EndUserIp": "192.168.11.120"
-}';
 // $url = 'https://www.example.com/api';
 
 // Create a new cURL resource
-$ch = curl_init($url);
+$ch = curl_init($search);
 
 // Setup request to send json via POST
-$data =$json;
-$payload = $json;
+// $data =$json1;
+// print_r($json1);die;
+$payload1 = $json1;
 
 // Attach encoded JSON string to the POST fields
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
 
 // Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 
 // Return response instead of outputting
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+// print_r("ddw");die; 
 // Execute the POST request
-$result1 = curl_exec($ch);
-$result = json_decode($result1);
-// print_r($result->TokenId);die;
-// Search 
-$search = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Search/'; // Replace with the actual flight search endpoint
-
-// Define your search parameters as an array
-$json1='{
-"EndUserIp": "192.168.11.120",
-"TokenId": "'.$result->TokenId.'",
-"AdultCount": "'.$adult.'",
-"ChildCount": "'.$children.'",
-"InfantCount": "'.$infant.'",
-"DirectFlight": "false",
-"OneStopFlight": "false",
-"JourneyType": "1",
-"FlightCabinClass":"'.$cabin_class.'", 
-"PreferredAirlines": null,
-"Segments": [
-{
-"Origin": "'.$request->from.'",
-"Destination": "'.$request->to.'",
-"FlightCabinClass": "1",
-"PreferredDepartureTime": "'.$request->journey_date.'T00: 00: 00",
-"PreferredArrivalTime": "'.$request->journey_date.'T00: 00: 00"
-}
-        ],
-"Sources": null
-}';
-
-$ch = curl_init($search);
-
-$payload1 = $json1;
-
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
-
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
 $ss = curl_exec($ch);
 $ress = json_decode($ss);
+// foreach($ress as $res){
+//     $dat = $res->Results;
+//     foreach($dat as $dat1){
+//         foreach($dat1 as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+        //   foreach($Airport as $Origin1){
+        //   print_r( $Airport);
+        // } 
+    //     }
+        
+    //     }
+
+    //     }
+    // }
+// }
+// foreach($daa as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime[] = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+//         //   foreach($Airport as $Origin1){
+//         //   print_r( $Airport);
+//         // } 
+//         }
+//         }
+//         } 
+        // print_r($DestinationDepTime);
+//  die;
+// print_r($daa);die;
+$fli_data = "dd";
 $daa; 
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
-curl_close($ch); 
+curl_close($ch);  
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('stops','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
     }   
     
    // Refundable Filter 
@@ -1345,8 +1537,8 @@ $json1='{
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
 "AdultCount": "'.$adult.'",
-"ChildCount": "'.$children.'",
-"InfantCount": "'.$infant.'",
+"ChildCount": "0",
+"InfantCount": "0",
 "DirectFlight": "false",
 "OneStopFlight": "false",
 "JourneyType": "1",
@@ -1363,24 +1555,84 @@ $json1='{
         ],
 "Sources": null
 }';
+// $url = 'https://www.example.com/api';
 
+// Create a new cURL resource
 $ch = curl_init($search);
 
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
 $payload1 = $json1;
 
+// Attach encoded JSON string to the POST fields
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
 
+// Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 
+// Return response instead of outputting
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+// print_r("ddw");die; 
+// Execute the POST request
 $ss = curl_exec($ch);
 $ress = json_decode($ss);
+// foreach($ress as $res){
+//     $dat = $res->Results;
+//     foreach($dat as $dat1){
+//         foreach($dat1 as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+        //   foreach($Airport as $Origin1){
+        //   print_r( $Airport);
+        // } 
+    //     }
+        
+    //     }
+
+    //     }
+    // }
+// }
+// foreach($daa as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime[] = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+//         //   foreach($Airport as $Origin1){
+//         //   print_r( $Airport);
+//         // } 
+//         }
+//         }
+//         } 
+        // print_r($DestinationDepTime);
+//  die;
+// print_r($daa);die;
+$fli_data = "dd";
 $daa; 
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
-curl_close($ch); 
+curl_close($ch);
 $filterResult = Airport_Model::get(); 
         return view('flight/flight_search_result',compact('refundable','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
     } 
@@ -1441,8 +1693,8 @@ $json1='{
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
 "AdultCount": "'.$adult.'",
-"ChildCount": "'.$children.'",
-"InfantCount": "'.$infant.'",
+"ChildCount": "0",
+"InfantCount": "0",
 "DirectFlight": "false",
 "OneStopFlight": "false",
 "JourneyType": "1",
@@ -1459,24 +1711,84 @@ $json1='{
         ],
 "Sources": null
 }';
+// $url = 'https://www.example.com/api';
 
+// Create a new cURL resource
 $ch = curl_init($search);
 
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
 $payload1 = $json1;
 
+// Attach encoded JSON string to the POST fields
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
 
+// Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 
+// Return response instead of outputting
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+// print_r("ddw");die; 
+// Execute the POST request
 $ss = curl_exec($ch);
 $ress = json_decode($ss);
+// foreach($ress as $res){
+//     $dat = $res->Results;
+//     foreach($dat as $dat1){
+//         foreach($dat1 as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+        //   foreach($Airport as $Origin1){
+        //   print_r( $Airport);
+        // } 
+    //     }
+        
+    //     }
+
+    //     }
+    // }
+// }
+// foreach($daa as $dat2){
+//          $Segments = $dat2->Segments;
+//         //  print_r($Segments->Baggage);
+//          foreach( $Segments as $Segment){
+//             foreach( $Segment as $Segm){
+//           $Origin = $Segm->Origin;
+//           $Destination = $Segm->Destination;
+//           $Airportcode[] = $Origin->Airport->AirportCode;
+//           $AirportName[] = $Origin->Airport->AirportName;
+//           $DepTime[] = $Origin->DepTime;
+          
+//           $DestinationDepTime[] = $Destination->ArrTime;
+//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
+//           $DestinationAirportName[] = $Destination->Airport->AirportName;
+//         //   foreach($Airport as $Origin1){
+//         //   print_r( $Airport);
+//         // } 
+//         }
+//         }
+//         } 
+        // print_r($DestinationDepTime);
+//  die;
+// print_r($daa);die;
+$fli_data = "dd";
 $daa; 
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
-curl_close($ch); 
+curl_close($ch);
 $filterResult = Airport_Model::get(); 
         return view('flight/flight_search_result',compact('airlines','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
     }   

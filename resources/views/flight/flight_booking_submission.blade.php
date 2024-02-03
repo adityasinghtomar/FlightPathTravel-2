@@ -153,25 +153,25 @@
                                         <div class="payment_filed_wrapper">
                                             <div class="payment_card payment_toggle red">
                                                 <div class="row">
-        <!--        <form action="{{ url('payment') }}" method="post" id="addPaymentForm">-->
-        <!--           @csrf-->
-        <!--            <div class="popupForm">-->
+                <form action="{{ url('payment') }}" method="post" id="addPaymentForm">
+                   @csrf
+                    <div class="popupForm">
                        
-        <!--                <div class="form-group floating-field">-->
-        <!--                    <input type="hidden" name="razorpay_payment_id" value="" id="razorpay_payment_id">-->
-        <!--                    <input type="hidden" name="razorpay_order_id" value="" id="razorpay_order_id">-->
-        <!--                    <input type="hidden" name="razorpay_signature" value="" id="razorpay_signature">-->
-        <!--                    <input type="hidden" name="generated_signature" value="" id="generated_signature">-->
-							 <!--<input type="hidden" name="amount" value="<?php echo $BaseFare; ?>" id="payment">-->
+                        <div class="form-group floating-field">
+                            <input type="hidden" name="razorpay_payment_id" value="" id="razorpay_payment_id">
+                            <input type="hidden" name="razorpay_order_id" value="" id="razorpay_order_id">
+                            <input type="hidden" name="razorpay_signature" value="" id="razorpay_signature">
+                            <input type="hidden" name="generated_signature" value="" id="generated_signature">
+							 <input type="hidden" name="amount" value="<?php echo $BaseFare; ?>" id="payment">
 
-        <!--            </div><!--//popupForm-->-->
+                    </div><!--//popupForm-->
 
-        <!--                    <div class="col-sm-6 text-right">                                 -->
-        <!--                        <button class="btn btn-primary" type="button" id="addPaymentButton"><?php echo $BaseFare; ?> Pay</button>-->
-        <!--                    </div>-->
+                            <div class="col-sm-6 text-right">                                 
+                                <button class="btn btn-primary" type="button" id="addPaymentButton"><?php echo $BaseFare; ?> Pay</button>
+                            </div>
 
-        <!--            </div>-->
-        <!--        </form>-->
+                    </div>
+                </form>
                                                 </div>
                                             </div>
                                             <div class="paypal_payment payment_toggle green">
@@ -253,12 +253,38 @@
                                     <div class="flight_search_middel_sidebar">
                                         <div class="flight_right_arrow_sidebar">
                                             <img src="assets/img/icon/right_arrow.png" alt="icon">
-                                            <h6>Non-stop</h6>
+                                            <h6><?php 
+                                                            if($count == 1){
+                                                                echo "Non"; 
+                                                                }
+                                                            if($count == 2){
+                                                                echo "One"; 
+                                                                }
+                                                            if($count > 2){
+                                                                echo "Multi"; 
+                                                                }    
+                                                            
+                                                             ?> Stops</h6>
                                             <p>
-                                            <?php $hours = floor($Duration / 60);
-                                                        $min = $Duration - ($hours * 60);
+                                                <?php 
+                                                            $input1 = $DepTime;; 
+                                                            $date = strtotime($input1); 
+                                                             $dapa_time = date('d-M-Y h:i a', $date); 
+                                                            ?>
+                                                            <?php 
+                                                            $input = $ArrTime;
+                                                            $date = strtotime($input); 
+                                                             $arr1_time = date('d-M-Y h:i a', $date); 
+                                                            
+                                                            $from_time = strtotime($dapa_time); 
+                                                                $to_time = strtotime($arr1_time); 
+                                                            $diff_minutes = abs($from_time - $to_time) / 60; 
+                                                           
+                                                           $hours = floor($diff_minutes / 60);
+                                                        $min = $diff_minutes - ($hours * 60);
                                                         echo $hours."h : ".$min;echo"m ";
-                                                        ?>
+                                                       
+                                                            ?>  
                                             </p>
                                             
                                         </div>
@@ -280,20 +306,65 @@
                                                             echo date('d-M-Y', $date); 
                                                             ?></h6>
                                                             </div> 
+                                            <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
+                                                    class="fas fa-chevron-down"></i></h6>                
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tour_package_details_bar_list">
-                                    <ul>
-                                        <h4>Refund Policy</h4>
+                                <!--<div class="tour_package_details_bar_list">-->
+                                <!--    <ul>-->
+                                <!--        <h4>Refund Policy</h4>-->
+                                <!--                    <p class="fz12">1. Refund and Date Change are done as per the-->
+                                <!--                        following policies.</p>-->
+                                <!--                    <p class="fz12">2. Refund Amount= Refund Charge (as per airline-->
+                                <!--                        policy + ShareTrip Convenience Fee). </p>-->
+                                <!--                    <p class="fz12">3. Date Change Amount= Date Change Fee (as per-->
+                                <!--                        Airline Policy + ShareTrip Convenience Fee).</p>-->
+                                <!--    </ul>-->
+                                <!--</div>-->
+                                
+                                <div class="flight_policy_refund collapse" id="collapseExample">
+                                        <div class="flight_show_down_wrapper">
+                                            <div class="flight-shoe_dow_item">
+                                                <div class="airline-details">
+                                                    <div class="img"><img src="assets/img/icon/bg.png" alt="img"></div>
+                                                    <span class="airlineName fw-500">Biman Bangladesh Airlines &nbsp;
+                                                        BG435</span>
+                                                    <span class="flightNumber">BOEING 737-800 - 738</span>
+                                                </div>
+                                                   
+                                                    <div class="flight_det_wrapper">
+                                                        <div class="flight_det">
+                                                            <div class="code_time">
+                                                               <h5>Refund Policy</h5>
                                                     <p class="fz12">1. Refund and Date Change are done as per the
                                                         following policies.</p>
                                                     <p class="fz12">2. Refund Amount= Refund Charge (as per airline
                                                         policy + ShareTrip Convenience Fee). </p>
                                                     <p class="fz12">3. Date Change Amount= Date Change Fee (as per
                                                         Airline Policy + ShareTrip Convenience Fee).</p>
-                                    </ul>
+                                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tour_package_details_bar_price">
+                                    <h5>Price</h5>
+                                    <div class="tour_package_bar_price">
+                                        <!--<h6><del>$ 35,500</del></h6>-->
+                                        @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
+                                            <h3><?php echo $Currency;?><?php $base123 = $BaseFare?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?></h3>
+                                        @else
+                                        <h3><?php echo $Currency; ?>  <?php echo $BaseFare + $Tax; ?>  <sub> / Adult X {{$adult}}</sub> </h3>
+                                        @endif
+                                    </div>
                                 </div>
+                                            </div>
+                                        
+                                        
+                                    </div> 
+                                    
+                                    </div> 
                                 <div class="tour_package_details_bar_price">
                                     <h5>Price</h5>
                                     <div class="tour_package_bar_price">
@@ -591,6 +662,7 @@
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>   
     <script>
 $(document).ready(function() {
     $('#myForm').submit(function(event) {
@@ -613,7 +685,7 @@ $(document).ready(function() {
     });
 });
 </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>         
+        
 <script>
     $('#addPaymentButton').on('click', function (e) {
         e.preventDefault();
