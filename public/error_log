@@ -1,0 +1,240 @@
+[03-Dec-2020 18:29:45 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12288 bytes) in /home/admin/public_html/fashday/vendor/facade/ignition/src/QueryRecorder/QueryRecorder.php on line 36
+[03-Dec-2020 18:29:48 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12288 bytes) in /home/admin/public_html/fashday/vendor/facade/ignition/src/QueryRecorder/QueryRecorder.php on line 36
+[03-Dec-2020 18:31:04 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4096 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[03-Dec-2020 18:31:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4096 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[03-Dec-2020 18:31:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4096 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[03-Dec-2020 18:31:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4096 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[03-Dec-2020 18:38:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[03-Dec-2020 18:38:46 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Dec-2020 05:52:56 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Dec-2020 13:37:17 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Dec-2020 13:37:20 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Dec-2020 13:37:22 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Dec-2020 13:37:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Dec-2020 13:37:49 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Dec-2020 13:37:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[16-Dec-2020 05:49:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1052672 bytes) in /home/admin/public_html/fashday/app/Http/Controllers/Time_Slot_Controller.php on line 101
+[16-Dec-2020 05:49:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 640
+[16-Dec-2020 05:49:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12288 bytes) in /home/admin/public_html/fashday/vendor/facade/ignition/src/QueryRecorder/QueryRecorder.php on line 36
+[16-Dec-2020 05:49:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[16-Dec-2020 05:49:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[16-Dec-2020 05:50:13 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[16-Dec-2020 05:50:39 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[16-Dec-2020 05:51:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/admin/public_html/fashday/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 337
+[04-Jan-2023 07:40:16 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\UserController::user_login() in /home/progressiveaidat/public_html/tada/app/Http/Controllers/UserController.php on line 365
+[31-Jan-2023 09:32:45 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 119541760 bytes) in /home/progressiveaidat/public_html/demo4/app/Http/Controllers/PostsController.php on line 43
+[06-Feb-2023 07:15:10 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\UserDetailsController::user_achievement() in /home/progressiveaidat/public_html/demo4/app/Http/Controllers/UserDetailsController.php on line 444
+[07-Feb-2023 13:41:04 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:04 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:04 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:04 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:04 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:04 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:29 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:29 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:29 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:31 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:31 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:31 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:54 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:54 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:41:54 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:03 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:03 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:03 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:12 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:12 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:12 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:16 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:16 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:16 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:38 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:38 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:38 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:52 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:52 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:52 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:52 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:52 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:52 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:56 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:56 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:42:56 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:17 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:17 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:17 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:20 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:20 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:20 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:35 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:35 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:44:35 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:05 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:09 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:09 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:09 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:12 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:12 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:12 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:15 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:15 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[07-Feb-2023 13:46:15 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../../app/helpers/helper.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[08-Feb-2023 06:25:23 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../symfony/polyfill-php80/bootstrap.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[08-Feb-2023 06:25:23 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../symfony/polyfill-php80/bootstrap.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[08-Feb-2023 06:25:23 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../symfony/polyfill-php80/bootstrap.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[08-Feb-2023 06:25:23 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../symfony/polyfill-php80/bootstrap.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[08-Feb-2023 06:25:23 UTC] PHP Warning:  require(/home/progressiveaidat/public_html/demo4/vendor/composer/../symfony/polyfill-php80/bootstrap.php): failed to open stream: No such file or directory in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[08-Feb-2023 06:25:23 UTC] PHP Fatal error:  require(): Failed opening required '/home/progressiveaidat/public_html/demo4/vendor/composer/../symfony/polyfill-php80/bootstrap.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/progressiveaidat/public_html/demo4/vendor/composer/autoload_real.php on line 78
+[08-Feb-2023 06:25:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:25:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:25:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:25:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:28 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:28 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:26:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:27:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:27:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:27:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:27:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 06:27:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/progressiveaidat/public_html/demo4/bootstrap/app.php:14
+Stack trace:
+#0 /home/progressiveaidat/public_html/demo4/public/index.php(38): require_once()
+#1 {main}
+  thrown in /home/progressiveaidat/public_html/demo4/bootstrap/app.php on line 14
+[08-Feb-2023 07:22:50 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 119541760 bytes) in /home/progressiveaidat/public_html/demo4/app/Http/Controllers/UserDetailsController.php on line 447
+[08-Feb-2023 08:59:51 UTC] PHP Fatal error:  Cannot use Kreait\Laravel\Firebase\Facades\Firebase as Firebase because the name is already in use in /home/progressiveaidat/public_html/demo4/app/Http/Controllers/FirebaseController.php on line 8
+[08-Feb-2023 10:31:14 UTC] PHP Fatal error:  Cannot use Kreait\Firebase\Database as Database because the name is already in use in /home/progressiveaidat/public_html/demo4/app/Http/Controllers/FirebaseController.php on line 10
+[03-Sep-2023 06:24:53 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/sterlingpigments/flights.sterlingpigments.com/app/Http/Controllers/FlightController.php on line 24
+[03-Sep-2023 06:25:24 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/sterlingpigments/flights.sterlingpigments.com/app/Http/Controllers/FlightController.php on line 24
+[06-Sep-2023 18:03:24 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\HotelController::hotel() in /home/sterlingpigments/flights.sterlingpigments.com/app/Http/Controllers/HotelController.php on line 23
+[19-Sep-2023 10:42:52 UTC] PHP Fatal error:  Class Illuminate\Routing\UrlGenerator contains 1 abstract method and must therefore be declared abstract or implement the remaining methods (Illuminate\Contracts\Routing\UrlGenerator::route) in /home/sterlingpigments/flights.sterlingpigments.com/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php on line 17
+[27-Sep-2023 09:24:49 UTC] PHP Fatal error:  Allowed memory size of 2147483648 bytes exhausted (tried to allocate 1407193088 bytes) in /home/sterlingpigments/flights.sterlingpigments.com/resources/views/flight/flight-booking.php on line 778
+[27-Sep-2023 09:25:05 UTC] PHP Fatal error:  Allowed memory size of 2147483648 bytes exhausted (tried to allocate 1138757632 bytes) in /home/sterlingpigments/flights.sterlingpigments.com/resources/views/flight/flight-booking.php on line 778
+[27-Sep-2023 09:25:32 UTC] PHP Fatal error:  Out of memory (allocated 1023397888) (tried to allocate 1004539904 bytes) in /home/sterlingpigments/flights.sterlingpigments.com/resources/views/flight/flight-booking.php on line 778
+[27-Oct-2023 07:25:25 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home/sterlingpigments/flights.sterlingpigments.com/vendor/composer/platform_check.php on line 24
+[27-Oct-2023 07:25:28 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 7.2.34. in /home/sterlingpigments/flights.sterlingpigments.com/vendor/composer/platform_check.php on line 24
