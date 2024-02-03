@@ -44,7 +44,8 @@ Route::get('/', function () {
     //return view('welcome');
 	return redirect('/login');
 }); 
-Route::get('/Visa-list',[VisaController::class, 'visa_list']); 
+Route::get('/Visa-list',[VisaController::class, 'visa_list']);
+Route::post('/visa-search-list',[VisaController::class, 'visa_search_list']);
 Route::post('/preparePayment',[MollieController::class, 'preparePayment']);
 Route::get('payment-success',[MollieController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('payment-cancel',[MollieController::class, 'paymentCancel'])->name('payment.cancel');
@@ -54,6 +55,19 @@ Route::get('payment-cancel',[MollieController::class, 'paymentCancel'])->name('p
 Route::get('/razorpay',[RazorpayPaymentController::class, 'viewPayment'])->name('razorpay');
 // Route::post('/orderid-generate',[RazorpayPaymentController::class, 'payment'])->name('payment');
 Route::post('/orderid-generate',[RazorpayPaymentController::class, 'orderIdGenerate'])->name('payment');
+// Setting
+Route::get('/Setting',[AdminController::class, 'setting'])->name('setting');
+Route::post('/setting-update',[AdminController::class, 'setting_update'])->name('setting_update');
+
+Route::get('/Api-Setting',[AdminController::class, 'api_setting'])->name('api_setting');
+Route::post('/setting-api-update',[AdminController::class, 'api_setting_update'])->name('api_setting_update');
+
+Route::get('/flight-Setting',[AdminController::class, 'flight_setting'])->name('flight_setting');
+Route::post('/setting-flight-update',[AdminController::class, 'flight_setting_update'])->name('flight_setting_update');
+
+Route::get('/general-Setting',[AdminController::class, 'general_setting'])->name('general_setting');
+Route::post('/setting-general-update',[AdminController::class, 'general_setting_update'])->name('general_setting_update');
+
 // Flight 
 Route::get('/easebuzz',[EasebuzzController::class, 'initiate_payment_ebz'])->name('easebuzz');
 Route::post('/filter',[FlightController::class, 'filter'])->name('flight-search');
@@ -75,6 +89,9 @@ Route::post('/stops',[FlightController::class, 'stops'])->name('stops');
 Route::post('/flight-class',[FlightController::class, 'flight_class'])->name('flight-class');
 Route::post('/Refundable',[FlightController::class, 'refundable'])->name('Refundable'); 
 Route::post('/Airlines',[FlightController::class, 'airlines'])->name('Airlines');
+Route::get('/ticket-cancel{id}',[FlightController::class, 'ticket_cancel'])->name('ticket_cancel');
+
+Route::post('/currency-change',[FlightController::class, 'currency_change'])->name('currency_change');
 // Tour 
 Route::get('/tour-search',[TourController::class, 'tour_search']);
 Route::get('/tour-details',[TourController::class, 'tour_details'])->name('tour_details');
@@ -86,7 +103,7 @@ Route::post('/tour-add',[TourController::class, 'tour_store'])->name('tour_store
 Route::get('/add-tour-package',[TourController::class, 'add_tour_package'])->name('tour');
 Route::post('/tour-package',[TourController::class, 'tour_package'])->name('tour_store');
 Route::post('/book-package',[TourController::class, 'book_package'])->name('tour_store');
-Route::post('/book-tour',[TourController::class, 'book_tour'])->name('tour_store');
+Route::get('/book-tour',[TourController::class, 'book_tour'])->name('tour_store');
 Route::get('/currency',[TourController::class, 'currency'])->name('currency');
 Route::post('/currency-update',[TourController::class, 'currency_update'])->name('currency_update');
 Route::get('/all-tour-package',[TourController::class, 'all_tour_package'])->name('all_tour_package');
@@ -94,6 +111,8 @@ Route::get('/tour-booking-details',[TourController::class, 'tour_booking_details
 Route::get('/tour-delete{id}',[TourController::class, 'tour_delete'])->name('tour');
 Route::get('/tour-edit{id}',[TourController::class, 'tour_edit'])->name('tour');
 Route::post('/tour-update',[TourController::class, 'tour_update'])->name('tour-update');
+Route::post('/tour-search-list',[TourController::class, 'tour_list_search'])->name('tour-search-list');
+Route::post('/book-tour-payment',[TourController::class, 'preparePayment'])->name('tour-update');
 // Visa 
 Route::get('/Visa',[VisaController::class, 'index'])->name('visa');
 Route::get('/Add-visa',[VisaController::class, 'add_visa'])->name('visa');
@@ -108,7 +127,8 @@ Route::get('/visa-delete{id}',[VisaController::class, 'visa_delete'])->name('vis
 Route::get('/Visa-booking-details',[VisaController::class, 'all_visa_booking'])->name('visa');
 Route::get('/visa-detail{id}',[VisaController::class, 'visa_details'])->name('visa'); 
 Route::post('/book-visa-package',[VisaController::class, 'book_visa_package'])->name('book-visa-package');
-Route::post('/book-visa',[VisaController::class, 'book_visa'])->name('book-visa');
+Route::get('/book-visa',[VisaController::class, 'book_visa'])->name('book-visa');
+Route::post('/book-visa-payment',[VisaController::class, 'preparePayment'])->name('book-visa');
 Route::get('/visa-view{id}',[VisaController::class, 'view_visa'])->name('view_visa');
 // Hotel 
 Route::get('/hotel',[HotelController::class, 'hotel'])->name('Hotel');
@@ -116,7 +136,8 @@ Route::post('/hotel_search',[HotelController::class, 'hotel_search'])->name('hot
 Route::post('/hotel_information',[HotelController::class, 'hotel_information'])->name('hotel-Information');
 Route::post('/room_information',[HotelController::class, 'room_information'])->name('room-Information');
 Route::post('/room_book_now',[HotelController::class, 'room_book_now'])->name('room-book-now');
-Route::post('/room_book_confirm',[HotelController::class, 'room_book_confirm'])->name('room-book-confirm');
+Route::get('/room_book_confirm',[HotelController::class, 'room_book_confirm'])->name('room-book-confirm');
+Route::post('/room_book_payment',[HotelController::class, 'preparePayment'])->name('preparePayment');
 // Report 
 Route::get('/Flight-report',[ReportController::class, 'flight_report'])->name('Flight-report');
 Route::get('/Hotel-report',[ReportController::class, 'hotel_report'])->name('Hotel-report');

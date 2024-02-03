@@ -44,7 +44,14 @@
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Address</label>
-                        <input type="text" name="address" value="{{$flight->address}}" required>
+                        <select class="form-control demo-select2-placeholder" name="address" required >
+                        <?php $data =\App\Hotel_City_Model::get(); ?>
+                        <option value="{{$flight->address}}">{{$flight->address}}</option>
+                         
+                         @foreach($data as $state_)
+                         <option value="{{$state_->name}}">{{__($state_->name)}}</option>
+                         @endforeach
+                           </select>
                       </div>
                     </div>
                     <div class="col-6">
@@ -84,6 +91,7 @@
                             <option value="{{$flight->tour_type}}">{{$flight->tour_type}}</option>
                             <option value="single">Single</option>
                            <option value="group">Group</option>
+                           <option value="couple">Couple</option>
                         </select>
                       </div>
                     </div>

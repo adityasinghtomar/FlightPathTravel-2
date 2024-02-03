@@ -16,9 +16,18 @@ use App\Visa_Model;
 use App\Visa_Package_Model;
 use App\Visa_Booking_Model;
 use DateTime;
-
+use Illuminate\Support\Facades\Http;
+use Mollie\Laravel\Facades\Mollie;
+use Stevebauman\Location\Facades\Location;
+use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
+use Easebuzz\Easebuzz;
+use GuzzleHttp\Client;
 class VisaController extends Controller
 {
+    private $apiUrl = 'https://open.er-api.com/v6/latest';
+    public function  __construct() {
+        Mollie::api()->setApiKey('test_4rzgD36nez5q64WAravxuxJzHbbCzJ'); // your mollie test api key
+    }
     /**
      * Display a listing of the resource.
      *
@@ -127,8 +136,17 @@ public function visa_list()
     {
        
       $flight = Visa_Model::get();
-        return view('flight/visa-list',compact('flight'));
-    }    
+      $form_status1 ="visa_form";
+        return view('flight/visa-list',compact('flight','form_status1'));
+    }   
+    public function visa_search_list(Request $request)
+    {
+        $tour_type= $request->input('visa_type');
+        $day= $request->input('day');
+        $flight = Visa_Model::where('visa_type',$tour_type)->where('duration',$day)->get();
+        $form_status1 ="visa_form";
+        return view('flight/visa-list',compact('flight','form_status1'));
+    }
    public function visa_details($id)
     {
        $flight = Visa_Model::where('id',$id)->first();
@@ -145,8 +163,8 @@ public function visa_list()
     }    
 public function book_visa(Request $request)
     {
-        $visa_package = Visa_Package_Model::where('id',$request->input('visa_package_id'))->first();
-        $visa = Visa_Model::where('id',$request->input('visa_id'))->first();
+        $visa_package = Visa_Package_Model::where('id',session()->get('visa_package_id'))->first();
+        $visa = Visa_Model::where('id',session()->get('visa_id'))->first();
             $data['visa_name']= $visa->visa_name;
             $data['visa_type']= $visa->visa_type;
             $data['duration']= $visa->duration;
@@ -158,11 +176,11 @@ public function book_visa(Request $request)
             $data['visa_amount']= $visa->amount;
             $data['visa_package_name']= $visa_package->visa_package;
             $data['visa_package_amount']= $visa_package->amount;
-            $data['name']= $request->input('name');
-			$data['lname']= $request->input('lname');
-			$data['email']= $request->input('email');
-			$data['mobile']= $request->input('mobile');
-			$data['address']= $request->input('address');
+            $data['name']= session()->get('fname');
+			$data['lname']= session()->get('lname');
+			$data['email']= session()->get('email');
+			$data['mobile']= session()->get('mobile');
+			$data['address']= session()->get('address');
 			$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
             // generate a pin based on 2 * 7 digits + a random character
@@ -170,7 +188,7 @@ public function book_visa(Request $request)
                 . mt_rand(1000000, 9999999)
                 . $characters[rand(0, strlen($characters) - 1)];
             $string = str_shuffle($pin);
-            $data['booking_id']= $string;
+            $data['booking_id']= session()->get('paymentID');
 			$contact_id = Visa_Booking_Model::create($data)->id;
 // 			print_r($contact_id);die;
 			$result1 =Visa_Booking_Model::where('id',$contact_id)->first();
@@ -189,5 +207,163 @@ public function view_visa($id)
         $result1 =Visa_Booking_Model::where('id',$id)->first();
         return view('flight/admin/view-visa',compact('result1'));
     }    
-    
+     public function preparePayment(Request $request)
+    {   
+           
+     session()->put('fname',$request->name);
+     session()->put('lname',$request->lname);
+     session()->put('email',$request->email);
+     session()->put('mobile',$request->mobile);
+     session()->put('address',$request->address);
+     session()->put('visa_id',$request->visa_id);
+     session()->put('visa_package_id',$request->visa_package_id);
+     session()->put('payment_type',$request->payment);
+ 
+     $tour_package = Visa_Package_Model::where('id',$request->visa_package_id)->first();
+     
+//   Easybuzz Payment
+   if($request->payment =='easybuzz'){
+      
+        $amount = $tour_package->amount;
+       $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pin = mt_rand(1000000, 9999999)
+                    . mt_rand(1000000, 9999999)
+                    . $characters[rand(0, strlen($characters) - 1)];
+                        $string = str_shuffle($pin);
+                        
+                session()->put('paymentID',$string);        
+ $postData = array ( 
+    "txnid" => $string, 
+    "amount" => $amount,  
+    "firstname" => $request->name, 
+    "email" => $request->email, 
+    "phone" => $request->mobile, 
+    "productinfo" => "Flight", 
+    "surl" => url('book-visa'), 
+    "furl" => url('book-visa'),  
+    "udf1" => "aaaa", 
+    "udf2" => "aaaa", 
+    "udf3" => "aaaa", 
+    "udf4" => "aaaa", 
+    "udf5" => "aaaa", 
+    "address1" => "aaaa", 
+    "address2" => "aaaa", 
+    "city" => "aaaa", 
+    "state" => "aaaa", 
+    "country" => "aaaa", 
+    "zipcode" => "461331" 
+);
+       $MERCHANT_KEY = "PQALG4XZKO";
+        $SALT = "5DZAN1HXJQ";        
+        $ENV = "prod";
+        $payebz = new PayWithEasebuzzLib($MERCHANT_KEY, $SALT, $ENV);
+        $result = $payebz->initiatePaymentAPI($postData, true);
+        print_r($result);
+        
+   }
+//   Mollie Details
+   if($request->payment =='mollie'){
+            $payment = Mollie::api()->payments->create([
+                "amount" => [
+                    "currency" => "GBP",
+                    "value" => "100.00" // You must send the correct number of decimals, thus we enforce the use of strings
+                ],
+                "description" => "Flight Booking",
+                "redirectUrl" => url('book-visa'), 
+                // "webhookUrl" => route('webhooks.mollie'),
+                "metadata" => [
+                    "order_id" => "123456",
+                ],
+            ]);
+               session()->put('paymentID',$payment->id);
+            return redirect($payment->getCheckoutUrl(), 303);
+   }
+//   Wallet Details
+  if($request->payment =='wallet'){
+      
+        $amount = $tour_package->amount;
+        $payment_for = "flight";
+      $user_id = session()->get('user_id');
+	  if($user_id){
+	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+	    if($wallet_details){
+	       if($wallet_details->amount  >= $amount){
+            	    $user_id = session()->get('user_id');
+            	    if($user_id){
+            	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+                    $new = $amount;
+                   if($wallet_details){
+                       $amount1 = $wallet_details->amount; 
+                    }else{
+                        $amount1 = 0;
+                    }
+                    if($wallet_details){
+                        $credit_amount1 = $wallet_details->debit_amount;
+                    }else{
+                        $credit_amount1 = 0;
+                    }
+                    $total = $amount1 - $new;
+                    $total_credit_amount = $new + $credit_amount1;
+            		$data2['amount'] = $total ; 
+            		$data2['debit_amount'] = $new; ;
+            // 			print_r($data);die;
+            		$contact_id = Wallet_Model::where('user_id',$user_id)->update($data2);
+            		$id = session()->get('user_id');
+                        $data1['user_id']= $user_id;
+            			$data1['amount']= $total;
+            			$data1['debit_amount']=  $new ;
+            // 			print_r($data);die;
+            			 Wallet_Transaction_Model::create($data1);
+                    // Payment Details 
+                    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pin = mt_rand(1000000, 9999999)
+                    . mt_rand(1000000, 9999999)
+                    . $characters[rand(0, strlen($characters) - 1)];
+                        $string = str_shuffle($pin);
+                        $data12['payment_for']= $payment_for;
+            			$data12['amount']= $amount;
+            			$data12['payment_type']= "Wallet";
+            			$data12['payment_id']= $string;
+            // 			print_r($data);die; 
+            			 Payment_Model::create($data12);
+                    $user_count = 0;
+                    session()->put('PaymentID',$string);
+                    //   return redirect()->back()->with('message',"Payment Success...");
+                  return redirect()->url('book-visa');
+            	    }
+	       }
+	       // return response()->json(['order_id' => "",'message' => "payment Failed Wallet Amount Low"]);
+	        return redirect()->back()->with('message',"payment Failed Wallet Amount Low");
+	    }
+   }
+      else{
+          return redirect()->back(); 
+      }
+  }
+    // Razorpay 
+        // $input = $request->all();
+        // $api = new Api(env('RAZOR_KEY'),env('RAZOR_SECRET'));
+        // $payment = $api->payment->fetch($request->razorpay_payment_id);
+        // if (count($input) && !empty($input['razorpay_payment_id'])) {
+        //     try {
+        //         $payment->capture(array('amount'=>$payment['amount']));
+        //     } catch (\Exception $e) {
+        //         return $e->getMessage();
+        //         \Session::put('error',$e->getMessage());
+        //         return redirect()->back();
+        //     }
+        // }
+        // $payInfo = [
+        //           'payment_id' => $request->razorpay_payment_id,
+        //           'user_id' => '1',
+        //           'amount' => $request->amount,
+        //         ];
+        //     Payment::insertGetId($payInfo); 
+        //     \Session::put('success', 'Payment successful');
+        //     return response()->json(['success' => 'Payment successful']);
+
+
+        
+    }
+
 }

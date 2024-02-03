@@ -227,6 +227,8 @@
                             <div class="tour_booking_form_box">
                                 <div class="booking_payment_boxed">
                                     <!--<form action="!#" id="payment_checked">-->
+                                    <?php $easybuzz_status =\App\Setting_Model::where('status','0')->where('name','EASYBUZZ PAYMENT')->first(); ?>
+                                    @if($easybuzz_status)
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"
                                                 id="flexRadioDefault1" value="easybuzz" required>
@@ -234,6 +236,9 @@
                                                 Easybuzz Pay
                                             </label>
                                         </div>
+                                    @endif    
+                                    <?php $mollie_status =\App\Setting_Model::where('status','0')->where('name','Mollie Payment')->first(); ?>
+                                    @if($mollie_status)
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"
                                                 id="flexRadioDefault2" value="mollie" checked="checked" required>
@@ -241,6 +246,7 @@
                                                Mollie Pay
                                             </label> 
                                         </div>
+                                    @endif     
                                         @if(session()->get('user_id'))
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"

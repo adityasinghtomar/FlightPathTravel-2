@@ -1,16 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Mollie\Laravel\Facades\Mollie;
 use Illuminate\Http\Request;
 use App\Hotel_Model;
 use App\Hotel_City_Model;
 use App\UserDetails_Model;
 use App\Hotel_Details_Model;
 use Illuminate\Support\Facades\Http;
-
+use Stevebauman\Location\Facades\Location;
+use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
+use Easebuzz\Easebuzz;
+use GuzzleHttp\Client;
 class HotelController extends Controller
 {
+   private $apiUrl = 'https://open.er-api.com/v6/latest';
+    public function  __construct() {
+        Mollie::api()->setApiKey('test_4rzgD36nez5q64WAravxuxJzHbbCzJ'); // your mollie test api key
+    }
     /**
      * Display a listing of the resource.
      *
@@ -66,8 +73,8 @@ $data = $ress->Destinations;
                 
     
 // }
-
-        return view('flight/hotel-search-list',compact('data','token_id'));
+$form_status1 ="hotel_form";
+        return view('flight/hotel-search-list',compact('data','token_id','form_status1'));
     }
    
     public function hotel_search(Request $request)
@@ -154,6 +161,7 @@ $ss = curl_exec($ch);
 $ress = json_decode($ss);   
 
 // 
+if(isset($ress->HotelSearchResult->HotelResults)){
 $data = $ress->HotelSearchResult->HotelResults;
 foreach($data as $key=>$data1){
      $hotel_name = $data1->HotelName;
@@ -170,11 +178,11 @@ foreach($data as $key=>$data1){
     $user->save();
     break;
 }
-  
-    
+}
+    $form_status1 ="hotel_form";
 $token_id = $result->TokenId;
     // print_r($ress);die;    
-        return view('flight/hotel-search-list',compact('form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
+        return view('flight/hotel-search-list',compact('form_status1','form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
     }
     
     }    
@@ -240,6 +248,32 @@ $ress = json_decode($ss);
     // Room Block API 
  public function room_book_now(Request $request)
     {
+        session()->put('ResultIndex',$request->ResultIndex);
+        session()->put('Hotelname',$request->Hotelname);
+        session()->put('TraceId',$request->TraceId);
+        session()->put('token_id',$request->token_id);
+        session()->put('EndUserIp',$request->EndUserIp);
+        session()->put('HotelCode',$request->HotelCode);
+        session()->put('RoomIndex',$request->RoomIndex);
+        session()->put('RoomTypeName',$request->RoomTypeName);
+        session()->put('RoomTypeCode',$request->RoomTypeCode);
+        session()->put('RatePlanCode',$request->RatePlanCode);
+        session()->put('SmokingPreference',$request->SmokingPreference);
+        session()->put('CurrencyCode',$request->CurrencyCode);
+        session()->put('RoomPrice',$request->RoomPrice);
+        session()->put('Tax',$request->Tax);
+        session()->put('ExtraGuestCharge',$request->ExtraGuestCharge);
+        session()->put('ChildCharge',$request->ChildCharge);
+        session()->put('OtherCharges',$request->OtherCharges);
+        session()->put('Discount',$request->Discount);
+        session()->put('PublishedPrice',$request->PublishedPrice);
+        session()->put('PublishedPriceRoundedOff',$request->PublishedPriceRoundedOff);
+        session()->put('OfferedPrice',$request->OfferedPrice);
+        session()->put('OfferedPriceRoundedOff',$request->OfferedPriceRoundedOff);
+        session()->put('AgentCommission',$request->AgentCommission);
+        session()->put('TDS',$request->TDS);
+        session()->put('ServiceTax',$request->ServiceTax);
+        
         $ResultIndex = $request->ResultIndex;
         $Hotelname = $request->Hotelname;
         $TraceId = $request->TraceId;
@@ -322,37 +356,37 @@ $ress = json_decode($ss);
     // Booking API 
 public function room_book_confirm(Request $request)
     {
-        $name = $request->name;
-        $lname = $request->lname;
-        $email = $request->email;
-        $mobile = $request->mobile;
+        $name = session()->get('fname');
+        $lname = session()->get('lname');
+        $email = session()->get('email');
+        $mobile = session()->get('mobile');
         
-        $ResultIndex = $request->ResultIndex;
-        $Hotelname = $request->Hotelname;
-        $TraceId = $request->TraceId;
-        $token_id = $request->token_id;
-        $EndUserIp = $request->EndUserIp;
-        $HotelCode = $request->HotelCode;
-        $RoomIndex = $request->RoomIndex;
-        $RoomTypeName = $request->RoomTypeName;
-        $RoomTypeCode = $request->RoomTypeCode;
-        $RatePlanCode = $request->RatePlanCode;
-        $SmokingPreference = $request->SmokingPreference;
-        $CurrencyCode = $request->CurrencyCode;
-        $RoomPrice = $request->RoomPrice;
-        $Tax = $request->Tax;
-        $ExtraGuestCharge = $request->ExtraGuestCharge;
-        $ChildCharge = $request->ChildCharge;
-        $OtherCharges = $request->OtherCharges;
-        $Discount = $request->Discount;
-        $PublishedPrice = $request->PublishedPrice;
-        $PublishedPriceRoundedOff = $request->PublishedPriceRoundedOff;
-        $OfferedPrice = $request->OfferedPrice;
-        $OfferedPriceRoundedOff = $request->OfferedPriceRoundedOff;
-        $AgentCommission = $request->AgentCommission;
-        $AgentMarkUp = $request->AgentMarkUp;
-        $TDS = $request->TDS;
-        $ServiceTax = $request->ServiceTax;
+        $ResultIndex = session()->get('ResultIndex');
+        $Hotelname = session()->get('Hotelname');
+        $TraceId = session()->get('TraceId');
+        $token_id = session()->get('token_id');
+        $EndUserIp = session()->get('EndUserIp');
+        $HotelCode = session()->get('HotelCode');
+        $RoomIndex = session()->get('RoomIndex');
+        $RoomTypeName = session()->get('RoomTypeName');
+        $RoomTypeCode = session()->get('RoomTypeCode');
+        $RatePlanCode = session()->get('RatePlanCode');
+        $SmokingPreference = session()->get('SmokingPreference');
+        $CurrencyCode = session()->get('CurrencyCode');
+        $RoomPrice = session()->get('RoomPrice');
+        $Tax = session()->get('Tax');
+        $ExtraGuestCharge = session()->get('ExtraGuestCharge');
+        $ChildCharge = session()->get('ChildCharge');
+        $OtherCharges = session()->get('OtherCharges');
+        $Discount = session()->get('Discount');
+        $PublishedPrice = session()->get('PublishedPrice');
+        $PublishedPriceRoundedOff = session()->get('PublishedPriceRoundedOff');
+        $OfferedPrice = session()->get('OfferedPrice');
+        $OfferedPriceRoundedOff = session()->get('OfferedPriceRoundedOff');
+        $AgentCommission = session()->get('AgentCommission');
+        $AgentMarkUp = session()->get('AgentMarkUp');
+        $TDS = session()->get('TDS');
+        $ServiceTax = session()->get('ServiceTax');
      // Room Block  API
 $search = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/Book/'; // Replace with the actual flight search endpoint
 $json1='{
@@ -418,6 +452,8 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $ss = curl_exec($ch);
 $ress = json_decode($ss);  
 // foreach($ress as $res){
+if($ress){
+if($ress->BookResult->HotelBookingStatus){
 $data = array();
             $data['name']= $name;
 			$data['lname']= $lname;
@@ -430,7 +466,8 @@ $data = array();
 // 			print_r($data);die;
 			$contact_id = Hotel_Model::create($data);
 //  print_r($ress);die;
-
+}
+}
         return view('flight/hotel-confirm' ,compact('ress'));
     }    
      public function get_hotel_details()
@@ -446,5 +483,171 @@ $data = array();
   
         return response()->json($data);
     }
-    
+     public function preparePayment(Request $request)
+    {   
+        
+     session()->put('fname',$request->name);
+     session()->put('lname',$request->lname);
+     session()->put('email',$request->email);
+     session()->put('mobile',$request->mobile);
+     session()->put('payment_type',$request->payment);
+   $amount = session()->put('payment',$request->amount1); 
+//   Easybuzz Payment
+   if($request->payment =='easybuzz'){
+       $BaseFare = session()->get('RoomPrice');
+       $Tax = session()->get('Tax');
+        $amount = $BaseFare + $Tax;
+       $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pin = mt_rand(1000000, 9999999)
+                    . mt_rand(1000000, 9999999)
+                    . $characters[rand(0, strlen($characters) - 1)];
+                        $string = str_shuffle($pin);
+                        
+                session()->put('paymentID',$string);        
+        //     $MERCHANT_KEY = "PQALG4XZKO";
+        // $SALT = "5DZAN1HXJQ";        
+        // $ENV = "test";   // set enviroment name : test / development / production
+        
+        // $easebuzzObj = new PayWithEasebuzzLib($MERCHANT_KEY, $SALT, $ENV);    
+        // // print_r($easebuzzObj);die;
+        $postData = array ( 
+    "txnid" => $string, 
+    "amount" => $amount,  
+    "firstname" => $request->name, 
+    "email" => $request->email, 
+    "phone" => $request->mobile, 
+    "productinfo" => "Flight", 
+    "surl" => url('room_book_confirm'), 
+    "furl" => url('room_book_confirm'),  
+    "udf1" => "aaaa", 
+    "udf2" => "aaaa", 
+    "udf3" => "aaaa", 
+    "udf4" => "aaaa", 
+    "udf5" => "aaaa", 
+    "address1" => "aaaa", 
+    "address2" => "aaaa", 
+    "city" => "aaaa", 
+    "state" => "aaaa", 
+    "country" => "aaaa", 
+    "zipcode" => "461331" 
+);
+       $MERCHANT_KEY = "PQALG4XZKO";
+        $SALT = "5DZAN1HXJQ";        
+        $ENV = "prod";
+        $payebz = new PayWithEasebuzzLib($MERCHANT_KEY, $SALT, $ENV);
+        $result = $payebz->initiatePaymentAPI($postData, true);
+        print_r($result);
+        
+   }
+//   Mollie Details
+   if($request->payment =='mollie'){
+            $payment = Mollie::api()->payments->create([
+                "amount" => [
+                    "currency" => "GBP",
+                    "value" => "100.00" // You must send the correct number of decimals, thus we enforce the use of strings
+                ],
+                "description" => "Flight Booking",
+                "redirectUrl" => url('room_book_confirm'), 
+                // "webhookUrl" => route('webhooks.mollie'),
+                "metadata" => [
+                    "order_id" => "123456",
+                ],
+            ]);
+               session()->put('paymentID',$payment->id);
+            return redirect($payment->getCheckoutUrl(), 303);
+   }
+//   Wallet Details
+  if($request->payment =='wallet'){
+      $BaseFare = session()->get('RoomPrice');
+      $Tax = session()->get('Tax');
+        $amount = $BaseFare + $Tax;
+        $payment_for = "flight";
+      $user_id = session()->get('user_id');
+	  if($user_id){
+	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+	    if($wallet_details){
+	       if($wallet_details->amount  >= $amount){
+            	    $user_id = session()->get('user_id');
+            	    if($user_id){
+            	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+                    $new = $amount;
+                   if($wallet_details){
+                       $amount1 = $wallet_details->amount; 
+                    }else{
+                        $amount1 = 0;
+                    }
+                    if($wallet_details){
+                        $credit_amount1 = $wallet_details->debit_amount;
+                    }else{
+                        $credit_amount1 = 0;
+                    }
+                    $total = $amount1 - $new;
+                    $total_credit_amount = $new + $credit_amount1;
+            		$data2['amount'] = $total ; 
+            		$data2['debit_amount'] = $new; ;
+            // 			print_r($data);die;
+            		$contact_id = Wallet_Model::where('user_id',$user_id)->update($data2);
+            		$id = session()->get('user_id');
+                        $data1['user_id']= $user_id;
+            			$data1['amount']= $total;
+            			$data1['debit_amount']=  $new ;
+            // 			print_r($data);die;
+            			 Wallet_Transaction_Model::create($data1);
+                    // Payment Details 
+                    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pin = mt_rand(1000000, 9999999)
+                    . mt_rand(1000000, 9999999)
+                    . $characters[rand(0, strlen($characters) - 1)];
+                        $string = str_shuffle($pin);
+                        $data12['payment_for']= $payment_for;
+            			$data12['amount']= $amount;
+            			$data12['payment_type']= "Wallet";
+            			$data12['payment_id']= $string;
+            // 			print_r($data);die; 
+            			 Payment_Model::create($data12);
+                    $user_count = 0;
+                    session()->put('PaymentID',$string);
+                    //   return redirect()->back()->with('message',"Payment Success...");
+                  return redirect()->url('room_book_confirm');
+            	    }
+	       }
+	       // return response()->json(['order_id' => "",'message' => "payment Failed Wallet Amount Low"]);
+	        return redirect()->back()->with('message',"payment Failed Wallet Amount Low");
+	    }
+   }
+      else{
+          return redirect()->back(); 
+      }
+  }
+    // Razorpay 
+        // $input = $request->all();
+        // $api = new Api(env('RAZOR_KEY'),env('RAZOR_SECRET'));
+        // $payment = $api->payment->fetch($request->razorpay_payment_id);
+        // if (count($input) && !empty($input['razorpay_payment_id'])) {
+        //     try {
+        //         $payment->capture(array('amount'=>$payment['amount']));
+        //     } catch (\Exception $e) {
+        //         return $e->getMessage();
+        //         \Session::put('error',$e->getMessage());
+        //         return redirect()->back();
+        //     }
+        // }
+        // $payInfo = [
+        //           'payment_id' => $request->razorpay_payment_id,
+        //           'user_id' => '1',
+        //           'amount' => $request->amount,
+        //         ];
+        //     Payment::insertGetId($payInfo); 
+        //     \Session::put('success', 'Payment successful');
+        //     return response()->json(['success' => 'Payment successful']);
+
+
+        
+    }
+
+    /**
+     * Page redirection after the successfull payment
+     *
+     * @return Response
+     */
 }    

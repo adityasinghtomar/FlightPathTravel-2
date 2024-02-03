@@ -17,12 +17,15 @@ use App\Wallet_Model;
 use App\Wallet_Transaction_Model;
 use Illuminate\Support\Facades\Http;
 use Stevebauman\Location\Facades\Location;
+use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
+use Easebuzz\Easebuzz;
+use GuzzleHttp\Client;
 // use Razorpay\Api\Api;
 // use Session;
 // use Redirect;
 class MollieController extends Controller
 {   
-
+    private $apiUrl = 'https://open.er-api.com/v6/latest';
     public function  __construct() {
         Mollie::api()->setApiKey('test_4rzgD36nez5q64WAravxuxJzHbbCzJ'); // your mollie test api key
     }
@@ -41,7 +44,54 @@ class MollieController extends Controller
      session()->put('mobile',$request->mobile);
      session()->put('payment_type',$request->payment);
    $amount = session()->put('payment',$request->amount1); 
-   //   Mollie Details
+//   Easybuzz Payment
+   if($request->payment =='easybuzz'){
+       $BaseFare = session()->get('BaseFare');
+       $Tax = session()->get('Tax');
+        $amount = $BaseFare + $Tax;
+       $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pin = mt_rand(1000000, 9999999)
+                    . mt_rand(1000000, 9999999)
+                    . $characters[rand(0, strlen($characters) - 1)];
+                        $string = str_shuffle($pin);
+                        
+                session()->put('paymentID',$string);        
+        //     $MERCHANT_KEY = "PQALG4XZKO";
+        // $SALT = "5DZAN1HXJQ";        
+        // $ENV = "test";   // set enviroment name : test / development / production
+        
+        // $easebuzzObj = new PayWithEasebuzzLib($MERCHANT_KEY, $SALT, $ENV);    
+        // // print_r($easebuzzObj);die;
+        $postData = array ( 
+    "txnid" => $string, 
+    "amount" => "1.0",  
+    "firstname" => $request->fname, 
+    "email" => $request->email, 
+    "phone" => $request->mobile, 
+    "productinfo" => "Flight", 
+    "surl" => route('payment.success'), 
+    "furl" => route('payment.cancel'), 
+    "udf1" => "aaaa", 
+    "udf2" => "aaaa", 
+    "udf3" => "aaaa", 
+    "udf4" => "aaaa", 
+    "udf5" => "aaaa", 
+    "address1" => "aaaa", 
+    "address2" => "aaaa", 
+    "city" => "aaaa", 
+    "state" => "aaaa", 
+    "country" => "aaaa", 
+    "zipcode" => "461331" 
+);
+       $MERCHANT_KEY = "PQALG4XZKO";
+        $SALT = "5DZAN1HXJQ";        
+        $ENV = "prod";
+        $payebz = new PayWithEasebuzzLib($MERCHANT_KEY, $SALT, $ENV);
+        $result = $payebz->initiatePaymentAPI($postData, true);
+        print_r($result);
+        
+   }
+//   Mollie Details
    if($request->payment =='mollie'){
             $payment = Mollie::api()->payments->create([
                 "amount" => [
@@ -58,7 +108,7 @@ class MollieController extends Controller
                session()->put('paymentID',$payment->id);
             return redirect($payment->getCheckoutUrl(), 303);
    }
-   //   Wallet Details
+//   Wallet Details
   if($request->payment =='wallet'){
       $BaseFare = session()->get('BaseFare');
       $Tax = session()->get('Tax');
@@ -317,7 +367,8 @@ class MollieController extends Controller
         			$data['amount'] = $BaseFare + $Tax;
         			$data['ticket_date'] = $ticket_date;
         			$data['user_id'] = session()->get('user_id'); 
-        				$data['payment_id'] = session()->get('paymentID');
+        			$data['payment_id'] = session()->get('paymentID');
+        			$data['booking_status'] ='1';
         // 			print_r($data);die;
         			$contact_id = Flight_Model::create($data);
         	
@@ -368,8 +419,7 @@ class MollieController extends Controller
     if($payment_type == 'wallet'){
         
                 $paymentID = session()->get('paymentID');
-                $payment =Mollie::api()->payments->get($paymentID);
-            if($payment->isPaid()){        
+                      
             $ResultIndex = session()->get('ResultIndex');
             // print_r($ResultIndex);die;
             $TraceId = session()->get('TraceId');
@@ -569,9 +619,210 @@ class MollieController extends Controller
           
         // print_r($result1);die;
          return view('flight/booking-confirmation',compact('result1'));
-            }else{
-                return redirect()->route('payment.cancel');
+    }
+    if($payment_type == 'easybuzz'){
+        
+                $paymentID = session()->get('paymentID');
+                      
+            $ResultIndex = session()->get('ResultIndex');
+            // print_r($ResultIndex);die;
+            $TraceId = session()->get('TraceId');
+            $token_id = session()->get('token_id');
+            $EndUserIp = session()->get('EndUserIp');
+            $BaseFare = session()->get('BaseFare');
+            $Currency = session()->get('Currency');
+            $Tax = session()->get('Tax');
+            $YQTax = session()->get('YQTax');
+            $AdditionalTxnFeeOfrd = session()->get('AdditionalTxnFeeOfrd');
+            $AdditionalTxnFeePub = session()->get('AdditionalTxnFeePub');
+            $OtherCharges = session()->get('OtherCharges');
+            $Discount = session()->get('Discount');
+            $PublishedFare = session()->get('PublishedFare');
+            $TdsOnCommission = session()->get('TdsOnCommission');
+            $TdsOnPLB = session()->get('TdsOnPLB');
+            $TdsOnIncentive = session()->get('TdsOnIncentive');
+            $ServiceFee = session()->get('ServiceFee');
+            $Destination_name = session()->get('Destination_name');
+            $Destination_address = session()->get('Destination_address');
+            $Source_name = session()->get('Source_name');
+            $Source_address = session()->get('Source_address');
+            $Duration = session()->get('Duration');
+            // $dateofbirth = $request->dateofbirth;
+            
+            $fname = session()->get('fname');
+            $lname = session()->get('lname');
+            $email = session()->get('email');
+            $mobile = session()->get('mobile');
+            $payment = session()->get('payment');
+            
+            
+            // $address = $request->address;
+            // $city = $request->city;
+            // $state = $request->state;
+            // $country = $request->country;
+            // $passport_no = $request->passport_no;
+            // $passport_expiry = $request->passport_expiry;
+        // FireQoute
+        // FireQoute
+        $endpoint1 = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/FareQuote/'; 
+                        $json1='{
+        "EndUserIp": "'.$EndUserIp.'",
+        "TokenId": "'.$token_id.'",
+        "TraceId": "'.$TraceId.'",
+        "ResultIndex": "'.$ResultIndex.'",
+        	}';
+        // print_r($TraceId);die;
+        $ch1 = curl_init($endpoint1);
+        $data =$json1;
+        curl_setopt($ch1, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch1, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch1);
+        $result1    = json_decode($result);
+        // print_r($result1);die;
+                // FareQuote	End	
+                
+                //Booking  
+        $endpoint = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Book/'; 
+        $url = $endpoint;
+                        $json='{
+                        "ResultIndex": "'.$ResultIndex.'",
+        	"Passengers": [{
+        		"Title": "Mr",
+        		"FirstName": "'.$fname.'",
+        		"LastName": "'.$lname.'",
+        		"PaxType": 1,
+        		"DateOfBirth": "1987-12-06T00:00:00",
+        		"Gender": 1,
+        		"PassportNo": "KJHHJKHKJH",
+        		"PassportExpiry": "2027-12-06T00:00:00",
+        		"AddressLine1": "",
+        		"AddressLine2": "",
+        		"Fare": {
+        			"Currency": "'.$Currency.'",
+        			"BaseFare": "'.$BaseFare.'",
+        			"Tax": "'.$Tax.'",
+        			"YQTax": "'.$YQTax.'",
+        			"AdditionalTxnFeePub": "'.$AdditionalTxnFeePub.'",
+        			"AdditionalTxnFeeOfrd": "'.$AdditionalTxnFeeOfrd.'",
+        			"OtherCharges": "'.$OtherCharges.'",
+        			"Discount": "'.$Discount.'",
+        			"PublishedFare": "'.$PublishedFare.'",
+        			"OfferedFare": 0.0,
+        			"TdsOnCommission": "'.$TdsOnCommission.'",
+        			"TdsOnPLB": "'.$TdsOnPLB.'",
+        			"TdsOnIncentive": '.$TdsOnIncentive.',
+        			"ServiceFee": "'.$ServiceFee.'"
+        		},
+        		"City": "",
+        		"CountryCode": "GB",
+        		"CellCountryCode" : "+91",
+                "ContactNo": "'.$mobile.'",
+        		"Nationality": "",
+                "Email": "'.$email.'",
+        		"IsLeadPax": true,
+        		"FFAirlineCode": null,
+        		"FFNumber": "",
+        		"GSTCompanyAddress": "",
+        		"GSTCompanyContactNumber": "",
+        		"GSTCompanyName": "",
+        		"GSTNumber": "",
+        		"GSTCompanyEmail": ""
+        	}],
+        	"EndUserIp": "'.$EndUserIp.'",
+        	"TokenId": "'.$token_id.'",
+        	"TraceId": "'.$TraceId.'"
+        	';
+        $ch = curl_init($url);
+        $data =$json;
+        $payload = $json;
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $result1    = json_decode($result);
+        // print_r($result1);die;
+        foreach($result1 as $res){
+            if(isset($res->Response->FlightItinerary->Passenger)){
+            $Passenger = $res->Response->FlightItinerary->Passenger;
+            if(isset($Passenger)){
+            foreach($Passenger as $Passengers){
+                $fname = $Passengers->FirstName;
+                $lname = $Passengers->LastName;
             }
+            $pnr_no = $res->Response->PNR;
+            $Origin = $res->Response->FlightItinerary->Origin;
+            $Destination = $res->Response->FlightItinerary->Destination;
+            $AirlineCode = $res->Response->FlightItinerary->AirlineCode; 
+            $TraceId = $res->TraceId;
+            $booking_id = $res->Response->BookingId;
+            $ticket_date = 0;
+            $amount = $res->Response->FlightItinerary->Fare->PublishedFare;
+            
+            $segmen = $res->Response->FlightItinerary->Segments;
+            if(isset($segmen)){
+                foreach($segmen as $segmens){
+                    $DepTime = $segmens->Origin->DepTime;
+                    $ArrTime = $segmens->Destination->ArrTime;
+                        }
+            }
+            $data = array();
+                    $data['name']= $fname;
+        			$data['lname']= $lname;
+        			$data['pnr_no']=$pnr_no;
+                    $data['origin']= $Origin;
+        			$data['destination']= $Destination;
+                    $data['AirlineCode']= $AirlineCode;
+                    $data['DepTime']= $DepTime;
+                    $data['ArrTime']= $ArrTime;
+        			$data['trace_id']=$TraceId;
+        			$data['booking_id']=$booking_id;
+        			$data['amount'] = $BaseFare + $Tax;
+        			$data['ticket_date'] = $ticket_date;
+        			$data['user_id'] = session()->get('user_id'); 
+        				$data['payment_id'] = session()->get('PaymentID');
+        // 			print_r($data);die;
+        			$contact_id = Flight_Model::create($data);
+        	
+        	   	
+        // 	Mail Function 		 
+        // 	$data = ['pnr_no' =>"$pnr_no", 'booking_id'=>"$booking_id" ,'amount'=>"$amount" ,'ticket_date'=>"$ticket_date" ];
+        //     $user['to'] = $email;
+        // Mail::send('welcome',$data,function($messages) use ($user){
+            
+        //     $messages->to($user['to']);
+        //     $messages->subject('flight Booking');   
+        // });		
+        			
+            }
+            }
+        }
+        // session()->forget('PaymentID');
+         session()->forget('TraceId');
+         session()->forget('ResultIndex');
+         session()->forget('token_id');
+         session()->forget('EndUserIp');
+         session()->forget('BaseFare');
+         session()->forget('Currency');
+         session()->forget('Tax');
+         session()->forget('YQTax');
+         session()->forget('AdditionalTxnFeeOfrd');
+         session()->forget('AdditionalTxnFeePub');
+         session()->forget('OtherCharges');
+         session()->forget('Discount');
+         session()->forget('PublishedFare');
+         session()->forget('TdsOnCommission');
+         session()->forget('TdsOnPLB');
+         session()->forget('TdsOnIncentive');
+         session()->forget('ServiceFee');
+         session()->forget('Destination_name');
+         session()->forget('Destination_address');
+         session()->forget('Source_address');
+         session()->forget('Source_name');
+          session()->forget('Duration');
+          
+        // print_r($result1);die;
+         return view('flight/booking-confirmation',compact('result1'));
     }
 }
  public function paymentCancel() {
@@ -623,5 +874,13 @@ class MollieController extends Controller
     return view('flight/flight_booking_submission',compact('convertedAmount','success','Duration','count','adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
     
  }
+  private function getExchangeRates()
+    {
+        $client = new Client();
+        $response = $client->get($this->apiUrl);
+        $data = json_decode($response->getBody(), true);
+
+        return $data['rates'];
+    }
     
 }

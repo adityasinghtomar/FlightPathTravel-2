@@ -13,6 +13,7 @@ use App\UserDetails_Model;
 use App\Flight_Model;
 use App\Flight_Log_Model;
 use App\Wallet_Model;
+use App\Currency_Model;
 use App\Wallet_Transaction_Model;
 use Illuminate\Support\Facades\Http;
 use Stevebauman\Location\Facades\Location;
@@ -223,12 +224,13 @@ $user = new Flight_Log_Model;
                $user->save();
 $daa; 
 $fli_data = "dd";
+$form_status1 ="flight_form";
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
     } 
  
     /**
@@ -406,7 +408,7 @@ $url = $endpoint;
     echo $lname = $request->lname;
     echo $email = $request->email;
     echo $mobile = $request->mobile;
-    echo $payment = $request->payment; die;
+    echo $payment = $request->payment; 
     
     $address = $request->address;
     $city = $request->city;
@@ -1065,7 +1067,93 @@ curl_setopt($ch1, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
 $result = curl_exec($ch1);
 $result1    = json_decode($result);    
-   
+  foreach($result1 as $res){
+    if(isset($res->Response->FlightItinerary->Passenger)){
+    $Passenger = $res->Response->FlightItinerary->Passenger;
+    if(isset($Passenger)){
+    foreach($Passenger as $Passengers){
+        $fname = $Passengers->FirstName;
+        $lname = $Passengers->LastName;
+    }
+    $pnr_no = $res->Response->PNR;
+    $Origin = $res->Response->FlightItinerary->Origin;
+    $Destination = $res->Response->FlightItinerary->Destination;
+    $AirlineCode = $res->Response->FlightItinerary->AirlineCode; 
+    $TraceId = $res->TraceId;
+    $booking_id = $res->Response->BookingId;
+    $ticket_date = 0;
+    $amount = $res->Response->FlightItinerary->Fare->PublishedFare;
+    
+    $segmen = $res->Response->FlightItinerary->Segments;
+    if(isset($segmen)){
+        foreach($segmen as $segmens){
+            $DepTime = $segmens->Origin->DepTime;
+            $ArrTime = $segmens->Destination->ArrTime;
+                }
+    }
+    $data = array();
+            $data['name']= $fname;
+			$data['lname']= $lname;
+			$data['pnr_no']=$pnr_no;
+            $data['origin']= $Origin;
+			$data['destination']= $Destination;
+            $data['AirlineCode']= $AirlineCode;
+            $data['DepTime']= $DepTime;
+            $data['ArrTime']= $ArrTime;
+			$data['trace_id']=$TraceId;
+			$data['booking_id']=$booking_id;
+			$data['amount'] = $BaseFare + $Tax;
+			$data['ticket_date'] = $ticket_date;
+			$data['user_id'] = session()->get('user_id');
+// 			print_r($data);die;
+			$contact_id = Flight_Model::create($data);
+	
+	    $user_id = session()->get('user_id');
+	    if($user_id){
+	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+        
+        $new = $amount;
+       if($wallet_details){
+           $amount1 = $wallet_details->amount; 
+        }else{
+            $amount1 = 0;
+        }
+        
+        if($wallet_details){
+            $credit_amount1 = $wallet_details->debit_amount;
+        }else{
+            $credit_amount1 = 0;
+        }
+        
+        $total = $amount1 - $new;
+        $total_credit_amount = $new + $credit_amount1;
+		$data2['amount'] = $total ; 
+		$data2['debit_amount'] = $new; ;
+// 			print_r($data);die;
+		$contact_id = Wallet_Model::where('user_id',$user_id)->update($data2);
+		
+        $id = session()->get('user_id');
+        
+            $data1['user_id']= $user_id;
+			$data1['amount']= $total;
+			$data1['debit_amount']=  $new ;
+// 			print_r($data);die;
+			 Wallet_Transaction_Model::create($data1);
+        
+        $user_count = 0;
+	    }	
+// 	Mail Function 		 
+// 	$data = ['pnr_no' =>"$pnr_no", 'booking_id'=>"$booking_id" ,'amount'=>"$amount" ,'ticket_date'=>"$ticket_date" ];
+//     $user['to'] = $email;
+// Mail::send('welcome',$data,function($messages) use ($user){
+    
+//     $messages->to($user['to']);
+//     $messages->subject('flight Booking');   
+// });		
+			
+    }
+    }
+} 
  return view('flight/booking-confirmation',compact('result1'));
     }
     
@@ -2074,13 +2162,14 @@ $ss = curl_exec($ch);
 $ress = json_decode($ss);
 // print_r($daa);die;
 $daa; 
+$form_status1 ="flight_form";
 $fli_data = "dd";
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
     } 
     
     //Multi City 
@@ -2194,12 +2283,13 @@ $ress = json_decode($ss);
 // print_r($daa);die;
 $daa; 
 $fli_data = "dd";
+$form_status1 ="flight_form";
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
     }
     
     // 
@@ -2289,5 +2379,93 @@ die;
         $data = json_decode($response->getBody(), true);
 
         return $data['rates'];
+    }
+     public function ticket_cancel(Request $request ,$id)
+    {
+    //   print_r($request->from);die;
+    $booking_id = $id;    
+
+// Endpoint you want to access
+$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+
+$url = $endpoint;
+                $json='{
+"ClientId": "ApiIntegrationNew",
+"UserName": "Flightpath",
+"Password": "Flight@1234", 
+"EndUserIp": "192.168.11.120"
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($url);
+
+// Setup request to send json via POST
+$data =$json;
+$payload = $json;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Execute the POST request
+$result1 = curl_exec($ch);
+$result = json_decode($result1);
+// print_r($result->TokenId);die;
+// Search 
+$search = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/GetCancellationCharges/'; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+$json1='{
+"EndUserIp": "192.168.11.120",
+"TokenId": "'.$result->TokenId.'",
+"BookingId": "'.$booking_id.'",
+"RequestType": "1",
+"BookingMode": "5",
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($search);
+
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
+$payload1 = $json1;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// print_r("ddw");die; 
+// Execute the POST request
+$ss = curl_exec($ch);
+$ress = json_decode($ss);
+
+$token_id = $result->TokenId;
+curl_close($ch); 
+print_r($ress);die;
+        return view('flight/flight_search_result',compact('form_status')); 
+    } 
+ public function currency_change(Request $request)
+    {
+        
+         $data['currency_active']= 1;
+         
+		$contact_id1 = Currency_Model::where('currency_active','0')->update($data);
+		$data1['currency_active']= 0;
+		$contact_id =Currency_Model::where('id',$request->country_id)->update($data1);
+      return response()->json($contact_id);
     }
 }

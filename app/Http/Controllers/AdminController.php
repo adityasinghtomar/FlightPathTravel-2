@@ -9,11 +9,15 @@ use App\Markup_Model;
 // use App\Category_Model;
 use App\UserDetails_Model;
 use App\Posts_Model;
+use App\Setting_Model;
 use App\Commision_Model;
 use App\Commision_Add_Model;
 use App\Live_Streaming_Model;
 use App\Markup_Apply_Model;
 use App\Contect_Us_Model;
+use App\Setting_Flight_Model;
+use App\Setting_Api_Model;
+use App\Setting_General_Model;
 use DateTime;
 
 class AdminController extends Controller
@@ -373,5 +377,79 @@ $data = $ress->Destinations;
        $commisionss = Markup_Model::get();
         // print_r("ff");die;
         return view('flight/admin/all-markup-apply',compact('users','commision','commisionss'));
+    }
+    // Payment Setting
+     public function setting()
+    {
+        $flight =Setting_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting',compact('flight'));
+    }
+    public function setting_update(Request $request)
+    {
+            $id= $request->input('id');
+            $data['status']= $request->input('status');
+			$contact_id = Setting_Model::where('id',$id)->update($data);
+        $flight =Setting_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting',compact('flight'));
+    }
+    
+    // API Setting
+     public function api_setting()
+    {
+        $flight =Setting_Api_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting-api',compact('flight'));
+    }
+    public function api_setting_update(Request $request)
+    {
+            $id= $request->input('id');
+            $data['status']= $request->input('status');
+			$contact_id = Setting_Api_Model::where('id',$id)->update($data);
+        $flight =Setting_Api_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting-api',compact('flight'));
+    }
+     
+    // Flight Setting
+     public function flight_setting()
+    {
+        $flight =Setting_Flight_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting-flight',compact('flight'));
+    }
+    public function flight_setting_update(Request $request)
+    {
+            $id= $request->input('id');
+            $data['status']= $request->input('status');
+			$contact_id = Setting_Flight_Model::where('id',$id)->update($data);
+        $flight =Setting_Flight_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting-flight',compact('flight'));
+    }
+    // General Setting
+     public function general_setting()
+    {
+        $flight =Setting_General_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting-general',compact('flight'));
+    }
+    public function general_setting_update(Request $request)
+    {
+            $id= $request->input('id');
+            $data['status']= $request->input('status');
+			$contact_id = Setting_General_Model::where('id',$id)->update($data);
+        $flight =Setting_General_Model::get();
+        // $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/setting-general',compact('flight'));
     }
 }

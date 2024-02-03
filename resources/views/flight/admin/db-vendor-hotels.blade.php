@@ -40,6 +40,8 @@
                         <th>Trace Id</th>
                         <th>Amount</th>
                         <th>Status</th>
+                        <th>Action</th>
+                        
             </tr>
         </thead>
         <tbody>
@@ -59,7 +61,11 @@
                         <td><?php print_r($flights->trace_id);?></td>
                         <td><?php print_r($flights->amount);?></td>
                         <td><span class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">Confirmed</span></td>
-                        
+                       <td> <div class="col-auto">
+                           <a href="{{url('/ticket-cancel'.$flights->booking_id)}}"  class="btn btn_theme btn_md addAttr" 
+                                style="background-color:blue; color:white;border-radius: 12px;padding: 12px 28px;">Cancel</a>
+                         </div>
+                        </td> 
                       </tr>
                     @endforeach
                     @endif

@@ -49,7 +49,7 @@
                         <div class="booking_tour_form">
                             <h3 class="heading_theme">Booking submission</h3>
                             <div class="tour_booking_form_box">
-                               <form action="{{url('/book-visa')}}" enctype="multipart/form-data" method="post">
+                               <form action="{{url('/book-visa-payment')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                     <input type="hidden" name="visa_id" value="{{$visa_package->visa_id}}">
                                     <input type="hidden" name="visa_package_id" value="{{$visa_package->id}}">                  
@@ -93,89 +93,39 @@
                             <h3 class="heading_theme">Payment method</h3>
                             <div class="tour_booking_form_box">
                                 <div class="booking_payment_boxed">
-                                    <form action="!#" id="payment_checked">
+                                    <!--<form action="!#" id="payment_checked">-->
+                                    <?php $easybuzz_status =\App\Setting_Model::where('status','0')->where('name','EASYBUZZ PAYMENT')->first(); ?>
+                                    @if($easybuzz_status)
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1" value="red">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault1" value="easybuzz" required>
                                             <label class="form-check-label" for="flexRadioDefault1">
-                                                Payment by card
+                                                Easybuzz Pay
                                             </label>
                                         </div>
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="flexRadioDefault"-->
-                                        <!--        id="flexRadioDefault2" value="green">-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault2">-->
-                                        <!--        Paypal-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="flexRadioDefault"-->
-                                        <!--        id="flexRadioDefault3" value="black">-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault3">-->
-                                        <!--        Payoneer-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="flexRadioDefault"-->
-                                        <!--        id="flexRadioDefault4" value="white">-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault4">-->
-                                        <!--        Cash on delivery-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
-                                        <div class="payment_filed_wrapper">
-                                            <div class="payment_card payment_toggle red">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Card number">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Cardholder name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Date of expiry">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Security code">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="paypal_payment payment_toggle green">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Email Address">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="payoneer_payment payment_toggle black">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Email Address">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    @endif    
+                                    <?php $mollie_status =\App\Setting_Model::where('status','0')->where('name','Mollie Payment')->first(); ?>
+                                    @if($mollie_status)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault2" value="mollie" checked="checked" required>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                               Mollie Pay
+                                            </label> 
                                         </div>
-                                    <!--</form>-->
-                                </div>
+                                    @endif     
+                                        @if(session()->get('user_id'))
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault3" value="wallet" required>
+                                            <label class="form-check-label" for="flexRadioDefault3">
+                                                Wallet
+                                            </label>
+                                        </div>
+                                        @endif
+                                       </div>
                             </div>
-                        </div>
+                         </div>
                         <div class="booking_tour_form_submit">
                             <div class="form-check write_spical_check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">

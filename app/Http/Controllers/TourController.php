@@ -13,9 +13,18 @@ use App\ContactUs_Model;
 use App\Tour_Model;
 use App\Tour_Detail_Model;
 use DateTime;
-
+use Illuminate\Support\Facades\Http;
+use Mollie\Laravel\Facades\Mollie;
+use Stevebauman\Location\Facades\Location;
+use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
+use Easebuzz\Easebuzz;
+use GuzzleHttp\Client;
 class TourController extends Controller
 {
+    private $apiUrl = 'https://open.er-api.com/v6/latest';
+    public function  __construct() {
+        Mollie::api()->setApiKey('test_4rzgD36nez5q64WAravxuxJzHbbCzJ'); // your mollie test api key
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +47,17 @@ class TourController extends Controller
      public function tour_search_list()
     {
         $flight = Tour_Model::get();
-        return view('flight/tour-search-list',compact('flight'));
+        $form_status1 ="tour_form";
+        return view('flight/tour-search-list',compact('flight','form_status1'));
+    }
+    public function tour_list_search(Request $request)
+    {
+        $city_name= $request->input('city_name');
+        $tour_type= $request->input('tour_type');
+        $day= $request->input('day');
+        $flight = Tour_Model::where('address',$city_name)->where('tour_type',$tour_type)->where('no_of_day',$day)->get();
+        $form_status1 ="tour_form";
+        return view('flight/tour-search-list',compact('flight','form_status1'));
     }
      public function get_tour()
     {
@@ -116,20 +135,20 @@ class TourController extends Controller
     // return redirect()->back()->with('message',"Agent Already Register...");
 }
 
-  public function book_tour(Request $request)
+public function book_tour(Request $request)
     {
         
-            $data['name']= $request->input('name');
-			$data['name1']= $request->input('1name');
-			$data['email']= $request->input('email');
-			$data['mobile']= $request->input('mobile');
-			$data['address']= $request->input('address');
-			$data['tour_pavkage_id']= $request->input('tour_package_id');
-			$data['tour_id']= $request->input('tour_id');
+            $data['name']= session()->get('fname');
+			$data['name1']= session()->get('lname');
+			$data['email']= session()->get('email');
+			$data['mobile']= session()->get('mobile');
+			$data['address']= session()->get('address');
+			$data['tour_pavkage_id']= session()->get('tour_package_id');
+			$data['tour_id']= session()->get('tour_id');
 			
 			$contact_id = Tour_Booking_Model::create($data);
 			 $flight = Tour_Model::get();
-		return view('flight/tour-search',compact('flight'));	
+		return view('flight/tour-search-list',compact('flight'));	
     // }
     // return redirect()->back()->with('message',"Agent Already Register...");
 }
@@ -222,5 +241,163 @@ public function currency_update(Request $request)
 			$contact_id = Tour_Model::where('id',$id)->update($data);
 			 $flight = Tour_Model::get();
 		return view('flight/admin/all-tour',compact('flight'));
+    }
+     public function preparePayment(Request $request)
+    {   
+           
+     session()->put('fname',$request->name);
+     session()->put('lname',$request->lname);
+     session()->put('email',$request->email);
+     session()->put('mobile',$request->mobile);
+     session()->put('address',$request->address);
+     session()->put('tour_id',$request->tour_id);
+     session()->put('tour_package_id',$request->tour_package_id);
+     session()->put('payment_type',$request->payment);
+ 
+     $tour_package = Tour_Detail_Model::where('id',$request->tour_package_id)->first();
+     
+//   Easybuzz Payment
+   if($request->payment =='easybuzz'){
+      
+        $amount = $tour_package->amount;
+       $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pin = mt_rand(1000000, 9999999)
+                    . mt_rand(1000000, 9999999)
+                    . $characters[rand(0, strlen($characters) - 1)];
+                        $string = str_shuffle($pin);
+                        
+                session()->put('paymentID',$string);        
+ $postData = array ( 
+    "txnid" => $string, 
+    "amount" => $amount,  
+    "firstname" => $request->name, 
+    "email" => $request->email, 
+    "phone" => $request->mobile, 
+    "productinfo" => "Flight", 
+    "surl" => url('book-tour'), 
+    "furl" => url('book-tour'),  
+    "udf1" => "aaaa", 
+    "udf2" => "aaaa", 
+    "udf3" => "aaaa", 
+    "udf4" => "aaaa", 
+    "udf5" => "aaaa", 
+    "address1" => "aaaa", 
+    "address2" => "aaaa", 
+    "city" => "aaaa", 
+    "state" => "aaaa", 
+    "country" => "aaaa", 
+    "zipcode" => "461331" 
+);
+       $MERCHANT_KEY = "PQALG4XZKO";
+        $SALT = "5DZAN1HXJQ";        
+        $ENV = "prod";
+        $payebz = new PayWithEasebuzzLib($MERCHANT_KEY, $SALT, $ENV);
+        $result = $payebz->initiatePaymentAPI($postData, true);
+        print_r($result);
+        
+   }
+//   Mollie Details
+   if($request->payment =='mollie'){
+            $payment = Mollie::api()->payments->create([
+                "amount" => [
+                    "currency" => "GBP",
+                    "value" => "100.00" // You must send the correct number of decimals, thus we enforce the use of strings
+                ],
+                "description" => "Flight Booking",
+                "redirectUrl" => url('book-tour'), 
+                // "webhookUrl" => route('webhooks.mollie'),
+                "metadata" => [
+                    "order_id" => "123456",
+                ],
+            ]);
+               session()->put('paymentID',$payment->id);
+            return redirect($payment->getCheckoutUrl(), 303);
+   }
+//   Wallet Details
+  if($request->payment =='wallet'){
+      
+        $amount = $tour_package->amount;
+        $payment_for = "flight";
+      $user_id = session()->get('user_id');
+	  if($user_id){
+	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+	    if($wallet_details){
+	       if($wallet_details->amount  >= $amount){
+            	    $user_id = session()->get('user_id');
+            	    if($user_id){
+            	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+                    $new = $amount;
+                   if($wallet_details){
+                       $amount1 = $wallet_details->amount; 
+                    }else{
+                        $amount1 = 0;
+                    }
+                    if($wallet_details){
+                        $credit_amount1 = $wallet_details->debit_amount;
+                    }else{
+                        $credit_amount1 = 0;
+                    }
+                    $total = $amount1 - $new;
+                    $total_credit_amount = $new + $credit_amount1;
+            		$data2['amount'] = $total ; 
+            		$data2['debit_amount'] = $new; ;
+            // 			print_r($data);die;
+            		$contact_id = Wallet_Model::where('user_id',$user_id)->update($data2);
+            		$id = session()->get('user_id');
+                        $data1['user_id']= $user_id;
+            			$data1['amount']= $total;
+            			$data1['debit_amount']=  $new ;
+            // 			print_r($data);die;
+            			 Wallet_Transaction_Model::create($data1);
+                    // Payment Details 
+                    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $pin = mt_rand(1000000, 9999999)
+                    . mt_rand(1000000, 9999999)
+                    . $characters[rand(0, strlen($characters) - 1)];
+                        $string = str_shuffle($pin);
+                        $data12['payment_for']= $payment_for;
+            			$data12['amount']= $amount;
+            			$data12['payment_type']= "Wallet";
+            			$data12['payment_id']= $string;
+            // 			print_r($data);die; 
+            			 Payment_Model::create($data12);
+                    $user_count = 0;
+                    session()->put('PaymentID',$string);
+                    //   return redirect()->back()->with('message',"Payment Success...");
+                  return redirect()->url('book-tour');
+            	    }
+	       }
+	       // return response()->json(['order_id' => "",'message' => "payment Failed Wallet Amount Low"]);
+	        return redirect()->back()->with('message',"payment Failed Wallet Amount Low");
+	    }
+   }
+      else{
+          return redirect()->back(); 
+      }
+  }
+    // Razorpay 
+        // $input = $request->all();
+        // $api = new Api(env('RAZOR_KEY'),env('RAZOR_SECRET'));
+        // $payment = $api->payment->fetch($request->razorpay_payment_id);
+        // if (count($input) && !empty($input['razorpay_payment_id'])) {
+        //     try {
+        //         $payment->capture(array('amount'=>$payment['amount']));
+        //     } catch (\Exception $e) {
+        //         return $e->getMessage();
+        //         \Session::put('error',$e->getMessage());
+        //         return redirect()->back();
+        //     }
+        // }
+        // $payInfo = [
+        //           'payment_id' => $request->razorpay_payment_id,
+        //           'user_id' => '1',
+        //           'amount' => $request->amount,
+        //         ];
+        //     Payment::insertGetId($payInfo); 
+        //     \Session::put('success', 'Payment successful');
+        //     return response()->json(['success' => 'Payment successful']);
+
+
+        
     }
 }

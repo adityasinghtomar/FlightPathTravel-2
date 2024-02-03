@@ -106,18 +106,15 @@ $Currency_Symbol= "df";
                                 </div>
                             </li>
                             <li>
-                                <div class="dropdown language-option">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <span class="lang-name"></span>
-                                    </button>
-                                    <div class="dropdown-menu language-dropdown-menu">
-                                         <?php $Currency1 =\App\Currency_Model::where('status','0')->get(); ?>
-                                                <a class="dropdown-item" href="#">{{$Currency_Symbol}} ({{$Currency}})</a>
-                                                @foreach($Currency1 as $Currency12)
-                                                <a class="dropdown-item" href="#">{{ $Currency12->currency_symbol}} ({{__($Currency12->currency_code)}})</a>
+                                <div>
+                                         <?php $Currency1 =\App\Currency_Model::where('status','0')->orderBy('currency_active', 'ASC')->get(); ?>
+                                         <?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
+                                         <select  id="country-dropdown" style=" min-width: 13px;appearance: none;-webkit-appearance: none;width: 100%;font-size: 1.0rem;padding: 0.675em 1em 0.675em 1em;background-color: #fff;border: 1px solid #caced1;border-radius: 1.25rem;color: #000;cursor: pointer;">
+                                              @foreach($Currency1 as $Currency12)
+                                                <option value="{{$Currency12->id}}">{{ $Currency12->currency_symbol}} ({{__($Currency12->currency_code)}})</option>
                                                 @endforeach
-                                    </div>
+                                        </select>        
+                                   
                                 </div>
                             </li>
                         </ul>
@@ -534,17 +531,17 @@ $Currency_Symbol= "df";
                                         aria-selected="false"><i class="fas fa-hotel"></i>Hotels</button>
                                 </li>
 								<li class="nav-item" role="presentation">
-								    <a href="{{url('/tour-list')}}" class="nav-link"><i
-                                            class="fas fa-globe"></i>Tours</a>
-                                    <!--<button class="nav-link" id="tours-tab1" data-bs-toggle="tab" data-bs-target="#tours"-->
-                                    <!--    type="button1" role="tab" aria-controls="tours" aria-selected="false"><i-->
-                                    <!--        class="fas fa-globe"></i>Tours</button>-->
+								    <!--<a href="{{url('/tour-list')}}" class="nav-link"><i-->
+            <!--                                class="fas fa-globe"></i>Tours</a>-->
+                                    <button class="nav-link" id="tours-tab" data-bs-toggle="tab" data-bs-target="#tours"
+                                        type="button1" role="tab" aria-controls="tours" aria-selected="false"><i
+                                            class="fas fa-globe"></i>Tours</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a href="{{url('/Visa-list')}}" class="nav-link"><i class="fas fa-passport"></i> Visa </a>
-                                    <!--<button class="nav-link" id="visa-tab" data-bs-toggle="tab"-->
-                                    <!--    data-bs-target="#visa-application" type="button" role="tab" aria-controls="visa"-->
-                                    <!--    aria-selected="false"><i class="fas fa-passport"></i> Visa</button>-->
+                                    <!--<a href="{{url('/Visa-list')}}" class="nav-link"><i class="fas fa-passport"></i> Visa </a>-->
+                                    <button class="nav-link" id="visa-tab" data-bs-toggle="tab"
+                                        data-bs-target="#visa" type="button" role="tab" aria-controls="visa"
+                                        aria-selected="false"><i class="fas fa-passport"></i> Visa</button>
                                 </li>
                                 <!--<li class="nav-item" role="presentation">
                                     <button class="nav-link" id="apartments-tab" data-bs-toggle="tab"
@@ -644,7 +641,7 @@ $Currency_Symbol= "df";
                                                                     <div class="flight_Search_boxed date_flex_area">
                                                                         <div class="Journey_date">
                                                                             <p>Journey date</p>
-                                                                            <input type="date" id="demo" name="journey_date" class="txtDate" required>
+                                                                            <input type="date" id="demo" name="journey_date" class="txtDate date" required>
                                                                            
                                                                             <span></span>
                                                                             <!--<p id="myId"></p>-->
@@ -1347,141 +1344,152 @@ $Currency_Symbol= "df";
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="tour_search_form">
-                                            <form action="#!">
+                                            <form action="{{url('/tour-search-list')}}" enctype="multipart/form-data" method="post">
+                                                        @csrf
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                                    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                                                         <div class="flight_Search_boxed">
                                                             <p>Destination</p>
-                                                            <input type="text" placeholder="Where are you going?">
+                                                            <input list="ShowDataList" placeholder="From" name="city_name" class="selectpicker form-control" id="state_id" required>
+                                                                <datalist id="ShowDataList">
+                                                                <?php $data =\App\Hotel_City_Model::get(); ?>
+                                                                @foreach($data as $state_)
+                                                                    <option value="{{$state_->name}}">{{__($state_->name)}}</option>
+                                                                @endforeach
+                                                            </datalist>
                                                             <span>Where are you going?</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                                        <div class="form_search_date">
-                                                            <div class="flight_Search_boxed date_flex_area">
-                                                                <div class="Journey_date">
-                                                                    <p>Journey date</p>
-                                                                    <input type="date" value="2022-05-03">
-                                                                    <span>Thursday</span>
-                                                                </div>
-                                                                <div class="Journey_date">
-                                                                    <p>Return date</p>
-                                                                    <input type="date" value="2022-05-05">
-                                                                    <span>Thursday</span>
-                                                                </div>
-                                                            </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                                        <div class="flight_Search_boxed">
+                                                                <p>Tour Type</p>
+                                                                    <select class="form-control demo-select2-placeholder" name="tour_type" id="state_id" >
+                                                                        <option value="single">Select Tour Type</option>
+                                                                        <option value="single">Single</option>
+                                                                       <option value="group">Group</option>
+                                                                       <option value="couple">Couple</option>
+                                                                    </select>
+                                                            <span>Tour Type?</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-2  col-md-6 col-sm-12 col-12">
-                                                        <div class="flight_Search_boxed dropdown_passenger_area">
-                                                            <p>Passenger, Class </p>
-                                                            <div class="dropdown">
-                                                                <button class="dropdown-toggle final-count"
-                                                                    data-toggle="dropdown" type="button"
-                                                                    id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                                    aria-expanded="false">
-                                                                    1 Passenger
-                                                                </button>
-                                                                <div class="dropdown-menu dropdown_passenger_info"
-                                                                    aria-labelledby="dropdownMenuButton1">
-                                                                    <div class="traveller-calulate-persons">
-                                                                        <div class="passengers">
-                                                                            <h6>Passengers</h6>
-                                                                            <div class="passengers-types">
-                                                                                <div class="passengers-type">
-                                                                                    <div class="text"><span
-                                                                                            class="count pcount">1</span>
-                                                                                        <div class="type-label">
-                                                                                            <p>Adult</p>
-                                                                                            <span>12+
-                                                                                                yrs</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="button-set">
-                                                                                        <button type="button"
-                                                                                            class="btn-add">
-                                                                                            <i class="fas fa-plus"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="btn-subtract">
-                                                                                            <i class="fas fa-minus"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="passengers-type">
-                                                                                    <div class="text"><span
-                                                                                            class="count ccount">0</span>
-                                                                                        <div class="type-label">
-                                                                                            <p class="fz14 mb-xs-0">
-                                                                                                Children
-                                                                                            </p><span>2
-                                                                                                - Less than 12
-                                                                                                yrs</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="button-set">
-                                                                                        <button type="button"
-                                                                                            class="btn-add-c">
-                                                                                            <i class="fas fa-plus"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="btn-subtract-c">
-                                                                                            <i class="fas fa-minus"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="passengers-type">
-                                                                                    <div class="text"><span
-                                                                                            class="count incount">0</span>
-                                                                                        <div class="type-label">
-                                                                                            <p class="fz14 mb-xs-0">
-                                                                                                Infant
-                                                                                            </p><span>Less
-                                                                                                than 2
-                                                                                                yrs</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="button-set">
-                                                                                        <button type="button"
-                                                                                            class="btn-add-in">
-                                                                                            <i class="fas fa-plus"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="btn-subtract-in">
-                                                                                            <i class="fas fa-minus"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="cabin-selection">
-                                                                            <h6>Cabin Class</h6>
-                                                                            <div class="cabin-list">
-                                                                                <button type="button"
-                                                                                    class="label-select-btn">
-                                                                                    <span
-                                                                                        class="muiButton-label">Economy
-                                                                                    </span>
-                                                                                </button>
-                                                                                <button type="button"
-                                                                                    class="label-select-btn active">
-                                                                                    <span class="muiButton-label">
-                                                                                        Business
-                                                                                    </span>
-                                                                                </button>
-                                                                                <button type="button"
-                                                                                    class="label-select-btn">
-                                                                                    <span class="MuiButton-label">First
-                                                                                        Class </span>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <span>Business</span>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                                        <div class="flight_Search_boxed">
+                                                                 <p>Days</p>
+                                                                    <input type="number" name="day" value="1" required>
+                                                                    <span></span>
+                                                            <span>Tour Days?</span>
                                                         </div>
                                                     </div>
+                                                    <!--<div class="col-lg-2  col-md-6 col-sm-12 col-12">-->
+                                                    <!--    <div class="flight_Search_boxed dropdown_passenger_area">-->
+                                                    <!--        <p>No. Of People </p>-->
+                                                    <!--        <div class="dropdown">-->
+                                                    <!--            <button class="dropdown-toggle final-count"-->
+                                                    <!--                data-toggle="dropdown" type="button"-->
+                                                    <!--                id="dropdownMenuButton1" data-bs-toggle="dropdown"-->
+                                                    <!--                aria-expanded="false">-->
+                                                    <!--                1 No. Of People-->
+                                                    <!--            </button>-->
+                                                    <!--            <div class="dropdown-menu dropdown_passenger_info"-->
+                                                    <!--                aria-labelledby="dropdownMenuButton1">-->
+                                                    <!--                <div class="traveller-calulate-persons">-->
+                                                    <!--                    <div class="passengers">-->
+                                                    <!--                        <h6>No. Of People</h6>-->
+                                                    <!--                        <div class="passengers-types">-->
+                                                    <!--                            <div class="passengers-type">-->
+                                                    <!--                                <div class="text"><span-->
+                                                    <!--                                        class="count pcount">1</span>-->
+                                                    <!--                                    <div class="type-label">-->
+                                                    <!--                                        <p>Adult</p>-->
+                                                    <!--                                        <span>12+-->
+                                                    <!--                                            yrs</span>-->
+                                                    <!--                                    </div>-->
+                                                    <!--                                </div>-->
+                                                    <!--                                <div class="button-set">-->
+                                                    <!--                                    <button type="button"-->
+                                                    <!--                                        class="btn-add">-->
+                                                    <!--                                        <i class="fas fa-plus"></i>-->
+                                                    <!--                                    </button>-->
+                                                    <!--                                    <button type="button"-->
+                                                    <!--                                        class="btn-subtract">-->
+                                                    <!--                                        <i class="fas fa-minus"></i>-->
+                                                    <!--                                    </button>-->
+                                                    <!--                                </div>-->
+                                                    <!--                            </div>-->
+                                                    <!--                            <div class="passengers-type">-->
+                                                    <!--                                <div class="text"><span-->
+                                                    <!--                                        class="count ccount">0</span>-->
+                                                    <!--                                    <div class="type-label">-->
+                                                    <!--                                        <p class="fz14 mb-xs-0">-->
+                                                    <!--                                            Children-->
+                                                    <!--                                        </p><span>2-->
+                                                    <!--                                            - Less than 12-->
+                                                    <!--                                            yrs</span>-->
+                                                    <!--                                    </div>-->
+                                                    <!--                                </div>-->
+                                                    <!--                                <div class="button-set">-->
+                                                    <!--                                    <button type="button"-->
+                                                    <!--                                        class="btn-add-c">-->
+                                                    <!--                                        <i class="fas fa-plus"></i>-->
+                                                    <!--                                    </button>-->
+                                                    <!--                                    <button type="button"-->
+                                                    <!--                                        class="btn-subtract-c">-->
+                                                    <!--                                        <i class="fas fa-minus"></i>-->
+                                                    <!--                                    </button>-->
+                                                    <!--                                </div>-->
+                                                    <!--                            </div>-->
+                                                    <!--                            <div class="passengers-type">-->
+                                                    <!--                                <div class="text"><span-->
+                                                    <!--                                        class="count incount">0</span>-->
+                                                    <!--                                    <div class="type-label">-->
+                                                    <!--                                        <p class="fz14 mb-xs-0">-->
+                                                    <!--                                            Infant-->
+                                                    <!--                                        </p><span>Less-->
+                                                    <!--                                            than 2-->
+                                                    <!--                                            yrs</span>-->
+                                                    <!--                                    </div>-->
+                                                    <!--                                </div>-->
+                                                    <!--                                <div class="button-set">-->
+                                                    <!--                                    <button type="button"-->
+                                                    <!--                                        class="btn-add-in">-->
+                                                    <!--                                        <i class="fas fa-plus"></i>-->
+                                                    <!--                                    </button>-->
+                                                    <!--                                    <button type="button"-->
+                                                    <!--                                        class="btn-subtract-in">-->
+                                                    <!--                                        <i class="fas fa-minus"></i>-->
+                                                    <!--                                    </button>-->
+                                                    <!--                                </div>-->
+                                                    <!--                            </div>-->
+                                                    <!--                        </div>-->
+                                                    <!--                    </div>-->
+                                                                        <!--<div class="cabin-selection">-->
+                                                                        <!--    <h6>Cabin Class</h6>-->
+                                                                        <!--    <div class="cabin-list">-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn">-->
+                                                                        <!--            <span-->
+                                                                        <!--                class="muiButton-label">Economy-->
+                                                                        <!--            </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn active">-->
+                                                                        <!--            <span class="muiButton-label">-->
+                                                                        <!--                Business-->
+                                                                        <!--            </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn">-->
+                                                                        <!--            <span class="MuiButton-label">First-->
+                                                                        <!--                Class </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--    </div>-->
+                                                                        <!--</div>-->
+                                                    <!--                </div>-->
+                                                    <!--            </div>-->
+                                                    <!--        </div>-->
+                                                            <!--<span>Business</span>-->
+                                                    <!--    </div>-->
+                                                    <!--</div>-->
                                                     <div class="top_form_search_button">
                                                         <button class="btn btn_theme btn_md">Search</button>
                                                     </div>
@@ -1535,19 +1543,19 @@ $Currency_Symbol= "df";
                                                     </div>
                                                     <div class="col-lg-2  col-md-2 col-sm-12 col-12">
                                                         <div class="flight_Search_boxed dropdown_passenger_area">
-                                                            <p>Passenger</p>
+                                                            <p>No. Of People</p>
                                                             <div class="dropdown">
                                                                 <button class="dropdown-toggle final-count"
                                                                     data-toggle="dropdown" type="button"
                                                                     id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                                                     aria-expanded="false">
-                                                                    1 Passenger
+                                                                    1 No. Of People
                                                                 </button>
                                                                 <div class="dropdown-menu dropdown_passenger_info"
                                                                     aria-labelledby="dropdownMenuButton1">
                                                                     <div class="traveller-calulate-persons">
                                                                         <div class="passengers">
-                                                                            <h6>Passengers</h6> 
+                                                                            <h6>No. Of People</h6> 
                                                                             <div class="passengers-types">
                                                                                 <div class="passengers-type">
                                                                                     <div class="text"><span
@@ -1659,128 +1667,35 @@ $Currency_Symbol= "df";
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="visa-application" role="tabpanel" aria-labelledby="visa-tab">
+                            <div class="tab-pane fade" id="visa" role="tabpanel" aria-labelledby="visa-tab">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="tour_search_form">
-                                            <form action="#!">
+                                            <form action="{{url('/visa-search-list')}}" enctype="multipart/form-data" method="post">
+                                                        @csrf
                                                 <div class="row">
-                                                    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                                                    
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                                         <div class="flight_Search_boxed">
-                                                            <p>Select country</p>
-                                                            <input type="text" value="United states">
-                                                            <span>Where are you going?</span>
+                                                                <p>Visa Type</p>
+                                                                    <select class="form-control demo-select2-placeholder" name="visa_type" id="state_id" >
+                                                                    <option value="single">Select Visa Type</option>
+                                                                    <option value="Business visa">Business visa</option>
+                                                                   <option value="Education visa">Education visa</option>
+                                                                   <option value="Working visa">Working visa</option>
+                                                                   <option value="Tourist visa">Tourist visa</option>
+                                                                   <option value="Medical visa">Medical visa</option>
+                                                                   <option value="On-arrival visa">On-arrival visa</option>
+                                                                </select>
+                                                            <span>Visa Type?</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                                         <div class="flight_Search_boxed">
-                                                            <p>Your nationality</p>
-                                                            <input type="text" value="Bangladesh">
-                                                            <span>Where are you going?</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                                                        <div class="form_search_date">
-                                                            <div class="flight_Search_boxed date_flex_area">
-                                                                <div class="Journey_date">
-                                                                    <p>Entry date</p>
-                                                                    <input type="date" value="2022-05-03">
-                                                                    <span>Thursday</span>
-                                                                </div>
-                                                                <div class="Journey_date">
-                                                                    <p>Exit date</p>
-                                                                    <input type="date" value="2022-05-05">
-                                                                    <span>Thursday</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2  col-md-6 col-sm-12 col-12">
-                                                        <div class="flight_Search_boxed dropdown_passenger_area">
-                                                            <p>Traveller, Class </p>
-                                                            <div class="dropdown">
-                                                                <button class="dropdown-toggle final-count"
-                                                                    data-toggle="dropdown" type="button"
-                                                                    id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                                    aria-expanded="false">
-                                                                    0 Traveller
-                                                                </button>
-                                                                <div class="dropdown-menu dropdown_passenger_info"
-                                                                    aria-labelledby="dropdownMenuButton1">
-                                                                    <div class="traveller-calulate-persons">
-                                                                        <div class="passengers">
-                                                                            <h6>Traveller</h6>
-                                                                            <div class="passengers-types">
-                                                                                <div class="passengers-type">
-                                                                                    <div class="text"><span
-                                                                                            class="count pcount">1</span>
-                                                                                        <div class="type-label">
-                                                                                            <p>Adult</p>
-                                                                                            <span>12+
-                                                                                                yrs</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="button-set">
-                                                                                        <button type="button"
-                                                                                            class="btn-add">
-                                                                                            <i class="fas fa-plus"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="btn-subtract">
-                                                                                            <i class="fas fa-minus"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="passengers-type">
-                                                                                    <div class="text"><span
-                                                                                            class="count ccount">0</span>
-                                                                                        <div class="type-label">
-                                                                                            <p class="fz14 mb-xs-0">
-                                                                                                Children
-                                                                                            </p><span>2
-                                                                                                - Less than 12
-                                                                                                yrs</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="button-set">
-                                                                                        <button type="button"
-                                                                                            class="btn-add-c">
-                                                                                            <i class="fas fa-plus"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="btn-subtract-c">
-                                                                                            <i class="fas fa-minus"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="passengers-type">
-                                                                                    <div class="text"><span
-                                                                                            class="count incount">0</span>
-                                                                                        <div class="type-label">
-                                                                                            <p class="fz14 mb-xs-0">
-                                                                                                Infant
-                                                                                            </p><span>Less
-                                                                                                than 2
-                                                                                                yrs</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="button-set">
-                                                                                        <button type="button"
-                                                                                            class="btn-add-in">
-                                                                                            <i class="fas fa-plus"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="btn-subtract-in">
-                                                                                            <i class="fas fa-minus"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <span>Business</span>
+                                                                 <p>Days</p>
+                                                                    <input type="number" name="day" value="1" required>
+                                                                    <span></span>
+                                                            <span>Visa Days?</span>
                                                         </div>
                                                     </div>
                                                     <div class="top_form_search_button">
@@ -2170,7 +2085,21 @@ $Currency_Symbol= "df";
             </div>
         </div>
     </section>
+<?php
+// Currency  
+// $endpoint = 'convert';
+// $access_key = '57f822b519b62cd5fc6af3fdcb47ed6f';
+// $from = 'USD';
+// $ch = curl_init('https://data.fixer.io/api/'.$endpoint.'?access_key='.$access_key.'');
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// $json = curl_exec($ch);
+// curl_close($ch);
 
+// $exchangeRates = json_decode($json, true);
+
+// echo $exchangeRates['rates']['GBP'];
+//  print_r($exchangeRates);
+?>
     <!-- imagination Area -->
     <section id="go_beyond_area" class="section_padding_top">
         <div class="container">
@@ -2369,7 +2298,7 @@ $Currency_Symbol= "df";
                                             <h4><a href="#">{{$tours->hotel_name}}</a></h4>
                                             <p><span class="review_rating">{{$tours->hotel_rating}}/5 Excellent</span> <span
                                                     class="review_count"></span></p>
-                                            <h3>₹{{$tours->hotel_price}} <span>Price starts from</span></h3>
+                                            <h3>{{ $Currency_active->currency_symbol}} <?php  $subtotal= $tours->hotel_price / $Currency_active->currency_rates ;echo round($subtotal, 2); ?> <span>Price starts from</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -2520,7 +2449,7 @@ $Currency_Symbol= "df";
                                             <p><span class="review_rating">{{$tours->rating}}/5 Excellent</span> <span
                                                     class="review_count">({{$tours->reviewes}}
                                                     reviewes)</span></p>
-                                            <h3>₹{{$tours->price}} <span>Price starts from</span></h3>
+                                            <h3>{{ $Currency_active->currency_symbol}} <?php  $subtotal= $tours->price / $Currency_active->currency_rates ;echo round($subtotal, 2); ?> <span>Price starts from</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -2579,7 +2508,7 @@ $Currency_Symbol= "df";
                                             <p><span class="review_rating">4.8/5 Excellent</span> <span
                                                     class="review_count">(1214
                                                     reviewes)</span></p>
-                                            <h3>₹{{$visas->amount}} <span>Price starts from</span></h3>
+                                            <h3>{{ $Currency_active->currency_symbol}} <?php  $subtotal= $visas->amount / $Currency_active->currency_rates ;echo round($subtotal, 2); ?> <span>Price starts from</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -2638,7 +2567,7 @@ $Currency_Symbol= "df";
                                             <p><span class="review_rating">4.8/5 Excellent</span> <span
                                                     class="review_count">(1214
                                                     reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
+                                            <h3>{{ $Currency_active->currency_symbol}}99.00 <span>Price starts from</span></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -2715,7 +2644,7 @@ $Currency_Symbol= "df";
                                 <h4><a href="#">{{$tours->tour_name}} {{$tours->tour_type}}</a></h4>
                                 <p><span class="review_rating">{{$tours->rating}}/5 Excellent</span> <span class="review_count">({{$tours->reviewes}}
                                         reviewes)</span></p>
-                                <h3>${{$tours->price}} <span>Price starts from</span></h3>
+                                <h3>{{ $Currency_active->currency_symbol}} <?php  $subtotal= $tours->price / $Currency_active->currency_rates ;echo round($subtotal, 2); ?> <span>Price starts from</span></h3>
                             </div>
                         </div>
                         @endforeach
@@ -2847,7 +2776,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Everest trek to Base Camp</a></h3>
-                                            <p>Price starts at <span>$105.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}105.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2859,7 +2788,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Kathmundu tour</a></h3>
-                                            <p>Price starts at <span>$85.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}85.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2871,7 +2800,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Beautiful pokhara</a></h3>
-                                            <p>Price starts at <span>$100.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}100.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2883,7 +2812,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Annapurna region</a></h3>
-                                            <p>Price starts at <span>$75.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}75.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2895,7 +2824,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Chitwan national park</a></h3>
-                                            <p>Price starts at <span>$105.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}105.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2907,7 +2836,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Langtang region</a></h3>
-                                            <p>Price starts at <span>$105.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}105.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2923,7 +2852,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Kathmundu tour</a></h3>
-                                            <p>Price starts at <span>$85.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}85.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2935,7 +2864,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Beautiful pokhara</a></h3>
-                                            <p>Price starts at <span>$100.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}100.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2948,7 +2877,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Annapurna region</a></h3>
-                                            <p>Price starts at <span>$75.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}75.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2960,7 +2889,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Langtang region</a></h3>
-                                            <p>Price starts at <span>$105.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}105.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2977,7 +2906,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Beautiful pokhara</a></h3>
-                                            <p>Price starts at <span>$100.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}100.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -2989,7 +2918,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Annapurna region</a></h3>
-                                            <p>Price starts at <span>$75.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}75.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3001,7 +2930,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Langtang region</a></h3>
-                                            <p>Price starts at <span>$105.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}105.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3017,7 +2946,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Kathmundu tour</a></h3>
-                                            <p>Price starts at <span>$85.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}85.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3029,7 +2958,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Beautiful pokhara</a></h3>
-                                            <p>Price starts at <span>$100.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}100.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3041,7 +2970,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Annapurna region</a></h3>
-                                            <p>Price starts at <span>$75.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}75.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3057,7 +2986,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Annapurna region</a></h3>
-                                            <p>Price starts at <span>$75.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}75.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3069,7 +2998,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Langtang region</a></h3>
-                                            <p>Price starts at <span>$105.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}105.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3086,7 +3015,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Annapurna region</a></h3>
-                                            <p>Price starts at <span>$75.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}75.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3102,7 +3031,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Annapurna region</a></h3>
-                                            <p>Price starts at <span>$75.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}75.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3114,7 +3043,7 @@ $Currency_Symbol= "df";
                                         </div>
                                         <div class="tab_destinations_conntent">
                                             <h3><a href="top-destinations.html">Langtang region</a></h3>
-                                            <p>Price starts at <span>$105.00</span></p>
+                                            <p>Price starts at <span>{{ $Currency_active->currency_symbol}}105.00</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -3880,8 +3809,37 @@ document.getElementById("demo").innerHTML = text;
             });
         });
     </script> 
-    
-    <!--Search-->
+        <script>
+   
+        $(document).ready(function () {
+  
+            /*------------------------------------------
+            --------------------------------------------
+            Country Dropdown Change Event
+            --------------------------------------------
+            --------------------------------------------*/
+            $('#country-dropdown').on('change', function () {
+                var idCountry = this.value;
+               $.ajax({
+                    url: "{{url('/currency-change')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        location.reload();
+                    //     $('#state-dropdown').html('<option value="">-- Select State --</option>');
+                    //     $.each(result.states, function (key, value) {
+                    //         $("#state-dropdown").append('<option value="' + value
+                    //             .id + '">' + value.name + '</option>');
+                    //     });
+                    }
+                });
+            });
+        });
+    </script> 
     <script>
         $(document).ready(function () {
   

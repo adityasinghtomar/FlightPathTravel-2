@@ -106,18 +106,15 @@ $Currency_Symbol= "dd";
                                 </div>
                             </li>
                             <li>
-                                <div class="dropdown language-option">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <span class="lang-name"></span>
-                                    </button>
-                                    <div class="dropdown-menu language-dropdown-menu">
-                                       <?php $Currency1 =\App\Currency_Model::where('status','0')->get(); ?>
-                                                <a class="dropdown-item" href="#">{{$Currency_Symbol}} ({{$Currency}})</a>
-                                                @foreach($Currency1 as $Currency12)
-                                                <a class="dropdown-item" href="#">{{ $Currency12->currency_symbol}} ({{__($Currency12->currency_code)}})</a>
+                                <div>
+                                         <?php $Currency1 =\App\Currency_Model::where('status','0')->orderBy('currency_active', 'ASC')->get(); ?>
+                                         <?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
+                                         <select  id="country-dropdown" style=" min-width: 13px;appearance: none;-webkit-appearance: none;width: 100%;font-size: 1.0rem;padding: 0.675em 1em 0.675em 1em;background-color: #fff;border: 1px solid #caced1;border-radius: 1.25rem;color: #000;cursor: pointer;">
+                                              @foreach($Currency1 as $Currency12)
+                                                <option value="{{$Currency12->id}}">{{ $Currency12->currency_symbol}} ({{__($Currency12->currency_code)}})</option>
                                                 @endforeach
-                                    </div>
+                                        </select>        
+                                   
                                 </div>
                             </li>
                         </ul>
@@ -478,3 +475,36 @@ $Currency_Symbol= "dd";
             </div>
         </div>
     </header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+<script>
+   
+        $(document).ready(function () {
+  
+            /*------------------------------------------
+            --------------------------------------------
+            Country Dropdown Change Event
+            --------------------------------------------
+            --------------------------------------------*/
+            $('#country-dropdown').on('change', function () {
+                var idCountry = this.value;
+               $.ajax({
+                    url: "{{url('/currency-change')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        location.reload();
+                    //     $('#state-dropdown').html('<option value="">-- Select State --</option>');
+                    //     $.each(result.states, function (key, value) {
+                    //         $("#state-dropdown").append('<option value="' + value
+                    //             .id + '">' + value.name + '</option>');
+                    //     });
+                    }
+                });
+            });
+        });
+    </script> 
