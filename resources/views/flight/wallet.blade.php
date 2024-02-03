@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="dashboard_menu_area">
                             <ul>
-                                <li><a href="dashboard.html" class="active"><i
+                                <li><a href="{{url('/customer-dashboard')}}" class="active"><i
                                             class="fas fa-tachometer-alt"></i>Dashboard</a></li>
                                 <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
                                         class="fas fa-address-card"></i>My bookings
@@ -77,7 +77,7 @@
                                 </li>
                                 <li><a href="my-profile.html"><i class="fas fa-user-circle"></i>My profile</a></li>
                                 <li><a href="{{ url('/customer-wallet') }}"><i class="fas fa-wallet"></i>Wallet</a></li>
-                                <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
+                                <li><a href="#"><i class="fas fa-bell"></i>Notifications</a></li>
                                 <li>
                                     <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-sign-out-alt"></i>Logout
@@ -87,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-8">
                     <div class="dashboard_common_table">
                         <div class="wallwt_area_top">
@@ -97,23 +98,23 @@
                                         <h4>My wallet</h4>
                                         <div class="wallet_blance_boxed">
                                             <p>Wallet balance</p>
-                                            <h5>INR <?php echo $wallet->amount;?></h5>
+                                            <h5>INR @if(isset($wallet)) <?php echo $wallet->amount;?> @endif</h5>
                                         </div>
                                         <div class="wallet_boxed_flex">
                                             <div class="wallet_blance_boxed">
                                                 <p>Total credit</p>
-                                                <h5>INR <?php echo $wallet->credit_amount;?></h5>
+                                                <h5>INR @if(isset($wallet)) <?php echo $wallet->credit_amount;?> @endif</h5>
                                             </div>
                                             <div class="wallet_blance_boxed">
                                                 <p>Total debit</p>
-                                                <h5>INR <?php echo $wallet->debit_amount;?></h5>
+                                                <h5>INR @if(isset($wallet)) <?php echo $wallet->debit_amount;?> @endif</h5>
                                             </div>
                                         </div>
                                         <div class="dashboard_price_range">
                                             <div class="main_range_price"></div>
                                             <div class="price_range_blance">
-                                                <p>INR <?php echo $wallet->amount;?></p>
-                                                <p>INR <?php echo $wallet->amount;?></p>
+                                                <p>INR @if(isset($wallet)) <?php echo $wallet->amount;?> @endif</p>
+                                                <p>INR @if(isset($wallet)) <?php echo $wallet->amount;?> @endif</p>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +124,7 @@
                                         <h4>Add wallet</h4>
                                     <form action="{{url('/add-wallet')}}" enctype="multipart/form-data" method="post">
                                                       @csrf   
-                                     <input type="hidden" name="id" value="{{$wallet->id}}">    
+                                    @if(isset($wallet)) <input type="hidden" name="id" value="{{$wallet->id}}"> @endif   
                                         <div class="add_balance_area">
                                             <div class="input-group">
                                                 <span class="input-group-text">INR</span>

@@ -13,7 +13,7 @@ class RazorpayPaymentController extends Controller
 		}
 
 		public function orderIdGenerate(Request $request){
-		print_r("d");die;
+// 		print_r("d");die;
 		$api = new Api(config('app.razorpay_api_key'), config('app.seceret_key'));
         $order = $api->order->create(array('receipt' => 'order_rcptid_11', 'amount' => $request->input('price') * 100, 'currency' => 'INR')); // Creates order
         return response()->json(['order_id' => $order['id']]);

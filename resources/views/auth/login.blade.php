@@ -53,7 +53,21 @@
             </div>
         </div>
     </div>
+<?php 
+//  $ip = $_SERVER['SERVER_ADDR'];
+// $ipdat = @json_decode(file_get_contents( 
+// 	"http://www.geoplugin.net/json.gp?ip=" . $ip)); 
 
+// echo 'Country Name: ' . $ipdat->geoplugin_countryName . "\n"; 
+// echo 'City Name: ' . $ipdat->geoplugin_city . "\n"; 
+// echo 'Continent Name: ' . $ipdat->geoplugin_continentName . "\n"; 
+// echo 'Latitude: ' . $ipdat->geoplugin_latitude . "\n"; 
+// echo 'Longitude: ' . $ipdat->geoplugin_longitude . "\n"; 
+$Currency_Symbol= "df"; 
+ $Currency = "dd"; 
+// echo 'Timezone: ' . $ipdat->geoplugin_timezone; 
+
+?> 
     <!-- Header Area -->
     <header class="main_header_arae">
         <!-- Top Bar -->
@@ -68,19 +82,16 @@
                                 <a href="#!"><i class="fab fa-instagram"></i></a>
                                 <a href="#!"><i class="fab fa-linkedin"></i></a>
                             </li>
-                            <li><a href="#!"><span>+011 234 567 89</span></a></li>
+                            <li><a href="#!"><span>+44 (0) 203 463 7788</span></a></li>
                             <li><a href="#!"><span>info@flightpathtravel.com</span></a></li>
                         </ul>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <ul class="topbar-others-options"> 
-                         @if(session()->has('name'))
-                                    <a href="#" class="btn  btn_navber">{{session()->get('name')}}</a>
-                                    <a href="{{url('/logout')}}" class="btn  btn_navber">Logout</a>
-                         @else
-                        <li><a href="{{url('/User-login')}}">Login</a></li>
-                            <li><a href="{{url('/User-Register')}}">Sign up</a></li>
-                        @endif
+                        
+                        <li>
+                                    <a href="#" class="btn  btn_navber">Become a partner</a></li>
+                            
                             <li>
                                 <div class="dropdown language-option">
                                     <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -101,9 +112,11 @@
                                         <span class="lang-name"></span>
                                     </button>
                                     <div class="dropdown-menu language-dropdown-menu">
-                                        <a class="dropdown-item" href="#">USD</a>
-                                        <a class="dropdown-item" href="#">BD</a>
-                                        <a class="dropdown-item" href="#">URO</a>
+                                         <?php $Currency1 =\App\Currency_Model::where('status','0')->get(); ?>
+                                                <a class="dropdown-item" href="#">{{$Currency_Symbol}} ({{$Currency}})</a>
+                                                @foreach($Currency1 as $Currency12)
+                                                <a class="dropdown-item" href="#">{{ $Currency12->currency_symbol}} ({{__($Currency12->currency_code)}})</a>
+                                                @endforeach
                                     </div>
                                 </div>
                             </li>
@@ -112,6 +125,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <!-- Navbar Bar -->
         <div class="navbar-area">
@@ -150,17 +165,17 @@
                                                 Tours
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour Grid</a>
+                                               <li class="nav-item">
+                                                    <a href="{{url('/tour-search')}}" class="nav-link">Tour Grid</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour List</a>
+                                                    <a href="{{url('/tour-list')}}" class="nav-link">Tour List</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Tour Map</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour Details</a>
+                                                    <a href="{{url('/tour-details')}}" class="nav-link">Tour Details</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Tour Booking</a>
@@ -180,7 +195,7 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-item">
-                                                    <a href="{{url('/flight-search-result')}}" class="nav-link">Flight</a>
+                                                    <a href="#" class="nav-link">Flight</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Flight Booking</a>
@@ -218,7 +233,7 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Visa Details</a>
+                                                    <a href="{{url('/Visa-list')}}" class="nav-link">Visa List</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Visa Application</a>
@@ -348,7 +363,7 @@
                                         </li>
                                        
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">Privacy Policy</a>
+                                            <a href="{{url('/privacy-policy')}}" class="nav-link">Privacy Policy</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">404 Error</a>
@@ -356,33 +371,33 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">Dashboard  <i class="fas fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Dashboard</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Hotel booking</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Flight booking</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Tour booking</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Booking history</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">My profile</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Wallet</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Notifications</a>
-                                        </li>
-                                    </ul>
+                                    @if(session()->has('user_id')) <a href="{{url('/customer-dashboard')}}" class="nav-link">Dashboard</a>  @endif
+                                   <!--<ul class="dropdown-menu">-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">Dashboard</a>-->
+                                   <!--     </li>-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">Hotel booking</a>-->
+                                   <!--     </li>-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">Flight booking</a>-->
+                                   <!--     </li>-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">Tour booking</a>-->
+                                   <!--     </li>-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">Booking history</a>-->
+                                   <!--     </li>-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">My profile</a>-->
+                                   <!--     </li>-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">Wallet</a>-->
+                                   <!--     </li>-->
+                                   <!--     <li class="nav-item">-->
+                                   <!--         <a href="#" class="nav-link">Notifications</a>-->
+                                   <!--     </li>-->
+                                   <!-- </ul>-->
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">News <i class="fas fa-angle-down"></i></a>
@@ -408,15 +423,15 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">Contact <i class="fas fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Contact v1</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Contact v2</a>
-                                        </li>
-                                    </ul>
+                                    <a href="{{url('/contact-us')}}" class="nav-link">Contact Us</a>
+                                    <!--<ul class="dropdown-menu">-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Contact v1</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Contact v2</a>-->
+                                    <!--    </li>-->
+                                    <!--</ul>-->
                                 </li>
                             </ul>
                             <div class="others-options d-flex align-items-center">
@@ -426,7 +441,13 @@
                                     </a>
                                 </div>
                                 <div class="option-item">
-                                    <a href="#" class="btn  btn_navber">Become a partner</a>
+                                    @if(session()->has('name'))
+                                    <a href="#" class="btn  btn_navber">{{session()->get('name')}}</a>
+                                    <a href="{{url('/logout')}}" class="btn  btn_navber">Logout</a>
+                         @else
+                        <a href="{{url('/User-login')}}" class="btn  btn_navber">Login</a>
+                            <a href="{{url('/User-Register')}}" class="btn  btn_navber">Sign up</a>
+                        @endif
                                 </div>
                             </div>
                         </div>
@@ -513,14 +534,17 @@
                                         aria-selected="false"><i class="fas fa-hotel"></i>Hotels</button>
                                 </li>
 								<li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tours-tab1" data-bs-toggle="tab" data-bs-target="#tours"
-                                        type="button1" role="tab" aria-controls="tours" aria-selected="false"><i
-                                            class="fas fa-globe"></i>Tours</button>
+								    <a href="{{url('/tour-list')}}" class="nav-link"><i
+                                            class="fas fa-globe"></i>Tours</a>
+                                    <!--<button class="nav-link" id="tours-tab1" data-bs-toggle="tab" data-bs-target="#tours"-->
+                                    <!--    type="button1" role="tab" aria-controls="tours" aria-selected="false"><i-->
+                                    <!--        class="fas fa-globe"></i>Tours</button>-->
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="visa-tab" data-bs-toggle="tab"
-                                        data-bs-target="#visa-application" type="button" role="tab" aria-controls="visa"
-                                        aria-selected="false"><i class="fas fa-passport"></i> Visa</button>
+                                    <a href="{{url('/Visa-list')}}" class="nav-link"><i class="fas fa-passport"></i> Visa </a>
+                                    <!--<button class="nav-link" id="visa-tab" data-bs-toggle="tab"-->
+                                    <!--    data-bs-target="#visa-application" type="button" role="tab" aria-controls="visa"-->
+                                    <!--    aria-selected="false"><i class="fas fa-passport"></i> Visa</button>-->
                                 </li>
                                 <!--<li class="nav-item" role="presentation">
                                     <button class="nav-link" id="apartments-tab" data-bs-toggle="tab"
@@ -590,6 +614,7 @@
                                                                     </datalist>
                                                                     <span id="state-dropdown"></span>
                                                                     <div class="plan_icon_posation">
+                                                                        <i class="fas fa-plane-departure"></i>
                                                                          
                                                                     </div>
                                                                 </div>
@@ -693,7 +718,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -722,36 +747,28 @@
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
                                                                                     <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                        <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                           
+                                                                                           
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <span>Business</span>
+                                                                    <!--<span>Business</span>-->
                                                                 </div>
                                                             </div> 
                                                             <input type="hidden" name="adult" id="myInput" value="1">
                                                             <input type="hidden" name="children" id="myInput1">
                                                             <input type="hidden" name="infant" id="myInput2">
+                                                            <input type="hidden" name="form_status" value="one">
                                                                                                    
                                                             <div class="top_form_search_button">
                                                                 <button class="btn btn_theme btn_md">Search</button>
@@ -807,11 +824,10 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                    
-                                                            <div class="col-lg-3  col-md-6 col-sm-12 col-12">
-                                                                <div class="form_search_date">
-                                                                    <div class="flight_Search_boxed date_flex_area">
-                                                                        <div class="Journey_date">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                                        <div class="form_search_date">
+                                                            <div class="flight_Search_boxed date_flex_area">
+                                                                <div class="Journey_date">
                                                                             <p>Journey date</p>
                                                                             <input type="date" id="demo" name="journey_date" class="txtDate" value="" required>
                                                                             <span></span>
@@ -821,9 +837,9 @@
                                                                             <input type="date" id="demo" name="return_date" class="txtDate" value="" required>
                                                                             <span></span>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
                                                             <div class="col-lg-2  col-md-6 col-sm-12 col-12">
                                                                 <div
                                                                     class="flight_Search_boxed dropdown_passenger_area">
@@ -890,7 +906,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -918,37 +934,28 @@
                                                                                 </div>
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
-                                                                                    <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                   <div class="cabin-list">
+                                                                                        <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                           
+                                                                                           
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <span>Business</span>
                                                                 </div>
                                                             </div> 
-                                                            <input type="hidden" name="adult" id="myInputA" valeu="1">
+                                                            <input type="hidden" name="adult" id="myInputA" value="1">
                                                             <input type="hidden" name="children" id="myInputB">
                                                             <input type="hidden" name="infant" id="myInputC">
+                                                            <input type="hidden" name="form_status" value="return">
                                                             <div class="top_form_search_button">
                                                                 <button class="btn btn_theme btn_md">Search</button>
                                                             </div>
@@ -964,6 +971,7 @@
                                             <div class="col-lg-12">
                                                 <div class="oneway_search_form">
                                                     <form action="{{url('/multi-city-flight-search')}}" enctype="multipart/form-data" method="post">
+                                                        @csrf
                                                         <div class="multi_city_form_wrapper">
                                                             <div class="multi_city_form">
                                                                 <div class="row">
@@ -1004,7 +1012,7 @@
                                                                 </div>
                                                             </div>
 
-                                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                                                    <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                                                                         <div class="form_search_date">
                                                                             <div
                                                                                 class="flight_Search_boxed date_flex_area">
@@ -1023,7 +1031,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-2  col-md-6 col-sm-12 col-12">
+                                                                    <div class="col-lg-3  col-md-6 col-sm-12 col-12">
                                                                 <div
                                                                     class="flight_Search_boxed dropdown_passenger_area">
                                                                     <p>Passenger, Class </p>
@@ -1089,7 +1097,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -1118,25 +1126,14 @@
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
                                                                                     <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                         <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1145,9 +1142,10 @@
                                                                     <span>Business</span>
                                                                 </div>
                                                             </div> 
-                                                            <input type="hidden" name="adult" id="myInputAA" valeu="1">
+                                                            <input type="hidden" name="adult" id="myInputAA" value="1">
                                                             <input type="hidden" name="children" id="myInputBB">
                                                             <input type="hidden" name="infant" id="myInputCC">
+                                                            <input type="hidden" name="form_status" value="multi">
                                                                 </div>
                                                             </div>
                                                             <div class="multi_city_form">
@@ -1189,7 +1187,7 @@
                                                                 </div>
                                                             </div>
 
-                                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                                                    <div class="col-lg-3 col-md-6 col-sm-12 col-12">
                                                                         <div class="form_search_date">
                                                                             <div
                                                                                 class="flight_Search_boxed date_flex_area">
@@ -1208,7 +1206,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-2  col-md-6 col-sm-12 col-12">
+                                                                    <div class="col-lg-3  col-md-6 col-sm-12 col-12">
                                                                 <div
                                                                     class="flight_Search_boxed dropdown_passenger_area">
                                                                     <p>Passenger, Class </p>
@@ -1274,7 +1272,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -1303,25 +1301,15 @@
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
                                                                                     <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                             <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                        </select>
+                                                                                    
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1330,9 +1318,9 @@
                                                                     <span>Business</span>
                                                                 </div>
                                                             </div> 
-                                                            <!--<input type="hidden" name="adult" id="myInput">-->
-                                                            <!--<input type="hidden" name="children" id="myInput1">-->
-                                                            <!--<input type="hidden" name="infant" id="myInput2">-->
+                                                            <input type="hidden" name="adult" id="myInput">
+                                                            <input type="hidden" name="children" id="myInput1">
+                                                            <input type="hidden" name="infant" id="myInput2">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1547,7 +1535,7 @@
                                                     </div>
                                                     <div class="col-lg-2  col-md-2 col-sm-12 col-12">
                                                         <div class="flight_Search_boxed dropdown_passenger_area">
-                                                            <p>Passenger, Class </p>
+                                                            <p>Passenger</p>
                                                             <div class="dropdown">
                                                                 <button class="dropdown-toggle final-count"
                                                                     data-toggle="dropdown" type="button"
@@ -1627,37 +1615,39 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="cabin-selection">
-                                                                            <h6>Cabin Class</h6>
-                                                                            <div class="cabin-list">
-                                                                                <button type="button"
-                                                                                    class="label-select-btn">
-                                                                                    <span
-                                                                                        class="muiButton-label">Economy
-                                                                                    </span>
-                                                                                </button>
-                                                                                <button type="button"
-                                                                                    class="label-select-btn active">
-                                                                                    <span class="muiButton-label">
-                                                                                        Business
-                                                                                    </span>
-                                                                                </button>
-                                                                                <button type="button"
-                                                                                    class="label-select-btn">
-                                                                                    <span class="MuiButton-label">First
-                                                                                        Class </span>
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
+                                                                        <!--<div class="cabin-selection">-->
+                                                                        <!--    <h6>Cabin Class</h6>-->
+                                                                        <!--    <div class="cabin-list">-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn">-->
+                                                                        <!--            <span-->
+                                                                        <!--                class="muiButton-label">Economy-->
+                                                                        <!--            </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn active">-->
+                                                                        <!--            <span class="muiButton-label">-->
+                                                                        <!--                Business-->
+                                                                        <!--            </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn">-->
+                                                                        <!--            <span class="MuiButton-label">First-->
+                                                                        <!--                Class </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--    </div>-->
+                                                                        <!--</div>-->
                                                                         
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <span>Business</span>
+                                                            </div> 
+                                                            <!--<span>Business</span>-->
                                                         </div>
                                                         <input type="hidden" name="adult" id="myInput122" value="1">
                                                                         <input type="hidden" name="children" id="myInput1222">
                                                                         <input type="hidden" name="infant" id="myInput1222">
+                                                                        <input type="hidden" name="form_status" id="hostels">
+                                                    
                                                     </div>
                                                     <div class="top_form_search_button">
                                                         <button class="btn btn_theme btn_md">Search</button>
@@ -2350,10 +2340,10 @@
                                     aria-selected="false">Tours</button>
                                 <button class="nav-link" id="nav-space-tab" data-bs-toggle="tab"
                                     data-bs-target="#nav-space" type="button" role="tab" aria-controls="nav-space"
-                                    aria-selected="false">Space</button>
-                                <button class="nav-link" id="nav-events-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-events" type="button" role="tab" aria-controls="nav-events"
-                                    aria-selected="false">Events</button>
+                                    aria-selected="false">Visa</button>
+                                <!--<button class="nav-link" id="nav-events-tab" data-bs-toggle="tab"-->
+                                <!--    data-bs-target="#nav-events" type="button" role="tab" aria-controls="nav-events"-->
+                                <!--    aria-selected="false">Events</button>-->
                             </div>
                         </nav>
                     </div>
@@ -2365,242 +2355,255 @@
                         <div class="tab-pane fade show active" id="nav-hotels" role="tabpanel"
                             aria-labelledby="nav-hotels-tab">
                             <div class="row">
+                                <?php $tour =\App\Hotel_Details_Model::orderBy('id', 'desc')->get(); ?>
+                                @foreach($tour as $key=>$tours)
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                                     <div class="theme_common_box_two img_hover">
                                         <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel1.png" alt="img">
+                                            <a href="#">
+                                                <img src="{{$tours->hotel_image}}" alt="img" style="height:200px;">
                                             </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>New beach, Thailand</p>
+                                            <p><i class="fas fa-map-marker-alt"></i>{{$tours->hotel_address}}</p>
                                         </div>
                                         <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Kantua hotel, Thailand</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
+                                            <h4><a href="#">{{$tours->hotel_name}}</a></h4>
+                                            <p><span class="review_rating">{{$tours->hotel_rating}}/5 Excellent</span> <span
+                                                    class="review_count"></span></p>
+                                            <h3>₹{{$tours->hotel_price}} <span>Price starts from</span></h3>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel2.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Indonesia</p>
-                                            <div class="discount_tab">
-                                                <span>50%</span>
-                                            </div>
+                                <? if($key == '3' ){ break;  }  ?>
+                                @endforeach
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel2.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Indonesia</p>-->
+                                <!--            <div class="discount_tab">-->
+                                <!--                <span>50%</span>-->
+                                <!--            </div>-->
 
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Hotel paradise international</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel3.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel4.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Mariana island</p>
-                                            <div class="discount_tab">
-                                                <span>50%</span>
-                                            </div>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Hotel deluxe</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel5.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Kathmundu, Nepal</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Hotel rajavumi</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel6.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Beach view</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Thailand grand suit</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel7.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Long island</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Zefi resort and spa</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel8.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Philippine</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Manila international resort</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Hotel paradise international</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel3.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel4.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Mariana island</p>-->
+                                <!--            <div class="discount_tab">-->
+                                <!--                <span>50%</span>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Hotel deluxe</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel5.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Kathmundu, Nepal</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Hotel rajavumi</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel6.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Beach view</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Thailand grand suit</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel7.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Long island</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Zefi resort and spa</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel8.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Philippine</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Manila international resort</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-tours" role="tabpanel" aria-labelledby="nav-tours-tab">
                             <div class="row">
+                                <?php $tour =\App\Tour_Model::orderBy('id', 'desc')->get(); ?>
+                                @foreach($tour as $key=>$tours)
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                                     <div class="theme_common_box_two img_hover">
                                         <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel1.png" alt="img">
+                                            <a href="#">
+                                                <img src="public/images/{{$tours->image}}" style="height:200px;" alt="img">
                                             </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>New beach, Thailand</p>
+                                            <p><i class="fas fa-map-marker-alt"></i>{{$tours->address}}</p>
                                         </div>
                                         <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Kantua hotel, Thailand</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
+                                            <h4><a href="#">{{$tours->tour_name}}  {{$tours->tour_type}}</a></h4>
+                                            <p><span class="review_rating">{{$tours->rating}}/5 Excellent</span> <span
+                                                    class="review_count">({{$tours->reviewes}}
                                                     reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
+                                            <h3>₹{{$tours->price}} <span>Price starts from</span></h3>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel3.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel8.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Philippine</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Manila international resort</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
+                                <? if($key == '3' ){ break;  }  ?>
+                                @endforeach
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel3.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel8.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Philippine</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Manila international resort</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-space" role="tabpanel" aria-labelledby="nav-space-tab">
                             <div class="row">
+                                <?php $visa =\App\Visa_Model::orderBy('id', 'desc')->get(); ?>
+                                @foreach($visa as $key=>$visas)
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                                     <div class="theme_common_box_two img_hover">
                                         <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel1.png" alt="img">
+                                            <a href="#">
+                                                <img src="public/images/{{$visas->image}}" style="height:200px;" alt="img">
                                             </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>New beach, Thailand</p>
+                                            <p><i class="fas fa-map-marker-alt"></i></p>
                                         </div>
                                         <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Kantua hotel, Thailand</a></h4>
+                                            <h4><a href="#">{{$visas->visa_name}}</a></h4>
                                             <p><span class="review_rating">4.8/5 Excellent</span> <span
                                                     class="review_count">(1214
                                                     reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
+                                            <h3>₹{{$visas->amount}} <span>Price starts from</span></h3>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                                    <div class="theme_common_box_two img_hover">
-                                        <div class="theme_two_box_img">
-                                            <a href="hotel-details.html">
-                                                <img src="public/assets/img/tab-img/hotel4.png" alt="img">
-                                            </a>
-                                            <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>
-                                        </div>
-                                        <div class="theme_two_box_content">
-                                            <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>
-                                            <p><span class="review_rating">4.8/5 Excellent</span> <span
-                                                    class="review_count">(1214
-                                                    reviewes)</span></p>
-                                            <h3>$99.00 <span>Price starts from</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php 
+                                if($key == '3' ){ break;  }  
+                                ?>
+                                @endforeach
+                                <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">-->
+                                <!--    <div class="theme_common_box_two img_hover">-->
+                                <!--        <div class="theme_two_box_img">-->
+                                <!--            <a href="hotel-details.html">-->
+                                <!--                <img src="public/assets/img/tab-img/hotel4.png" alt="img">-->
+                                <!--            </a>-->
+                                <!--            <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>-->
+                                <!--        </div>-->
+                                <!--        <div class="theme_two_box_content">-->
+                                <!--            <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>-->
+                                <!--            <p><span class="review_rating">4.8/5 Excellent</span> <span-->
+                                <!--                    class="review_count">(1214-->
+                                <!--                    reviewes)</span></p>-->
+                                <!--            <h3>$99.00 <span>Price starts from</span></h3>-->
+                                <!--        </div>-->
+                                <!--    </div>-->
+                                <!--</div>-->
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-events" role="tabpanel" aria-labelledby="nav-events-tab">
@@ -2701,84 +2704,87 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="promotional_tour_slider owl-theme owl-carousel dot_style">
+                        <?php $tour =\App\Tour_Model::get(); ?>
+                                @foreach($tour as $tours)
                         <div class="theme_common_box_two img_hover">
                             <div class="theme_two_box_img">
-                                <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel1.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>New beach, Thailand</p>
+                                <a href="#"><img src="public/images/{{$tours->image}}" style="height:200px;" alt="img"></a>
+                                <p><i class="fas fa-map-marker-alt"></i>{{$tours->address}}</p>
                             </div>
                             <div class="theme_two_box_content">
-                                <h4><a href="hotel-details.html">Kantua hotel, Thailand</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
+                                <h4><a href="#">{{$tours->tour_name}} {{$tours->tour_type}}</a></h4>
+                                <p><span class="review_rating">{{$tours->rating}}/5 Excellent</span> <span class="review_count">({{$tours->reviewes}}
                                         reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
+                                <h3>${{$tours->price}} <span>Price starts from</span></h3>
                             </div>
                         </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel2.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Indonesia</p>
-                                <div class="discount_tab">
-                                    <span>50%</span>
-                                </div>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="hotel-details.html">Hotel paradise international</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel3.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel4.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Mariana island</p>
-                                <div class="discount_tab">
-                                    <span>50%</span>
-                                </div>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="hotel-details.html">Hotel deluxe</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel6.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Beach view</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="hotel-details.html">Thailand grand suit</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel7.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Long island</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="hotel-details.html">Zefi resort and spa</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
+                        @endforeach
+                        <!--<div class="theme_common_box_two img_hover">-->
+                        <!--    <div class="theme_two_box_img">-->
+                        <!--        <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel2.png" alt="img"></a>-->
+                        <!--        <p><i class="fas fa-map-marker-alt"></i>Indonesia</p>-->
+                        <!--        <div class="discount_tab">-->
+                        <!--            <span>50%</span>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--    <div class="theme_two_box_content">-->
+                        <!--        <h4><a href="hotel-details.html">Hotel paradise international</a></h4>-->
+                        <!--        <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214-->
+                        <!--                reviewes)</span></p>-->
+                        <!--        <h3>$99.00 <span>Price starts from</span></h3>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="theme_common_box_two img_hover">-->
+                        <!--    <div class="theme_two_box_img">-->
+                        <!--        <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel3.png" alt="img"></a>-->
+                        <!--        <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>-->
+                        <!--    </div>-->
+                        <!--    <div class="theme_two_box_content">-->
+                        <!--        <h4><a href="hotel-details.html">Hotel kualalampur</a></h4>-->
+                        <!--        <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214-->
+                        <!--                reviewes)</span></p>-->
+                        <!--        <h3>$99.00 <span>Price starts from</span></h3>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="theme_common_box_two img_hover">-->
+                        <!--    <div class="theme_two_box_img">-->
+                        <!--        <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel4.png" alt="img"></a>-->
+                        <!--        <p><i class="fas fa-map-marker-alt"></i>Mariana island</p>-->
+                        <!--        <div class="discount_tab">-->
+                        <!--            <span>50%</span>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--    <div class="theme_two_box_content">-->
+                        <!--        <h4><a href="hotel-details.html">Hotel deluxe</a></h4>-->
+                        <!--        <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214-->
+                        <!--                reviewes)</span></p>-->
+                        <!--        <h3>$99.00 <span>Price starts from</span></h3>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="theme_common_box_two img_hover">-->
+                        <!--    <div class="theme_two_box_img">-->
+                        <!--        <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel6.png" alt="img"></a>-->
+                        <!--        <p><i class="fas fa-map-marker-alt"></i>Beach view</p>-->
+                        <!--    </div>-->
+                        <!--    <div class="theme_two_box_content">-->
+                        <!--        <h4><a href="hotel-details.html">Thailand grand suit</a></h4>-->
+                        <!--        <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214-->
+                        <!--                reviewes)</span></p>-->
+                        <!--        <h3>$99.00 <span>Price starts from</span></h3>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="theme_common_box_two img_hover">-->
+                        <!--    <div class="theme_two_box_img">-->
+                        <!--        <a href="hotel-details.html"><img src="public/assets/img/tab-img/hotel7.png" alt="img"></a>-->
+                        <!--        <p><i class="fas fa-map-marker-alt"></i>Long island</p>-->
+                        <!--    </div>-->
+                        <!--    <div class="theme_two_box_content">-->
+                        <!--        <h4><a href="hotel-details.html">Zefi resort and spa</a></h4>-->
+                        <!--        <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214-->
+                        <!--                reviewes)</span></p>-->
+                        <!--        <h3>$99.00 <span>Price starts from</span></h3>-->
+                        <!--    </div>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </div>
@@ -2797,7 +2803,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-10 offset-lg-1">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12 offset-lg-1">
                     <div class="theme_nav_tab">
                         <nav class="theme_nav_tab_item">
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -3284,7 +3290,9 @@
     </section>
 
     <!-- Footer  -->
-    <footer id="footer_area">
+    
+    <!-- Footer  -->
+        <footer id="footer_area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -3294,7 +3302,7 @@
                     <div class="footer_first_area">
                         <div class="footer_inquery_area">
                             <h5>Call 24/7 for any help</h5>
-                            <h3> <a href="tel:+00-123-456-789">+00 123 456 789</a></h3>
+                            <h3> <a href="tel:+44-203-463-7788">+44 (0) 203 463 7788</a></h3>
                         </div>
                         <div class="footer_inquery_area">
                             <h5>Mail to our support team</h5>
@@ -3314,15 +3322,15 @@
                 <div class="col-lg-2 offset-lg-1 col-md-6 col-sm-6 col-12">
                     <div class="footer_heading_area">
                         <h5>Company</h5>
-                    </div>
+                    </div> 
                     <div class="footer_link_area">
                         <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li><a href="faqs.html">Rewards</a></li>
-                            <li><a href="terms-service.html">Work with Us</a></li>
-                            <li><a href="tour-guides.html">Meet the Team </a></li>
-                            <li><a href="news.html">Blog</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                            <li><a href="#">Rewards</a></li>
+                            <li><a href="#">Work with Us</a></li>
+                            <li><a href="#">Meet the Team </a></li>
+                            <li><a href="#">Blog</a></li>
                         </ul>
                     </div>
                 </div>
@@ -3332,12 +3340,12 @@
                     </div>
                     <div class="footer_link_area">
                         <ul>
-                            <li><a href="dashboard.html">Account</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="testimonials.html">Legal</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="top-destinations.html"> Affiliate Program</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="#">Account</a></li>
+                            <li><a href="#">Faq</a></li>
+                            <li><a href="{{url('/contact-us')}}">contact us</a></li>
+                            <li><a href="{{url('/refund_policy')}}">Refund Policy</a></li>
+                            <li><a href="{{url('/term-conditions')}}">Term & Conditions</a></li>
+                            <li><a href="{{url('/privacy-policy')}}" class="nav-link">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>
@@ -3347,12 +3355,12 @@
                     </div>
                     <div class="footer_link_area">
                         <ul>
-                            <li><a href="top-destinations-details.html">Community program</a></li>
-                            <li><a href="top-destinations-details.html">Investor Relations</a></li>
-                            <li><a href="flight-search-result.html">Rewards Program</a></li>
-                            <li><a href="room-booking.html">PointsPLUS</a></li>
-                            <li><a href="testimonials.html">Partners</a></li>
-                            <li><a href="hotel-search.html">List My Hotel</a></li>
+                            <li><a href="#">Community program</a></li>
+                            <li><a href="#">Investor Relations</a></li>
+                            <li><a href="#">Rewards Program</a></li>
+                            <li><a href="#">PointsPLUS</a></li>
+                            <li><a href="#">Partners</a></li>
+                            <li><a href="#">List My Hotel</a></li>
                         </ul>
                     </div>
                 </div>
@@ -3362,12 +3370,12 @@
                     </div>
                     <div class="footer_link_area">
                         <ul>
-                            <li><a href="room-details.html">Chicago</a></li>
-                            <li><a href="hotel-details.html">New York</a></li>
-                            <li><a href="hotel-booking.html">San Francisco</a></li>
-                            <li><a href="tour-search.html">California</a></li>
-                            <li><a href="tour-booking.html">Ohio </a></li>
-                            <li><a href="tour-guides.html">Alaska</a></li>
+                            <li><a href="#">Chicago</a></li>
+                            <li><a href="#">New York</a></li>
+                            <li><a href="#">San Francisco</a></li>
+                            <li><a href="#">California</a></li>
+                            <li><a href="#">Ohio </a></li>
+                            <li><a href="#">Alaska</a></li>
                         </ul>
                     </div>
                 </div>

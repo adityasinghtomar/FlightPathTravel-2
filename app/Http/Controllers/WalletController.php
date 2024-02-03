@@ -30,10 +30,30 @@ class WalletController extends Controller
     {
         // Add Wallet
         $wallet_id = $request->input('id');
+        $wallet_user = Wallet_Model::where('id',$wallet_id)->first();
+        if(!$wallet_user){
+           $data2['amount'] = $request->input('amount'); 
+		   $data2['credit_amount'] = $request->input('amount');
+		   $data2['user_id'] = session()->get('user_id');
+// 			print_r($data);die;
+		 Wallet_Model::create($data2);;
+        }
         $wallet_details = Wallet_Model::where('id',$wallet_id)->first();
-        $new = $request->input('amount');
-        $total = $new + $wallet_details->amount;
-        $total_credit_amount = $new + $wallet_details->credit_amount;
+        $new = $request->input('amount'); 
+       if($wallet_details){
+           $amount1 = $wallet_details->amount; 
+        }else{
+            $amount1 = 0;
+        }
+        
+        if($wallet_details){
+            $credit_amount1 = $wallet_details->credit_amount;
+        }else{
+            $credit_amount1 = 0;
+        }
+        
+        $total = $new + $amount1;
+        $total_credit_amount = $new + $credit_amount1;
 		$data['amount'] = $total ; 
 		$data['credit_amount'] = $total_credit_amount ;
 // 			print_r($data);die;
@@ -42,7 +62,7 @@ class WalletController extends Controller
         $id = session()->get('user_id');
         
             $data1['user_id']= $id;
-			$data1['amount']= $wallet_details->amount;;
+			$data1['amount']= $amount1;
 			$data1['credit_amount']=  $request->input('amount');
 // 			print_r($data);die;
 			 Wallet_Transaction_Model::create($data1);
@@ -54,5 +74,53 @@ class WalletController extends Controller
       $wallet_history = Wallet_Transaction_Model::where('user_id',$id)->get();
         return view('flight/wallet',compact('user_count','customer','flight','wallet','wallet_history'));
     }
-    
+     public function wallet()
+    {
+        $users =UserDetails_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/add-wallet',compact('users'));
+    }
+     public function store_wallet(Request $request)
+    {
+        // Add Wallet
+        $user_id = $request->input('user');
+        $wallet_user = Wallet_Model::where('user_id',$user_id)->first();
+        if(!$wallet_user){
+           $data2['amount'] = $request->input('amount'); 
+		   $data2['credit_amount'] = $request->input('amount');
+		   $data2['user_id'] = $request->input('user');
+// 			print_r($data);die;
+		 Wallet_Model::create($data2);
+		  $users =UserDetails_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/add-wallet',compact('users'));
+        }
+         $users =UserDetails_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/add-wallet',compact('users'));
+        
+    } 
+     public function wallet_details()
+    {
+        $users =UserDetails_Model::get();
+        $wallet = Wallet_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-wallet',compact('users','wallet'));
+    }
+     public function update_wallet(Request $request)
+    {
+        // Add Wallet
+           $id = $request->input('id');
+           $data2['amount'] = $request->input('amount'); 
+		   $data2['credit_amount'] = $request->input('amount');
+		   $data2['user_id'] = $request->input('user_id');
+// 			print_r($data);die;
+		Wallet_Model::where('id',$id)->update($data2);
+	         $users =UserDetails_Model::get();
+        $wallet = Wallet_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-wallet',compact('users','wallet'));
+
+        
+    } 
 }    

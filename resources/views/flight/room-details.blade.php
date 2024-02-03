@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">

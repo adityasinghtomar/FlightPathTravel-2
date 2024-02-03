@@ -1,4 +1,4 @@
-@extends('layouts.banker_app')
+@include('layouts.banker_app')
 
 @section('content')
 <div class="container">

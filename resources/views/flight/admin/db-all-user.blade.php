@@ -1,4 +1,4 @@
-@extends('flight.admin.db-header')
+@include('flight.admin.db-header')
     <div class="dashboard__main">
       <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
@@ -35,7 +35,6 @@
                         <th>Mobile</th>
                         <th>Address</th>
                         <th>User Type</th>
-                        <th>Commision</th>
                         <th>Status</th>
                         <th>Action</th>
                         
@@ -52,7 +51,6 @@
                         <td> <?php print_r($flights->mobile);?></td>
                         <td> <?php print_r($flights->address);?></td>
                         <td> <?php print_r($flights->role);?></td>
-                        <td> <?php print_r($flights->commision);?></td>
                         <td> <?php print_r($flights->status);?></td>
                         <td>
                           <div class="row x-gap-10 y-gap-10 items-center">
@@ -81,7 +79,6 @@
                         <th>Mobile</th>
                         <th>Address</th>
                         <th>User Type</th>
-                        <th>Commision</th>
                         <th>Status</th>
                         <th>Action</th>
             </tr>
@@ -121,4 +118,4 @@
     } );
 } );
 </script>
-@extends('flight.admin.db-footer')
+@include('flight.admin.db-footer')

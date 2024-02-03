@@ -1,4 +1,4 @@
-@extends('admin.layouts.header')
+@include('admin.layouts.header')
 @section('content')	
 <style type="text/css">
 	.display_none{

@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
 
     <!-- search -->
     <div class="search-overlay">
@@ -37,7 +37,12 @@
             </div>
         </div>
     </section>
-
+   @if(session()->has('message'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+{{ session()->get('message')}}
+ <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+</div>
+@endif
     <!-- How It Work -->
     <section id="how_it_work_area" class="section_padding">
         <div class="container">
@@ -199,36 +204,36 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" name="name" class="form-control bg_input" placeholder="First name*">
+                                            <input type="text" name="name" class="form-control bg_input" placeholder="First name*" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" name="lname" class="form-control bg_input" placeholder="Last name*">
+                                            <input type="text" name="lname" class="form-control bg_input" placeholder="Last name*" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" name="email" class="form-control bg_input"
-                                                placeholder="Email address (Optional)">
+                                            <input type="email" name="email" class="form-control bg_input"
+                                                placeholder="Email address" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <input type="number" name="mobile" class="form-control bg_input"
-                                                placeholder="Mobile number*">
+                                                placeholder="Mobile number*" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <input type="text" name="address" class="form-control bg_input"
-                                                placeholder="Street address">
+                                                placeholder="Street address" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <input type="text"  class="form-control bg_input"
-                                                placeholder="Apartment, Suite, House no (optional)">
+                                                placeholder="Apartment, Suite, House no (optional)" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -265,7 +270,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <input type="password" name="password" class="form-control bg_input"
-                                                placeholder="password">
+                                                placeholder="password" required>
                                         </div>
                                     </div>
                                 </div>

@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -109,9 +109,9 @@
                                         <li>PNR No: <span>@if(isset($res->Response->PNR))<?php print_r($res->Response->PNR);?>@endif</span></li>
                                         <li>Booking ID: <span>@if(isset($res->Response->BookingId))<?php print_r($res->Response->BookingId);?>@endif</span></li>
                                         <li>Booking date: <span>@if(isset($res->Response->FlightItinerary->LastTicketDate))<?php print_r($res->Response->FlightItinerary->LastTicketDate);?>@endif</span></li>
-                                        <li>Payment method: <span>Bank transfer</span></li>
+                                        <li>Payment method: <span>Mollie</span></li>
                                         <li>Booking status: <span>Success</span></li>
-                                    </ul>
+                                    </ul>   
                                     <ul>
                                         @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
                                             <li>@if(isset($res->Response->FlightItinerary->Fare->Currency))<?php print_r($res->Response->FlightItinerary->Fare->Currency);?>@endif @if(isset($res->Response->FlightItinerary->Fare->BaseFare))<?php $base123 = $res->Response->FlightItinerary->Fare->BaseFare;?>@endif <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?><sup></sup></li>

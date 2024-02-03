@@ -41,6 +41,8 @@ class AgentController extends Controller
     }
      public function partner_store(Request $request)
     {
+        $user1 =  UserDetails_Model::where('email',$request->email)->first(); 
+      if(!$user1){
             $data['name']= $request->input('name');
 			$data['lname']= $request->input('lname');
 			$data['email']= $request->input('email');
@@ -56,4 +58,6 @@ class AgentController extends Controller
 			$contact_id = UserDetails_Model::create($data);
 		return view('flight/become-expert');	
     }
+    return redirect()->back()->with('message',"Agent Already Register...");
+}
 }

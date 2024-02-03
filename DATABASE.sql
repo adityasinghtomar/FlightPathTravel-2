@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 07, 2023 at 09:49 AM
--- Server version: 10.5.22-MariaDB
--- PHP Version: 8.1.16
+-- Generation Time: Dec 16, 2023 at 10:35 AM
+-- Server version: 5.7.44
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sterlingpigments_flight`
+-- Database: `flightpathtravel_flight`
 --
 
 -- --------------------------------------------------------
@@ -34,9 +34,9 @@ CREATE TABLE `account_details` (
   `ifsc_code` varchar(255) NOT NULL,
   `account_holder_name` varchar(255) NOT NULL,
   `passbook_image` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `account_details`
@@ -63,9 +63,9 @@ CREATE TABLE `airport` (
   `code` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `county` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `airport`
@@ -991,8 +991,8 @@ CREATE TABLE `airport_list` (
   `COUNTRYCODE` varchar(255) DEFAULT NULL,
   `AIRPORTCODE` varchar(255) DEFAULT NULL,
   `AIRPORTNAME` varchar(255) DEFAULT NULL,
-  `c_id` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `c_id` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `airport_list`
@@ -5884,7 +5884,7 @@ CREATE TABLE `cities` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `state_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cities`
@@ -53868,18 +53868,84 @@ CREATE TABLE `commision` (
   `commision` varchar(255) NOT NULL,
   `commision_type` varchar(255) DEFAULT NULL,
   `commision_for` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `commision`
 --
 
 INSERT INTO `commision` (`id`, `name`, `commision`, `commision_type`, `commision_for`, `created_at`, `updated_at`) VALUES
-(1, 'Commision 1', '12', NULL, NULL, '2023-09-16 11:14:37', '2023-09-19 11:27:05'),
-(2, 'Group A', '12', NULL, NULL, '2023-10-13 11:26:09', '2023-10-13 11:26:09'),
-(3, 'Diwali Offer', '120', 'fixed', 'tour', '2023-10-17 07:18:06', '2023-10-17 07:18:06');
+(1, 'Commision 1', '1199', 'fixed', 'tour', '2023-09-16 11:14:37', '2023-11-21 12:03:49'),
+(2, 'Group A', '999', 'fixed', 'flight', '2023-10-13 11:26:09', '2023-11-21 12:04:18'),
+(3, 'Diwali Offer', '1299', 'fixed', 'tour', '2023-10-17 07:18:06', '2023-11-21 12:04:01'),
+(4, 'New year', '1999', 'fixed', 'hotel', '2023-12-11 23:32:18', '2023-12-11 23:32:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `commision_add`
+--
+
+CREATE TABLE `commision_add` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `commision_id` int(11) NOT NULL,
+  `commision_type` varchar(25) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `commision_add`
+--
+
+INSERT INTO `commision_add` (`id`, `user_id`, `commision_id`, `commision_type`, `created_at`, `updated_at`) VALUES
+(6, 168, 4, 'hotel', '2023-12-11 23:51:45', '2023-12-11 23:51:45'),
+(7, 167, 4, 'hotel', '2023-12-11 23:52:39', '2023-12-11 23:52:39'),
+(8, 171, 1, 'tour', '2023-12-11 23:54:08', '2023-12-11 23:54:08'),
+(9, 168, 1, 'tour', '2023-12-11 23:54:40', '2023-12-11 23:54:40'),
+(10, 168, 2, 'flight', '2023-12-11 23:55:26', '2023-12-11 23:55:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_us`
+--
+
+CREATE TABLE `contact_us` (
+  `id` int(11) NOT NULL,
+  `fname` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `contact_us`
+--
+
+INSERT INTO `contact_us` (`id`, `fname`, `lname`, `email`, `mobile`, `message`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'mandrai', 'umesh@weblatic.in', '1234567894', 'fdf', '2023-11-13 03:37:49', '2023-11-13 03:37:49'),
+(2, 'Raj', 'Kumar', 'umesh@weblatic.in', '1234567894', 'asdfs', '2023-11-13 03:48:14', '2023-11-13 03:48:14'),
+(3, 'Raj', 'mandraid', 'mails@neopaint.com', '1234432112', 'asdf', '2023-11-13 03:48:59', '2023-11-13 03:48:59'),
+(4, 'rahul2', 'thakur', 'mails@gmail.com', '1234567896', 'dfgh', '2023-11-13 03:49:52', '2023-11-13 03:49:52'),
+(5, 'umesh', 'kumar', 'admin@gmail.com', '7999510032', 'gdghh', '2023-11-14 12:14:22', '2023-11-14 12:14:22'),
+(6, 'zXHXjjXxoJiaXX', 'zXHXjjXxoJiaXX', 'lAJEbe.qtqqphb@rottack.autos', '1', 'aChlXtEbqJrmKkdjaY', '2023-11-19 07:14:44', '2023-11-19 07:14:44'),
+(7, 'ouRdJrcl', 'frwLsqczXIJaPBW', 'sehpenuyiw@outlook.com', '4718833059', 'PIWQKNDw', '2023-11-25 21:39:00', '2023-11-25 21:39:00'),
+(8, 'IUvHsTyc', 'snFijPvX', 'sehpenuyiw@outlook.com', '7465415199', 'VfDeOHFIKvMZwA', '2023-11-25 21:39:04', '2023-11-25 21:39:04'),
+(9, 'ouRdJrcl', 'frwLsqczXIJaPBW', 'sehpenuyiw@outlook.com', '4718833059', 'PIWQKNDw', '2023-11-25 21:39:07', '2023-11-25 21:39:07'),
+(10, 'Eithan', 'Eithan', 'jJCmyl.bwbcq@balneary.biz', '1', 'Esmeralda Foster', '2023-11-29 10:59:41', '2023-11-29 10:59:41'),
+(11, 'uQlsINzvROBXyL', 'LBeMSCinqyhRrFG', 'onnalfima1981@yahoo.com', '2022017318', 'qvIZFgYMG', '2023-12-10 17:48:33', '2023-12-10 17:48:33'),
+(12, 'NjzTBKmQZVWq', 'BGfPsdZOQqibDToR', 'onnalfima1981@yahoo.com', '7015254854', 'wRMPvxoJAZfHjVt', '2023-12-10 17:48:34', '2023-12-10 17:48:34'),
+(13, 'uQlsINzvROBXyL', 'LBeMSCinqyhRrFG', 'onnalfima1981@yahoo.com', '2022017318', 'qvIZFgYMG', '2023-12-10 17:48:34', '2023-12-10 17:48:34'),
+(14, 'KZrAWtCVE', 'tSHBbTiQyEmFudUc', 'vitaliysm1mk@outlook.com', '7527682640', 'zSogPxlpwME', '2023-12-11 04:30:35', '2023-12-11 04:30:35'),
+(15, 'ExFVbCdlQwSOp', 'egiwhbtxoW', 'vitaliysm1mk@outlook.com', '4383917517', 'baXJTpYcnkewLVhB', '2023-12-11 04:30:37', '2023-12-11 04:30:37'),
+(16, 'KZrAWtCVE', 'tSHBbTiQyEmFudUc', 'vitaliysm1mk@outlook.com', '7527682640', 'zSogPxlpwME', '2023-12-11 04:30:38', '2023-12-11 04:30:38');
 
 -- --------------------------------------------------------
 
@@ -53894,9 +53960,9 @@ CREATE TABLE `contect` (
   `home_mobile` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `contect`
@@ -53916,7 +53982,7 @@ CREATE TABLE `countries` (
   `shortname` varchar(3) DEFAULT NULL,
   `name` varchar(150) NOT NULL,
   `phonecode` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -53932,7 +53998,7 @@ CREATE TABLE `country` (
   `iso3` char(3) DEFAULT NULL,
   `numcode` smallint(6) DEFAULT NULL,
   `phonecode` int(5) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `country`
@@ -54196,9 +54262,9 @@ CREATE TABLE `coupon` (
   `status` varchar(255) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `coupon`
@@ -54212,42 +54278,263 @@ INSERT INTO `coupon` (`id`, `coupon_code`, `description`, `coupon_type`, `amount
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `currency`
+--
+
+CREATE TABLE `currency` (
+  `id` int(11) NOT NULL,
+  `currency_code` varchar(3) NOT NULL,
+  `currency_name` varchar(50) NOT NULL,
+  `currency_symbol` varchar(50) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `currency`
+--
+
+INSERT INTO `currency` (`id`, `currency_code`, `currency_name`, `currency_symbol`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'AFA', 'Afghan Afghani', '؋', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(2, 'ALL', 'Albanian Lek', 'Lek', 0, '2023-11-17 09:01:55', '2023-11-17 03:39:08'),
+(3, 'DZD', 'Algerian Dinar', 'دج', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(4, 'AOA', 'Angolan Kwanza', 'Kz', 0, '2023-11-17 09:01:55', '2023-11-17 04:12:45'),
+(5, 'ARS', 'Argentine Peso', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(6, 'AMD', 'Armenian Dram', '֏', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(7, 'AWG', 'Aruban Florin', 'ƒ', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(8, 'AUD', 'Australian Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(9, 'AZN', 'Azerbaijani Manat', 'm', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(10, 'BSD', 'Bahamian Dollar', 'B$', 0, '2023-11-17 09:01:55', '2023-12-07 01:39:53'),
+(11, 'BHD', 'Bahraini Dinar', '.د.ب', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(12, 'BDT', 'Bangladeshi Taka', '৳', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(13, 'BBD', 'Barbadian Dollar', 'Bds$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(14, 'BYR', 'Belarusian Ruble', 'Br', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(15, 'BEF', 'Belgian Franc', 'fr', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(16, 'BZD', 'Belize Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(17, 'BMD', 'Bermudan Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(18, 'BTN', 'Bhutanese Ngultrum', 'Nu.', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(19, 'BTC', 'Bitcoin', '฿', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(20, 'BOB', 'Bolivian Boliviano', 'Bs.', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(21, 'BAM', 'Bosnia-Herzegovina Convertible Mark', 'KM', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(22, 'BWP', 'Botswanan Pula', 'P', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(23, 'BRL', 'Brazilian Real', 'R$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(24, 'GBP', 'British Pound Sterling', '£', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(25, 'BND', 'Brunei Dollar', 'B$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(26, 'BGN', 'Bulgarian Lev', 'Лв.', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(27, 'BIF', 'Burundian Franc', 'FBu', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(28, 'KHR', 'Cambodian Riel', 'KHR', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(29, 'CAD', 'Canadian Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(30, 'CVE', 'Cape Verdean Escudo', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(31, 'KYD', 'Cayman Islands Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(32, 'XOF', 'CFA Franc BCEAO', 'CFA', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(33, 'XAF', 'CFA Franc BEAC', 'FCFA', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(34, 'XPF', 'CFP Franc', '₣', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(35, 'CLP', 'Chilean Peso', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(36, 'CLF', 'Chilean Unit of Account', 'CLF', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(37, 'CNY', 'Chinese Yuan', '¥', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(38, 'COP', 'Colombian Peso', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(39, 'KMF', 'Comorian Franc', 'CF', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(40, 'CDF', 'Congolese Franc', 'FC', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(41, 'CRC', 'Costa Rican Colón', '₡', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(42, 'HRK', 'Croatian Kuna', 'kn', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(43, 'CUC', 'Cuban Convertible Peso', '$, CUC', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(44, 'CZK', 'Czech Republic Koruna', 'Kč', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(45, 'DKK', 'Danish Krone', 'Kr.', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(46, 'DJF', 'Djiboutian Franc', 'Fdj', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(47, 'DOP', 'Dominican Peso', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(48, 'XCD', 'East Caribbean Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(49, 'EGP', 'Egyptian Pound', 'ج.م', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(50, 'ERN', 'Eritrean Nakfa', 'Nfk', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(51, 'EEK', 'Estonian Kroon', 'kr', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(52, 'ETB', 'Ethiopian Birr', 'Nkf', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(53, 'EUR', 'Euro', '€', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(54, 'FKP', 'Falkland Islands Pound', '£', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(55, 'FJD', 'Fijian Dollar', 'FJ$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(56, 'GMD', 'Gambian Dalasi', 'D', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(57, 'GEL', 'Georgian Lari', 'ლ', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(58, 'DEM', 'German Mark', 'DM', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(59, 'GHS', 'Ghanaian Cedi', 'GH₵', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(60, 'GIP', 'Gibraltar Pound', '£', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(61, 'GRD', 'Greek Drachma', '₯, Δρχ, Δρ', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(62, 'GTQ', 'Guatemalan Quetzal', 'Q', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(63, 'GNF', 'Guinean Franc', 'FG', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(64, 'GYD', 'Guyanaese Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(65, 'HTG', 'Haitian Gourde', 'G', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(66, 'HNL', 'Honduran Lempira', 'L', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(67, 'HKD', 'Hong Kong Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(68, 'HUF', 'Hungarian Forint', 'Ft', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(69, 'ISK', 'Icelandic Króna', 'kr', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(70, 'INR', 'Indian Rupee', '₹', 0, '2023-11-17 09:01:55', '2023-12-07 01:40:17'),
+(71, 'IDR', 'Indonesian Rupiah', 'Rp', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(72, 'IRR', 'Iranian Rial', '﷼', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(73, 'IQD', 'Iraqi Dinar', 'د.ع', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(74, 'ILS', 'Israeli New Sheqel', '₪', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(75, 'ITL', 'Italian Lira', 'L,£', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(76, 'JMD', 'Jamaican Dollar', 'J$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(77, 'JPY', 'Japanese Yen', '¥', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(78, 'JOD', 'Jordanian Dinar', 'ا.د', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(79, 'KZT', 'Kazakhstani Tenge', 'лв', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(80, 'KES', 'Kenyan Shilling', 'KSh', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(81, 'KWD', 'Kuwaiti Dinar', 'ك.د', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(82, 'KGS', 'Kyrgystani Som', 'лв', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(83, 'LAK', 'Laotian Kip', '₭', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(84, 'LVL', 'Latvian Lats', 'Ls', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(85, 'LBP', 'Lebanese Pound', '£', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(86, 'LSL', 'Lesotho Loti', 'L', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(87, 'LRD', 'Liberian Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(88, 'LYD', 'Libyan Dinar', 'د.ل', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(89, 'LTC', 'Litecoin', 'Ł', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(90, 'LTL', 'Lithuanian Litas', 'Lt', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(91, 'MOP', 'Macanese Pataca', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(92, 'MKD', 'Macedonian Denar', 'ден', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(93, 'MGA', 'Malagasy Ariary', 'Ar', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(94, 'MWK', 'Malawian Kwacha', 'MK', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(95, 'MYR', 'Malaysian Ringgit', 'RM', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(96, 'MVR', 'Maldivian Rufiyaa', 'Rf', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(97, 'MRO', 'Mauritanian Ouguiya', 'MRU', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(98, 'MUR', 'Mauritian Rupee', '₨', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(99, 'MXN', 'Mexican Peso', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(100, 'MDL', 'Moldovan Leu', 'L', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(101, 'MNT', 'Mongolian Tugrik', '₮', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(102, 'MAD', 'Moroccan Dirham', 'MAD', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(103, 'MZM', 'Mozambican Metical', 'MT', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(104, 'MMK', 'Myanmar Kyat', 'K', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(105, 'NAD', 'Namibian Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(106, 'NPR', 'Nepalese Rupee', '₨', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(107, 'ANG', 'Netherlands Antillean Guilder', 'ƒ', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(108, 'TWD', 'New Taiwan Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(109, 'NZD', 'New Zealand Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(110, 'NIO', 'Nicaraguan Córdoba', 'C$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(111, 'NGN', 'Nigerian Naira', '₦', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(112, 'KPW', 'North Korean Won', '₩', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(113, 'NOK', 'Norwegian Krone', 'kr', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(114, 'OMR', 'Omani Rial', '.ع.ر', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(115, 'PKR', 'Pakistani Rupee', '₨', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(116, 'PAB', 'Panamanian Balboa', 'B/.', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(117, 'PGK', 'Papua New Guinean Kina', 'K', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(118, 'PYG', 'Paraguayan Guarani', '₲', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(119, 'PEN', 'Peruvian Nuevo Sol', 'S/.', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(120, 'PHP', 'Philippine Peso', '₱', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(121, 'PLN', 'Polish Zloty', 'zł', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(122, 'QAR', 'Qatari Rial', 'ق.ر', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(123, 'RON', 'Romanian Leu', 'lei', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(124, 'RUB', 'Russian Ruble', '₽', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(125, 'RWF', 'Rwandan Franc', 'FRw', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(126, 'SVC', 'Salvadoran Colón', '₡', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(127, 'WST', 'Samoan Tala', 'SAT', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(128, 'STD', 'São Tomé and Príncipe Dobra', 'Db', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(129, 'SAR', 'Saudi Riyal', '﷼', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(130, 'RSD', 'Serbian Dinar', 'din', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(131, 'SCR', 'Seychellois Rupee', 'SRe', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(132, 'SLL', 'Sierra Leonean Leone', 'Le', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(133, 'SGD', 'Singapore Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(134, 'SKK', 'Slovak Koruna', 'Sk', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(135, 'SBD', 'Solomon Islands Dollar', 'Si$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(136, 'SOS', 'Somali Shilling', 'Sh.so.', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(137, 'ZAR', 'South African Rand', 'R', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(138, 'KRW', 'South Korean Won', '₩', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(139, 'SSP', 'South Sudanese Pound', '£', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(140, 'XDR', 'Special Drawing Rights', 'SDR', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(141, 'LKR', 'Sri Lankan Rupee', 'Rs', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(142, 'SHP', 'St. Helena Pound', '£', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(143, 'SDG', 'Sudanese Pound', '.س.ج', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(144, 'SRD', 'Surinamese Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(145, 'SZL', 'Swazi Lilangeni', 'E', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(146, 'SEK', 'Swedish Krona', 'kr', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(147, 'CHF', 'Swiss Franc', 'CHf', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(148, 'SYP', 'Syrian Pound', 'LS', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(149, 'TJS', 'Tajikistani Somoni', 'SM', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(150, 'TZS', 'Tanzanian Shilling', 'TSh', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(151, 'THB', 'Thai Baht', '฿', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(152, 'TOP', 'Tongan Pa\'anga', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(153, 'TTD', 'Trinidad & Tobago Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(154, 'TND', 'Tunisian Dinar', 'ت.د', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(155, 'TRY', 'Turkish Lira', '₺', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(156, 'TMT', 'Turkmenistani Manat', 'T', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(157, 'UGX', 'Ugandan Shilling', 'USh', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(158, 'UAH', 'Ukrainian Hryvnia', '₴', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(159, 'AED', 'United Arab Emirates Dirham', 'إ.د', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(160, 'UYU', 'Uruguayan Peso', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(161, 'USD', 'US Dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(162, 'UZS', 'Uzbekistan Som', 'лв', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(163, 'VUV', 'Vanuatu Vatu', 'VT', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(164, 'VEF', 'Venezuelan BolÃvar', 'Bs', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(165, 'VND', 'Vietnamese Dong', '₫', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(166, 'YER', 'Yemeni Rial', '﷼', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(167, 'ZMK', 'Zambian Kwacha', 'ZK', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55'),
+(168, 'ZWL', 'Zimbabwean dollar', '$', 1, '2023-11-17 09:01:55', '2023-11-17 09:01:55');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `flight`
 --
 
 CREATE TABLE `flight` (
   `id` int(11) NOT NULL,
   `user_id` varchar(255) DEFAULT NULL,
+  `payment_id` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `lname` varchar(255) DEFAULT NULL,
+  `origin` varchar(255) DEFAULT NULL,
+  `destination` varchar(255) DEFAULT NULL,
   `pnr_no` varchar(255) DEFAULT NULL,
   `booking_id` varchar(255) DEFAULT NULL,
   `ticket_date` varchar(255) DEFAULT NULL,
   `amount` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `trace_id` varchar(255) DEFAULT NULL,
+  `DepTime` varchar(255) DEFAULT NULL,
+  `ArrTime` varchar(255) DEFAULT NULL,
+  `AirlineCode` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `flight`
 --
 
-INSERT INTO `flight` (`id`, `user_id`, `name`, `lname`, `pnr_no`, `booking_id`, `ticket_date`, `amount`, `created_at`, `updated_at`) VALUES
-(1, '166', 'umesh', 'mandrai', 'TEST123', '1841068', '2023-09-13T12:21:50', '1000', '2023-09-13 06:51:54', '2023-09-13 06:51:54'),
-(2, '166', 'Arun', 'Kumar', 'TEST123', '1841152', '2023-09-13T15:19:55', '1000', '2023-09-13 09:49:59', '2023-09-13 09:49:59'),
-(3, '168', 'Raj', 'kumar', 'TEST123', '1841867', '2023-09-15T14:29:24', '1000', '2023-09-15 08:59:28', '2023-09-15 08:59:28'),
-(4, '165', 'dev', 'thakur', 'TEST123', '1841875', '2023-09-15T14:41:42', '1000', '2023-09-15 09:11:46', '2023-09-15 09:11:46'),
-(5, '165', 'Raj', 'mandraid', 'TEST123', '1842398', '2023-09-18T11:05:53', '1000', '2023-09-18 05:35:58', '2023-09-18 05:35:58'),
-(6, '165', 'umesh', 'Kumar', 'TEST123', '1842771', '2023-09-19T12:51:16', '1000', '2023-09-19 07:21:20', '2023-09-19 07:21:20'),
-(7, NULL, 'Raj', 'mandrai', 'N8ZUU3', '1844741', '2023-09-27T00:00:00', '4480', '2023-09-27 05:14:59', '2023-09-27 05:14:59'),
-(8, NULL, 'umesh', 'kumar', 'N937SF', '1844750', '2023-09-27T00:00:00', '4480', '2023-09-27 05:27:24', '2023-09-27 05:27:24'),
-(9, NULL, 'Raj', 'mandraid', 'N963LT', '1844756', '2023-09-27T00:00:00', '4480', '2023-09-27 05:40:54', '2023-09-27 05:40:54'),
-(10, NULL, 'Raj', 'Kumar', '5DJ04J', '1845059', '2023-09-28T16:57:00', '3530', '2023-09-28 09:27:57', '2023-09-28 09:27:57'),
-(11, NULL, 'rahul', 'mandraid', '5DJ05H', '1845062', '2023-09-28T17:01:00', '3530', '2023-09-28 09:32:06', '2023-09-28 09:32:06'),
-(12, NULL, 'Raj', 'Kumar', 'ORHGYT', '1846877', '2023-10-06T00:00:00', '4780', '2023-10-06 10:25:07', '2023-10-06 10:25:07'),
-(13, NULL, 'umesh', 'Kumar', 'PWOP4F', '1848824', '2023-10-13T00:00:00', '5370', '2023-10-13 07:51:44', '2023-10-13 07:51:44'),
-(14, NULL, 'umesh', 'mandrai', '5DM73V', '1851246', '2023-10-26T17:20:00', '7060', '2023-10-26 09:50:19', '2023-10-26 09:50:19'),
-(15, NULL, 'umesh', 'mandrai', '5DMNHQ', '1851851', '2023-10-31T12:38:00', '3530', '2023-10-31 05:08:07', '2023-10-31 05:08:07');
+INSERT INTO `flight` (`id`, `user_id`, `payment_id`, `name`, `lname`, `origin`, `destination`, `pnr_no`, `booking_id`, `ticket_date`, `amount`, `trace_id`, `DepTime`, `ArrTime`, `AirlineCode`, `created_at`, `updated_at`) VALUES
+(1, '166', NULL, 'umesh', 'mandrai', NULL, NULL, 'TEST123', '1841068', '2023-09-13T12:21:50', '1000', NULL, NULL, NULL, NULL, '2023-09-13 06:51:54', '2023-09-13 06:51:54'),
+(2, '166', NULL, 'Arun', 'Kumar', NULL, NULL, 'TEST123', '1841152', '2023-09-13T15:19:55', '1000', NULL, NULL, NULL, NULL, '2023-09-13 09:49:59', '2023-09-13 09:49:59'),
+(3, '168', NULL, 'Raj', 'kumar', NULL, NULL, 'TEST123', '1841867', '2023-09-15T14:29:24', '1000', NULL, NULL, NULL, NULL, '2023-09-15 08:59:28', '2023-09-15 08:59:28'),
+(4, '165', NULL, 'dev', 'thakur', NULL, NULL, 'TEST123', '1841875', '2023-09-15T14:41:42', '1000', NULL, NULL, NULL, NULL, '2023-09-15 09:11:46', '2023-09-15 09:11:46'),
+(5, '165', NULL, 'Raj', 'mandraid', NULL, NULL, 'TEST123', '1842398', '2023-09-18T11:05:53', '1000', NULL, NULL, NULL, NULL, '2023-09-18 05:35:58', '2023-09-18 05:35:58'),
+(6, '165', NULL, 'umesh', 'Kumar', NULL, NULL, 'TEST123', '1842771', '2023-09-19T12:51:16', '1000', NULL, NULL, NULL, NULL, '2023-09-19 07:21:20', '2023-09-19 07:21:20'),
+(7, NULL, NULL, 'Raj', 'mandrai', NULL, NULL, 'N8ZUU3', '1844741', '2023-09-27T00:00:00', '4480', NULL, NULL, NULL, NULL, '2023-09-27 05:14:59', '2023-09-27 05:14:59'),
+(8, NULL, NULL, 'umesh', 'kumar', NULL, NULL, 'N937SF', '1844750', '2023-09-27T00:00:00', '4480', NULL, NULL, NULL, NULL, '2023-09-27 05:27:24', '2023-09-27 05:27:24'),
+(9, NULL, NULL, 'Raj', 'mandraid', NULL, NULL, 'N963LT', '1844756', '2023-09-27T00:00:00', '4480', NULL, NULL, NULL, NULL, '2023-09-27 05:40:54', '2023-09-27 05:40:54'),
+(10, NULL, NULL, 'Raj', 'Kumar', NULL, NULL, '5DJ04J', '1845059', '2023-09-28T16:57:00', '3530', NULL, NULL, NULL, NULL, '2023-09-28 09:27:57', '2023-09-28 09:27:57'),
+(11, NULL, NULL, 'rahul', 'mandraid', NULL, NULL, '5DJ05H', '1845062', '2023-09-28T17:01:00', '3530', NULL, NULL, NULL, NULL, '2023-09-28 09:32:06', '2023-09-28 09:32:06'),
+(12, NULL, NULL, 'Raj', 'Kumar', NULL, NULL, 'ORHGYT', '1846877', '2023-10-06T00:00:00', '4780', NULL, NULL, NULL, NULL, '2023-10-06 10:25:07', '2023-10-06 10:25:07'),
+(13, NULL, NULL, 'umesh', 'Kumar', NULL, NULL, 'PWOP4F', '1848824', '2023-10-13T00:00:00', '5370', NULL, NULL, NULL, NULL, '2023-10-13 07:51:44', '2023-10-13 07:51:44'),
+(14, NULL, NULL, 'umesh', 'mandrai', NULL, NULL, '5DM73V', '1851246', '2023-10-26T17:20:00', '7060', NULL, NULL, NULL, NULL, '2023-10-26 09:50:19', '2023-10-26 09:50:19'),
+(15, NULL, NULL, 'umesh', 'mandrai', NULL, NULL, '5DMNHQ', '1851851', '2023-10-31T12:38:00', '3530', NULL, NULL, NULL, NULL, '2023-10-31 05:08:07', '2023-10-31 05:08:07'),
+(16, NULL, NULL, 'umesh', 'mandrai', NULL, NULL, 'V53ULX', '1854764', '2023-11-13T00:00:00', '5552', NULL, NULL, NULL, NULL, '2023-11-13 12:10:48', '2023-11-13 12:10:48'),
+(17, NULL, NULL, 'rahul', 'kumar', NULL, NULL, '617L7L', '1854787', '0', '3930', NULL, NULL, NULL, NULL, '2023-11-13 16:52:42', '2023-11-13 16:52:42'),
+(18, NULL, NULL, 'rahul', 'mandrai', 'BHO', 'DEL', '617L90', '1854789', '0', '5338', 'ceb71a37-6b9a-4bbb-84d0-d159d3f6db11', NULL, NULL, 'AI', '2023-11-13 17:15:36', '2023-11-13 17:15:36'),
+(19, NULL, NULL, 'jay', 'thakur', 'BHO', 'DEL', '617LBG', '1854791', '0', '5338', '60380b61-1686-4949-85b1-c105f0a80278', '2023-11-15T16:50:00', '2023-11-15T18:00:00', 'AI', '2023-11-13 17:34:44', '2023-11-13 17:34:44'),
+(20, NULL, NULL, 'umesh', 'mandrai', 'DEL', 'BOM', 'W8TY2R', '1855814', '0', '6356', '02a62f78-53b1-4d37-be2b-c876bab8399f', '2023-11-22T14:20:00', '2023-11-22T16:30:00', 'UK', '2023-11-19 22:52:56', '2023-11-19 22:52:56'),
+(21, NULL, NULL, 'Raj', 'thakur', 'LHR', 'DEL', 'W8U8DO', '1855815', '0', '265990', '2318b6e5-632c-48a3-b895-e038d79aab5a', '2023-11-25T14:40:00', '2023-11-25T20:20:00', 'UK', '2023-11-19 23:01:56', '2023-11-19 23:01:56'),
+(22, '168', NULL, 'rahul', 'thakur', 'BHO', 'DEL', '618H7R', '1856158', '0', '5338', 'f110341f-c3ea-4c6a-989d-21e1a9d69203', '2023-11-24T16:50:00', '2023-11-24T18:00:00', 'AI', '2023-11-21 04:04:06', '2023-11-21 04:04:06'),
+(23, '168', NULL, 'Arun', 'kumar', 'BHO', 'DEL', '618H91', '1856162', '0', '5338', '27f9af03-905f-478e-8415-33323814a3bf', '2023-11-23T16:50:00', '2023-11-23T18:00:00', 'AI', '2023-11-21 04:08:41', '2023-11-21 04:08:41'),
+(24, NULL, NULL, 'umesh', 'mandrai', 'BHO', 'DEL', '61977L', '1857662', '0', '5338', '04331cc1-a5ae-43d1-9e3e-0dfccde29925', '2023-12-02T16:50:00', '2023-12-02T18:00:00', 'AI', '2023-11-27 23:35:34', '2023-11-27 23:35:34'),
+(25, NULL, NULL, 'rahul', 'Rajput', 'BHO', 'DEL', '619791', '1857665', '0', '5338', '89f748df-7e4c-4b69-8e83-37fb45f1d4c0', '2023-12-08T07:55:00', '2023-12-08T09:25:00', 'AI', '2023-11-27 23:43:34', '2023-11-27 23:43:34'),
+(26, NULL, NULL, 'umesh', 'mandrai', 'LHR', 'BOM', 'KJX4OR', '1859037', '0', '52897', '008bcbe4-8c4f-4c05-84bf-33d65eed1388', '2023-12-13T09:30:00', '2023-12-13T11:35:00', 'UK', '2023-12-04 04:45:41', '2023-12-04 04:45:41'),
+(27, '165', NULL, 'umesh', 'mandrai', 'DEL', 'BOM', '61JFYY', '1860746', '0', '6857', 'a49626c5-5cff-4f4a-a015-9e0d5e27bd98', '2023-12-30T10:20:00', '2023-12-30T12:35:00', 'UK', '2023-12-11 05:11:04', '2023-12-11 05:11:04'),
+(28, NULL, NULL, 'umeshd', 'mandraid', 'DEL', 'AMD', '61JPK9', '1861255', '0', '6563', '095b2b22-9d86-4adc-b173-a2b1332de012', '2023-12-21T18:00:00', '2023-12-21T19:45:00', 'UK', '2023-12-12 23:17:38', '2023-12-12 23:17:38'),
+(29, NULL, NULL, 'Arun', 'Kumar', 'AMD', 'DEL', '61JVZL', '1861467', '0', '7545', 'fef82a7c-5280-4572-9ff2-cd6a0a9e7629', '2023-12-15T20:25:00', '2023-12-15T21:45:00', 'UK', '2023-12-13 04:32:51', '2023-12-13 04:32:51'),
+(30, NULL, 'tr_ZYmm3KKcCu', 'admin', 'check', 'AMD', 'DEL', '61JW7J', '1861491', '0', '7545', '459f46d5-b625-461f-b15c-d221130ec4c9', '2023-12-16T20:25:00', '2023-12-16T21:45:00', 'UK', '2023-12-13 05:00:24', '2023-12-13 05:00:24'),
+(31, NULL, 'tr_3yzRcxFXL9', 'umeshddg', 'fgfhg', 'DEL', 'BOM', '61JWFW', '1861515', '0', '6857', '4c0b94b5-ec3f-4b98-9210-a19d9fe7207a', '2023-12-22T20:35:00', '2023-12-22T22:35:00', 'UK', '2023-12-13 05:22:37', '2023-12-13 05:22:37'),
+(32, NULL, 'tr_SfdhZ2BHwg', 'umeshk', 'kumar', 'DEL', 'LHR', 'M3GAIG', '1861534', '0', '28122', '6678896a-5a1c-4884-a49e-277a19289acd', '2023-12-21T14:40:00', '2023-12-21T15:45:00', 'LH', '2023-12-13 05:39:39', '2023-12-13 05:39:39'),
+(33, NULL, 'tr_86g7ek2ZoW', 'umeghhg', 'hgjh', 'DEL', 'BOM', '61JWPK', '1861557', '0', '6857', '6376ce72-5862-4f8a-9723-84042576b450', '2023-12-24T15:30:00', '2023-12-24T17:35:00', 'UK', '2023-12-13 06:04:00', '2023-12-13 06:04:00'),
+(34, NULL, 'tr_HveeH5zHYE', 'Arun', 'kumar', 'BOM', 'AMD', '61JYZH', '1861729', '0', '4194', 'ebe0478c-a412-4214-b51c-b517a2fc2ca0', '2023-12-23T22:50:00', '2023-12-23T23:55:00', 'UK', '2023-12-13 23:33:39', '2023-12-13 23:33:39'),
+(35, NULL, 'tr_R373Snow9m', 'aaaa', 'ssss', 'LHR', 'DEL', 'M7JUJP', '1861736', '0', '47777', 'd70aecde-4123-48ea-a35c-06f1fcea4209', '2023-12-24T22:10:00', '2023-12-25T01:30:00', 'KC', '2023-12-13 23:52:35', '2023-12-13 23:52:35'),
+(36, NULL, 'tr_T8P3WrX8dx', 'Arun', 'mandraid', 'LHR', 'DEL', 'M7LLOV', '1861740', '0', '47777', 'ccd0ea05-56e4-4041-b960-db607478437f', '2023-12-24T22:10:00', '2023-12-25T01:30:00', 'KC', '2023-12-14 00:02:46', '2023-12-14 00:02:46'),
+(37, NULL, 'tr_RrRAhoXMa6', 'admin', 'admin', 'LHR', 'DEL', '61JZNB', '1861813', '0', '35038', 'f664657b-a30e-4712-b780-b2f233a70d16', '2023-12-29T13:30:00', '2023-12-30T03:15:00', 'AI', '2023-12-14 01:55:29', '2023-12-14 01:55:29'),
+(38, NULL, 'tr_GcV84br7Pz', 'Raj', 'kumar', 'AMD', 'DEL', '61K1CG', '1862026', '0', '6128', '65759ab5-6ce5-47cb-a892-b4b02685859c', '2023-12-22T15:35:00', '2023-12-22T17:10:00', 'UK', '2023-12-14 06:35:06', '2023-12-14 06:35:06'),
+(39, NULL, 'tr_U8SbzcVtPn', 'Arun', 'mandraid', 'AMD', 'DEL', '61K3Y9', '1862209', '0', '11084', '6dfc8134-fd0c-4cd8-9dd1-5af375d0cc41', '2023-12-22T08:40:00', '2023-12-22T10:30:00', 'UK', '2023-12-15 02:58:53', '2023-12-15 02:58:53');
 
 -- --------------------------------------------------------
 
@@ -54261,9 +54548,9 @@ CREATE TABLE `flight_log` (
   `f_from` varchar(255) DEFAULT NULL,
   `f_to` varchar(255) DEFAULT NULL,
   `date_time` datetime DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `flight_log`
@@ -54347,7 +54634,507 @@ INSERT INTO `flight_log` (`id`, `trace_id`, `f_from`, `f_to`, `date_time`, `crea
 (75, 'c301459f-849b-4f92-b9df-122ff4fe86ff', 'BHO', 'DEL', '2023-11-06 09:55:34', '2023-11-06 09:55:34', '2023-11-06 09:55:34'),
 (76, 'bd43156a-7580-483a-ba64-f6557d2133fc', 'LHR', 'DEL', '2023-11-06 09:58:43', '2023-11-06 09:58:43', '2023-11-06 09:58:43'),
 (77, '7c4e99df-1c31-438e-9027-11513cf3642a', 'BHO', 'DEL', '2023-11-06 16:47:42', '2023-11-06 16:47:42', '2023-11-06 16:47:42'),
-(78, 'ce209363-7c31-4ea0-bf9f-d5e4ba877e5f', 'BHO', 'DEL', '2023-11-06 16:47:48', '2023-11-06 16:47:48', '2023-11-06 16:47:48');
+(78, 'ce209363-7c31-4ea0-bf9f-d5e4ba877e5f', 'BHO', 'DEL', '2023-11-06 16:47:48', '2023-11-06 16:47:48', '2023-11-06 16:47:48'),
+(79, 'd5591edb-2792-4511-a54f-f43d74b44ff6', 'BHO', 'DEL', '2023-11-08 07:32:22', '2023-11-08 07:32:22', '2023-11-08 07:32:22'),
+(80, 'e204a4fe-2bf3-4947-b3d9-fe66845362cc', 'BHO', 'DEL', '2023-11-08 07:48:40', '2023-11-08 07:48:40', '2023-11-08 07:48:40'),
+(81, 'f4709a83-6491-4225-a879-749c52604e1a', 'BHO', 'DEL', '2023-11-08 08:40:49', '2023-11-08 08:40:49', '2023-11-08 08:40:49'),
+(82, 'a35f3a89-2c38-44a1-ab86-d205fba9f251', 'BHO', 'DEL', '2023-11-08 10:11:43', '2023-11-08 10:11:43', '2023-11-08 10:11:43'),
+(83, '3bc2ccbf-7035-436d-806e-fcdeeb1ec8bb', 'BHO', 'DEL', '2023-11-08 11:36:05', '2023-11-08 06:06:05', '2023-11-08 06:06:05'),
+(84, '7f568777-45c7-4662-9d74-96658d44c88e', 'BHO', 'DEL', '2023-11-08 11:37:53', '2023-11-08 06:07:53', '2023-11-08 06:07:53'),
+(85, 'efbe2f24-d4a8-479f-b3f6-520ad5bd66f8', 'DEL', 'BOM', '2023-11-08 11:37:56', '2023-11-08 06:07:56', '2023-11-08 06:07:56'),
+(86, '1d6d792e-80a1-4d8d-831b-b6f97ab94c03', 'BHO', 'DEL', '2023-11-08 12:02:56', '2023-11-08 06:32:56', '2023-11-08 06:32:56'),
+(87, '061c1e86-916d-4968-b477-2f8634c20820', 'LHR', 'DEL', '2023-11-08 12:05:08', '2023-11-08 06:35:08', '2023-11-08 06:35:08'),
+(88, '30e21292-77be-4253-8f52-939d695dd2f5', 'BHO', 'DEL', '2023-11-08 12:14:23', '2023-11-08 06:44:23', '2023-11-08 06:44:23'),
+(89, '5ded9510-b4eb-4a6f-814b-7c982f81f171', 'BHO', 'DEL', '2023-11-09 07:14:03', '2023-11-09 01:44:03', '2023-11-09 01:44:03'),
+(90, '23b6f37e-4ba1-4431-b336-84198232f8ad', 'BHO', 'DEL', '2023-11-09 07:16:19', '2023-11-09 01:46:19', '2023-11-09 01:46:19'),
+(91, '378a529a-0e6a-4014-adbd-76e61f859940', 'LFR', 'BOM', '2023-11-09 07:17:59', '2023-11-09 01:47:59', '2023-11-09 01:47:59'),
+(92, '37599b71-d1e5-4e07-a128-85cd0fdc75a9', 'BHO', 'DEL', '2023-11-09 07:19:29', '2023-11-09 01:49:29', '2023-11-09 01:49:29'),
+(93, 'c670839b-6503-4800-8688-7d8ac39a2539', 'LHR', 'BOM', '2023-11-09 08:49:11', '2023-11-09 03:19:11', '2023-11-09 03:19:11'),
+(94, '33b7f489-8b71-4d01-a604-18dbb52eaea7', 'BOM', 'DEL', '2023-11-09 09:27:37', '2023-11-09 03:57:37', '2023-11-09 03:57:37'),
+(95, '7aa0684a-e301-4a56-9930-30dae4fe3111', 'AMD', 'BOM', '2023-11-09 09:30:52', '2023-11-09 04:00:52', '2023-11-09 04:00:52'),
+(96, 'dc05cf00-01d1-4b9b-b71f-9ac70f8ef4d5', 'AMD', 'BOM', '2023-11-09 09:31:01', '2023-11-09 04:01:01', '2023-11-09 04:01:01'),
+(97, 'fc8f7cff-ab0c-412e-a88d-7d6a719ad318', 'AMD', 'BOM', '2023-11-09 09:31:24', '2023-11-09 04:01:24', '2023-11-09 04:01:24'),
+(98, 'e2dcf563-4a64-4b06-9e09-cb5a7db90a82', 'AMD', 'BOM', '2023-11-09 09:33:04', '2023-11-09 04:03:04', '2023-11-09 04:03:04'),
+(99, 'c5bb605c-f106-4000-9611-4ed9c6bff543', 'BOM', 'AMD', '2023-11-09 14:48:37', '2023-11-09 09:18:37', '2023-11-09 09:18:37'),
+(100, '1ca0d5f9-563f-40c0-b967-3ac0f311a5c7', 'BOM', 'AMD', '2023-11-09 15:01:41', '2023-11-09 09:31:41', '2023-11-09 09:31:41'),
+(101, '387d5de3-2fc6-4026-8b44-144ee2c1900b', 'LHR', 'DXB', '2023-11-10 08:26:10', '2023-11-10 02:56:10', '2023-11-10 02:56:10'),
+(102, '4e528db1-3634-4bbc-9f05-9cb1f548fad6', 'BHO', 'DEL', '2023-11-13 04:51:05', '2023-11-12 23:21:05', '2023-11-12 23:21:05'),
+(103, '5ec643c1-85cf-4a19-99a5-d4cc7c40f320', 'BHO', 'DEL', '2023-11-13 05:00:27', '2023-11-12 23:30:27', '2023-11-12 23:30:27'),
+(104, '5da34b75-978e-4e1e-b0fb-ee156d02619a', 'BHO', 'DEL', '2023-11-13 05:03:05', '2023-11-12 23:33:05', '2023-11-12 23:33:05'),
+(105, 'ecae16d2-1a67-4ff1-9fc2-5b0693f2a3fd', 'DXB', 'STV', '2023-11-13 05:22:02', '2023-11-12 23:52:02', '2023-11-12 23:52:02'),
+(106, 'bd13301c-7a42-4683-9aa5-eb19d72b4f08', 'SHJ', 'STV', '2023-11-13 05:25:34', '2023-11-12 23:55:34', '2023-11-12 23:55:34'),
+(107, '061d827d-e232-425a-af66-5d7d62cb89ef', 'BHO', 'DEL', '2023-11-14 08:15:52', '2023-11-14 02:45:52', '2023-11-14 02:45:52'),
+(108, '222ed57f-93ae-40f4-9021-d3876cfc8895', 'BHO', 'BOM', '2023-11-14 08:17:16', '2023-11-14 02:47:16', '2023-11-14 02:47:16'),
+(109, '163e8f85-65cf-4a10-8b53-53b1fd7c79af', 'BHO', 'BOM', '2023-11-14 08:18:58', '2023-11-14 02:48:58', '2023-11-14 02:48:58'),
+(110, 'b0b31dad-904c-4424-a5e2-35068e4a482a', 'BHO', 'DEL', '2023-11-14 08:24:13', '2023-11-14 02:54:13', '2023-11-14 02:54:13'),
+(111, 'd961d7a7-9fe6-4231-8f62-02fb69303abe', 'BHO', 'DEL', '2023-11-14 08:27:05', '2023-11-14 02:57:05', '2023-11-14 02:57:05'),
+(112, '28d38278-3bbb-4a6b-9f7b-e9b39e7898ed', 'BHO', 'DEL', '2023-11-14 08:30:39', '2023-11-14 03:00:39', '2023-11-14 03:00:39'),
+(113, '5ecb8469-2d1d-43ff-97f3-a4be23f34e78', 'BHO', 'DEL', '2023-11-14 08:33:37', '2023-11-14 03:03:37', '2023-11-14 03:03:37'),
+(114, 'f329dcc6-3a2c-4f91-b9ba-55336e7537f0', 'BHO', 'DEL', '2023-11-14 09:06:50', '2023-11-14 03:36:50', '2023-11-14 03:36:50'),
+(115, '7d05fe32-2466-4f7b-903c-991bea0960f0', 'New delhi', 'BOM', '2023-11-14 10:20:23', '2023-11-14 04:50:23', '2023-11-14 04:50:23'),
+(116, 'e061cc65-17d7-4b6d-acf2-fef61bc0372b', 'BOM', 'DEL', '2023-11-14 10:36:05', '2023-11-14 05:06:05', '2023-11-14 05:06:05'),
+(117, '6b0d4ad0-cfd3-4cc8-bf65-dc64d83b6a21', 'BHO', 'DEL', '2023-11-14 15:36:44', '2023-11-14 10:06:44', '2023-11-14 10:06:44'),
+(118, '3b67edb7-45fc-4960-9278-a7e2567d52b8', 'BHO', 'DEL', '2023-11-14 15:49:40', '2023-11-14 10:19:40', '2023-11-14 10:19:40'),
+(119, '23fbfe32-eed1-401b-a08d-a8cf5d9d40d9', 'BHO', 'DEL', '2023-11-14 15:52:46', '2023-11-14 10:22:46', '2023-11-14 10:22:46'),
+(120, 'e6b425e6-45ef-4397-818e-a4748b41fecc', 'BHO', 'DEL', '2023-11-14 16:01:18', '2023-11-14 10:31:18', '2023-11-14 10:31:18'),
+(121, 'fa90714c-5674-4a7d-9835-54ca23700b03', 'BHO', 'DEL', '2023-11-14 16:05:53', '2023-11-14 10:35:53', '2023-11-14 10:35:53'),
+(122, '0b938376-88c0-4b6b-a307-844ca0d9f5dc', 'BHO', 'DEL', '2023-11-14 17:46:42', '2023-11-14 12:16:42', '2023-11-14 12:16:42'),
+(123, '72eaa30e-2193-46f3-b53a-c63533d2c62a', 'LHR', 'DXB', '2023-11-15 06:56:27', '2023-11-15 01:26:27', '2023-11-15 01:26:27'),
+(124, '9d0af90f-5063-411e-8760-105b0242c368', 'LHR', 'DXB', '2023-11-15 07:03:41', '2023-11-15 01:33:41', '2023-11-15 01:33:41'),
+(125, 'b0d8ba33-f09f-4425-82b8-9f51bbd98859', 'STV', 'ATQ', '2023-11-15 09:04:23', '2023-11-15 03:34:23', '2023-11-15 03:34:23'),
+(126, '9d404299-11ea-492e-b19e-ee19d7f8320b', 'LHR', 'del', '2023-11-15 09:05:32', '2023-11-15 03:35:32', '2023-11-15 03:35:32'),
+(127, 'f2d1eb52-75d9-4247-9fa3-4e814b9b0433', 'BOM', 'LHR', '2023-11-15 09:05:47', '2023-11-15 03:35:47', '2023-11-15 03:35:47'),
+(128, '651a84e1-b172-48b7-b8b0-f4e39c5764f1', 'LHR', 'DEL', '2023-11-15 09:06:15', '2023-11-15 03:36:15', '2023-11-15 03:36:15'),
+(129, '17c8641a-6a05-4c54-9aca-41d8e48e1457', 'BOM', 'LHR', '2023-11-15 09:06:57', '2023-11-15 03:36:57', '2023-11-15 03:36:57'),
+(130, '09ae885c-015e-4336-8dd1-2cd63346f847', 'LHR', 'DEL', '2023-11-15 09:07:42', '2023-11-15 03:37:42', '2023-11-15 03:37:42'),
+(131, '29f3aa3e-76fe-45a3-b93f-7e889b7492bd', 'BOM', 'LHR', '2023-11-15 09:10:10', '2023-11-15 03:40:10', '2023-11-15 03:40:10'),
+(132, 'cd762e9f-4f2a-41ad-b984-258c64f43bd2', 'LHR', 'DEL', '2023-11-15 09:11:47', '2023-11-15 03:41:47', '2023-11-15 03:41:47'),
+(133, '5b6e37f6-6c5c-43d1-9f6f-781e81605785', 'lhr', 'del', '2023-11-15 09:19:11', '2023-11-15 03:49:11', '2023-11-15 03:49:11'),
+(134, '251b0191-f835-443e-88f4-22fa032c13e2', 'lhr', 'del', '2023-11-15 09:19:23', '2023-11-15 03:49:23', '2023-11-15 03:49:23'),
+(135, '559abf10-e11a-497a-9a0b-af5c22e2c64b', 'LHR', 'del', '2023-11-15 09:22:03', '2023-11-15 03:52:03', '2023-11-15 03:52:03'),
+(136, 'bcac205f-88ad-4ae1-8243-b5695c00218d', 'amd', 'LGW', '2023-11-15 09:29:33', '2023-11-15 03:59:33', '2023-11-15 03:59:33'),
+(137, '9ad207a0-7373-4113-bae4-aec04d26f26e', 'AMD', 'lgw', '2023-11-15 09:31:26', '2023-11-15 04:01:26', '2023-11-15 04:01:26'),
+(138, '4b4db5e7-1bfe-41b0-98c2-ffb37424ffb2', 'AMD', 'lgw', '2023-11-15 09:33:00', '2023-11-15 04:03:00', '2023-11-15 04:03:00'),
+(139, '65c09b96-9050-4d10-adaa-f93e77302c8a', 'AMD', 'LGW', '2023-11-15 09:41:28', '2023-11-15 04:11:28', '2023-11-15 04:11:28'),
+(140, 'bf476fff-6b1d-4ac0-ba54-2191aacfb090', 'ATQ', 'LGW', '2023-11-15 09:51:39', '2023-11-15 04:21:39', '2023-11-15 04:21:39'),
+(141, 'f0e2586a-a303-4793-8ed5-3a7cfa77b6b8', 'STV', 'JAI', '2023-11-15 09:55:10', '2023-11-15 04:25:10', '2023-11-15 04:25:10'),
+(142, 'a9c32f0d-00f7-4641-88d3-f6a0a8fa48ab', 'BOM', 'lgw', '2023-11-15 11:43:45', '2023-11-15 06:13:45', '2023-11-15 06:13:45'),
+(143, 'ae64813d-a198-40b0-805d-69177ca578fb', 'Lhr', 'MAA', '2023-11-16 16:08:28', '2023-11-16 10:38:28', '2023-11-16 10:38:28'),
+(144, 'de5da6da-5cba-466d-b9f0-c43f8ba9847e', 'LHR', 'BOM', '2023-11-16 17:04:06', '2023-11-16 11:34:06', '2023-11-16 11:34:06'),
+(145, 'a92d5255-f0ad-4aca-b102-208087e3616a', 'London', 'Ahmedabad', '2023-11-17 06:57:21', '2023-11-17 01:27:21', '2023-11-17 01:27:21'),
+(146, 'cefe503e-7f64-4a32-90b6-444ff8dfca8d', 'BOM', 'DEL', '2023-11-17 19:14:55', '2023-11-17 13:44:55', '2023-11-17 13:44:55'),
+(147, '9946058c-381c-405d-9588-9c46be0d1239', 'LHR', 'DEL', '2023-11-19 15:11:19', '2023-11-19 09:41:19', '2023-11-19 09:41:19'),
+(148, '57ddbb7b-c219-406d-ad30-ab239a43b622', 'LHR', 'DEL', '2023-11-19 15:29:14', '2023-11-19 09:59:14', '2023-11-19 09:59:14'),
+(149, 'fce4d0a3-8038-4aca-866c-91dbbc2bca70', 'LHR', 'DEL', '2023-11-19 15:33:25', '2023-11-19 10:03:25', '2023-11-19 10:03:25'),
+(150, '6ad85ed0-5ac9-4086-8e4b-34b7cf0aedb4', 'BHO', 'DEL', '2023-11-19 15:56:37', '2023-11-19 10:26:37', '2023-11-19 10:26:37'),
+(151, '8d8d5baa-3482-4c22-a6b3-3ce188e263cb', 'BHO', 'DEL', '2023-11-19 16:02:21', '2023-11-19 10:32:21', '2023-11-19 10:32:21'),
+(152, '4199031e-3399-4422-a1c5-4481dfbf1f16', 'BHO', 'DEL', '2023-11-19 16:07:35', '2023-11-19 10:37:35', '2023-11-19 10:37:35'),
+(153, 'ee2e01bd-08b3-4bcf-a10a-4b38c04cfe98', 'BHO', 'DEL', '2023-11-19 16:08:22', '2023-11-19 10:38:22', '2023-11-19 10:38:22'),
+(154, '4fc238bd-53bb-4b72-a385-b2eabe48f692', 'LHR', 'DEL', '2023-11-19 17:11:31', '2023-11-19 11:41:31', '2023-11-19 11:41:31'),
+(155, '02a62f78-53b1-4d37-be2b-c876bab8399f', 'DEL', 'BOM', '2023-11-20 04:20:14', '2023-11-19 22:50:14', '2023-11-19 22:50:14'),
+(156, 'a88750af-eb98-4c28-a851-8889dec2fd57', 'LHR', 'DXB', '2023-11-20 09:52:34', '2023-11-20 04:22:34', '2023-11-20 04:22:34'),
+(157, '80a74f8c-6fa8-4bfc-a3a6-6dab56c4a4b3', 'LHR', 'DXB', '2023-11-20 10:01:51', '2023-11-20 04:31:51', '2023-11-20 04:31:51'),
+(158, '465bd08b-f577-4f32-975d-4d6e59f3f518', 'BHO', 'DEL', '2023-11-20 11:08:21', '2023-11-20 05:38:21', '2023-11-20 05:38:21'),
+(159, 'de990510-849c-452e-95f4-9e0e28396ffb', 'BHO', 'DEL', '2023-11-20 16:39:46', '2023-11-20 11:09:46', '2023-11-20 11:09:46'),
+(160, 'fc8b50d0-32d4-4572-8c93-fa1489ffe2a3', 'BHO', 'DEL', '2023-11-20 17:25:55', '2023-11-20 11:55:55', '2023-11-20 11:55:55'),
+(161, 'f7f3ba9f-5aaa-44b4-a27d-68ff1c9f8190', 'BHO', 'DEL', '2023-11-20 17:58:01', '2023-11-20 12:28:01', '2023-11-20 12:28:01'),
+(162, 'd21972d7-4fda-470c-824c-5a111edac0e7', 'BHO', 'DEL', '2023-11-21 09:13:29', '2023-11-21 03:43:29', '2023-11-21 03:43:29'),
+(163, 'f110341f-c3ea-4c6a-989d-21e1a9d69203', 'BHO', 'DEL', '2023-11-21 09:32:47', '2023-11-21 04:02:47', '2023-11-21 04:02:47'),
+(164, '27f9af03-905f-478e-8415-33323814a3bf', 'BHO', 'DEL', '2023-11-21 09:36:54', '2023-11-21 04:06:54', '2023-11-21 04:06:54'),
+(165, 'e9ae1bac-b147-4056-87f1-c3c8f4e9a9c9', 'BHO', 'DEL', '2023-11-21 17:44:08', '2023-11-21 12:14:08', '2023-11-21 12:14:08'),
+(166, '15a571ce-1cab-4ef2-aadc-eae736e298f6', 'BHO', 'DEL', '2023-11-21 17:49:16', '2023-11-21 12:19:16', '2023-11-21 12:19:16'),
+(167, '4c3b5209-bb72-475b-aad4-022f101df738', 'BHO', 'DEL', '2023-11-21 17:51:22', '2023-11-21 12:21:22', '2023-11-21 12:21:22'),
+(168, 'bae97c75-ccba-4e23-a148-ba7718d54ae7', 'BHO', 'DEL', '2023-11-21 17:58:34', '2023-11-21 12:28:34', '2023-11-21 12:28:34'),
+(169, 'a0417c20-1e97-4181-9f1d-111bf2a870fb', 'BHO', 'DEL', '2023-11-21 18:01:11', '2023-11-21 12:31:11', '2023-11-21 12:31:11'),
+(170, '22eb0516-d67e-4729-8fea-d81559582477', 'BHO', 'DEL', '2023-11-21 18:04:11', '2023-11-21 12:34:11', '2023-11-21 12:34:11'),
+(171, 'b6d43cce-2669-4aa6-a9f5-4f6ca60b03b4', 'BHO', 'DEL', '2023-11-21 18:09:29', '2023-11-21 12:39:29', '2023-11-21 12:39:29'),
+(172, 'ba5f2adf-9eb9-4a9f-a7a4-0881c0e2a168', 'LHR', 'DEL', '2023-11-21 18:12:33', '2023-11-21 12:42:33', '2023-11-21 12:42:33'),
+(173, 'ce33c4f6-d048-4e35-8283-fe0e5782b420', 'LHR', 'DEL', '2023-11-21 18:16:45', '2023-11-21 12:46:45', '2023-11-21 12:46:45'),
+(174, 'f2fb4128-cee2-48b6-8f9a-8596b9086bcd', 'LHR', 'DEL', '2023-11-21 18:19:01', '2023-11-21 12:49:01', '2023-11-21 12:49:01'),
+(175, '07b96a32-688f-4f15-ae0f-c743aedb91bb', 'LHR', 'DEL', '2023-11-21 18:20:21', '2023-11-21 12:50:21', '2023-11-21 12:50:21'),
+(176, '685bfe0e-ecd8-4ddc-bd50-5234dbb02e17', 'LHR', 'DEL', '2023-11-21 18:22:18', '2023-11-21 12:52:18', '2023-11-21 12:52:18'),
+(177, '51cf7aa2-a35c-43f9-8e40-6877f978c162', 'LHR', 'DEL', '2023-11-21 18:24:49', '2023-11-21 12:54:49', '2023-11-21 12:54:49'),
+(178, 'a951c493-5a19-4f22-a6aa-2372a8c61f61', 'LHR', 'DEL', '2023-11-21 18:27:28', '2023-11-21 12:57:28', '2023-11-21 12:57:28'),
+(179, '2f9a0082-b42b-4639-ba9f-1d9374550e72', 'LHR', 'DEL', '2023-11-21 18:29:23', '2023-11-21 12:59:23', '2023-11-21 12:59:23'),
+(180, '41c3a242-7504-4560-b793-950c4ee6864e', 'BHO', 'DEL', '2023-11-21 18:34:30', '2023-11-21 13:04:30', '2023-11-21 13:04:30'),
+(181, 'f5f11294-d27a-4fde-8e44-6dd999b31dca', 'BHO', 'DEL', '2023-11-21 18:36:14', '2023-11-21 13:06:14', '2023-11-21 13:06:14'),
+(182, 'ea3c7c9d-73cd-4b3c-b257-91da93dcdd7d', 'BHO', 'DEL', '2023-11-21 18:43:32', '2023-11-21 13:13:32', '2023-11-21 13:13:32'),
+(183, '0ddcef95-aef7-4ff5-b336-3878ceb36d06', 'BHO', 'DEL', '2023-11-21 18:45:16', '2023-11-21 13:15:16', '2023-11-21 13:15:16'),
+(184, 'e6a9fc01-4772-4add-b576-66522356162b', 'BHO', 'DEL', '2023-11-21 18:49:23', '2023-11-21 13:19:23', '2023-11-21 13:19:23'),
+(185, '42139720-65fb-4252-a507-d905a09544fd', 'BHO', 'DEL', '2023-11-21 18:51:59', '2023-11-21 13:21:59', '2023-11-21 13:21:59'),
+(186, 'fd04b90b-077f-4d5c-9ad1-386df0c9d3b0', 'VNS', 'DEL', '2023-11-22 13:26:15', '2023-11-22 07:56:15', '2023-11-22 07:56:15'),
+(187, '705e9b7a-a5d5-436d-b56c-d447e080acd9', 'VNS', 'DEL', '2023-11-22 13:26:21', '2023-11-22 07:56:21', '2023-11-22 07:56:21'),
+(188, 'be3c8c1e-eca5-4c8d-a39a-a34f1cfcd530', 'STV', 'HYD', '2023-11-22 14:08:38', '2023-11-22 08:38:38', '2023-11-22 08:38:38'),
+(189, 'b1427a15-5940-4711-92a0-8bf879ea9474', 'STV', 'DIU', '2023-11-22 14:23:11', '2023-11-22 08:53:11', '2023-11-22 08:53:11'),
+(190, '39e0adb9-d2e8-43f7-a0aa-3eca0032a171', 'STV', 'DIU', '2023-11-22 14:23:28', '2023-11-22 08:53:28', '2023-11-22 08:53:28'),
+(191, 'd86d3c49-f66d-43eb-bde2-d80e89539fd9', 'BOM', 'goi', '2023-11-22 14:31:51', '2023-11-22 09:01:51', '2023-11-22 09:01:51'),
+(192, '8f1cbed6-e07c-4f23-a6fe-a654a9ed2179', 'BOM', 'DEL', '2023-11-22 14:54:26', '2023-11-22 09:24:26', '2023-11-22 09:24:26'),
+(193, 'f9b232c3-9c41-4491-a45b-11023d22bd5d', 'BOM', 'DEL', '2023-11-22 14:54:37', '2023-11-22 09:24:37', '2023-11-22 09:24:37'),
+(194, 'e88b216e-7f9a-4e2c-bbd7-616506901957', 'BOM', 'DEL', '2023-11-22 14:57:13', '2023-11-22 09:27:13', '2023-11-22 09:27:13'),
+(195, 'b9e3de5e-bae8-4037-afab-abe08cd340d4', 'BOM', 'LHR', '2023-11-22 15:02:27', '2023-11-22 09:32:27', '2023-11-22 09:32:27'),
+(196, '1e982e8c-c69e-4811-9ec3-66d993cd8141', 'ATQ', 'LHR', '2023-11-22 15:02:32', '2023-11-22 09:32:32', '2023-11-22 09:32:32'),
+(197, '15c43c9c-25a7-47b5-85f9-f469031f327b', 'BOM', 'LHR', '2023-11-22 15:19:18', '2023-11-22 09:49:18', '2023-11-22 09:49:18'),
+(198, 'a000824d-29c0-4ab1-8909-1fcab7f875b8', 'BOM', 'DEL', '2023-11-22 15:24:57', '2023-11-22 09:54:57', '2023-11-22 09:54:57'),
+(199, 'e8deecd1-e829-4665-84e2-9498d9f2383c', 'LHR', 'DEL', '2023-11-22 16:47:23', '2023-11-22 11:17:23', '2023-11-22 11:17:23'),
+(200, 'e28ff2d9-abe3-4ccd-8ebc-96780dec4948', 'DEL', 'BOM', '2023-11-22 16:49:07', '2023-11-22 11:19:07', '2023-11-22 11:19:07'),
+(201, '42fbff20-0671-42fd-be32-29068fb6f362', 'DEL', 'BOM', '2023-11-22 16:51:21', '2023-11-22 11:21:21', '2023-11-22 11:21:21'),
+(202, 'afadf43a-3ae1-4506-8a6b-bfb492b2a349', 'BHO', 'DEL', '2023-11-23 05:21:17', '2023-11-22 23:51:17', '2023-11-22 23:51:17'),
+(203, 'f2427dd3-d8ea-4b94-964b-dc0ae11827fb', 'BHO', 'DEL', '2023-11-23 05:37:26', '2023-11-23 00:07:26', '2023-11-23 00:07:26'),
+(204, '985b4502-0a95-4aa4-9c42-306cb7eb9580', 'BHO', 'DEL', '2023-11-23 05:40:11', '2023-11-23 00:10:11', '2023-11-23 00:10:11'),
+(205, '31a010aa-bfeb-4648-a73e-c9749c51ba26', 'BHO', 'DEL', '2023-11-23 05:53:16', '2023-11-23 00:23:16', '2023-11-23 00:23:16'),
+(206, '4c004334-1fb8-415a-922f-fec7e72b758d', 'BHO', 'DEL', '2023-11-23 05:56:15', '2023-11-23 00:26:15', '2023-11-23 00:26:15'),
+(207, 'dfc66b8d-8182-4660-9bfc-a8b24948d2db', 'BHO', 'DEL', '2023-11-23 05:59:07', '2023-11-23 00:29:07', '2023-11-23 00:29:07'),
+(208, '3fffaa89-7301-4a4d-9500-514725ac9a22', 'BHO', 'DEL', '2023-11-23 06:03:24', '2023-11-23 00:33:24', '2023-11-23 00:33:24'),
+(209, 'd481b253-e637-4859-928b-db33c25b6118', 'AMD', 'BOM', '2023-11-23 06:27:59', '2023-11-23 00:57:59', '2023-11-23 00:57:59'),
+(210, '0e986533-e2b4-49bc-b761-7f869272176e', 'AMD', 'BOM', '2023-11-23 06:32:56', '2023-11-23 01:02:56', '2023-11-23 01:02:56'),
+(211, '0fdbb4ce-2047-4034-afe2-4a21e758a100', 'AMD', 'BOM', '2023-11-23 06:36:43', '2023-11-23 01:06:43', '2023-11-23 01:06:43'),
+(212, '8823b9d9-4820-4aec-b05c-42255a1da0df', 'BHO', 'DEL', '2023-11-23 07:33:23', '2023-11-23 02:03:23', '2023-11-23 02:03:23'),
+(213, '692de1ff-73f8-40e2-bac5-31f89eca4b1c', 'UTM', 'DEL', '2023-11-23 07:44:19', '2023-11-23 02:14:19', '2023-11-23 02:14:19'),
+(214, '16280a2a-d8f4-4864-9b5e-876b83a686c0', 'DEL', 'BOM', '2023-11-23 07:45:31', '2023-11-23 02:15:31', '2023-11-23 02:15:31'),
+(215, 'de915409-ced2-4323-b0b9-fafd49fa4cfa', 'DEL', 'BOM', '2023-11-23 07:46:44', '2023-11-23 02:16:44', '2023-11-23 02:16:44'),
+(216, 'd889a747-fa8f-4909-a0e0-8eb14bfb4c03', 'UGN', 'DEL', '2023-11-23 07:54:12', '2023-11-23 02:24:12', '2023-11-23 02:24:12'),
+(217, '557bde47-714d-41eb-9335-6c5c6196c457', 'LRE', 'DEL', '2023-11-23 07:57:48', '2023-11-23 02:27:48', '2023-11-23 02:27:48'),
+(218, '317e018a-953d-4db6-905d-185043b3443b', 'BHO', 'DEL', '2023-11-23 15:07:13', '2023-11-23 09:37:13', '2023-11-23 09:37:13'),
+(219, '14efbae0-11b0-4a23-9777-26aac712308b', 'BHO', 'DEL', '2023-11-23 15:30:24', '2023-11-23 10:00:24', '2023-11-23 10:00:24'),
+(220, '5b0931ff-9768-4ceb-8dc6-607dc7202716', 'BHO', 'DEL', '2023-11-23 16:47:18', '2023-11-23 11:17:18', '2023-11-23 11:17:18'),
+(221, '11156425-d4a7-4c88-af27-5295a8513dd3', 'BHO', 'DEL', '2023-11-23 17:12:33', '2023-11-23 11:42:33', '2023-11-23 11:42:33'),
+(222, 'c7556b57-2ca0-40f9-b0a6-f6c32c5843e6', 'BHO', 'DEL', '2023-11-23 17:14:55', '2023-11-23 11:44:55', '2023-11-23 11:44:55'),
+(223, '3c5216d7-3745-44f7-91cf-c53701534826', 'BHO', 'DEL', '2023-11-23 17:27:29', '2023-11-23 11:57:29', '2023-11-23 11:57:29'),
+(224, '88a07a5a-0f4d-458c-ad97-e65ba567d90b', 'BHO', 'DEL', '2023-11-23 17:31:39', '2023-11-23 12:01:39', '2023-11-23 12:01:39'),
+(225, '9f49571c-fd50-432a-b72b-e709aca3fdb6', 'BHO', 'DEL', '2023-11-24 03:08:20', '2023-11-23 21:38:20', '2023-11-23 21:38:20'),
+(226, '361cc947-b385-441e-aff3-962502f71370', 'BHO', 'DEL', '2023-11-24 03:11:08', '2023-11-23 21:41:08', '2023-11-23 21:41:08'),
+(227, '08fbf0f7-867b-4c7e-a75e-ca78174029ba', 'BHO', 'DEL', '2023-11-24 04:57:26', '2023-11-23 23:27:26', '2023-11-23 23:27:26'),
+(228, 'cbe15698-68dd-4585-b625-4c0567918872', 'BHO', 'DEL', '2023-11-24 05:10:51', '2023-11-23 23:40:51', '2023-11-23 23:40:51'),
+(229, '47ba5017-8d70-46e5-86c5-1bf522045fba', 'BHO', 'DEL', '2023-11-24 05:13:29', '2023-11-23 23:43:29', '2023-11-23 23:43:29'),
+(230, '89826cd4-6acb-43e6-b07d-b8930fb77d58', 'BHO', 'DEL', '2023-11-24 05:18:12', '2023-11-23 23:48:12', '2023-11-23 23:48:12'),
+(231, '9197c328-67d8-4cc8-a673-e7609f482edb', 'BHO', 'DEL', '2023-11-24 06:19:17', '2023-11-24 00:49:17', '2023-11-24 00:49:17'),
+(232, 'a02cdcd5-47bd-4bee-bef6-a2e56c5df4f5', 'BHO', 'DEL', '2023-11-24 06:20:00', '2023-11-24 00:50:00', '2023-11-24 00:50:00'),
+(233, '68b69c7a-53f0-4520-9fae-00f717a2fc1f', 'BHO', 'DEL', '2023-11-24 06:20:56', '2023-11-24 00:50:56', '2023-11-24 00:50:56'),
+(234, '7ba4f0ac-d95f-4cda-a7b7-3a1c396f018e', 'BHO', 'DEL', '2023-11-24 06:22:21', '2023-11-24 00:52:21', '2023-11-24 00:52:21'),
+(235, '151b6262-ab1d-494c-8362-357e867c6d93', 'BHO', 'DEL', '2023-11-24 08:01:49', '2023-11-24 02:31:49', '2023-11-24 02:31:49'),
+(236, 'fadb0295-af03-4550-896a-f3a833dd92ab', 'BHO', 'DEL', '2023-11-24 08:08:51', '2023-11-24 02:38:51', '2023-11-24 02:38:51'),
+(237, '9a41ab7b-e1ee-4d33-a884-bc2456ed65ac', 'BHO', 'DEL', '2023-11-24 08:14:33', '2023-11-24 02:44:33', '2023-11-24 02:44:33'),
+(238, '48bc933c-c9d3-467b-816a-f5375998fb83', 'BHO', 'DEL', '2023-11-24 08:16:34', '2023-11-24 02:46:34', '2023-11-24 02:46:34'),
+(239, 'ade7f9f5-7de1-457f-aa61-fbc675c3b6fc', 'BHO', 'DEL', '2023-11-24 08:18:12', '2023-11-24 02:48:12', '2023-11-24 02:48:12'),
+(240, '2e77d84f-ca93-4f05-974b-a82cef0006a2', 'BHO', 'DEL', '2023-11-24 08:19:29', '2023-11-24 02:49:29', '2023-11-24 02:49:29'),
+(241, 'b16b36ec-e972-4217-a06a-38d625b2b316', 'BHO', 'DEL', '2023-11-24 08:20:28', '2023-11-24 02:50:28', '2023-11-24 02:50:28'),
+(242, 'bbfd8ba0-433f-4367-bbc3-2da9125b3e41', 'BHO', 'DEL', '2023-11-24 08:28:27', '2023-11-24 02:58:27', '2023-11-24 02:58:27'),
+(243, 'd51369b9-a4b2-4465-86c5-f065ecfd3b1e', 'BHO', 'DEL', '2023-11-24 08:29:57', '2023-11-24 02:59:57', '2023-11-24 02:59:57'),
+(244, 'd34ccb16-0e78-45b4-9ffb-28c4be0e2d5a', 'BHO', 'DEL', '2023-11-24 08:33:54', '2023-11-24 03:03:54', '2023-11-24 03:03:54'),
+(245, '1d3f581e-0098-4420-a1ac-e3b69cf3ea70', 'BHO', 'DEL', '2023-11-24 09:26:48', '2023-11-24 03:56:48', '2023-11-24 03:56:48'),
+(246, '786a4355-367b-4773-9c73-b2df81e1f74d', 'BHO', 'DEL', '2023-11-24 09:28:58', '2023-11-24 03:58:58', '2023-11-24 03:58:58'),
+(247, '1d1e2c20-1e10-4c6c-8895-3aa48649741b', 'BHO', 'DEL', '2023-11-24 09:30:56', '2023-11-24 04:00:56', '2023-11-24 04:00:56'),
+(248, '83517970-f48f-47cf-9fc0-6f7a94272b60', 'BHO', 'DEL', '2023-11-24 09:33:38', '2023-11-24 04:03:38', '2023-11-24 04:03:38'),
+(249, 'c849648a-935e-42ee-8368-8b4887f67b6d', 'BHO', 'DEL', '2023-11-24 09:45:31', '2023-11-24 04:15:31', '2023-11-24 04:15:31'),
+(250, 'efca1601-9232-473d-9a49-e1e8831e58d8', 'BHO', 'DEL', '2023-11-24 09:50:03', '2023-11-24 04:20:03', '2023-11-24 04:20:03'),
+(251, 'a55bf383-dbff-4454-82ea-abb21264ded8', 'BHO', 'DEL', '2023-11-24 09:56:47', '2023-11-24 04:26:47', '2023-11-24 04:26:47'),
+(252, 'b748f057-7fea-43a3-a41d-871abfd9dc05', 'BHO', 'DEL', '2023-11-24 10:03:54', '2023-11-24 04:33:54', '2023-11-24 04:33:54'),
+(253, '32664886-55e3-4187-afe0-57470f21bda6', 'BHO', 'DEL', '2023-11-24 10:04:55', '2023-11-24 04:34:55', '2023-11-24 04:34:55'),
+(254, 'fb8400f2-e766-41cb-9720-8e6c7211be0d', 'BHO', 'DEL', '2023-11-24 10:08:04', '2023-11-24 04:38:04', '2023-11-24 04:38:04'),
+(255, 'c5b1c9e3-a4d7-4d59-9788-3e5a66003d45', 'BHO', 'DEL', '2023-11-24 10:12:27', '2023-11-24 04:42:27', '2023-11-24 04:42:27'),
+(256, 'd6606a3c-f39c-48a8-b119-253b27c27467', 'BHO', 'DEL', '2023-11-24 10:28:52', '2023-11-24 04:58:52', '2023-11-24 04:58:52'),
+(257, '8b48d15c-9a5e-4392-a5dd-16dd1cf3af5f', 'BHO', 'DEL', '2023-11-24 10:32:22', '2023-11-24 05:02:22', '2023-11-24 05:02:22'),
+(258, 'b7b26673-859e-4e0a-b70e-ca87270ccdc9', 'BHO', 'DEL', '2023-11-24 10:43:12', '2023-11-24 05:13:12', '2023-11-24 05:13:12'),
+(259, '527370a8-1ab4-46e3-a6ee-662266ac8832', 'BHO', 'DEL', '2023-11-24 10:51:38', '2023-11-24 05:21:38', '2023-11-24 05:21:38'),
+(260, '55421924-b6db-4f01-bfd1-08a09f49a241', 'BHO', 'DEL', '2023-11-24 11:17:45', '2023-11-24 05:47:45', '2023-11-24 05:47:45'),
+(261, 'd2358f60-e44a-417f-90a7-c49db9170aa2', 'BHO', 'DEL', '2023-11-24 11:23:29', '2023-11-24 05:53:29', '2023-11-24 05:53:29'),
+(262, '914904ce-6c85-442c-88e1-d7110bb2e671', 'BHO', 'DEL', '2023-11-24 11:30:23', '2023-11-24 06:00:23', '2023-11-24 06:00:23'),
+(263, '0555ee86-7b01-4631-b2de-a6fe69e4ded9', 'BHO', 'DEL', '2023-11-24 11:40:19', '2023-11-24 06:10:19', '2023-11-24 06:10:19'),
+(264, 'c80614c3-aacf-4416-8b81-f475e3c03e2f', 'BHO', 'DEL', '2023-11-27 06:31:20', '2023-11-27 01:01:20', '2023-11-27 01:01:20'),
+(265, '166bfb27-a8f6-4d3d-a9e6-90d354035aec', 'BHO', 'DEL', '2023-11-27 09:07:18', '2023-11-27 03:37:18', '2023-11-27 03:37:18'),
+(266, '1ef6e155-1aee-49e7-aa30-93dea77d4d35', 'BHO', 'DEL', '2023-11-27 09:15:37', '2023-11-27 03:45:37', '2023-11-27 03:45:37'),
+(267, 'cafd8150-0494-490c-a032-88081f34d545', 'BHO', 'DEL', '2023-11-27 09:20:15', '2023-11-27 03:50:15', '2023-11-27 03:50:15'),
+(268, 'fd6952c6-3f2e-4d89-8a6d-cc3799df0b69', 'BHO', 'DEL', '2023-11-27 09:25:39', '2023-11-27 03:55:39', '2023-11-27 03:55:39'),
+(269, '3f5950f0-586e-419f-84cf-511e38eac059', 'BHO', 'DEL', '2023-11-27 09:34:35', '2023-11-27 04:04:35', '2023-11-27 04:04:35'),
+(270, 'd0fd24f2-a090-4a50-a4ae-802b49400462', 'BHO', 'DEL', '2023-11-27 09:40:50', '2023-11-27 04:10:50', '2023-11-27 04:10:50'),
+(271, 'dc1f26d8-d468-4a4a-a562-a21ad858dcd0', 'BHO', 'DEL', '2023-11-27 09:43:22', '2023-11-27 04:13:22', '2023-11-27 04:13:22'),
+(272, '248e4fa6-613d-438e-989d-ef92d69be26c', 'BHO', 'DEL', '2023-11-27 09:47:25', '2023-11-27 04:17:25', '2023-11-27 04:17:25'),
+(273, 'd83be377-6fd9-480f-83c9-2ba56740fdff', 'BHO', 'DEL', '2023-11-27 09:51:45', '2023-11-27 04:21:45', '2023-11-27 04:21:45'),
+(274, '4367a86a-a25a-4b59-b242-3fbee8c171d3', 'BHO', 'DEL', '2023-11-27 09:57:13', '2023-11-27 04:27:13', '2023-11-27 04:27:13'),
+(275, 'c44fbf8d-addf-4cf1-88cd-d2dfea8ec5b7', 'BHO', 'DEL', '2023-11-27 10:00:39', '2023-11-27 04:30:39', '2023-11-27 04:30:39'),
+(276, '7fa6698b-0958-4c78-934e-c507b1a0f15f', 'BHO', 'DEL', '2023-11-27 10:03:25', '2023-11-27 04:33:25', '2023-11-27 04:33:25'),
+(277, '892e8570-b851-4a57-93f8-99fb54423c14', 'BHO', 'DEL', '2023-11-27 11:23:33', '2023-11-27 05:53:33', '2023-11-27 05:53:33'),
+(278, 'ee3d547d-de7a-4eca-a6a3-37dddf68019d', 'BHO', 'DEL', '2023-11-27 11:26:14', '2023-11-27 05:56:14', '2023-11-27 05:56:14'),
+(279, 'f61bd659-1368-4ded-bc10-67e46da0a0e5', 'BHO', 'DEL', '2023-11-27 11:30:31', '2023-11-27 06:00:31', '2023-11-27 06:00:31'),
+(280, '0316ce1a-a5fd-408e-8690-8582501a5e76', 'BHO', 'DEL', '2023-11-27 11:33:34', '2023-11-27 06:03:34', '2023-11-27 06:03:34'),
+(281, '4205fefc-6072-4f91-b79f-53eafa6b2b29', 'BHO', 'DEL', '2023-11-27 11:37:16', '2023-11-27 06:07:16', '2023-11-27 06:07:16'),
+(282, 'b88ca2eb-b411-4529-a812-6236bd7c0280', 'BHO', 'DEL', '2023-11-27 11:55:59', '2023-11-27 06:25:59', '2023-11-27 06:25:59'),
+(283, '259e3966-d3ed-493c-8d06-318bbf277ce9', 'BHO', 'DEL', '2023-11-27 12:00:49', '2023-11-27 06:30:49', '2023-11-27 06:30:49'),
+(284, '5593e552-de33-4ab8-92fd-0710953ff22b', 'BHO', 'DEL', '2023-11-27 12:03:05', '2023-11-27 06:33:05', '2023-11-27 06:33:05'),
+(285, 'f1ac1e44-0e84-492b-8484-f209369f576e', 'BHO', 'DEL', '2023-11-27 12:04:03', '2023-11-27 06:34:03', '2023-11-27 06:34:03'),
+(286, '667f7206-8be8-4a86-90ea-1275eaa48f9c', 'BHO', 'DEL', '2023-11-27 12:08:01', '2023-11-27 06:38:01', '2023-11-27 06:38:01'),
+(287, 'f7c0027f-0091-488e-9a74-d7e4a175baf5', 'BHO', 'DEL', '2023-11-27 12:10:01', '2023-11-27 06:40:01', '2023-11-27 06:40:01'),
+(288, '88e47dfd-1336-4052-a820-18e7c976d0eb', 'BHO', 'DEL', '2023-11-27 12:17:35', '2023-11-27 06:47:35', '2023-11-27 06:47:35'),
+(289, '78c5a0fb-507f-4d49-858e-718f679275de', 'BHO', 'DEL', '2023-11-27 12:25:53', '2023-11-27 06:55:53', '2023-11-27 06:55:53'),
+(290, 'dcc62601-bc47-4b87-b9c4-2a3d7d894767', 'BHO', 'DEL', '2023-11-27 12:29:49', '2023-11-27 06:59:49', '2023-11-27 06:59:49'),
+(291, 'e1d49ca8-cff1-4f2d-96b3-93bd09c87be2', 'BHO', 'DEL', '2023-11-27 12:38:04', '2023-11-27 07:08:04', '2023-11-27 07:08:04'),
+(292, '6e2ec5aa-c803-4ecb-87b2-2123da06144b', 'BHO', 'DEL', '2023-11-27 13:06:34', '2023-11-27 07:36:34', '2023-11-27 07:36:34'),
+(293, '50edc961-70e7-4b14-b962-9ec2768ff79b', 'BHO', 'DEL', '2023-11-27 13:13:52', '2023-11-27 07:43:52', '2023-11-27 07:43:52'),
+(294, '03d89c45-0c7e-4988-80f7-888de2d1a059', 'BHO', 'DEL', '2023-11-27 13:21:52', '2023-11-27 07:51:52', '2023-11-27 07:51:52'),
+(295, '5e6ff411-7352-41a8-b5dd-18c58915ab7a', 'BHO', 'DEL', '2023-11-27 13:24:15', '2023-11-27 07:54:15', '2023-11-27 07:54:15'),
+(296, 'c56035d1-f095-421b-b667-24114f224775', 'BHO', 'DEL', '2023-11-27 13:25:59', '2023-11-27 07:55:59', '2023-11-27 07:55:59'),
+(297, '0c297a17-15d7-4918-9cf2-21ae0203d124', 'LHR', 'DEL', '2023-11-28 04:53:01', '2023-11-27 23:23:01', '2023-11-27 23:23:01'),
+(298, '04331cc1-a5ae-43d1-9e3e-0dfccde29925', 'BHO', 'DEL', '2023-11-28 05:04:23', '2023-11-27 23:34:23', '2023-11-27 23:34:23'),
+(299, '89f748df-7e4c-4b69-8e83-37fb45f1d4c0', 'BHO', 'DEL', '2023-11-28 05:12:15', '2023-11-27 23:42:15', '2023-11-27 23:42:15'),
+(300, '854d34fb-da91-4456-b47d-05698a00cbce', 'BHO', 'DEL', '2023-11-28 06:52:55', '2023-11-28 01:22:55', '2023-11-28 01:22:55'),
+(301, '8e71cd2b-c480-4cd8-9c88-9acd606f1fc2', 'BHO', 'DEL', '2023-11-28 07:42:44', '2023-11-28 02:12:44', '2023-11-28 02:12:44'),
+(302, 'c6c59e83-b8c4-4269-b961-36a70fe4c4f5', 'BHO', 'DEL', '2023-11-28 10:05:41', '2023-11-28 04:35:41', '2023-11-28 04:35:41'),
+(303, '8806bca4-8975-46aa-931a-03927fb66ee5', 'BHO', 'DEL', '2023-11-28 10:07:33', '2023-11-28 04:37:33', '2023-11-28 04:37:33'),
+(304, 'a83b6dd3-f223-4610-bb1b-b96e78e65da8', 'BHO', 'DEL', '2023-11-28 10:09:29', '2023-11-28 04:39:29', '2023-11-28 04:39:29'),
+(305, 'd653b402-5548-4c81-9284-8a79c8c13529', 'BHO', 'DEL', '2023-11-28 10:10:02', '2023-11-28 04:40:02', '2023-11-28 04:40:02'),
+(306, 'd68a385c-71e5-4ac2-b02f-7211761fd354', 'BHO', 'DEL', '2023-11-28 10:11:18', '2023-11-28 04:41:18', '2023-11-28 04:41:18'),
+(307, '10284d26-e091-457c-910f-7bf09b611772', 'BHO', 'DEL', '2023-11-28 10:11:56', '2023-11-28 04:41:56', '2023-11-28 04:41:56'),
+(308, 'e3eae44f-da4a-4caa-a2c9-84baf0bbb1e7', 'BHO', 'DEL', '2023-11-28 10:13:11', '2023-11-28 04:43:11', '2023-11-28 04:43:11'),
+(309, 'efef5d6c-f5b2-4304-b830-a68e2c7c4a33', 'DEL', 'BOM', '2023-11-28 10:14:21', '2023-11-28 04:44:21', '2023-11-28 04:44:21'),
+(310, '6cb49988-358a-4350-af94-10c40034d1a3', 'DEL', 'BOM', '2023-11-28 10:16:00', '2023-11-28 04:46:00', '2023-11-28 04:46:00'),
+(311, '89a2b47a-fd27-4906-9d26-ef87969da287', 'DEL', 'BOM', '2023-11-28 10:18:07', '2023-11-28 04:48:07', '2023-11-28 04:48:07'),
+(312, '95134a0a-690e-488c-a5e1-1377628ba544', 'DEL', 'BOM', '2023-11-28 10:19:33', '2023-11-28 04:49:33', '2023-11-28 04:49:33'),
+(313, '7a496692-f26b-49b3-99b1-d6dbc42828b1', 'DEL', 'BOM', '2023-11-28 10:22:28', '2023-11-28 04:52:28', '2023-11-28 04:52:28'),
+(314, '7aa85426-2d4c-4132-85bb-f3add2af0278', 'BHO', 'DEL', '2023-11-28 10:27:18', '2023-11-28 04:57:18', '2023-11-28 04:57:18'),
+(315, '74050a64-b0f4-449e-a2b9-7bc32c27436a', 'SNW', 'IXU', '2023-11-29 07:08:54', '2023-11-29 01:38:54', '2023-11-29 01:38:54'),
+(316, 'd0c656ca-c5ba-49b2-a459-8e4cfa64a9e1', 'LHR', 'BOM', '2023-11-29 07:16:12', '2023-11-29 01:46:12', '2023-11-29 01:46:12'),
+(317, 'fd4f729a-e7b8-48a2-a37d-5b8e38d52626', 'LHR', 'BOM', '2023-11-29 07:17:26', '2023-11-29 01:47:26', '2023-11-29 01:47:26'),
+(318, '755c61b1-1830-4596-82b4-8e24de42e9d2', 'LHr', 'BOM', '2023-11-29 10:31:26', '2023-11-29 05:01:26', '2023-11-29 05:01:26'),
+(319, '2be8be4f-a3d4-4560-8b8e-97dda4e10a2e', 'BOM', 'DEL', '2023-11-29 13:22:34', '2023-11-29 07:52:34', '2023-11-29 07:52:34'),
+(320, '9d8b3474-a1ee-4d41-97a5-26ef2dc6585b', 'BHO', 'DEL', '2023-12-02 05:08:20', '2023-12-01 23:38:20', '2023-12-01 23:38:20'),
+(321, '0bd867b5-07e6-40e5-830b-e77e77825d63', 'BHO', 'DEL', '2023-12-02 05:41:17', '2023-12-02 00:11:17', '2023-12-02 00:11:17'),
+(322, 'be86e068-8098-41e9-9bab-aa175151c268', 'BHO', 'DEL', '2023-12-02 08:37:05', '2023-12-02 03:07:05', '2023-12-02 03:07:05'),
+(323, '61c32b53-71e6-45e2-8e6a-c3efc611c046', 'BHO', 'DEL', '2023-12-02 08:42:55', '2023-12-02 03:12:55', '2023-12-02 03:12:55'),
+(324, '452941be-6231-4c84-9747-317c5244adf6', 'BHO', 'DEL', '2023-12-04 04:55:29', '2023-12-03 23:25:29', '2023-12-03 23:25:29'),
+(325, 'c6d83d95-c323-4821-91da-9990b014391a', 'BHO', 'DEL', '2023-12-04 05:01:31', '2023-12-03 23:31:31', '2023-12-03 23:31:31'),
+(326, '274c31ce-f732-49ab-909e-1db9efbaff43', 'BHO', 'DEL', '2023-12-04 05:02:22', '2023-12-03 23:32:22', '2023-12-03 23:32:22'),
+(327, '86887e4e-115d-4cc1-a6b9-a320aec809b0', 'BHO', 'DEL', '2023-12-04 05:03:23', '2023-12-03 23:33:23', '2023-12-03 23:33:23'),
+(328, '9866aece-1382-4678-a170-1e2604bfdd6f', 'BHO', 'DEL', '2023-12-04 05:03:33', '2023-12-03 23:33:33', '2023-12-03 23:33:33'),
+(329, '81b1dd2a-54a6-4b59-ace1-c76e73e62002', 'LHR', 'DEL', '2023-12-04 06:21:18', '2023-12-04 00:51:18', '2023-12-04 00:51:18'),
+(330, 'a7e8ca31-79a6-446f-9317-b7274a4c9593', 'BHO', 'BOM', '2023-12-04 06:54:07', '2023-12-04 01:24:07', '2023-12-04 01:24:07'),
+(331, '230090ca-612e-49c3-98a3-7a26b32f41dc', 'BHO', 'BOM', '2023-12-04 08:43:45', '2023-12-04 03:13:45', '2023-12-04 03:13:45'),
+(332, '30c803a2-9e3f-49d6-bced-f8ec79594f53', 'BHO', 'BOM', '2023-12-04 08:53:48', '2023-12-04 03:23:48', '2023-12-04 03:23:48'),
+(333, 'a28ec266-fe72-4a70-995e-e002d1b6a767', 'BHO', 'BOM', '2023-12-04 09:17:27', '2023-12-04 03:47:27', '2023-12-04 03:47:27'),
+(334, 'fa255df0-258d-4331-bb6f-a6f8942ba3ec', 'BHO', 'BOM', '2023-12-04 09:42:34', '2023-12-04 04:12:34', '2023-12-04 04:12:34'),
+(335, '27b7edbb-afb4-497e-b525-49710266ce37', 'BHO', 'BOM', '2023-12-04 09:50:26', '2023-12-04 04:20:26', '2023-12-04 04:20:26'),
+(336, '688f1556-4181-4da7-bd1f-12ec204ef37d', 'BHO', 'BOM', '2023-12-04 09:51:41', '2023-12-04 04:21:41', '2023-12-04 04:21:41'),
+(337, '479e0aa1-334a-42c0-8bbe-88b8f960ee0c', 'BHO', 'BOM', '2023-12-04 10:12:15', '2023-12-04 04:42:15', '2023-12-04 04:42:15'),
+(338, '3539a84c-75c3-419e-b255-096416bcabf5', 'DEL', 'GOI', '2023-12-05 05:44:35', '2023-12-05 00:14:35', '2023-12-05 00:14:35'),
+(339, 'a49e549b-b3cd-41f5-ab7a-3cdf2f7b99bd', 'DEL', 'BOM', '2023-12-05 08:55:06', '2023-12-05 03:25:06', '2023-12-05 03:25:06'),
+(340, 'sd', 'DEL', 'BOM', '2023-12-05 08:55:06', '2023-12-05 03:25:06', '2023-12-05 03:25:06'),
+(341, '432a8e19-3b42-4a69-ac8e-1cabb5a88cc1', 'DEL', 'BOM', '2023-12-05 08:57:46', '2023-12-05 03:27:46', '2023-12-05 03:27:46'),
+(342, 'sd', 'DEL', 'BOM', '2023-12-05 08:57:46', '2023-12-05 03:27:46', '2023-12-05 03:27:46'),
+(343, 'sd', 'DEL', 'LHR', '2023-12-05 09:10:11', '2023-12-05 03:40:11', '2023-12-05 03:40:11'),
+(344, 'sd', 'BHO', 'DEL', '2023-12-05 09:14:48', '2023-12-05 03:44:48', '2023-12-05 03:44:48'),
+(345, 'sd', 'BHO', 'DEL', '2023-12-05 09:15:26', '2023-12-05 03:45:26', '2023-12-05 03:45:26'),
+(346, '1e1b1f7c-8c8f-41c9-b616-ba0b5024cd00', 'LHR', 'DEL', '2023-12-05 09:43:16', '2023-12-05 04:13:16', '2023-12-05 04:13:16'),
+(347, 'sd', 'LHR', 'DEL', '2023-12-05 09:43:16', '2023-12-05 04:13:16', '2023-12-05 04:13:16'),
+(348, '1c360e41-7d0f-4d3d-8705-55c489d485be', 'STV', 'GOX', '2023-12-05 10:09:13', '2023-12-05 04:39:13', '2023-12-05 04:39:13'),
+(349, '3c7c80d3-abd6-4daa-a5e7-22d344847ae4', 'BHO', 'DEL', '2023-12-05 10:37:06', '2023-12-05 05:07:06', '2023-12-05 05:07:06'),
+(350, 'sd', 'BHO', 'DEL', '2023-12-05 10:37:06', '2023-12-05 05:07:06', '2023-12-05 05:07:06'),
+(351, '8716f85b-fada-49ff-9b4a-4f86ff7dd35c', 'BHO', 'DEL', '2023-12-05 11:36:49', '2023-12-05 06:06:49', '2023-12-05 06:06:49'),
+(352, 'sd', 'BHO', 'DEL', '2023-12-05 11:36:49', '2023-12-05 06:06:49', '2023-12-05 06:06:49'),
+(353, '218b46bf-7997-4582-8319-645eaaa85c10', 'LHR', 'DEL', '2023-12-05 11:37:54', '2023-12-05 06:07:54', '2023-12-05 06:07:54'),
+(354, 'sd', 'LHR', 'DEL', '2023-12-05 11:37:54', '2023-12-05 06:07:54', '2023-12-05 06:07:54'),
+(355, 'c72e7a28-4d09-499a-9898-297e9fefb180', 'LHR', 'DEL', '2023-12-06 05:57:23', '2023-12-06 00:27:23', '2023-12-06 00:27:23'),
+(356, 'bf078b39-6cc2-417b-b3f9-0208bc0b83ac', 'LHR', 'DEL', '2023-12-06 06:16:49', '2023-12-06 00:46:49', '2023-12-06 00:46:49'),
+(357, 'sd', 'LHR', 'DEL', '2023-12-06 06:16:49', '2023-12-06 00:46:49', '2023-12-06 00:46:49'),
+(358, '0820d798-af83-4759-b1fc-5d58df8cdae2', 'LHR', 'DEL', '2023-12-06 06:31:37', '2023-12-06 01:01:37', '2023-12-06 01:01:37'),
+(359, 'sd', 'LHR', 'DEL', '2023-12-06 06:31:37', '2023-12-06 01:01:37', '2023-12-06 01:01:37'),
+(360, '9ee9605e-2696-42b4-a6db-12a87621aed6', 'LHR', 'DEL', '2023-12-06 06:34:06', '2023-12-06 01:04:06', '2023-12-06 01:04:06'),
+(361, 'sd', 'LHR', 'DEL', '2023-12-06 06:34:06', '2023-12-06 01:04:06', '2023-12-06 01:04:06'),
+(362, '21789aae-75fd-41a0-b1bb-434763d49247', 'DED', 'BOM', '2023-12-06 11:19:07', '2023-12-06 05:49:07', '2023-12-06 05:49:07'),
+(363, 'a36e4d12-3013-49a0-804c-a9f15ea069f7', 'BHO', 'DEL', '2023-12-06 17:54:53', '2023-12-06 12:24:53', '2023-12-06 12:24:53'),
+(364, 'sd', 'BHO', 'DEL', '2023-12-06 17:54:53', '2023-12-06 12:24:53', '2023-12-06 12:24:53'),
+(365, '046322a5-334f-4832-9d02-e73c7b18db2b', 'LHR', 'DEL', '2023-12-07 05:49:30', '2023-12-07 00:19:30', '2023-12-07 00:19:30'),
+(366, 'sd', 'LHR', 'DEL', '2023-12-07 05:49:30', '2023-12-07 00:19:30', '2023-12-07 00:19:30'),
+(367, 'ebfc7057-9a5f-4244-8974-87b498e6ca8e', 'LHR', 'DEL', '2023-12-07 05:51:29', '2023-12-07 00:21:29', '2023-12-07 00:21:29'),
+(368, 'sd', 'LHR', 'DEL', '2023-12-07 05:51:29', '2023-12-07 00:21:29', '2023-12-07 00:21:29'),
+(369, '3cc9c9b4-393c-4aac-8907-8cb3d7a1bed8', 'BHO', 'DEL', '2023-12-07 07:23:04', '2023-12-07 01:53:04', '2023-12-07 01:53:04'),
+(370, 'sd', 'BHO', 'DEL', '2023-12-07 07:23:04', '2023-12-07 01:53:04', '2023-12-07 01:53:04'),
+(371, '1cf5e452-4541-40fb-8944-55352c39d277', 'DEL', 'BHO', '2023-12-07 07:28:48', '2023-12-07 01:58:49', '2023-12-07 01:58:49'),
+(372, 'sd', 'DEL', 'BHO', '2023-12-07 07:28:49', '2023-12-07 01:58:49', '2023-12-07 01:58:49'),
+(373, '0aad9360-3660-4be1-b483-1c9ede05bd2f', 'DEL', 'BOM', '2023-12-07 07:30:53', '2023-12-07 02:00:53', '2023-12-07 02:00:53'),
+(374, 'sd', 'DEL', 'BOM', '2023-12-07 07:30:53', '2023-12-07 02:00:53', '2023-12-07 02:00:53'),
+(375, 'b53e8bff-53d3-43e1-a10d-f2445a36b88c', 'DEL', 'BOM', '2023-12-07 10:47:55', '2023-12-07 05:17:55', '2023-12-07 05:17:55'),
+(376, 'sd', 'DEL', 'BOM', '2023-12-07 10:47:55', '2023-12-07 05:17:55', '2023-12-07 05:17:55'),
+(377, '8d025b1c-2f9b-459d-a41e-e2b7e490a553', 'BOM', 'DEL', '2023-12-08 06:41:09', '2023-12-08 01:11:09', '2023-12-08 01:11:09'),
+(378, 'sd', 'BOM', 'DEL', '2023-12-08 06:41:09', '2023-12-08 01:11:09', '2023-12-08 01:11:09'),
+(379, 'e291f919-649c-4613-b4c9-13e2ab749416', 'BOM', 'DEL', '2023-12-08 06:42:03', '2023-12-08 01:12:03', '2023-12-08 01:12:03'),
+(380, 'sd', 'BOM', 'DEL', '2023-12-08 06:42:03', '2023-12-08 01:12:03', '2023-12-08 01:12:03'),
+(381, 'e120b00e-8a3b-417e-aa87-1168df524019', 'BOM', 'DEL', '2023-12-08 06:43:21', '2023-12-08 01:13:21', '2023-12-08 01:13:21'),
+(382, 'sd', 'BOM', 'DEL', '2023-12-08 06:43:21', '2023-12-08 01:13:21', '2023-12-08 01:13:21'),
+(383, '071ee7e7-9c5c-42d0-b355-10c5ab34cad9', 'LHR', 'DEL', '2023-12-08 06:48:57', '2023-12-08 01:18:57', '2023-12-08 01:18:57'),
+(384, 'sd', 'LHR', 'DEL', '2023-12-08 06:48:57', '2023-12-08 01:18:57', '2023-12-08 01:18:57'),
+(385, '531b1702-6bce-4ad1-bc91-aa95936bf55b', 'LHR', 'DEL', '2023-12-08 06:59:21', '2023-12-08 01:29:21', '2023-12-08 01:29:21'),
+(386, 'sd', 'LHR', 'DEL', '2023-12-08 06:59:21', '2023-12-08 01:29:21', '2023-12-08 01:29:21'),
+(387, 'f237ff73-c900-482e-866c-bd6cc368be46', 'LHR', 'DEL', '2023-12-08 07:02:09', '2023-12-08 01:32:09', '2023-12-08 01:32:09'),
+(388, 'sd', 'LHR', 'DEL', '2023-12-08 07:02:09', '2023-12-08 01:32:09', '2023-12-08 01:32:09'),
+(389, '5f628a02-adc6-4eed-9415-a35c0f7c9132', 'LHR', 'DEL', '2023-12-08 07:03:56', '2023-12-08 01:33:56', '2023-12-08 01:33:56'),
+(390, 'sd', 'LHR', 'DEL', '2023-12-08 07:03:56', '2023-12-08 01:33:56', '2023-12-08 01:33:56'),
+(391, '9aaa79d9-8dde-4dc6-b2d8-ef9a1bc4b03a', 'LHR', 'DEL', '2023-12-08 07:04:48', '2023-12-08 01:34:48', '2023-12-08 01:34:48'),
+(392, 'sd', 'LHR', 'DEL', '2023-12-08 07:04:48', '2023-12-08 01:34:48', '2023-12-08 01:34:48'),
+(393, 'd35031e7-5636-4ede-8f59-5f365381e531', 'LHR', 'DEL', '2023-12-08 07:13:17', '2023-12-08 01:43:17', '2023-12-08 01:43:17'),
+(394, 'sd', 'LHR', 'DEL', '2023-12-08 07:13:17', '2023-12-08 01:43:17', '2023-12-08 01:43:17'),
+(395, '8345f426-daf7-416f-85ae-9f7596836a59', 'LHR', 'DEL', '2023-12-08 07:15:43', '2023-12-08 01:45:43', '2023-12-08 01:45:43'),
+(396, 'sd', 'LHR', 'DEL', '2023-12-08 07:15:43', '2023-12-08 01:45:43', '2023-12-08 01:45:43'),
+(397, '21178eae-ef92-4e4b-8841-98b245ea0cf9', 'LHR', 'DEL', '2023-12-08 07:20:15', '2023-12-08 01:50:15', '2023-12-08 01:50:15'),
+(398, 'sd', 'LHR', 'DEL', '2023-12-08 07:20:15', '2023-12-08 01:50:15', '2023-12-08 01:50:15');
+INSERT INTO `flight_log` (`id`, `trace_id`, `f_from`, `f_to`, `date_time`, `created_at`, `updated_at`) VALUES
+(399, '4a71a543-39f1-478d-8db3-26aef4f39992', 'LHR', 'DEL', '2023-12-08 07:23:28', '2023-12-08 01:53:28', '2023-12-08 01:53:28'),
+(400, 'sd', 'LHR', 'DEL', '2023-12-08 07:23:28', '2023-12-08 01:53:28', '2023-12-08 01:53:28'),
+(401, 'b76d552f-b11c-452f-a9b5-efa48042d11d', 'LHR', 'DEL', '2023-12-08 07:23:28', '2023-12-08 01:53:28', '2023-12-08 01:53:28'),
+(402, 'sd', 'LHR', 'DEL', '2023-12-08 07:23:28', '2023-12-08 01:53:28', '2023-12-08 01:53:28'),
+(403, '7d31d313-74e6-4889-9f3e-a17a0c73b2a2', 'LHR', 'DEL', '2023-12-08 07:24:30', '2023-12-08 01:54:30', '2023-12-08 01:54:30'),
+(404, 'sd', 'LHR', 'DEL', '2023-12-08 07:24:30', '2023-12-08 01:54:30', '2023-12-08 01:54:30'),
+(405, '1819b90d-74b8-469a-a8ee-2742a4350174', 'LHR', 'DEL', '2023-12-08 07:26:25', '2023-12-08 01:56:25', '2023-12-08 01:56:25'),
+(406, 'sd', 'LHR', 'DEL', '2023-12-08 07:26:25', '2023-12-08 01:56:25', '2023-12-08 01:56:25'),
+(407, '0d469c8f-f7db-4414-bf49-0d4a8e7df930', 'LHR', 'DEL', '2023-12-08 07:28:15', '2023-12-08 01:58:15', '2023-12-08 01:58:15'),
+(408, 'sd', 'LHR', 'DEL', '2023-12-08 07:28:15', '2023-12-08 01:58:15', '2023-12-08 01:58:15'),
+(409, '77e9324d-e388-4c98-a0d2-207fe759f210', 'LHR', 'DEL', '2023-12-08 07:34:30', '2023-12-08 02:04:30', '2023-12-08 02:04:30'),
+(410, 'sd', 'LHR', 'DEL', '2023-12-08 07:34:30', '2023-12-08 02:04:30', '2023-12-08 02:04:30'),
+(411, '5669f373-1907-449b-9837-eb1776ea945c', 'LHR', 'DEL', '2023-12-08 07:35:22', '2023-12-08 02:05:22', '2023-12-08 02:05:22'),
+(412, 'sd', 'LHR', 'DEL', '2023-12-08 07:35:22', '2023-12-08 02:05:22', '2023-12-08 02:05:22'),
+(413, 'f165446e-1b97-4007-b85c-0160d76e89a2', 'LHR', 'DEL', '2023-12-08 07:41:56', '2023-12-08 02:11:56', '2023-12-08 02:11:56'),
+(414, 'sd', 'LHR', 'DEL', '2023-12-08 07:41:56', '2023-12-08 02:11:56', '2023-12-08 02:11:56'),
+(415, '86312205-116b-4627-84ab-97a693a147ae', 'LHR', 'DEL', '2023-12-08 07:44:43', '2023-12-08 02:14:43', '2023-12-08 02:14:43'),
+(416, 'sd', 'LHR', 'DEL', '2023-12-08 07:44:43', '2023-12-08 02:14:43', '2023-12-08 02:14:43'),
+(417, '2835fecd-a653-4688-a542-481c671f2680', 'LHR', 'DEL', '2023-12-08 07:46:54', '2023-12-08 02:16:54', '2023-12-08 02:16:54'),
+(418, 'sd', 'LHR', 'DEL', '2023-12-08 07:46:54', '2023-12-08 02:16:54', '2023-12-08 02:16:54'),
+(419, '11496c04-667d-4747-8e43-d881f44da8e4', 'LHR', 'DEL', '2023-12-08 07:51:29', '2023-12-08 02:21:29', '2023-12-08 02:21:29'),
+(420, 'sd', 'LHR', 'DEL', '2023-12-08 07:51:29', '2023-12-08 02:21:29', '2023-12-08 02:21:29'),
+(421, 'b595264d-5d77-4565-804d-764f95552703', 'LHR', 'DEL', '2023-12-08 07:52:01', '2023-12-08 02:22:01', '2023-12-08 02:22:01'),
+(422, 'sd', 'LHR', 'DEL', '2023-12-08 07:52:01', '2023-12-08 02:22:01', '2023-12-08 02:22:01'),
+(423, '13939363-e3e2-4498-b30f-bf77961b0f52', 'LHR', 'DEL', '2023-12-08 07:56:06', '2023-12-08 02:26:06', '2023-12-08 02:26:06'),
+(424, 'sd', 'LHR', 'DEL', '2023-12-08 07:56:06', '2023-12-08 02:26:06', '2023-12-08 02:26:06'),
+(425, '1644322b-9712-4a1e-8603-8f8496127e0e', 'LHR', 'DEL', '2023-12-08 08:45:36', '2023-12-08 03:15:36', '2023-12-08 03:15:36'),
+(426, 'sd', 'LHR', 'DEL', '2023-12-08 08:45:36', '2023-12-08 03:15:36', '2023-12-08 03:15:36'),
+(427, 'd03be5dc-36dd-4e8c-a8a2-5ddf7d24d616', 'IDR', 'DEL', '2023-12-08 16:25:17', '2023-12-08 10:55:17', '2023-12-08 10:55:17'),
+(428, 'sd', 'IDR', 'DEL', '2023-12-08 16:25:17', '2023-12-08 10:55:17', '2023-12-08 10:55:17'),
+(429, '8fe5a433-86d0-4473-b9da-2b4af70b7953', 'IDR', 'DEL', '2023-12-08 16:26:59', '2023-12-08 10:56:59', '2023-12-08 10:56:59'),
+(430, 'sd', 'IDR', 'DEL', '2023-12-08 16:26:59', '2023-12-08 10:56:59', '2023-12-08 10:56:59'),
+(431, 'aa85e7ed-d6e5-4a12-aac8-3e2d75e66741', 'IDR', 'DEL', '2023-12-08 16:27:13', '2023-12-08 10:57:13', '2023-12-08 10:57:13'),
+(432, 'sd', 'IDR', 'DEL', '2023-12-08 16:27:13', '2023-12-08 10:57:13', '2023-12-08 10:57:13'),
+(433, 'e45c805e-1c67-4100-a2cd-5ad06ccebc11', 'LHR', 'DEL', '2023-12-11 07:12:18', '2023-12-11 01:42:18', '2023-12-11 01:42:18'),
+(434, 'sd', 'LHR', 'DEL', '2023-12-11 07:12:18', '2023-12-11 01:42:18', '2023-12-11 01:42:18'),
+(435, 'ed9fdc8a-a4ad-420c-b78b-ea67fbfc2c7a', 'LHR', 'DEL', '2023-12-11 07:14:14', '2023-12-11 01:44:14', '2023-12-11 01:44:14'),
+(436, 'sd', 'LHR', 'DEL', '2023-12-11 07:14:14', '2023-12-11 01:44:14', '2023-12-11 01:44:14'),
+(437, 'fcd750cc-5f2a-4246-9c27-13d2caa825af', 'LHR', 'DEL', '2023-12-11 08:01:55', '2023-12-11 02:31:55', '2023-12-11 02:31:55'),
+(438, 'sd', 'LHR', 'DEL', '2023-12-11 08:01:55', '2023-12-11 02:31:55', '2023-12-11 02:31:55'),
+(439, '99cb1bb6-7366-4e87-bfc7-13bd345c8b6e', 'DEL', 'BOM', '2023-12-11 08:04:49', '2023-12-11 02:34:49', '2023-12-11 02:34:49'),
+(440, 'sd', 'DEL', 'BOM', '2023-12-11 08:04:49', '2023-12-11 02:34:49', '2023-12-11 02:34:49'),
+(441, 'a7c732e4-048c-4dae-a655-01320b7d6633', 'DEL', 'BOM', '2023-12-11 08:17:09', '2023-12-11 02:47:09', '2023-12-11 02:47:09'),
+(442, 'sd', 'DEL', 'BOM', '2023-12-11 08:17:09', '2023-12-11 02:47:09', '2023-12-11 02:47:09'),
+(443, 'dc43026d-bd86-41be-b295-5aa862696c56', 'DEL', 'BOM', '2023-12-11 08:21:21', '2023-12-11 02:51:21', '2023-12-11 02:51:21'),
+(444, 'sd', 'DEL', 'BOM', '2023-12-11 08:21:21', '2023-12-11 02:51:21', '2023-12-11 02:51:21'),
+(445, '9e2d04ae-6582-425f-aeb7-20da33a747e5', 'BHO', 'DEL', '2023-12-11 08:24:28', '2023-12-11 02:54:28', '2023-12-11 02:54:28'),
+(446, 'sd', 'BHO', 'DEL', '2023-12-11 08:24:28', '2023-12-11 02:54:28', '2023-12-11 02:54:28'),
+(447, '1ad57270-8d15-47af-88ae-986d63baf84d', 'BOM', 'DEL', '2023-12-11 08:25:32', '2023-12-11 02:55:32', '2023-12-11 02:55:32'),
+(448, 'sd', 'BOM', 'DEL', '2023-12-11 08:25:32', '2023-12-11 02:55:32', '2023-12-11 02:55:32'),
+(449, 'e344e2cc-97c9-4953-a809-145b48fe93b7', 'BOM', 'DEL', '2023-12-11 08:33:15', '2023-12-11 03:03:15', '2023-12-11 03:03:15'),
+(450, 'sd', 'BOM', 'DEL', '2023-12-11 08:33:15', '2023-12-11 03:03:15', '2023-12-11 03:03:15'),
+(451, '7e70ce07-e613-4ccf-954e-e35594d4332d', 'BOM', 'DEL', '2023-12-11 08:35:13', '2023-12-11 03:05:13', '2023-12-11 03:05:13'),
+(452, 'ebae9ba7-1a2b-44a9-863a-495ff08f1dd8', 'BOM', 'DEL', '2023-12-11 08:38:00', '2023-12-11 03:08:00', '2023-12-11 03:08:00'),
+(453, 'sd', 'BOM', 'DEL', '2023-12-11 08:38:00', '2023-12-11 03:08:00', '2023-12-11 03:08:00'),
+(454, '0edf7f11-4be5-4c1a-9d82-dadccfd47c14', 'DEL', 'BOM', '2023-12-11 08:57:23', '2023-12-11 03:27:23', '2023-12-11 03:27:23'),
+(455, 'sd', 'DEL', 'BOM', '2023-12-11 08:57:23', '2023-12-11 03:27:23', '2023-12-11 03:27:23'),
+(456, 'dfbddcba-1ec6-4480-ae5d-d82511c23572', 'LHR', 'DEL', '2023-12-11 09:29:39', '2023-12-11 03:59:39', '2023-12-11 03:59:39'),
+(457, 'sd', 'LHR', 'DEL', '2023-12-11 09:29:39', '2023-12-11 03:59:39', '2023-12-11 03:59:39'),
+(458, 'cb0acf6b-1555-4b9f-ac59-9b3d253977c8', 'LHR', 'DEL', '2023-12-11 10:01:39', '2023-12-11 04:31:39', '2023-12-11 04:31:39'),
+(459, 'sd', 'LHR', 'DEL', '2023-12-11 10:01:39', '2023-12-11 04:31:39', '2023-12-11 04:31:39'),
+(460, 'a49626c5-5cff-4f4a-a015-9e0d5e27bd98', 'DEL', 'BOM', '2023-12-11 10:38:35', '2023-12-11 05:08:35', '2023-12-11 05:08:35'),
+(461, 'sd', 'DEL', 'BOM', '2023-12-11 10:38:35', '2023-12-11 05:08:35', '2023-12-11 05:08:35'),
+(462, 'b117db55-d09d-461a-8616-39b9e159bea5', 'LHR', 'DEL', '2023-12-12 04:32:22', '2023-12-11 23:02:22', '2023-12-11 23:02:22'),
+(463, 'sd', 'LHR', 'DEL', '2023-12-12 04:32:22', '2023-12-11 23:02:22', '2023-12-11 23:02:22'),
+(464, '8cef5d88-b6b4-48ae-91d3-e79484035a6a', 'LHR', 'DEL', '2023-12-12 04:35:05', '2023-12-11 23:05:05', '2023-12-11 23:05:05'),
+(465, 'sd', 'LHR', 'DEL', '2023-12-12 04:35:05', '2023-12-11 23:05:05', '2023-12-11 23:05:05'),
+(466, '6ba9c9a5-bca1-468a-9674-8dc1a5508498', 'LHR', 'DEL', '2023-12-12 04:39:04', '2023-12-11 23:09:04', '2023-12-11 23:09:04'),
+(467, 'sd', 'LHR', 'DEL', '2023-12-12 04:39:04', '2023-12-11 23:09:04', '2023-12-11 23:09:04'),
+(468, '6c45c02d-6024-42eb-ba33-c1e239ff82e2', 'LHR', 'DEL', '2023-12-12 04:39:23', '2023-12-11 23:09:23', '2023-12-11 23:09:23'),
+(469, 'sd', 'LHR', 'DEL', '2023-12-12 04:39:23', '2023-12-11 23:09:23', '2023-12-11 23:09:23'),
+(470, '96965484-f828-4b0e-981e-fec68f5d2ef0', 'LHR', 'DEL', '2023-12-12 04:42:26', '2023-12-11 23:12:26', '2023-12-11 23:12:26'),
+(471, 'sd', 'LHR', 'DEL', '2023-12-12 04:42:26', '2023-12-11 23:12:26', '2023-12-11 23:12:26'),
+(472, 'd6da0c99-2265-4a8d-828f-9fb228be75c4', 'LHR', 'DEL', '2023-12-12 04:42:31', '2023-12-11 23:12:31', '2023-12-11 23:12:31'),
+(473, 'sd', 'LHR', 'DEL', '2023-12-12 04:42:31', '2023-12-11 23:12:31', '2023-12-11 23:12:31'),
+(474, '0e38f9be-4469-4e22-b1e3-874c74677234', 'LHR', 'DEL', '2023-12-12 04:42:37', '2023-12-11 23:12:37', '2023-12-11 23:12:37'),
+(475, 'sd', 'LHR', 'DEL', '2023-12-12 04:42:37', '2023-12-11 23:12:37', '2023-12-11 23:12:37'),
+(476, '88a2a249-985c-48ad-a17c-0ffd7b72a91f', 'LHR', 'DEL', '2023-12-12 05:32:40', '2023-12-12 00:02:40', '2023-12-12 00:02:40'),
+(477, 'sd', 'LHR', 'DEL', '2023-12-12 05:32:40', '2023-12-12 00:02:40', '2023-12-12 00:02:40'),
+(478, 'd24ab4f0-20f0-47ad-afc9-b3d8115711d5', 'LHR', 'DEL', '2023-12-12 05:35:44', '2023-12-12 00:05:44', '2023-12-12 00:05:44'),
+(479, 'sd', 'LHR', 'DEL', '2023-12-12 05:35:44', '2023-12-12 00:05:44', '2023-12-12 00:05:44'),
+(480, 'bd80f3bc-43ef-4a86-9d4e-72e2c8f9cc35', 'AUH', 'AMD', '2023-12-12 07:58:32', '2023-12-12 02:28:32', '2023-12-12 02:28:32'),
+(481, 'sd', 'AUH', 'AMD', '2023-12-12 07:58:32', '2023-12-12 02:28:32', '2023-12-12 02:28:32'),
+(482, '63c5bf1b-bd8a-40c0-8ecb-dc98ed4b5b5c', 'STV', 'AUH', '2023-12-12 08:01:58', '2023-12-12 02:31:58', '2023-12-12 02:31:58'),
+(483, 'sd', 'STV', 'AUH', '2023-12-12 08:01:58', '2023-12-12 02:31:58', '2023-12-12 02:31:58'),
+(484, 'f9dd0723-29de-4ea8-b395-fe861e89e4bc', 'BHO', 'DEL', '2023-12-12 09:42:18', '2023-12-12 04:12:18', '2023-12-12 04:12:18'),
+(485, 'sd', 'BHO', 'DEL', '2023-12-12 09:42:18', '2023-12-12 04:12:18', '2023-12-12 04:12:18'),
+(486, '413bb116-ce72-4063-9416-33d3a0363fff', 'IXD', 'BOM', '2023-12-12 16:46:52', '2023-12-12 11:16:52', '2023-12-12 11:16:52'),
+(487, 'sd', 'IXD', 'BOM', '2023-12-12 16:46:52', '2023-12-12 11:16:52', '2023-12-12 11:16:52'),
+(488, 'd5129566-46b5-4c1e-97af-9b2270813d70', 'lhr', 'bom', '2023-12-12 22:56:37', '2023-12-12 17:26:37', '2023-12-12 17:26:37'),
+(489, 'sd', 'lhr', 'bom', '2023-12-12 22:56:37', '2023-12-12 17:26:37', '2023-12-12 17:26:37'),
+(490, 'd5724243-4f15-4e3c-b763-c80dcc89064a', 'lhr', 'bom', '2023-12-12 22:56:45', '2023-12-12 17:26:45', '2023-12-12 17:26:45'),
+(491, 'sd', 'lhr', 'bom', '2023-12-12 22:56:45', '2023-12-12 17:26:45', '2023-12-12 17:26:45'),
+(492, '74a34b13-c618-4de9-b23f-a2f04a6851bc', 'lhr', 'bom', '2023-12-12 22:57:27', '2023-12-12 17:27:27', '2023-12-12 17:27:27'),
+(493, 'sd', 'lhr', 'bom', '2023-12-12 22:57:27', '2023-12-12 17:27:27', '2023-12-12 17:27:27'),
+(494, '27284702-db3c-4b03-8878-af1418917392', 'lhr', 'bom', '2023-12-12 22:58:38', '2023-12-12 17:28:38', '2023-12-12 17:28:38'),
+(495, 'sd', 'lhr', 'bom', '2023-12-12 22:58:38', '2023-12-12 17:28:38', '2023-12-12 17:28:38'),
+(496, 'cb4454d2-8447-48a0-988c-83ee8247926a', 'LHR', 'DDN', '2023-12-13 04:38:09', '2023-12-12 23:08:09', '2023-12-12 23:08:09'),
+(497, 'sd', 'LHR', 'DDN', '2023-12-13 04:38:09', '2023-12-12 23:08:09', '2023-12-12 23:08:09'),
+(498, '095b2b22-9d86-4adc-b173-a2b1332de012', 'DEL', 'AMD', '2023-12-13 04:40:01', '2023-12-12 23:10:01', '2023-12-12 23:10:01'),
+(499, 'sd', 'DEL', 'AMD', '2023-12-13 04:40:01', '2023-12-12 23:10:01', '2023-12-12 23:10:01'),
+(500, '9b22ba9f-2840-4cec-9d41-7a0fc2be9acf', 'LHR', 'DEL', '2023-12-13 08:13:12', '2023-12-13 02:43:12', '2023-12-13 02:43:12'),
+(501, 'sd', 'LHR', 'DEL', '2023-12-13 08:13:12', '2023-12-13 02:43:12', '2023-12-13 02:43:12'),
+(502, 'fef82a7c-5280-4572-9ff2-cd6a0a9e7629', 'AMD', 'DEL', '2023-12-13 10:00:58', '2023-12-13 04:30:58', '2023-12-13 04:30:58'),
+(503, 'sd', 'AMD', 'DEL', '2023-12-13 10:00:58', '2023-12-13 04:30:58', '2023-12-13 04:30:58'),
+(504, '559b7b3b-fd5f-4610-a109-fd8d2d5fdf97', 'AMD', 'DEL', '2023-12-13 10:09:35', '2023-12-13 04:39:35', '2023-12-13 04:39:35'),
+(505, 'sd', 'AMD', 'DEL', '2023-12-13 10:09:35', '2023-12-13 04:39:35', '2023-12-13 04:39:35'),
+(506, 'b09059a7-bbdc-4189-9519-650490fdff73', 'AMD', 'DEL', '2023-12-13 10:20:08', '2023-12-13 04:50:08', '2023-12-13 04:50:08'),
+(507, 'sd', 'AMD', 'DEL', '2023-12-13 10:20:08', '2023-12-13 04:50:08', '2023-12-13 04:50:08'),
+(508, '83d6649a-26b1-49f1-8d4c-7712959860eb', 'AMD', 'DEL', '2023-12-13 10:20:41', '2023-12-13 04:50:41', '2023-12-13 04:50:41'),
+(509, 'sd', 'AMD', 'DEL', '2023-12-13 10:20:41', '2023-12-13 04:50:41', '2023-12-13 04:50:41'),
+(510, '459f46d5-b625-461f-b15c-d221130ec4c9', 'AMD', 'DEL', '2023-12-13 10:28:31', '2023-12-13 04:58:31', '2023-12-13 04:58:31'),
+(511, 'sd', 'AMD', 'DEL', '2023-12-13 10:28:31', '2023-12-13 04:58:31', '2023-12-13 04:58:31'),
+(512, 'd022c381-d12e-41cc-8a09-19c982d536f8', 'LHR', 'DEL', '2023-12-13 10:46:20', '2023-12-13 05:16:20', '2023-12-13 05:16:20'),
+(513, 'sd', 'LHR', 'DEL', '2023-12-13 10:46:20', '2023-12-13 05:16:20', '2023-12-13 05:16:20'),
+(514, '4c0b94b5-ec3f-4b98-9210-a19d9fe7207a', 'DEL', 'BOM', '2023-12-13 10:50:21', '2023-12-13 05:20:21', '2023-12-13 05:20:21'),
+(515, 'sd', 'DEL', 'BOM', '2023-12-13 10:50:21', '2023-12-13 05:20:21', '2023-12-13 05:20:21'),
+(516, '6678896a-5a1c-4884-a49e-277a19289acd', 'DEL', 'LHR', '2023-12-13 11:07:22', '2023-12-13 05:37:22', '2023-12-13 05:37:22'),
+(517, 'sd', 'DEL', 'LHR', '2023-12-13 11:07:22', '2023-12-13 05:37:22', '2023-12-13 05:37:22'),
+(518, '7f606f48-33c3-453c-9a6a-e6d920f59a04', 'LHR', 'DEL', '2023-12-13 11:16:56', '2023-12-13 05:46:56', '2023-12-13 05:46:56'),
+(519, 'sd', 'LHR', 'DEL', '2023-12-13 11:16:56', '2023-12-13 05:46:56', '2023-12-13 05:46:56'),
+(520, '8d9cffca-b851-4177-b6b8-18b45499ad82', 'LHR', 'DEL', '2023-12-13 11:23:23', '2023-12-13 05:53:23', '2023-12-13 05:53:23'),
+(521, 'sd', 'LHR', 'DEL', '2023-12-13 11:23:23', '2023-12-13 05:53:23', '2023-12-13 05:53:23'),
+(522, '63a2f942-5131-4225-91c3-9011124dba6b', 'LHR', 'DEL', '2023-12-13 11:27:49', '2023-12-13 05:57:49', '2023-12-13 05:57:49'),
+(523, 'sd', 'LHR', 'DEL', '2023-12-13 11:27:49', '2023-12-13 05:57:49', '2023-12-13 05:57:49'),
+(524, '6376ce72-5862-4f8a-9723-84042576b450', 'DEL', 'BOM', '2023-12-13 11:31:54', '2023-12-13 06:01:54', '2023-12-13 06:01:54'),
+(525, 'sd', 'DEL', 'BOM', '2023-12-13 11:31:54', '2023-12-13 06:01:54', '2023-12-13 06:01:54'),
+(526, 'f4390463-79d6-476f-a350-f939f5eb6734', 'BHO', 'DEL', '2023-12-13 12:07:04', '2023-12-13 06:37:04', '2023-12-13 06:37:04'),
+(527, 'sd', 'BHO', 'DEL', '2023-12-13 12:07:04', '2023-12-13 06:37:04', '2023-12-13 06:37:04'),
+(528, '01df3496-dfcf-4c56-925b-3fc20a74e310', 'BOM', 'DEL', '2023-12-13 12:08:55', '2023-12-13 06:38:55', '2023-12-13 06:38:55'),
+(529, 'sd', 'BOM', 'DEL', '2023-12-13 12:08:55', '2023-12-13 06:38:55', '2023-12-13 06:38:55'),
+(530, 'f69b2e45-2ade-47a2-bad0-3986c4eebf6d', 'LHR', 'DEL', '2023-12-13 12:11:56', '2023-12-13 06:41:56', '2023-12-13 06:41:56'),
+(531, 'sd', 'LHR', 'DEL', '2023-12-13 12:11:56', '2023-12-13 06:41:56', '2023-12-13 06:41:56'),
+(532, '5edfd8ac-34cc-411a-b3aa-bea25ac4696f', 'LHR', 'DEL', '2023-12-13 12:23:10', '2023-12-13 06:53:10', '2023-12-13 06:53:10'),
+(533, 'sd', 'LHR', 'DEL', '2023-12-13 12:23:10', '2023-12-13 06:53:10', '2023-12-13 06:53:10'),
+(534, '7919ba5e-fc7b-42eb-ae2e-0baae565b1ae', 'LHR', 'DEL', '2023-12-13 12:26:42', '2023-12-13 06:56:42', '2023-12-13 06:56:42'),
+(535, 'sd', 'LHR', 'DEL', '2023-12-13 12:26:42', '2023-12-13 06:56:42', '2023-12-13 06:56:42'),
+(536, '88c44f26-658f-4ca1-8a40-ef5c2853b904', 'AMD', 'BOM', '2023-12-13 12:32:20', '2023-12-13 07:02:20', '2023-12-13 07:02:20'),
+(537, 'sd', 'AMD', 'BOM', '2023-12-13 12:32:20', '2023-12-13 07:02:20', '2023-12-13 07:02:20'),
+(538, '0c152622-5a8d-4863-b507-337bfe0ebea4', 'LHR', 'DEL', '2023-12-13 12:37:55', '2023-12-13 07:07:55', '2023-12-13 07:07:55'),
+(539, 'sd', 'LHR', 'DEL', '2023-12-13 12:37:55', '2023-12-13 07:07:55', '2023-12-13 07:07:55'),
+(540, 'c7664c02-5e22-4eb4-9801-4636be9531c6', 'LHR', 'DEL', '2023-12-14 04:53:00', '2023-12-13 23:23:00', '2023-12-13 23:23:00'),
+(541, 'sd', 'LHR', 'DEL', '2023-12-14 04:53:00', '2023-12-13 23:23:00', '2023-12-13 23:23:00'),
+(542, 'ebe0478c-a412-4214-b51c-b517a2fc2ca0', 'BOM', 'AMD', '2023-12-14 05:01:45', '2023-12-13 23:31:45', '2023-12-13 23:31:45'),
+(543, 'sd', 'BOM', 'AMD', '2023-12-14 05:01:45', '2023-12-13 23:31:45', '2023-12-13 23:31:45'),
+(544, '9c9c9a6d-e416-4bec-8b2f-c743e6aeb066', 'ABI', 'DEL', '2023-12-14 05:19:45', '2023-12-13 23:49:45', '2023-12-13 23:49:45'),
+(545, 'sd', 'ABI', 'DEL', '2023-12-14 05:19:45', '2023-12-13 23:49:45', '2023-12-13 23:49:45'),
+(546, 'c12fb86f-8139-41bc-aa19-32b04efe7e46', 'DNL', 'DEL', '2023-12-14 05:20:25', '2023-12-13 23:50:25', '2023-12-13 23:50:25'),
+(547, 'sd', 'DNL', 'DEL', '2023-12-14 05:20:25', '2023-12-13 23:50:25', '2023-12-13 23:50:25'),
+(548, 'd70aecde-4123-48ea-a35c-06f1fcea4209', 'LHR', 'DEL', '2023-12-14 05:21:11', '2023-12-13 23:51:11', '2023-12-13 23:51:11'),
+(549, 'sd', 'LHR', 'DEL', '2023-12-14 05:21:11', '2023-12-13 23:51:11', '2023-12-13 23:51:11'),
+(550, '6fde3bc5-4530-476a-9708-7d02aca905da', 'LHR', 'DEL', '2023-12-14 05:26:34', '2023-12-13 23:56:34', '2023-12-13 23:56:34'),
+(551, 'sd', 'LHR', 'DEL', '2023-12-14 05:26:34', '2023-12-13 23:56:34', '2023-12-13 23:56:34'),
+(552, '6951fc66-539c-4c63-9e23-19e72c3075c5', 'LHR', 'DEL', '2023-12-14 05:27:25', '2023-12-13 23:57:25', '2023-12-13 23:57:25'),
+(553, 'sd', 'LHR', 'DEL', '2023-12-14 05:27:25', '2023-12-13 23:57:25', '2023-12-13 23:57:25'),
+(554, 'ccd0ea05-56e4-4041-b960-db607478437f', 'LHR', 'DEL', '2023-12-14 05:31:14', '2023-12-14 00:01:14', '2023-12-14 00:01:14'),
+(555, 'sd', 'LHR', 'DEL', '2023-12-14 05:31:14', '2023-12-14 00:01:14', '2023-12-14 00:01:14'),
+(556, 'c6783b4f-3f13-40f0-a7e7-700e9a6da744', 'BOM', 'GOI', '2023-12-14 06:27:39', '2023-12-14 00:57:39', '2023-12-14 00:57:39'),
+(557, 'sd', 'BOM', 'GOI', '2023-12-14 06:27:39', '2023-12-14 00:57:39', '2023-12-14 00:57:39'),
+(558, 'eb9a57d8-4e90-4459-9bb0-1af5828bd1e7', 'LHR', 'DEL', '2023-12-14 06:32:03', '2023-12-14 01:02:03', '2023-12-14 01:02:03'),
+(559, 'sd', 'LHR', 'DEL', '2023-12-14 06:32:03', '2023-12-14 01:02:03', '2023-12-14 01:02:03'),
+(560, 'f664657b-a30e-4712-b780-b2f233a70d16', 'LHR', 'DEL', '2023-12-14 07:23:52', '2023-12-14 01:53:52', '2023-12-14 01:53:52'),
+(561, 'sd', 'LHR', 'DEL', '2023-12-14 07:23:52', '2023-12-14 01:53:52', '2023-12-14 01:53:52'),
+(562, '3c83990e-836d-45ed-959e-c690a2c0de3f', 'LHR', 'DEL', '2023-12-14 09:31:46', '2023-12-14 04:01:46', '2023-12-14 04:01:46'),
+(563, 'sd', 'LHR', 'DEL', '2023-12-14 09:31:46', '2023-12-14 04:01:46', '2023-12-14 04:01:46'),
+(564, '65759ab5-6ce5-47cb-a892-b4b02685859c', 'AMD', 'DEL', '2023-12-14 12:00:01', '2023-12-14 06:30:01', '2023-12-14 06:30:01'),
+(565, 'sd', 'AMD', 'DEL', '2023-12-14 12:00:01', '2023-12-14 06:30:01', '2023-12-14 06:30:01'),
+(566, 'd6c0783c-b507-4513-b19d-2ce2d6206fc7', 'LHR', 'DEL', '2023-12-15 05:29:56', '2023-12-14 23:59:56', '2023-12-14 23:59:56'),
+(567, 'sd', 'LHR', 'DEL', '2023-12-15 05:29:56', '2023-12-14 23:59:56', '2023-12-14 23:59:56'),
+(568, 'dca4e3f2-60e1-4d15-96dd-b0b9f9c70fc1', 'LHR', 'DEL', '2023-12-15 05:30:04', '2023-12-15 00:00:04', '2023-12-15 00:00:04'),
+(569, 'sd', 'LHR', 'DEL', '2023-12-15 05:30:04', '2023-12-15 00:00:04', '2023-12-15 00:00:04'),
+(570, '2798f873-ecd4-4f38-ba6e-03f908b2df8c', 'LHR', 'DEL', '2023-12-15 05:30:06', '2023-12-15 00:00:06', '2023-12-15 00:00:06'),
+(571, 'sd', 'LHR', 'DEL', '2023-12-15 05:30:06', '2023-12-15 00:00:06', '2023-12-15 00:00:06'),
+(572, '126799fa-7de1-4c7d-8dbb-5fb72eceefd2', 'LHR', 'DEL', '2023-12-15 07:41:06', '2023-12-15 02:11:06', '2023-12-15 02:11:06'),
+(573, 'sd', 'LHR', 'DEL', '2023-12-15 07:41:06', '2023-12-15 02:11:06', '2023-12-15 02:11:06'),
+(574, 'a8b364d5-7559-437b-909c-589772fb5002', 'LHR', 'DEL', '2023-12-15 08:17:27', '2023-12-15 02:47:27', '2023-12-15 02:47:27'),
+(575, 'sd', 'LHR', 'DEL', '2023-12-15 08:17:27', '2023-12-15 02:47:27', '2023-12-15 02:47:27'),
+(576, '6dfc8134-fd0c-4cd8-9dd1-5af375d0cc41', 'AMD', 'DEL', '2023-12-15 08:26:44', '2023-12-15 02:56:44', '2023-12-15 02:56:44'),
+(577, 'sd', 'AMD', 'DEL', '2023-12-15 08:26:44', '2023-12-15 02:56:44', '2023-12-15 02:56:44');
 
 -- --------------------------------------------------------
 
@@ -54365,9 +55152,9 @@ CREATE TABLE `hotel` (
   `booking_status` varchar(255) DEFAULT NULL,
   `confimation_no` varchar(255) DEFAULT NULL,
   `booking_id` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hotel`
@@ -54386,9 +55173,9 @@ CREATE TABLE `hotel_cities` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `city_id` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hotel_cities`
@@ -55926,9 +56713,47 @@ CREATE TABLE `hotel_city` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `city_id` int(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated _at` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated _at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hotel_details`
+--
+
+CREATE TABLE `hotel_details` (
+  `id` int(11) NOT NULL,
+  `hotel_name` varchar(255) NOT NULL,
+  `hotel_image` varchar(255) NOT NULL,
+  `hotel_address` varchar(255) NOT NULL,
+  `hotel_rating` varchar(255) NOT NULL,
+  `hotel_price` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hotel_details`
+--
+
+INSERT INTO `hotel_details` (`id`, `hotel_name`, `hotel_image`, `hotel_address`, `hotel_rating`, `hotel_price`, `created_at`, `updated_at`) VALUES
+(2, 'Sheraton Test', 'http://wlb2b.techmaster.in/ExtranetHotelImages/Hotel/45362f4c-c165-42b1-849c-3cf18f9f2daa.jpg', 'test hotel, 3432432, Mumbai, 232132323', '4', '50.4', '2023-12-06 04:38:32', '2023-12-06 04:38:32'),
+(7, 'Taj Falaknuma Palace', 'https://api.tbotechnology.in/imageresource.aspx?img=9eMP+0FIICgCIk6ZClzZH9Cs+1gwAq6BFWcc22yNLMF/UJIXMdxPdRpAyYgh22RZoIG2hNuxIABv100tiGZuURejvY/EYQboCx2z77g8nr813zsV+G+7zSZ0XNK10rxg+Ki1OOGll3c+haRxujd0AXoobIfqrxGtjl4ZtHCzhIc=', 'Engine Bowli Falaknuma , ', '5', '210961.18', '2023-12-06 04:47:00', '2023-12-06 04:47:00'),
+(9, 'Hotel NirmalVilla Cherry Service Apartment', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5lPqBj/Ape0+Hf/or2ZERs5+NgqDDP/ZVmnZCCxHgq6zQmQzQAM4cTLpts6X9AoBFsAviXWF+k4kwb17FFwBvYQ==', 'Flat 302 Subha Sree Apartment Naik Estate , ', '3', '980.77', '2023-12-07 05:49:58', '2023-12-07 05:49:58'),
+(12, 'Samruddhi & Shree Inn Lodge', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5lPqBj/Ape0/CGIZLmjIo0moCoEJq3Cmy4NQEwrrJMVJN+3LxUGbl2nmJaHkoD9yul0+jj4p/1YQsxFm/0o+PQA==', 'Pune-Satara Road Bhilarewadi , ', '2', '1123.72', '2023-12-07 06:13:00', '2023-12-07 06:13:00'),
+(13, 'Samruddhi & Shree Inn Lodge', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5lPqBj/Ape0/CGIZLmjIo0moCoEJq3Cmy4NQEwrrJMVJN+3LxUGbl2nmJaHkoD9yul0+jj4p/1YQsxFm/0o+PQA==', 'Pune-Satara Road Bhilarewadi , ', '2', '1123.72', '2023-12-07 08:23:57', '2023-12-07 08:23:57'),
+(14, 'Romaldo Guest House', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5lPqBj/Ape0+Hf/or2ZERs9YcfqQ06iAC4ZMuOX7WOXj7ix/HFIhuN+1hmxrf0jd54cZciRgewqtfEK22DEF40Q==', 'H C5-27 Maddo Vaddo Behind Paradise Village , ', '2', '1695.5', '2023-12-11 23:15:07', '2023-12-11 23:15:07'),
+(15, 'Romaldo Guest House', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5lPqBj/Ape0+Hf/or2ZERs9YcfqQ06iAC4ZMuOX7WOXj7ix/HFIhuN+1hmxrf0jd54cZciRgewqtfEK22DEF40Q==', 'H C5-27 Maddo Vaddo Behind Paradise Village , ', '2', '1695.5', '2023-12-11 23:20:13', '2023-12-11 23:20:13'),
+(16, 'Holiday Inn Resort Goa', 'https://b2b.tektravels.com/Images/HotelNA.jpg', 'Mobor Beach, Cavelossim, Goa, INDIA, 403731', '3', '103887', '2023-12-11 23:26:41', '2023-12-11 23:26:41'),
+(17, 'Holiday Inn Kolkata Airport', 'https://b2b.tektravels.com/Images/HotelNA.jpg', 'Biswa Bangla Sarani, Rajarhat, Near City Centre 2, Kolkata, INDIA, 700136', '3', '19200', '2023-12-11 23:28:17', '2023-12-11 23:28:17'),
+(18, 'Holiday Inn Express Gurugram Sector 50', 'https://b2b.tektravels.com/Images/HotelNA.jpg', 'Good Earth City Centre, Opposite Malibu Commercial Complex, Gurugram, INDIA, 122018', '3', '21605.6', '2023-12-11 23:30:42', '2023-12-11 23:30:42'),
+(19, 'Yellow House', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5/4r2Wk2upF0/4Z0PsKpc0Aub3JeH8oDHU6lqe3G7ktk9uraUvylI7DZ8gpx7ZvcpFbB0wHJ2ICk=', 'House 510 Vagator Beach , ', '2', '2683.42', '2023-12-11 23:37:06', '2023-12-11 23:37:06'),
+(20, 'Romaldo Guest House', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5lPqBj/Ape0+Hf/or2ZERs9YcfqQ06iAC4ZMuOX7WOXj7ix/HFIhuN+1hmxrf0jd54cZciRgewqtfEK22DEF40Q==', 'H C5-27 Maddo Vaddo Behind Paradise Village , ', '2', '1695.5', '2023-12-11 23:59:25', '2023-12-11 23:59:25'),
+(21, 'Yellow House', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5/4r2Wk2upF0/4Z0PsKpc0Aub3JeH8oDHU6lqe3G7ktk9uraUvylI7DZ8gpx7ZvcpFbB0wHJ2ICk=', 'House 510 Vagator Beach , ', '2', '2683.42', '2023-12-12 00:00:07', '2023-12-12 00:00:07'),
+(22, 'Romaldo Guest House', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA5lPqBj/Ape0+Hf/or2ZERs9YcfqQ06iAC4ZMuOX7WOXj7ix/HFIhuN+1hmxrf0jd54cZciRgewqtfEK22DEF40Q==', 'H C5-27 Maddo Vaddo Behind Paradise Village , ', '2', '1695.5', '2023-12-12 00:46:16', '2023-12-12 00:46:16'),
+(23, 'Hibiscus Guest House', 'https://api.tbotechnology.in/imageresource.aspx?img=FbrGPTrju5e5v0qrAGTD8pPBsj8/wYA58x7qN9K51soPXqf2wzzOUmwkIZOSsg6gEmAEJWg7Xx05ylkt7A6Jn8A+ZckXJ2YuJxioFCoF/jE=', '190 Naga Nagri Opposite The Leela Palace , ', '3', '384.37', '2023-12-12 23:34:49', '2023-12-12 23:34:49');
 
 -- --------------------------------------------------------
 
@@ -55938,15 +56763,15 @@ CREATE TABLE `hotel_city` (
 
 CREATE TABLE `live_streamings` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
-  `booking_slot_id` varchar(255) DEFAULT NULL,
-  `start_time` varchar(255) DEFAULT NULL,
-  `end_time` varchar(255) DEFAULT NULL,
-  `views` varchar(255) DEFAULT NULL,
-  `likes` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT '1' COMMENT '1-Booked,2-Streaming,3-Completed',
-  `booking_date` varchar(255) DEFAULT NULL,
-  `stream_date` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `booking_slot_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `start_time` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `end_time` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `views` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `likes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '1' COMMENT '1-Booked,2-Streaming,3-Completed',
+  `booking_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stream_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -56011,15 +56836,94 @@ INSERT INTO `live_streamings` (`id`, `user_id`, `booking_slot_id`, `start_time`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `markup`
+--
+
+CREATE TABLE `markup` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `markup_amount` int(25) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `markup`
+--
+
+INSERT INTO `markup` (`id`, `name`, `markup_amount`, `created_at`, `updated_at`) VALUES
+(1, 'demo2', 20, '2023-11-22 02:56:00', '2023-11-22 03:21:26'),
+(2, 'demo', 20, '2023-11-22 03:01:08', '2023-11-22 03:01:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `markup_apply`
+--
+
+CREATE TABLE `markup_apply` (
+  `id` int(11) NOT NULL,
+  `markup_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `markup_apply`
+--
+
+INSERT INTO `markup_apply` (`id`, `markup_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, 1, 168, '2023-11-22 10:14:49', '2023-11-22 10:14:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL,
+  `payment_id` varchar(255) NOT NULL,
+  `payment_type` varchar(255) NOT NULL,
+  `amount` varchar(255) NOT NULL,
+  `payment_for` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `payment_id`, `payment_type`, `amount`, `payment_for`, `created_at`, `updated_at`) VALUES
+(1, 'P12858413622921', 'Flight', '43303', 'flight', '2023-12-08 04:13:08', '2023-12-08 04:13:08'),
+(2, '1P7480379662553', 'Flight', '43303', 'flight', '2023-12-08 04:14:00', '2023-12-08 04:14:00'),
+(3, '784L46235036591', 'Flight', '43303', 'flight', '2023-12-08 04:31:53', '2023-12-08 04:31:53'),
+(4, '402313211D22521', 'Flight', '43303', 'flight', '2023-12-08 04:36:53', '2023-12-08 04:36:53'),
+(5, '342362685290O55', 'Flight', '43303', 'flight', '2023-12-08 04:43:37', '2023-12-08 04:43:37'),
+(6, '90769772J861253', 'Flight', '43303', 'flight', '2023-12-08 04:46:38', '2023-12-08 04:46:38'),
+(7, '1S8529443924542', 'Flight', '43303', 'flight', '2023-12-08 05:11:47', '2023-12-08 05:11:47'),
+(8, '2859218675E0326', 'Wallet', '43133', 'flight', '2023-12-11 01:45:14', '2023-12-11 01:45:14'),
+(9, '127M69174584089', 'Wallet', '50376', 'flight', '2023-12-11 01:56:52', '2023-12-11 01:56:52'),
+(10, '5Z1749561725077', 'Wallet', '50376', 'flight', '2023-12-11 02:04:25', '2023-12-11 02:04:25'),
+(11, '4776H6320421362', 'Wallet', '62866', 'flight', '2023-12-11 02:30:30', '2023-12-11 02:30:30'),
+(12, '626419055X23287', 'Wallet', '62866', 'flight', '2023-12-11 02:32:45', '2023-12-11 02:32:45'),
+(13, '936978123V92341', 'Wallet', '6857', 'flight', '2023-12-11 02:35:32', '2023-12-11 02:35:32'),
+(14, '138889385711M13', 'Wallet', '6857', 'flight', '2023-12-11 02:43:39', '2023-12-11 02:43:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `privacy`
 --
 
 CREATE TABLE `privacy` (
   `id` int(11) NOT NULL,
   `privacy` varchar(56000) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `privacy`
@@ -56036,7 +56940,7 @@ INSERT INTO `privacy` (`id`, `privacy`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `role_name` varchar(255) NOT NULL,
+  `role_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -56092,9 +56996,9 @@ CREATE TABLE `shipment` (
   `package_width` varchar(25) DEFAULT NULL,
   `package_height` varchar(25) DEFAULT NULL,
   `package_weight` varchar(25) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `shipment`
@@ -56287,10 +57191,10 @@ INSERT INTO `shipment` (`id`, `shipment_id`, `shipper_name`, `shipper_phone`, `s
 
 CREATE TABLE `sponsor_ad` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `start_date` varchar(255) DEFAULT NULL,
-  `expiry_date` varchar(255) DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `start_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `expiry_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -56311,8 +57215,8 @@ INSERT INTO `sponsor_ad` (`id`, `image`, `link`, `start_date`, `expiry_date`, `c
 CREATE TABLE `states` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
-  `country_id` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `country_id` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `states`
@@ -60420,12 +61324,12 @@ INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
 
 CREATE TABLE `subscriptions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `days` varchar(255) DEFAULT NULL,
-  `price` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `type` varchar(255) DEFAULT '1' COMMENT '1-Monthly,2-Quarterly,3-Yearly',
-  `stream_slots` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `days` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '1' COMMENT '1-Monthly,2-Quarterly,3-Yearly',
+  `stream_slots` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -60449,7 +61353,7 @@ CREATE TABLE `tbl_countries` (
   `id` int(11) NOT NULL,
   `sortname` varchar(3) NOT NULL,
   `name` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_countries`
@@ -60706,32 +61610,113 @@ INSERT INTO `tbl_countries` (`id`, `sortname`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tour`
+--
+
+CREATE TABLE `tour` (
+  `id` int(11) NOT NULL,
+  `tour_name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `no_of_day` varchar(255) DEFAULT NULL,
+  `rating` varchar(255) DEFAULT NULL,
+  `reviewes` varchar(255) DEFAULT NULL,
+  `price` varchar(255) DEFAULT NULL,
+  `tax` varchar(255) DEFAULT NULL,
+  `other_facilities` varchar(255) DEFAULT NULL,
+  `tour_type` varchar(255) DEFAULT NULL,
+  `no_of_people` varchar(255) DEFAULT NULL,
+  `overview` varchar(25599) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `included` longtext,
+  `excluded` longtext,
+  `itinerary` longtext,
+  `why_choose_us` longtext,
+  `images` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tour`
+--
+
+INSERT INTO `tour` (`id`, `tour_name`, `address`, `no_of_day`, `rating`, `reviewes`, `price`, `tax`, `other_facilities`, `tour_type`, `no_of_people`, `overview`, `image`, `included`, `excluded`, `itinerary`, `why_choose_us`, `images`, `created_at`, `updated_at`) VALUES
+(11, 'Dubai – Abu Dhabi Tour', 'Dubai', '7', '5', '10', '660', '5', 'Hotels, Meals, Sightseeing', 'single', '2', 'Tour HighlightsDubai:Half-Day New Dubai City Tour by Dubai Tourism Authorized Tour GuideOne Way Monorail ride at Atlantis the Palm during Half Day City tour.Desert Safari with BBQ Dinner02 Hrs. Yacht RideBurj Khalifa at Top view 124th Floor Entry Ticket.Dubai Mall Visit, Musical Fountain Show at time of Burj Khalifa visitGlobal VillageMiracle Garden01 Hour Limo RideAbu Dhabi:Abu Dhabi City Tour with Sheikh Zayed Grand Mosque VisitComplimentary Access to Any 02 Park during stay at Yas Island (Ferrari World / Warner Bros Theme / Yas Water Park/SeaWorld)', '61645.jpg', 'Economy Class Return Airfare Ex. AhmedabadAccommodation at Hotel with daily buffet breakfast.Dinner at Indian Veg RestaurantHotel Tourism Dirham Tax.All Tours and Transfers with Group.Inter Hotel Transfer', 'Terms of Personal nature Such as Mineral Water, Tips, PorterageAny increase in Airfare, overseas Mediclaim Insurance.RTPCRCost of meal other than mentioned in inclusions.GST and TCS Extra as per actual at the time of final payment.', '[\"ArrivalUpon arriving at Abu Dhabi International Airport, you will be met and greeted. From there, you will be transferred to Dubai, where you can enjoy a hearty breakfast at an Indian vegetarian restaurant. Check-in at your hotel will be in line with international standard check-in times, although early check-in is subject to availability.In the evening, embark on a memorable yacht ride, immersing yourself in a two-hour yacht experience. Later, indulge in a delectable dinner at an Indian restaurant. After a day filled with adventures, you\'ll be dropped back at your hotel for an overnight stay.\",\"Dubai City TourStart your day with a delightful buffet breakfast at your hotel.After breakfast, embark on a Dubai City tour. The pick-up is scheduled between 9:30 AM to 10:00 AM. During the tour, you\'ll have a photo stop at the iconic \'Burj Al Arab,\' and you\'ll get to visit other notable landmarks like Dubai Sheikh Zayed Road, Palm Jumeirah, and many other scenic spots while enjoying the breathtaking view of Dubai city.In the evening, it\'s time for a remarkable experience. You will visit the Burj Khalifa\'s 124th floor, known as \\\"At the Top.\\\" The time slot for this visit will be as per slot availability. From this towering vantage point, you\'ll be able to look down from the world\'s tallest building and enjoy a breathtaking view of the city. Don\'t miss the amazing musical fountain show at the Dubai Fountain.Conclude your day with a scrumptious dinner at an Indian restaurant. After a day filled with sightseeing and exploration, you\'ll be dropped back at your hotel for an overnight stay.\",\"Desert safariStart your day with a delightful buffet breakfast at your hotel.Next, you have a special experience lined up: a 1-hour limo ride, where you can enjoy luxury and comfort.In the afternoon, you will be picked up for the Desert Safari adventure. The pick-up is scheduled between 2:30 PM to 3:00 PM. You\'ll embark on a thrilling Dune Bashing experience, taking you deep into the heart of the desert.After the exciting desert ride, you\'ll head to a Desert Camp where you\'ll receive a traditional Arabian welcome and soak in the Arabian ambiance. The camp offers various activities, including a camel ride, henna painting, an opportunity to try on Arabic costumes, or simply enjoy the aromatic sheesha.In the evening, a buffet dinner awaits you at the camp, featuring a wide variety of barbecue meals, salads, main courses, and desserts. You\'ll also be entertained with an exotic belly dance performance.After an exhilarating day in the desert, you\'ll be dropped back at your hotel for an overnight stay. Please note that carrying liquor during the Desert Safari is strictly prohibited due to local regulations.\",\"Global Village & Miracle GardenBegin your day with breakfast at the hotel.During the first half of the day, you have the opportunity for shopping and leisure, particularly at Global Village. After that, explore the stunning Miracle Garden.In the evening, enjoy dinner at an Indian restaurant.Conclude your day with an overnight stay at the hotel.\",\"Abu Dhabi TourBegin your day with a hearty breakfast at your hotel, followed by a transfer to another hotel in Abu Dhabi. Your day will be filled with exploration as you embark on an Abu Dhabi city tour. This tour includes visits to the country\'s largest mosque, Swami Narayan Temple, and the chance to admire other iconic structures of Abu Dhabi. Don\'t forget to capture memories with a photo stop at Ferrari World Theme Park and YAS Mall. In the evening, savor a delicious dinner at an Indian restaurant before returning to your hotel for an overnight stay.\",\"Abu DhabiYou will have complimentary access to any one park on Yas Island, which can be easily reached via a free shuttle bus. After your park visit, enjoy a delightful dinner at Rasoi Ghar an Indian restaurant.\",\"DepartureYour day\'s plan includes complimentary access to one of the parks on Yas Island, with easy transportation via a free shuttle bus. Check-out from your hotel is set for 12:00 PM, and if you need a late checkout, it can be arranged based on availability for an extra cost. Conclude your trip with a delicious dinner at an Indian restaurant. Finally, you\'ll be taken back to Abu Dhabi airport, ensuring you arrive approximately 4 hours before your scheduled flight, allowing ample time for departure procedures.\"]', 'Best Travel Partner', '32328.jpg', '2023-11-30 04:10:17', '2023-11-30 04:14:29'),
+(12, 'White Winter Shimla - Manali Family Package', 'Manali', '10', '4', '1299', '29999', '1989', 'AC , Hotel, GYM', 'group', '20', 'sdf', '20437.png', 'sad', 'asd', '[\"asdf\"]', 'asdf', NULL, '2023-12-06 05:19:24', '2023-12-06 05:19:24'),
+(13, 'Ancient Greece', 'Bhopal', '5', '4', '140', '2999', '1999', 'AC , Hotel, GYM', 'single', '3', 'we', '29241.png', 'sdd', 'sas', '[\"asd\"]', 'aa', NULL, '2023-12-06 12:45:48', '2023-12-06 12:45:48'),
+(14, 'Thailand', 'Thailand', '4', '4', '122', '1999', '199', 'AC , Hotel, GYM', 'single', '1', 'er', '59658.png', 'we', 'we', '[\"we\"]', 'we', NULL, '2023-12-06 12:49:02', '2023-12-07 05:15:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tour_booking`
+--
+
+CREATE TABLE `tour_booking` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `tour_pavkage_id` int(25) DEFAULT NULL,
+  `tour_id` int(25) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tour_details`
+--
+
+CREATE TABLE `tour_details` (
+  `id` int(11) NOT NULL,
+  `tour_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tour_package_name` varchar(2555) DEFAULT NULL,
+  `details` longtext,
+  `amount` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tour_details`
+--
+
+INSERT INTO `tour_details` (`id`, `tour_id`, `created_at`, `updated_at`, `tour_package_name`, `details`, `amount`) VALUES
+(6, 11, '2023-12-01 02:19:26', '2023-12-01 02:19:26', 'demo', 'hh', '199');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `user_image` varchar(255) DEFAULT NULL,
-  `profile_likes` varchar(255) DEFAULT '0',
-  `mobile_no` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `nationality` varchar(255) DEFAULT NULL,
-  `business_category` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL COMMENT '1-Admin,2-user,3-model,4-shop',
-  `otp` varchar(255) DEFAULT NULL,
-  `is_otp_varified` varchar(255) DEFAULT NULL,
-  `is_varified` varchar(255) DEFAULT NULL,
-  `fcm_api_key` varchar(255) DEFAULT NULL,
-  `fcm_id` varchar(255) DEFAULT NULL,
-  `accept_terms` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `insta_id` varchar(255) DEFAULT NULL,
-  `snapchat_id` varchar(255) DEFAULT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_likes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '0',
+  `mobile_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nationality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `business_category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '1-Admin,2-user,3-model,4-shop',
+  `otp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_otp_varified` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_varified` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fcm_api_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fcm_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `accept_terms` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `insta_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `snapchat_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -60752,18 +61737,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `us
 CREATE TABLE `user_details` (
   `id` int(20) UNSIGNED NOT NULL,
   `user_id` int(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `lname` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `mobile` varchar(255) NOT NULL,
-  `role` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `commision` int(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `country` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL DEFAULT 'inactive',
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -60785,7 +61770,8 @@ INSERT INTO `user_details` (`id`, `user_id`, `name`, `lname`, `email`, `password
 (174, NULL, 'demo', 'Kumar', 'admin@gmail.com', '1234', '1234567896', 'agent', 12, NULL, NULL, NULL, NULL, 'inactive', '2023-10-18 08:06:16', '2023-10-18 08:06:16'),
 (175, NULL, 'Group A', 'Kumar', 'admin@gmail.com', '1234', '1234567896', 'agent', 12, NULL, NULL, NULL, NULL, 'inactive', '2023-10-18 08:07:59', '2023-10-18 08:07:59'),
 (176, NULL, 'Group A', 'kumar', 'mails@neopaint.com', '1234', '1234567896', 'agent', 120, NULL, NULL, NULL, NULL, 'inactive', '2023-10-18 08:11:22', '2023-10-18 08:11:22'),
-(177, NULL, 'demo', 'mandrai', 'mails@gmail.com', '1234', '7999510032', 'customer', NULL, NULL, NULL, NULL, NULL, 'inactive', '2023-11-02 05:57:31', '2023-11-02 05:57:31');
+(177, NULL, 'demo', 'mandrai', 'mails@gmail.com', '1234', '7999510032', 'customer', NULL, NULL, NULL, NULL, NULL, 'inactive', '2023-11-02 05:57:31', '2023-11-02 05:57:31'),
+(178, NULL, 'skyreveryBum', 'skyreveryBum', 'malinoleg91@mail.ru', 'Dx6dG2JWQR2', '81592381669', 'customer', NULL, NULL, NULL, NULL, NULL, 'inactive', '2023-12-13 05:20:20', '2023-12-13 05:20:20');
 
 -- --------------------------------------------------------
 
@@ -60795,13 +61781,115 @@ INSERT INTO `user_details` (`id`, `user_id`, `name`, `lname`, `email`, `password
 
 CREATE TABLE `user_subscription` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
-  `subscription_id` varchar(255) DEFAULT NULL,
-  `start_date` varchar(255) DEFAULT NULL,
-  `end_date` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subscription_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `start_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `end_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visa`
+--
+
+CREATE TABLE `visa` (
+  `id` int(11) NOT NULL,
+  `visa_name` varchar(255) NOT NULL,
+  `visa_type` varchar(255) NOT NULL,
+  `duration` int(25) NOT NULL,
+  `overview` varchar(2555) NOT NULL,
+  `documents` varchar(2555) NOT NULL,
+  `include` varchar(2555) NOT NULL,
+  `exclude` varchar(2555) NOT NULL,
+  `why_choose_us` varchar(2555) NOT NULL,
+  `amount` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `currency_type` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `visa`
+--
+
+INSERT INTO `visa` (`id`, `visa_name`, `visa_type`, `duration`, `overview`, `documents`, `include`, `exclude`, `why_choose_us`, `amount`, `image`, `currency_type`, `created_at`, `updated_at`) VALUES
+(3, 'Belgium', 'Tourist visa', 15, 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', 'Financials Document:  Company’s and Personal ITR Six months’ salary slip Original Company and Personal Bank Statement for last six months mentioning the Bank’s name, Bank’s Telephone Number clearly. Note: Bank Statement should be on A4 size paper with seal and signature. Credit Card copy/Foreign Exchange endorsement/Travellers Cheque Proof Of Occupation:  Company Registration Certificate / Certificate of Incorporation Brief Company Profile Articles of Memorandum (In case the applicant is MD/Director) Proof of Proprietorship / Partnership (In case applicant is Proprietor / Partner in a firm) Import / Export License (if applicable)', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', 'We are best', '250', '56875.png', '$', '2023-11-29 02:39:41', '2023-12-07 01:11:14'),
+(4, 'Demo', 'Education visa', 12, 'sd', 'sd', 'sd', 'sd', 'sd', '1999', '27392.png', '$', '2023-12-07 01:08:47', '2023-12-07 01:10:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visa_booking`
+--
+
+CREATE TABLE `visa_booking` (
+  `id` int(11) NOT NULL,
+  `visa_name` varchar(255) NOT NULL,
+  `visa_package_name` varchar(255) NOT NULL,
+  `visa_type` varchar(255) NOT NULL,
+  `duration` varchar(255) NOT NULL,
+  `overview` varchar(2555) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `currency_type` varchar(255) NOT NULL,
+  `include` varchar(2555) NOT NULL,
+  `exclude` varchar(2555) NOT NULL,
+  `visa_amount` varchar(255) NOT NULL,
+  `visa_package_amount` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `lname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `mobile` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `documents` varchar(2555) DEFAULT NULL,
+  `booking_id` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `visa_booking`
+--
+
+INSERT INTO `visa_booking` (`id`, `visa_name`, `visa_package_name`, `visa_type`, `duration`, `overview`, `image`, `currency_type`, `include`, `exclude`, `visa_amount`, `visa_package_amount`, `name`, `lname`, `email`, `mobile`, `address`, `documents`, `booking_id`, `created_at`, `updated_at`) VALUES
+(1, 'School', 'Student visa', 'Education visa', '25', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est.  Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.  Buffet breakfast as per the Itinerary Visit eight villages showcasing Polynesian culture Complimentary Camel safari, Bonfire, and Cultural Dance at Camp All toll tax, parking, fuel, and driver allowances Comfortable and hygienic vehicle (SUV/Sedan) for sightseeing on all days as per the itinerary.', '56875.png', 'single', 'Stet clitaStet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.  Buffet breakfast as per the Itinerary Visit eight villages showcasing Polynesian culture Complimentary Camel safari, Bonfire, and Cultural Dance at Camp All toll tax, parking, fuel, and driver allowances Comfortable and hygienic vehicle (SUV/Sedan) for sightseeing on all days as per the itinerary.', 'Stet clitaStet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.  Buffet breakfast as per the Itinerary Visit eight villages showcasing Polynesian culture Complimentary Camel safari, Bonfire, and Cultural Dance at Camp All toll tax, parking, fuel, and driver allowances Comfortable and hygienic vehicle (SUV/Sedan) for sightseeing on all days as per the itinerary.', '1999', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'Bhopal', NULL, '', '2023-11-30 06:23:59', '2023-11-30 06:23:59'),
+(2, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:17:11', '2023-12-01 00:17:11'),
+(3, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:36:46', '2023-12-01 00:36:46'),
+(4, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:37:31', '2023-12-01 00:37:31'),
+(5, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:38:32', '2023-12-01 00:38:32'),
+(6, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:39:27', '2023-12-01 00:39:27'),
+(7, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:41:27', '2023-12-01 00:41:27'),
+(8, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:43:20', '2023-12-01 00:43:20'),
+(9, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'umesh', 'mandrai', 'umesh@weblatic.in', '7999510032', 'mumbai', NULL, '', '2023-12-01 00:44:28', '2023-12-01 00:44:28'),
+(10, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'raj', 'thakur', 'mails@gmail.com', '1234567896', 'India', NULL, '955764N82176576', '2023-12-01 01:41:29', '2023-12-01 01:41:29'),
+(11, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'raj', 'thakur', 'mails@gmail.com', '1234567896', 'India', NULL, 'J60751153612705', '2023-12-01 01:42:56', '2023-12-01 01:42:56'),
+(12, 'Belgium', 'Student visa', 'Tourist visa', '15', 'Visa Notes & Fees  Passport : Original Passport with validity of minimum six months and minimum one blank page for visa stamp.  Note :  Passports issued beyond 10 years will not be accepted by the Embassy Handwritten passports will not be accepted. Indian Passports can only be accepted if their bio data (name, date of birth, place of birth & sex) have not been modified by an “observation”. However, observation regarding the validity of the passport or any observation on the last page is acceptable. Attach all your old passports (if any) Schengen Visa Application Form:  Visa application form must be filled online https://visaonweb.diplomatie.be/ . After filling the form, 2 printout has to be taken and duly signed by the applicant on column 37 and main column.', '56875.png', 'group', 'As per the new visa application procedure, applicants seeking Belgium visa will have to visit the visa application centre in person to submit their applications as biometric fingerprint data along with a live photograph is required for all the short term applications (Including VIS applications). Live photograph is also mandatory for long term visa applicants and children below the age of 12 years.', 'Exemptions from the obligation of fingerprinting are provided for the following categories of applicants only:  Children (Age < 12 years) Persons for whom the collection of fingerprints is physically impossible. Sovereigns and other senior members of a royal family, Heads of State and members of the national Governments (with their official delegations and spouses) if they travel for official purposes.', '250', '2999', 'demoC', 'mandrai', 'umesh@weblatic.in', '1234567896', 'mumbai', NULL, '65904057738B892', '2023-12-05 05:14:32', '2023-12-05 05:14:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `visa_package`
+--
+
+CREATE TABLE `visa_package` (
+  `id` int(11) NOT NULL,
+  `visa_id` int(25) NOT NULL,
+  `visa_package` varchar(255) NOT NULL,
+  `package_details` varchar(2555) NOT NULL,
+  `amount` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `visa_package`
+--
+
+INSERT INTO `visa_package` (`id`, `visa_id`, `visa_package`, `package_details`, `amount`, `created_at`, `updated_at`) VALUES
+(2, 3, 'Student visa', 'Buffet breakfast as per the Itinerary\r\nVisit eight villages showcasing Polynesian culture\r\nComplimentary Camel safari, Bonfire,\r\nAll toll tax, parking, fuel, and driver allowances\r\nComfortable and hygienic vehicle', '2999', '2023-11-29 04:32:23', '2023-11-29 04:32:23');
 
 -- --------------------------------------------------------
 
@@ -60815,16 +61903,20 @@ CREATE TABLE `wallet` (
   `amount` int(255) DEFAULT NULL,
   `credit_amount` int(255) DEFAULT NULL,
   `debit_amount` int(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wallet`
 --
 
 INSERT INTO `wallet` (`id`, `user_id`, `amount`, `credit_amount`, `debit_amount`, `created_at`, `updated_at`) VALUES
-(1, 168, 200351, 200180, 2000, '2023-09-29 16:57:32', '2023-09-29 12:49:32');
+(1, 168, 195303, 200470, 5338, '2023-09-29 16:57:32', '2023-11-21 04:08:41'),
+(2, 165, 1014231, 12096, 6857, '2023-11-21 02:43:26', '2023-12-11 05:11:04'),
+(3, 166, 19998, 19998, NULL, '2023-12-08 00:34:19', '2023-12-08 00:53:13'),
+(4, 171, 1999, 1999, NULL, '2023-12-08 00:34:41', '2023-12-08 00:53:36'),
+(5, 172, 5445, 5445, NULL, '2023-12-08 00:34:56', '2023-12-08 00:34:56');
 
 -- --------------------------------------------------------
 
@@ -60834,114 +61926,52 @@ INSERT INTO `wallet` (`id`, `user_id`, `amount`, `credit_amount`, `debit_amount`
 
 CREATE TABLE `wallet_transaction` (
   `id` int(11) NOT NULL,
-  `user_id` int(255) NOT NULL,
-  `amount` int(255) NOT NULL,
-  `credit_amount` int(255) DEFAULT NULL,
-  `debit_amount` int(255) DEFAULT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp(),
-  `status` varchar(25) NOT NULL DEFAULT 'confirm',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `user_id` varchar(255) DEFAULT NULL,
+  `amount` varchar(255) DEFAULT NULL,
+  `credit_amount` varchar(255) DEFAULT NULL,
+  `debit_amount` varchar(255) DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(255) NOT NULL DEFAULT 'done',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `wallet_transaction`
 --
 
 INSERT INTO `wallet_transaction` (`id`, `user_id`, `amount`, `credit_amount`, `debit_amount`, `date`, `status`, `created_at`, `updated_at`) VALUES
-(1, 168, 200211, 20, NULL, '2023-09-29', 'confirm', '2023-09-29 12:23:02', '2023-09-29 12:23:02'),
-(2, 168, 200231, 20, NULL, '2023-09-29', 'confirm', '2023-09-29 12:31:45', '2023-09-29 12:31:45'),
-(3, 168, 200251, 20, NULL, '2023-09-29', 'confirm', '2023-09-29 12:39:45', '2023-09-29 12:39:45'),
-(4, 168, 200271, 20, NULL, '2023-09-29', 'confirm', '2023-09-29 12:44:41', '2023-09-29 12:44:41'),
-(5, 168, 200291, 20, NULL, '2023-09-29', 'confirm', '2023-09-29 12:44:48', '2023-09-29 12:44:48'),
-(6, 168, 200311, 20, NULL, '2023-09-29', 'confirm', '2023-09-29 12:47:39', '2023-09-29 12:47:39'),
-(7, 168, 200331, 20, NULL, '2023-09-29', 'confirm', '2023-09-29 12:49:32', '2023-09-29 12:49:32');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `wp6h_users`
---
-
-CREATE TABLE `wp6h_users` (
-  `ID` bigint(20) UNSIGNED NOT NULL,
-  `user_login` varchar(60) DEFAULT NULL,
-  `user_pass` varchar(255) DEFAULT NULL,
-  `user_nicename` varchar(50) DEFAULT NULL,
-  `user_email` varchar(100) DEFAULT NULL,
-  `user_url` varchar(100) DEFAULT NULL,
-  `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_activation_key` varchar(255) DEFAULT NULL,
-  `user_status` int(11) NOT NULL DEFAULT 0,
-  `display_name` varchar(250) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
-
---
--- Dumping data for table `wp6h_users`
---
-
-INSERT INTO `wp6h_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
-(1, 'eulwiamrld', '$P$B7pNvpEbVyqSAtvZ9n3xWVWoiTTqIg.', 'eulwiamrld', 'info@eurologisticsworld.com', 'http://eurologisticsworld.com', '2023-04-03 11:45:14', '', 0, 'Euro Logistics World'),
-(7, 'ELW2023', '$P$B7rJ2JTUiwMnlWaXIK5xX/iT4RH.cH1', 'elw2023', 'temporary.email.new@gmail.com', '', '2023-04-03 16:57:12', '1680541032:$P$B74BNGm3R76dyJ.C7JwYIptbozPxHn.', 0, 'ELW2023'),
-(12, 'Branch_Manager_Chikhli', '$P$BSf.rWzeothJj/TYLE07RyhjFXW6I1.', 'branch_manager_chikhli', 'info@flightpathtravel.com', '', '2023-04-25 04:59:38', '1682398779:$P$BirE1gsDTvMKlrlk4E56U8tg.z4mku0', 0, 'Branch Manager Chikhli'),
-(13, 'Branch_Manager_Surat', '$P$BWJ4WpfiDMJI0jQNpzZE4EjxcqyZ/q.', 'branch_manager_surat', 'ticketing@flightpathtravel.com', '', '2023-04-25 05:02:07', '1682398928:$P$B1An.6OmaK/HHDZmYtqVKzRDq9E2AB1', 0, 'Branch_Manager_Surat'),
-(14, 'Branch_Manager_London', '$P$BXZ/6Q661YITZPYWwKZZ9O7I7A0Hc3.', 'branch_manager_london', 'jayant@flightpathtravel.com', '', '2023-04-25 05:03:55', '1682399036:$P$BaQT298qOzp67eSbDFgcNKYuXXgz6Y1', 0, 'Jayant Keshwala'),
-(15, 'Branch_Manager_Rankuva', '$P$Bmq/vrk.uAkMb7XPsIsqCGFj.QW4l20', 'branch_manager_rankuva', 'purvilshah140899@gmail.com', '', '2023-04-25 05:47:19', '1682401640:$P$BkdVPEJJ/.eZU1oEtHEjK4.md/Ychx0', 0, 'Branch Manager Rankuva'),
-(16, 'Hetal_Patel', '$P$BY8c6TYOulCfQYSqCeG1Jfv6E0i/pg/', 'hetal_patel', 'hetal@flightpathtravel.com', '', '2023-04-29 05:26:57', '1682746025:$P$BYezL8ch/A9NEv8okCm/lzCsY6mppH1', 0, 'Hetal Patel'),
-(17, 'Amit_Shah', '$P$BfV548XcqrpdIgntz3dx7S9X6he9F10', 'amit_shah', 'amit.shah@flightpathtravel.com', '', '2023-04-29 06:15:58', '1682748960:$P$BGlrVUWAp2j6GvFcJ4iMSU4HJ7kjq11', 0, 'Amit Shah'),
-(18, 'Keval_jadeja', '$P$BA5Tl5IfveFWnOdPGfqLBXRTv60Jof0', 'keval_jadeja', 'keval@flightpathtravel.com', '', '2023-04-29 06:17:12', '1682749041:$P$BKXdWztAJc3WpIT0HR838R4NtBH5Ao0', 0, 'Keval Jadeja'),
-(19, 'Sager_Lad', '$P$B04DgN9GqBFvnH15K8eL4B5W.8rRll1', 'sager_lad', 'sagar@flightpathtravel.com', '', '2023-04-29 06:18:23', '1682749103:$P$BowA.m8/iEzFTKa/huAwxq8TonaaOj.', 0, 'Sagar Lad'),
-(20, 'Mohammed_Lokhandwala', '$P$BHsWb/GIRGF1Zs.TE/LgwyitpgnjYT.', 'mohammed_lokhandwala', 'mohammed@flightpathtravel.com', '', '2023-04-29 06:19:53', '1682749193:$P$BonM7NlJAj6KSJHoUdQ3e58LCvcbZR.', 0, 'Mohammed Lokhandwala'),
-(21, 'Smit_Ghodasara', '$P$BrCw5TTDEwgZJ5d48dF4MXDnPSPckL1', 'smit_ghodasara', 'smit@flightpathtravel.com', '', '2023-04-29 06:20:43', '1682749243:$P$BnkgBtKjFr9c4WIo54kPkHZUc4h2qj/', 0, 'Smit Ghodasara'),
-(22, 'Prit_Ghodasara', '$P$BHpqPfs8t0hPknHN0FxCi9/LQ1mIIb/', 'prit_ghodasara', 'prit@flightpathtravel.com', '', '2023-04-29 06:21:30', '1682749290:$P$BoEv2kPxcs/wTRuXTViE0QY1sxCcVk/', 0, 'Prit Ghodasara'),
-(23, 'Avani_Patel', '$P$BX/Sm3Ql/DQE6NPQJYE1TBi5wR21GA.', 'avani_patel', 'avani@flightpathtravel.com', '', '2023-04-29 06:22:10', '1682749330:$P$BkCLigATBkxbbwp3lKwnqtGNr/eHHS1', 0, 'Avani Patel'),
-(24, 'Kinjal_Patel', '$P$B30sVCGHSM4X7WeA.g7LKDNh.iMji6.', 'kinjal_patel', 'kinjal@flightpathtravel.com', '', '2023-04-29 06:22:57', '1682749378:$P$B8ku4US6/gtlgoYIgTjCHmBxNK37rW1', 0, 'Kinjal Patel'),
-(25, 'Devangi_Kaneriya', '$P$BFFPLDCs8ZFMDKfnn/.e5YTbKciPX2/', 'devangi_kaneriya', 'devangi@flightpathtravel.com', '', '2023-04-29 06:23:46', '1682749433:$P$B3A2kephQ8vtxIubeY99Q8PPRAgEDV.', 0, 'Devangi Kaneriya'),
-(26, 'Vrushika_Bhosle', '$P$B/JUbajNOQOo6eRtz1mKDMnkhRj64N/', 'vrushika_bhosle', 'vrushika@flightpathtravel.com', '', '2023-04-29 06:24:55', '1682749495:$P$BbFAiMfhHodh99MfGi2fJuZQvCgY.C/', 0, 'Vrushika Bhosle'),
-(27, 'Chitman_Labana', '$P$BrMWg5kbGqX9HYg0wpXz/ocGUf3trV/', 'chitman_labana', 'chitman@flightpathtravel.com', '', '2023-04-29 09:29:05', '1682760546:$P$BLvu2ASGyQ5Wh8tEnmpPqUZ8rWAsvn.', 0, 'Chitman Labana'),
-(28, 'Guranam_Singh', '$P$BpnBaMniB2OAwOH65adbKFg5sWrABd/', 'guranam_singh', 'guranam@flightpathtravel.com', '', '2023-04-29 09:29:54', '1682760594:$P$BOuz5eVYwadpcvgYQx8VWF6.8BK/wv0', 0, 'Guranam Singh'),
-(29, 'Gurdeep_Singh', '$P$B5x7/BO9OpJPilYp1AOf9NBay3duMt1', 'gurdeep_singh', 'gurdeep@flightpathtravel.com', '', '2023-04-29 09:30:33', '1682760634:$P$BT0hO0PktXLLhom73NoMpYqdyRK2Ua/', 0, 'Gurdeep Singh'),
-(30, 'Kurnal_Sarvaiya', '$P$BWbnm.wCibgaPoul7j9ya2hrjfoxeT/', 'kurnal_sarvaiya', 'kurnal@flightpathtravel.com', '', '2023-04-29 09:31:17', '1682760677:$P$BGzJ0V0S9vS0UKnHpGnl/SDPidhZ6c1', 0, 'Kurnal Sarvaiya'),
-(31, 'Nikki_Fatani', '$P$BKtqGgXZ5aOsBwUjtFgv0KrehtBPpq1', 'nikki_fatani', 'nikki@flightpathtravel.com', '', '2023-04-29 09:31:55', '1682760715:$P$BZYGQP.TpcByBdMEYfD60VC3zA/XQR0', 0, 'Nikki Fatani'),
-(32, 'Yukta_Sardar', '$P$BghJ4X3SwwvZEcivrzJwZO8AwXaRwD/', 'yukta_sardar', 'yukta@flightpathtravel.com', '', '2023-04-29 09:33:09', '1682760789:$P$BHVZ.uG.T3nzyZH8FyBgYQOxbG9hMH/', 0, 'Yukta Sardar'),
-(33, 'Ammar_Kalifa', '$P$BC3xb./3KXiLIBHB5RR7q00C2Z.VCe1', 'ammar_kalifa', 'ammar@flightpathtravel.com', '', '2023-04-29 09:33:43', '1682760823:$P$BDq9yVEjNsYAEkPBskjZ3IukwJhO2v0', 0, 'Ammar Kalifa'),
-(35, 'Denish_Lakhani', '$P$B4aG.8mk1QcEsm1bBMvr1WCrl57Vzz1', 'denish_lakhani', 'denish@flightpathtravel.com', '', '2023-05-02 10:47:06', '1683024427:$P$BYtZf8sbEmuPdj/QPkBL/ZjQekx4XM.', 0, 'Denish Lakhani'),
-(36, 'Meghali_Patel', '$P$Bguwdl04u0F0tMxMZwsq.9U7frzSvp.', 'meghali_patel', 'meghali@flightpathtravel.com', '', '2023-05-02 10:47:57', '1683024478:$P$BPgFeDXFumbyQ9bJYN1TH76tuJvW6k1', 0, 'Meghali Patel'),
-(38, 'sohilsmart2000@gmail.com', '$P$BFBEeyCn4Dwe2CetHiwkEwxrCSpvKo.', 'sohilsmart2000gmail-com', 'sohilsmart2000@gmail.com', '', '2023-06-13 14:29:08', '1686666548:$P$BASB02n5FpoZ3mhAXIiNkm6NDjYXX71', 0, 'sohilsmart2000@gmail.com'),
-(39, 'info@neiltravels.co.uk', '$P$BJalBE5pCjcjdxNVbciaa2Tkqw43Yy0', 'infoneiltravels-co-uk', 'info@neiltravels.co.uk', '', '2023-06-15 12:58:57', '1686833937:$P$BavgvNHCFw3h4hgnUcbhetzxfQjLlH.', 0, 'info@neiltravels.co.uk'),
-(40, 'ronak@ptctravel.co.uk', '$P$BIbGI7aEqfxppCYuvZDMuY4.X3uuEI0', 'ronakptctravel-co-uk', 'ronak@ptctravel.co.uk', '', '2023-06-15 15:12:04', '1686841924:$P$BX9duzJqaocs4MNkuokqc146b38i7x.', 0, 'ronak@ptctravel.co.uk'),
-(41, 'nav@timeporttravel.com', '$P$BqggA1LESSQmii54VjdBDNRD6f.by/.', 'navtimeporttravel-com', 'nav@timeporttravel.com', '', '2023-06-15 15:27:16', '1686842836:$P$BCRqij5RNzrIwBqDX7.Apg2jurLOfD1', 0, 'nav@timeporttravel.com'),
-(42, 'bg-travel@btconnect.com', '$P$BHgLbf3CD6FzjErc0/aPTUxLwB1ntn0', 'bg-travelbtconnect-com', 'bg-travel@btconnect.com', '', '2023-06-16 11:46:49', '1686916010:$P$BfziKVeCb8X6vFReP8JBqwxF4ge3sS.', 0, 'bg-travel@btconnect.com'),
-(43, 'bindu@air-international.co.uk', '$P$BzEIZIFnF7FdPynNjzJ.eZoh8v9abO/', 'binduair-international-co-uk', 'bindu@air-international.co.uk', '', '2023-06-16 14:30:32', '1686925834:$P$BIlUTAqdEnkGS3.oq0pl5...FCM8gc/', 0, 'bindu@air-international.co.uk'),
-(44, 'demo.demo', '$P$BB3Wx3K8121ZWMoL9pWvv79cwwSswl0', 'demo-demo', 'demo2@gmail.com', '', '2023-06-17 07:03:10', '1686985390:$P$BzkW1kpsbpTDUGe4cqhRMhudzX2BsM.', 0, 'demo demo');
+(1, '168', '200351', '100', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 10:45:53', '2023-11-14 10:45:53'),
+(2, '168', '200451', '188', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 10:46:14', '2023-11-14 10:46:14'),
+(3, '168', '200639', '1', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 10:46:39', '2023-11-14 10:46:39'),
+(4, '168', '200640', '1', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 10:48:16', '2023-11-14 10:48:16'),
+(5, '172', '0', '199', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 11:22:29', '2023-11-14 11:22:29'),
+(6, '172', '0', '100', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 11:22:48', '2023-11-14 11:22:48'),
+(7, '172', '0', '100', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 11:24:01', '2023-11-14 11:24:01'),
+(8, '172', '0', '100', NULL, '2023-11-21 08:19:53', 'done', '2023-11-14 11:24:36', '2023-11-14 11:24:36'),
+(12, '165', '9999', '99', NULL, '2023-11-21 08:19:53', 'done', '2023-11-21 02:43:40', '2023-11-21 02:43:40'),
+(13, '165', '10098', '999', NULL, '2023-11-21 08:19:53', 'done', '2023-11-21 02:44:00', '2023-11-21 02:44:00'),
+(14, '165', '11097', '999', NULL, '2023-11-21 08:20:09', 'done', '2023-11-21 02:50:09', '2023-11-21 02:50:09'),
+(15, '168', '195303', NULL, '5338', '2023-11-21 09:38:41', 'done', '2023-11-21 04:08:41', '2023-11-21 04:08:41'),
+(16, '165', '-31207', NULL, '43303', '2023-12-08 09:43:08', 'done', '2023-12-08 04:13:08', '2023-12-08 04:13:08'),
+(17, '165', '-74510', NULL, '43303', '2023-12-08 09:44:00', 'done', '2023-12-08 04:14:00', '2023-12-08 04:14:00'),
+(18, '165', '-117813', NULL, '43303', '2023-12-08 10:01:53', 'done', '2023-12-08 04:31:53', '2023-12-08 04:31:53'),
+(19, '165', '-161116', NULL, '43303', '2023-12-08 10:06:53', 'done', '2023-12-08 04:36:53', '2023-12-08 04:36:53'),
+(20, '165', '-204419', NULL, '43303', '2023-12-08 10:13:37', 'done', '2023-12-08 04:43:37', '2023-12-08 04:43:37'),
+(21, '165', '-247722', NULL, '43303', '2023-12-08 10:16:38', 'done', '2023-12-08 04:46:38', '2023-12-08 04:46:38'),
+(22, '165', '204419', NULL, '43303', '2023-12-08 10:41:47', 'done', '2023-12-08 05:11:47', '2023-12-08 05:11:47'),
+(23, '165', '161286', NULL, '43133', '2023-12-11 07:15:14', 'done', '2023-12-11 01:45:14', '2023-12-11 01:45:14'),
+(24, '165', '110910', NULL, '50376', '2023-12-11 07:26:52', 'done', '2023-12-11 01:56:52', '2023-12-11 01:56:52'),
+(25, '165', '60534', NULL, '50376', '2023-12-11 07:34:25', 'done', '2023-12-11 02:04:25', '2023-12-11 02:04:25'),
+(26, '165', '1097668', NULL, '62866', '2023-12-11 08:00:30', 'done', '2023-12-11 02:30:30', '2023-12-11 02:30:30'),
+(27, '165', '1034802', NULL, '62866', '2023-12-11 08:02:45', 'done', '2023-12-11 02:32:45', '2023-12-11 02:32:45'),
+(28, '165', '1027945', NULL, '6857', '2023-12-11 08:05:32', 'done', '2023-12-11 02:35:32', '2023-12-11 02:35:32'),
+(29, '165', '1021088', NULL, '6857', '2023-12-11 08:13:39', 'done', '2023-12-11 02:43:39', '2023-12-11 02:43:39'),
+(30, '165', '1014231', NULL, '6857', '2023-12-11 10:41:04', 'done', '2023-12-11 05:11:04', '2023-12-11 05:11:04');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `account_details`
---
-ALTER TABLE `account_details`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `airport`
---
-ALTER TABLE `airport`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `airport_list`
---
-ALTER TABLE `airport_list`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `cities`
---
-ALTER TABLE `cities`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `commision`
@@ -60950,27 +61980,21 @@ ALTER TABLE `commision`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `contect`
+-- Indexes for table `commision_add`
 --
-ALTER TABLE `contect`
+ALTER TABLE `commision_add`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `countries`
+-- Indexes for table `contact_us`
 --
-ALTER TABLE `countries`
+ALTER TABLE `contact_us`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `country`
+-- Indexes for table `currency`
 --
-ALTER TABLE `country`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `coupon`
---
-ALTER TABLE `coupon`
+ALTER TABLE `currency`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -60986,77 +62010,46 @@ ALTER TABLE `flight_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hotel`
+-- Indexes for table `hotel_details`
 --
-ALTER TABLE `hotel`
+ALTER TABLE `hotel_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hotel_cities`
+-- Indexes for table `markup`
 --
-ALTER TABLE `hotel_cities`
+ALTER TABLE `markup`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hotel_city`
+-- Indexes for table `markup_apply`
 --
-ALTER TABLE `hotel_city`
+ALTER TABLE `markup_apply`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `live_streamings`
+-- Indexes for table `payment`
 --
-ALTER TABLE `live_streamings`
+ALTER TABLE `payment`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `privacy`
+-- Indexes for table `tour`
 --
-ALTER TABLE `privacy`
+ALTER TABLE `tour`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `roles`
+-- Indexes for table `tour_booking`
 --
-ALTER TABLE `roles`
+ALTER TABLE `tour_booking`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `shipment`
+-- Indexes for table `tour_details`
 --
-ALTER TABLE `shipment`
+ALTER TABLE `tour_details`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sponsor_ad`
---
-ALTER TABLE `sponsor_ad`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `subscriptions`
---
-ALTER TABLE `subscriptions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_countries`
---
-ALTER TABLE `tbl_countries`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- Indexes for table `user_details`
@@ -61065,9 +62058,21 @@ ALTER TABLE `user_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_subscription`
+-- Indexes for table `visa`
 --
-ALTER TABLE `user_subscription`
+ALTER TABLE `visa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `visa_booking`
+--
+ALTER TABLE `visa_booking`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `visa_package`
+--
+ALTER TABLE `visa_package`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -61083,185 +62088,122 @@ ALTER TABLE `wallet_transaction`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `wp6h_users`
---
-ALTER TABLE `wp6h_users`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `user_login_key` (`user_login`),
-  ADD KEY `user_nicename` (`user_nicename`),
-  ADD KEY `user_email` (`user_email`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `account_details`
---
-ALTER TABLE `account_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `airport`
---
-ALTER TABLE `airport`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=911;
-
---
--- AUTO_INCREMENT for table `airport_list`
---
-ALTER TABLE `airport_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4871;
-
---
--- AUTO_INCREMENT for table `cities`
---
-ALTER TABLE `cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48357;
 
 --
 -- AUTO_INCREMENT for table `commision`
 --
 ALTER TABLE `commision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `contect`
+-- AUTO_INCREMENT for table `commision_add`
 --
-ALTER TABLE `contect`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `commision_add`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `countries`
+-- AUTO_INCREMENT for table `contact_us`
 --
-ALTER TABLE `countries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
+ALTER TABLE `contact_us`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `country`
+-- AUTO_INCREMENT for table `currency`
 --
-ALTER TABLE `country`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
-
---
--- AUTO_INCREMENT for table `coupon`
---
-ALTER TABLE `coupon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `currency`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 
 --
 -- AUTO_INCREMENT for table `flight`
 --
 ALTER TABLE `flight`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `flight_log`
 --
 ALTER TABLE `flight_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=578;
 
 --
--- AUTO_INCREMENT for table `hotel`
+-- AUTO_INCREMENT for table `hotel_details`
 --
-ALTER TABLE `hotel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `hotel_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT for table `hotel_cities`
+-- AUTO_INCREMENT for table `markup`
 --
-ALTER TABLE `hotel_cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1519;
+ALTER TABLE `markup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `hotel_city`
+-- AUTO_INCREMENT for table `markup_apply`
 --
-ALTER TABLE `hotel_city`
+ALTER TABLE `markup_apply`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tour`
+--
+ALTER TABLE `tour`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tour_booking`
+--
+ALTER TABLE `tour_booking`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `live_streamings`
+-- AUTO_INCREMENT for table `tour_details`
 --
-ALTER TABLE `live_streamings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
-
---
--- AUTO_INCREMENT for table `privacy`
---
-ALTER TABLE `privacy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `shipment`
---
-ALTER TABLE `shipment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
-
---
--- AUTO_INCREMENT for table `sponsor_ad`
---
-ALTER TABLE `sponsor_ad`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `states`
---
-ALTER TABLE `states`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4122;
-
---
--- AUTO_INCREMENT for table `subscriptions`
---
-ALTER TABLE `subscriptions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tbl_countries`
---
-ALTER TABLE `tbl_countries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+ALTER TABLE `tour_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
--- AUTO_INCREMENT for table `user_subscription`
+-- AUTO_INCREMENT for table `visa`
 --
-ALTER TABLE `user_subscription`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `visa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `visa_booking`
+--
+ALTER TABLE `visa_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `visa_package`
+--
+ALTER TABLE `visa_package`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `wallet_transaction`
 --
 ALTER TABLE `wallet_transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `wp6h_users`
---
-ALTER TABLE `wp6h_users`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

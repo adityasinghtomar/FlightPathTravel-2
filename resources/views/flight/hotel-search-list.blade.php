@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     
@@ -58,14 +58,17 @@
                                         aria-selected="true"><i class="fas fa-hotel"></i>Hotels</button>
                                 </li>
 								<li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tours-tab" data-bs-toggle="tab" data-bs-target="#tours"
-                                        type="button" role="tab" aria-controls="tours" aria-selected="false"><i
-                                            class="fas fa-globe"></i>Tours</button>
+								    <a href="{{url('/tour-list')}}" class="nav-link"><i
+                                            class="fas fa-globe"></i>Tours</a>
+                                    <!--<button class="nav-link" id="tours-tab1" data-bs-toggle="tab" data-bs-target="#tours"-->
+                                    <!--    type="button1" role="tab" aria-controls="tours" aria-selected="false"><i-->
+                                    <!--        class="fas fa-globe"></i>Tours</button>-->
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="visa-tab" data-bs-toggle="tab"
-                                        data-bs-target="#visa-application" type="button" role="tab" aria-controls="visa"
-                                        aria-selected="false"><i class="fas fa-passport"></i> Visa</button>
+                                    <a href="{{url('/Visa-list')}}" class="nav-link"><i class="fas fa-passport"></i> Visa </a>
+                                    <!--<button class="nav-link" id="visa-tab" data-bs-toggle="tab"-->
+                                    <!--    data-bs-target="#visa-application" type="button" role="tab" aria-controls="visa"-->
+                                    <!--    aria-selected="false"><i class="fas fa-passport"></i> Visa</button>-->
                                 </li>
                                 <!--<li class="nav-item" role="presentation">
                                     <button class="nav-link" id="apartments-tab" data-bs-toggle="tab"
@@ -135,6 +138,7 @@
                                                                     </datalist>
                                                                     <span id="state-dropdown"></span>
                                                                     <div class="plan_icon_posation">
+                                                                        <i class="fas fa-plane-departure"></i>
                                                                          
                                                                     </div>
                                                                 </div>
@@ -165,6 +169,7 @@
                                                                         <div class="Journey_date">
                                                                             <p>Journey date</p>
                                                                             <input type="date" id="demo" name="journey_date" class="txtDate" required>
+                                                                           
                                                                             <span></span>
                                                                             <!--<p id="myId"></p>-->
                                                                         </div>
@@ -237,7 +242,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -266,36 +271,28 @@
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
                                                                                     <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                        <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                           
+                                                                                           
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <span>Business</span>
+                                                                    <!--<span>Business</span>-->
                                                                 </div>
                                                             </div> 
                                                             <input type="hidden" name="adult" id="myInput" value="1">
                                                             <input type="hidden" name="children" id="myInput1">
                                                             <input type="hidden" name="infant" id="myInput2">
+                                                            <input type="hidden" name="form_status" value="one">
                                                                                                    
                                                             <div class="top_form_search_button">
                                                                 <button class="btn btn_theme btn_md">Search</button>
@@ -351,11 +348,10 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                    
-                                                            <div class="col-lg-3  col-md-6 col-sm-12 col-12">
-                                                                <div class="form_search_date">
-                                                                    <div class="flight_Search_boxed date_flex_area">
-                                                                        <div class="Journey_date">
+                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                                        <div class="form_search_date">
+                                                            <div class="flight_Search_boxed date_flex_area">
+                                                                <div class="Journey_date">
                                                                             <p>Journey date</p>
                                                                             <input type="date" id="demo" name="journey_date" class="txtDate" value="" required>
                                                                             <span></span>
@@ -365,9 +361,9 @@
                                                                             <input type="date" id="demo" name="return_date" class="txtDate" value="" required>
                                                                             <span></span>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
                                                             <div class="col-lg-2  col-md-6 col-sm-12 col-12">
                                                                 <div
                                                                     class="flight_Search_boxed dropdown_passenger_area">
@@ -434,7 +430,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -462,37 +458,28 @@
                                                                                 </div>
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
-                                                                                    <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                   <div class="cabin-list">
+                                                                                        <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                           
+                                                                                           
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <span>Business</span>
                                                                 </div>
                                                             </div> 
-                                                            <input type="hidden" name="adult" id="myInputA" valeu="1">
+                                                            <input type="hidden" name="adult" id="myInputA" value="1">
                                                             <input type="hidden" name="children" id="myInputB">
                                                             <input type="hidden" name="infant" id="myInputC">
+                                                            <input type="hidden" name="form_status" value="return">
                                                             <div class="top_form_search_button">
                                                                 <button class="btn btn_theme btn_md">Search</button>
                                                             </div>
@@ -633,7 +620,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -689,9 +676,10 @@
                                                                     <span>Business</span>
                                                                 </div>
                                                             </div> 
-                                                            <input type="hidden" name="adult" id="myInputAA" valeu="1">
+                                                            <input type="hidden" name="adult" id="myInputAA" value="1">
                                                             <input type="hidden" name="children" id="myInputBB">
                                                             <input type="hidden" name="infant" id="myInputCC">
+                                                            <input type="hidden" name="form_status" value="multi">
                                                                 </div>
                                                             </div>
                                                             <div class="multi_city_form">
@@ -818,7 +806,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="passengers-type">
-                                                                                            <div class="text" name="adult"><span
+                                                                                            <div class="text"><span
                                                                                                     class="count incount">0</span>
                                                                                                 <div class="type-label">
                                                                                                     <p
@@ -2037,8 +2025,16 @@
                                                     </div>
                                                     <div class="cruise_content_middel_right">
                                                         
-                                                        @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h3><?php print_r($data1->Price->CurrencyCode); ?><?php $base123 = $data1->Price->RoomPrice ; ?> <?php $perce = $base123/100*$commision ?> <?php echo round($total = $perce + $base123); ?> <sub>/Per person</sub></h3>
+                                            @if(session()->get('user_id')) <?php $comm= \App\Commision_Add_Model::where('user_id',session()->get('user_id'))->where('commision_type','hotel')->first();  ?> <?php $markup= \App\Markup_Apply_Model::where('user_id',session()->get('user_id'))->first();  ?>
+                                            <?php if($comm) {  
+                                            $commision= \App\Commision_Model::where('id',$comm->commision_id)->first();
+                                            if($commision){
+                                            $commis= $commision->commision ; $commis_type = $commision->commision_type; 
+                                            }else {$commis= 0; $commis_type ='';}
+                                            }
+                                            else {$commis= 0; $commis_type ='';} ?>
+                                            <?php if($markup) {  $mark_up= \App\Markup_Model::where('id',$markup->markup_id)->first(); $mark_up1= $mark_up->markup_amount ;  }else {$mark_up1= 0; } ?>
+                                           <h3><?php print_r($data1->Price->CurrencyCode); ?><?php echo $base123 = $data1->Price->RoomPrice ; ?> </h3> <h6><sub style="width:10px;height:10px;"> Commision : {{$commis}} {{$commis_type}}</sub></h6><h6> <sub style="width:10px;height:10px;"> Mark-UP : {{$mark_up1}}</sub></h6> <sub>/Per person</sub>
                                         @else
                                         <h3><?php print_r($data1->Price->CurrencyCode); ?> <?php print_r($data1->Price->RoomPrice); ?> <sub>/Per person</sub></h3>
                                         @endif

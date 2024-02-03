@@ -1,4 +1,4 @@
-@extends('flight.admin.db-header')
+@include('flight.admin.db-header')
     <div class="dashboard__main">
       <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
@@ -84,4 +84,4 @@
         </div>
 
 
-@extends('flight.admin.db-footer')                        
+@include('flight.admin.db-footer')                        

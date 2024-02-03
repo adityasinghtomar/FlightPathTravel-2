@@ -160,11 +160,91 @@
                 <ul class="list-disc pb-5 pl-40">
 
                   <li>
-                    <a href="#" class="text-15">All tour</a>
+                    <a href="{{url('/tour')}}" class="text-15">All tour</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/add-tour')}}" class="text-15">Add tour</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/add-tour-package')}}" class="text-15">Add tour Package</a>
+                  </li>
+                   <li>
+                    <a href="{{url('/all-tour-package')}}" class="text-15">All tour Package</a>
+                  </li>
+                   <li>
+                    <a href="{{url('/tour-booking-details')}}" class="text-15">Tour Booking Details</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+                <div class="sidebar__item ">
+          <div class="accordion -db-sidebar js-accordion">
+            <div class="accordion__item">
+              <div class="accordion__button">
+                <div class="sidebar__button col-12 d-flex items-center justify-between">
+                  <div class="d-flex items-center text-15 lh-1 fw-500">
+                    <i class="fas fa-calendar-check mr-15"></i>
+                    Visa
+                  </div>
+                  <div class="icon-chevron-sm-down text-7"></div>
+                </div>
+              </div>
+
+              <div class="accordion__content">
+                <ul class="list-disc pb-5 pl-40">
+
+                  <li>
+                    <a href="{{url('/Visa')}}" class="text-15">All Visa</a>
                   </li>
 
                   <li>
-                    <a href="#" class="text-15">Add tour</a>
+                    <a href="{{url('/Add-visa')}}" class="text-15">Add Visa</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/Visa-Package')}}" class="text-15">All Visa Package</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/Add-Visa-Package')}}" class="text-15">Add Visa Package</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/Visa-booking-details')}}" class="text-15">Visa Booking</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar__item ">
+          <div class="accordion -db-sidebar js-accordion">
+            <div class="accordion__item">
+              <div class="accordion__button">
+                <div class="sidebar__button col-12 d-flex items-center justify-between">
+                  <div class="d-flex items-center text-15 lh-1 fw-500">
+                    <i class="fas fa-star mr-15"></i>
+                    Mark-Up
+                  </div>
+                  <div class="icon-chevron-sm-down text-7"></div>
+                </div>
+              </div>
+
+              <div class="accordion__content">
+                <ul class="list-disc pb-5 pl-40">
+
+                  <li>
+                    <a href="{{url('/all-markup')}}" class="text-15">All Mark-up</a>
+                  </li>
+
+                  <li>
+                    <a href="{{url('/add-markup')}}" class="text-15">Add Mark-up</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/all-markup-apply')}}" class="text-15">All Apply Mark-up</a>
+                  </li>
+
+                  <li>
+                    <a href="{{url('/apply-markup')}}" class="text-15">Apply Mark-up</a>
                   </li>
                 </ul>
               </div>
@@ -221,6 +301,12 @@
 
                   <li>
                     <a href="{{url('/Add-Commision')}}" class="text-15">Add Commission</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/Commision-Apply')}}" class="text-15">Apply Commision</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/All-Commision-Apply')}}" class="text-15">All Commision Apply </a>
                   </li>
                 </ul>
               </div>
@@ -440,9 +526,15 @@
                 <ul class="list-disc pb-5 pl-40">
 
                   <li>
+                    <a href="{{url('/wallet')}}" class="text-15">Add Wallet</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/wallet-info')}}" class="text-15">Wallet information</a>
+                  </li>
+                  <li>
                     <a href="#" class="text-15">Payment information</a>
                   </li>
-
+                        
                   <li>
                     <a href="#" class="text-15">All payment gateway</a>
                   </li>
@@ -450,11 +542,11 @@
                     <a href="#" class="text-15">Add payment method</a>
                   </li>
                   <li>
-                    <a href="#" class="text-15">All currency</a>
+                    <a href="{{url('/currency')}}" class="text-15">All currency</a>
                   </li>
-                  <li>
-                    <a href="#" class="text-15">Add currency</a>
-                  </li>
+                  <!--<li>-->
+                  <!--  <a href="#" class="text-15">Add currency</a>-->
+                  <!--</li>-->
                   <li>
                     <a href="#" class="text-15">All withdrawal method</a>
                   </li>

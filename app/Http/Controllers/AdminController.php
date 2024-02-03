@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User_Model; 
 
-use App\Achievement_Model;
+use App\Markup_Model;
 // use App\Category_Model;
 use App\UserDetails_Model;
 use App\Posts_Model;
 use App\Commision_Model;
+use App\Commision_Add_Model;
 use App\Live_Streaming_Model;
-use App\Sponsor_Ad_Model;
+use App\Markup_Apply_Model;
+use App\Contect_Us_Model;
 use DateTime;
 
 class AdminController extends Controller
@@ -94,7 +96,8 @@ $data = $ress->Destinations;
      public function user_register(Request $request)
     {
         UserDetails_Model::get();
-        
+      $user1 =  UserDetails_Model::where('email',$request->email)->first(); 
+      if(!$user1){
             $data['name']= $request->input('name');
 			$data['lname']= $request->input('lname');
 			$data['email']= $request->input('email');
@@ -104,7 +107,10 @@ $data = $ress->Destinations;
 			$data['user_id'] = session()->get('user_id');
 // 			print_r($data);die;
 			$contact_id = UserDetails_Model::create($data);
-        return view('flight/login');
+            return view('flight/login')->with('message',"User Register Successfull...");    
+        // return view('flight/login');
+      }
+      return redirect()->back()->with('message',"User Already Register...");
     }
     public function user_login(Request $request)
     {
@@ -123,6 +129,21 @@ $data = $ress->Destinations;
         }else{
             return view('flight/login');
         }
+    }
+    
+    // Contact Us Store 
+     public function contact_store(Request $request)
+    {
+        UserDetails_Model::get();
+        
+            $data['fname']= $request->input('fname');
+			$data['lname']= $request->input('lname');
+			$data['email']= $request->input('email');
+			$data['mobile']= $request->input('mobile');
+			$data['message'] = $request->input('message');
+// 			print_r($data);die;
+			$contact_id = Contect_Us_Model::create($data);
+        return redirect()->back()->with('message', __('Inquiry Submit Successfully!'));
     }
     // Logout 
     public function logout(Request $request)
@@ -153,7 +174,7 @@ $data = $ress->Destinations;
 			$data['user_id'] = session()->get('user_id');
 // 			print_r($data);die;
 			$contact_id = UserDetails_Model::create($data);
-         return redirect()->back()->with('success', __('User Created successfully!'));
+         return redirect()->back()->with('success', __('Agent Created successfully!'));
     }
      public function login_admin(Request $request)
     {
@@ -192,10 +213,13 @@ $data = $ress->Destinations;
     
      public function commision_update(Request $request)
     {
+        // print_r("ff");die;
         $id = $request->input('id');
        $data['name']= $request->input('name');
 	   $data['commision']= $request->input('commision');
-		$contact_id = Commision_Model::where('id',$id)->update($data);;
+	   $data['commision_type']= $request->input('commision_type');
+	   $data['commision_for']= $request->input('commision_for');
+		$contact_id = Commision_Model::where('id',$id)->update($data);
 		$flight = Commision_Model::get();
         return view('flight/admin/all-commision',compact('flight'));
     }
@@ -238,5 +262,116 @@ $data = $ress->Destinations;
         return view('flight/admin/db-all-user',compact('flight'));	
     }
 	
+	 public function all_commision_add()
+    {
+        $users =UserDetails_Model::get();
+        $commision = Commision_Add_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-commision-apply',compact('users','commision'));
+    }
+     public function commision_apply()
+    {
+        $users =UserDetails_Model::get();
+        $commision = Commision_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/add-commision-apply',compact('users','commision'));
+    }
+     public function store_commision_apply(Request $request)
+    {
+            $commision_type =Commision_Model::where('id',$request->input('commision_type'))->first();
+            $Commision_Add_Model = Commision_Add_Model::where('user_id',$request->input('user'))->where('commision_id',$request->input('commision_type'))->first();
+            if(empty($Commision_Add_Model)){
+            $data['user_id']= $request->input('user');
+			$data['commision_id']= $request->input('commision_type');
+			$data['commision_type']= $commision_type->commision_for;
+			$contact_id = Commision_Add_Model::create($data);
+            }
+        $users =UserDetails_Model::get();
+        $commision = Commision_Add_Model::get();
+        return view('flight/admin/all-commision-apply',compact('users','commision'));
+    }
+    // Markup
+     public function all_markup()
+    {
+        $users =UserDetails_Model::get();
+        $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-markup',compact('users','commision'));
+    }
+     public function add_markup()
+    {
+        $users =UserDetails_Model::get();
+        $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/add-markup',compact('users','commision'));
+    }
+     public function store_markup(Request $request)
+    {
+            $data['name']= $request->input('name');
+			$data['markup_amount']= $request->input('markup_amount');
+			$contact_id = Markup_Model::create($data);
+           
+        $users =UserDetails_Model::get();
+        $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-markup',compact('users','commision'));
+    }
+     public function update_markup(Request $request)
+    {
+        // print_r($request->input('id'));die;
+            $id= $request->input('id');
+            $data['name']= $request->input('name');
+			$data['markup_amount']= $request->input('markup_amount');
+			$contact_id = Markup_Model::where('id',$id)->update($data);
+           
+        $users =UserDetails_Model::get();
+        $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-markup',compact('users','commision'));
+    }
 	
+	// Markup Apply
+     public function all_markup_apply()
+    {
+        $users =UserDetails_Model::get();
+        $commision = Markup_Apply_Model::get();
+        // print_r("ff");die;
+       $commisionss = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-markup-apply',compact('users','commision','commisionss'));
+    }
+     public function apply_markup()
+    {
+        $users =UserDetails_Model::get();
+        $commision = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/apply-markup',compact('users','commision'));
+    }
+     public function store_apply_markup(Request $request)
+    {
+            $data['markup_id']= $request->input('markup_id');
+			$data['user_id']= $request->input('user_id');
+			$contact_id = Markup_Apply_Model::create($data);
+           
+        $users =UserDetails_Model::get();
+        $commision = Markup_Apply_Model::get();
+        $commisionss = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-markup-apply',compact('users','commision','commisionss'));
+    }
+     public function update_apply_markup(Request $request)
+    {
+        // print_r($request->input('id'));die;
+            $id= $request->input('id');
+            $data['markup_id']= $request->input('markup_id');
+			$data['user_id']= $request->input('user_id');
+			$contact_id = Markup_Apply_Model::where('id',$id)->update($data);
+           
+        $users =UserDetails_Model::get();
+        $commision = Markup_Apply_Model::get();
+        // print_r("ff");die;
+       $commisionss = Markup_Model::get();
+        // print_r("ff");die;
+        return view('flight/admin/all-markup-apply',compact('users','commision','commisionss'));
+    }
 }

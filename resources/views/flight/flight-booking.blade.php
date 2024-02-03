@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
 
     <!-- search -->
     <div class="search-overlay">
@@ -108,28 +108,229 @@
                         </div>
                         </div> 
                 <style>
-               table {
-            border-spacing: 0px;
-            table-layout: fixed;
-            margin-left: auto;
-            margin-right: auto;
-        }
- 
-        th {
-            color: green;
-            border: 1px solid black;
-        }
- 
-        td {
-            margin-left:1px;
-            word-break: break-all;
-        }
+              *, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+.plane {
+  margin: 20px auto;
+  max-width: 300px;
+}
+
+.cockpit {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 5px solid #d8d8d8;
+}
+.cockpit:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 500px;
+  width: 100%;
+  border-radius: 50%;
+  border-right: 5px solid #d8d8d8;
+  border-left: 5px solid #d8d8d8;
+}
+.cockpit h1 {
+  width: 60%;
+  margin: 100px auto 35px auto;
+}
+
+.exit {
+  position: relative;
+  height: 50px;
+}
+.exit:before, .exit:after {
+  content: "EXIT";
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0px 2px;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  display: block;
+  position: absolute;
+  background: green;
+  color: white;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.exit:before {
+  left: 0;
+}
+.exit:after {
+  right: 0;
+}
+
+.fuselage {
+  border-right: 5px solid #d8d8d8;
+  border-left: 5px solid #d8d8d8;
+}
+
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.seats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+/*.seat {*/
+/*  display: flex;*/
+/*  flex: 0 0 14.28571428571429%;*/
+/*  padding: 5px;*/
+/*  position: relative;*/
+/*}*/
+.seat:nth-child(3) {
+  margin-right: 14.28571428571429%;
+}
+.seat input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+}
+.seat input[type=checkbox]:checked + label {
+  background: #bada55;
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+}
+.seat input[type=checkbox]:disabled + label {
+  background: #dddddd;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.seat input[type=checkbox]:disabled + label:after {
+  content: "X";
+  text-indent: 0;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+.seat input[type=checkbox]:disabled + label:hover {
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.seat label {
+  display: block;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5rem;
+  padding: 4px 0;
+  background: #F42536;
+  border-radius: 5px;
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+}
+.seat label:before {
+  content: "";
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  top: 1px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+}
+.seat label:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0px 2px #5C6AFF;
+}
+
+@-webkit-keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+.rubberBand {
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
+}
+
                 </style>
                 <div class="col-lg-8">
                     <div class="dashboard_common_table">
                         <h3>Flight Seat Select</h3>
                         <div class="table-responsive-lg table_common_area">
-
+<div class="plane">
+  <div class="cockpit">
+    <h1>Please select a seat</h1>
+  </div>
+  <div class="exit exit--front fuselage">
+    
+  </div>
                                 <table>            
 @if(isset($result23))
 <?php     
@@ -163,7 +364,9 @@ foreach($SeatDynamic as $SeatDynamics){
     foreach($Seats as  $key=>$Seats1){
     
 ?>
-                                    <td>
+
+  
+                                    <td class="seat" type="A">
                                              <form action="{{url('/Lcc-flight-booking')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                             <input type="hidden" name="ResultIndex" value="<?php echo $ResultIndex;?>"> 
@@ -230,17 +433,19 @@ foreach($SeatDynamic as $SeatDynamics){
                                             <input type="hidden" name="SeatsPrice" value="<?php echo $Seats1->Price;?>">
                                             
                                            @if($Seats1->AvailablityType == 1)
-                                            <button class="btn btn-success" style="height:40px; width:60px; margin:3px;"><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
+                                            <button class="btn btn-success" style="height:10px; width:10px; margin:3px;"><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
                                             @elseif($Seats1->AvailablityType == 3)
-                                            <button class="btn btn-warning" style="height:40px; width:60px; margin:3px;" disabled><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
+                                            <button class="btn btn-warning" style="height:10px; width:10px; margin:3px;" disabled><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
                                             @else  
-                                             <button class="btn btn-success" style="height:40px; width:60px; margin:3px;" disabled><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
+                                             <button class="btn btn-success" style="height:10px; width:10px; margin:3px;" disabled><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
                                              @endif  
                                         </form>
                                     
-                                
+        
+                        
        <?php if($key == 5 ){ echo "<tr>";  }  ?>
        </td>
+      
        
 <?php 
 }    
@@ -252,7 +457,11 @@ foreach($SeatDynamic as $SeatDynamics){
 }
 ?>
 @endif
-    </table>       
+    </table>
+  <div class="exit exit--back fuselage">
+    
+  </div>
+</div>       
       <div class="fuselage">
         
       </div>

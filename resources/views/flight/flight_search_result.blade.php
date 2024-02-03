@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <div class="search-overlay">
@@ -57,14 +57,17 @@
                                         aria-selected="false"><i class="fas fa-hotel"></i>Hotels</button>
                                 </li>
 								<li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="tours-tab" data-bs-toggle="tab" data-bs-target="#tours"
-                                        type="button" role="tab" aria-controls="tours" aria-selected="false"><i
-                                            class="fas fa-globe"></i>Tours</button>
+								    <a href="{{url('/tour-list')}}" class="nav-link"><i
+                                            class="fas fa-globe"></i>Tours</a>
+                                    <!--<button class="nav-link" id="tours-tab1" data-bs-toggle="tab" data-bs-target="#tours"-->
+                                    <!--    type="button1" role="tab" aria-controls="tours" aria-selected="false"><i-->
+                                    <!--        class="fas fa-globe"></i>Tours</button>-->
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="visa-tab" data-bs-toggle="tab"
-                                        data-bs-target="#visa-application" type="button" role="tab" aria-controls="visa"
-                                        aria-selected="false"><i class="fas fa-passport"></i> Visa</button>
+                                    <a href="{{url('/Visa-list')}}" class="nav-link"><i class="fas fa-passport"></i> Visa </a>
+                                    <!--<button class="nav-link" id="visa-tab" data-bs-toggle="tab"-->
+                                    <!--    data-bs-target="#visa-application" type="button" role="tab" aria-controls="visa"-->
+                                    <!--    aria-selected="false"><i class="fas fa-passport"></i> Visa</button>-->
                                 </li>
                                 <!--<li class="nav-item" role="presentation">
                                     <button class="nav-link" id="apartments-tab" data-bs-toggle="tab"
@@ -92,19 +95,19 @@
                                         <div class="flight_categories_search">
                                             <ul class="nav nav-tabs" role="tablist">
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="oneway-tab" data-bs-toggle="tab"
+                                                    <button class="nav-link <?if($form_status =="one"){ echo "active"; }?>" id="oneway-tab" data-bs-toggle="tab"
                                                         data-bs-target="#oneway_flight" type="button" role="tab"
                                                         aria-controls="oneway_flight" aria-selected="true">One
                                                         Way</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="roundtrip-tab" data-bs-toggle="tab"
+                                                    <button class="nav-link <?if($form_status =="return"){ echo "active"; }?>" id="roundtrip-tab" data-bs-toggle="tab"
                                                         data-bs-target="#roundtrip" type="button" role="tab"
                                                         aria-controls="roundtrip"
                                                         aria-selected="false">Roundtrip</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="multi_city-tab" data-bs-toggle="tab"
+                                                    <button class="nav-link <?if($form_status =="multi"){ echo "active"; }?>" id="multi_city-tab" data-bs-toggle="tab"
                                                         data-bs-target="#multi_city" type="button" role="tab"
                                                         aria-controls="multi_city" aria-selected="false">Multi
                                                         city</button>
@@ -114,7 +117,7 @@
                                     </div>
                                 </div>
                          <div class="tab-content" id="myTabContent1">
-                                    <div class="tab-pane fade show active" id="oneway_flight" role="tabpanel"
+                                    <div class="tab-pane fade <?if($form_status =="one"){ echo "active"; }?> <?if($form_status =="one"){ echo "show"; }?>" id="oneway_flight" role="tabpanel"
                                         aria-labelledby="oneway-tab">
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -265,25 +268,16 @@
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
                                                                                     <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                        <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                           
+                                                                                           
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -295,7 +289,7 @@
                                                             <input type="hidden" name="adult" id="myInput" value="1">
                                                             <input type="hidden" name="children" id="myInput1">
                                                             <input type="hidden" name="infant" id="myInput2">
-                                                                                                   
+                                                              <input type="hidden" name="form_status" value="one">                                     
                                                             <div class="top_form_search_button">
                                                                 <button class="btn btn_theme btn_md">Search</button>
                                                             </div>
@@ -306,7 +300,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="tab-pane fade" id="roundtrip" role="tabpanel"
+                                    <div class="tab-pane fade <?if($form_status =="return"){ echo "active"; }?> <?if($form_status =="return"){ echo "show"; }?>" id="roundtrip" role="tabpanel"
                                         aria-labelledby="roundtrip-tab">
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -318,7 +312,7 @@
                                                                 <div class="flight_Search_boxed">
                                                                     <p>From</p>
                                                                     <?php $filterResult =\App\Airport_Model::get(); ?>
-                                                                      <input list="ShowDataList1" placeholder="From" class="selectpicker form-control from" name="from" id="from12" style="background-color:white; width:200px;" required>
+                                                                      <input list="ShowDataList1" placeholder="From" class="selectpicker form-control from" name="from" id="from12" value="{{$from}}" style="background-color:white; width:200px;" required>
                                                                     <datalist id="ShowDataList1">
                                                                         <!--@foreach($filterResult as $state_)-->
                                                                         <!--<option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>-->
@@ -334,7 +328,7 @@
                                                                 <div class="flight_Search_boxed">
                                                                     <p>To</p>
                                                                      <?php $filterResult =\App\Airport_Model::get(); ?>
-                                                                      <input list="ShowDataList2" placeholder="To" class="selectpicker form-control to" name="to" id="to12" style="background-color:white; width:200px;" required>
+                                                                      <input list="ShowDataList2" placeholder="To" class="selectpicker form-control to" name="to" id="to12" value="{{$to}}" style="background-color:white; width:200px;" required>
                                                                     <datalist id="ShowDataList2">
                                                                         <!--@foreach($filterResult as $state_)-->
                                                                         <!--<option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>-->
@@ -356,12 +350,12 @@
                                                                     <div class="flight_Search_boxed date_flex_area">
                                                                         <div class="Journey_date">
                                                                             <p>Journey date</p>
-                                                                            <input type="date" id="demo" name="journey_date" class="txtDate" value="" required>
+                                                                            <input type="date" id="demo" name="journey_date" class="txtDate" value="{{$journey_date}}" required>
                                                                             <span></span>
                                                                         </div>
                                                                         <div class="Journey_date">
                                                                             <p>Return date</p>
-                                                                            <input type="date" id="demo" name="return_date" class="txtDate" value="" required>
+                                                                            <input type="date" id="demo" name="return_date" class="txtDate" value="{{$journey_date}}" required>
                                                                             <span></span>
                                                                         </div>
                                                                     </div>
@@ -462,25 +456,16 @@
                                                                                 <div class="cabin-selection">
                                                                                     <h6>Cabin Class</h6>
                                                                                     <div class="cabin-list">
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="muiButton-label">Economy
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn active">
-                                                                                            <span
-                                                                                                class="muiButton-label">
-                                                                                                Business
-                                                                                            </span>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                            class="label-select-btn">
-                                                                                            <span
-                                                                                                class="MuiButton-label">First
-                                                                                                Class </span>
-                                                                                        </button>
+                                                                                        <select name="cabin_class" style="width:100%;">
+                                                                                           <option value="2">Economy</option>
+                                                                                           <option value="1">All</option>
+                                                                                           <option value="3">Premium Economy</option>
+                                                                                           <option value="4">Business</option>
+                                                                                           <option value="5">PremiumBusiness</option>
+                                                                                           <option value="6">First Class</option>
+                                                                                           
+                                                                                           
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -489,9 +474,10 @@
                                                                     <span>Business</span>
                                                                 </div>
                                                             </div> 
-                                                            <input type="hidden" name="adult" id="myInputA" valeu="1">
+                                                            <input type="hidden" name="adult" id="myInputA" value="1">
                                                             <input type="hidden" name="children" id="myInputB">
                                                             <input type="hidden" name="infant" id="myInputC">
+                                                            <input type="hidden" name="form_status" value="return">
                                                             <div class="top_form_search_button">
                                                                 <button class="btn btn_theme btn_md">Search</button>
                                                             </div>
@@ -501,12 +487,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="multi_city" role="tabpanel"
+                                    <div class="tab-pane fade  <?if($form_status =="multi"){ echo "active"; }?> <?if($form_status =="multi"){ echo "show"; }?>" id="multi_city" role="tabpanel"
                                         aria-labelledby="multi_city-tab">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="oneway_search_form">
                                                     <form action="{{url('/multi-city-flight-search')}}" enctype="multipart/form-data" method="post">
+                                                        @csrf
                                                         <div class="multi_city_form_wrapper">
                                                             <div class="multi_city_form">
                                                                 <div class="row">
@@ -514,7 +501,7 @@
                                                                         <div class="flight_Search_boxed">
                                                                           <p>From</p>
                                                                     <?php $filterResult =\App\Airport_Model::get(); ?>
-                                                                      <input list="ShowDataList1" placeholder="From" class="selectpicker form-control from" name="from" id="from_1" style="background-color:white; width:200px;" required>
+                                                                      <input list="ShowDataList1" placeholder="From" class="selectpicker form-control from"  value="{{$from}}" name="from" id="from_1" style="background-color:white; width:200px;" required>
                                                                     <datalist id="ShowDataList1">
                                                                         <!--@foreach($filterResult as $state_)-->
                                                                         <!--<option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>-->
@@ -530,7 +517,7 @@
                                                                 <div class="flight_Search_boxed">
                                                                     <p>To</p>
                                                                      <?php $filterResult =\App\Airport_Model::get(); ?>
-                                                                      <input list="ShowDataList2" placeholder="To" class="selectpicker form-control to" name="to" id="to_2" style="background-color:white; width:200px;" required>
+                                                                      <input list="ShowDataList2" placeholder="To" class="selectpicker form-control to"  value="{{$to}}" name="to" id="to_2" style="background-color:white; width:200px;" required>
                                                                     <datalist id="ShowDataList2">
                                                                         <!--@foreach($filterResult as $state_)-->
                                                                         <!--<option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>-->
@@ -554,7 +541,7 @@
                                                                                 <div class="Journey_date">
                                                                                     <p>Journey date</p>
                                                                                     <input type="date" id="demo" name="journey_date"
-                                                                                        value="" class="txtDate" required>
+                                                                                         value="{{$journey_date}}" class="txtDate" required>
                                                                                     <span></span>
                                                                                 </div>
                                                                                 <!--<div class="Journey_date">-->
@@ -688,9 +675,10 @@
                                                                     <span>Business</span>
                                                                 </div>
                                                             </div> 
-                                                            <input type="hidden" name="adult" id="myInputAA" valeu="1">
+                                                            <input type="hidden" name="adult" id="myInputAA" value="1">
                                                             <input type="hidden" name="children" id="myInputBB">
                                                             <input type="hidden" name="infant" id="myInputCC">
+                                                            <input type="hidden" name="form_status" value="multi">
                                                                 </div>
                                                             </div>
                                                             <div class="multi_city_form">
@@ -699,7 +687,7 @@
                                                                         <div class="flight_Search_boxed">
                                                                             <p>From</p>
                                                                     <?php $filterResult =\App\Airport_Model::get(); ?>
-                                                                      <input list="ShowDataList1" placeholder="From" class="selectpicker form-control from" name="from1" id="from_3" style="background-color:white; width:200px;" required>
+                                                                      <input list="ShowDataList1" placeholder="From" class="selectpicker form-control from"  value="{{$from1}}" name="from1" id="from_3" style="background-color:white; width:200px;" required>
                                                                     <datalist id="ShowDataList1">
                                                                         <!--@foreach($filterResult as $state_)-->
                                                                         <!--<option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>-->
@@ -715,7 +703,7 @@
                                                                 <div class="flight_Search_boxed">
                                                                     <p>To</p>
                                                                      <?php $filterResult =\App\Airport_Model::get(); ?>
-                                                                      <input list="ShowDataList2" placeholder="To" class="selectpicker form-control to" name="to1" id="to_4" style="background-color:white; width:200px;" required>
+                                                                      <input list="ShowDataList2" placeholder="To" class="selectpicker form-control to"  value="{{$to1}}" name="to1" id="to_4" style="background-color:white; width:200px;" required>
                                                                     <datalist id="ShowDataList2">
                                                                         <!--@foreach($filterResult as $state_)-->
                                                                         <!--<option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>-->
@@ -739,7 +727,7 @@
                                                                                 <div class="Journey_date">
                                                                                     <p>Journey date</p>
                                                                                     <input type="date" id="demo" name="journey_date1"
-                                                                                        value="" class="txtDate" required>
+                                                                                        value="{{$journey_date1}}" class="txtDate" required>
                                                                                     <span></span>
                                                                                 </div>
                                                                                 <!--<div class="Journey_date">-->
@@ -898,6 +886,172 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane fade" id="hotels" role="tabpanel" aria-labelledby="hotels-tab">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="tour_search_form">
+                                             <form action="{{url('/hotel_search')}}" enctype="multipart/form-data" method="post">
+                                                      @csrf
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                                        <div class="flight_Search_boxed"> 
+                                                            <p>Destination</p>
+                                                            <input list="ShowDataList" placeholder="From" name="city_name" class="selectpicker form-control city_id" id="state_id" style="background-color:#e98c0617; width:202px;" required>
+                                                                <datalist id="ShowDataList">
+                                                                <?php $data =\App\Hotel_City_Model::get(); ?>
+                                                                @foreach($data as $state_)
+                                                                    <option value="{{$state_->name}}">{{__($state_->name)}}</option>
+                                                                @endforeach
+                                                            </datalist>
+                                                            <span id="city_id"></span>
+                                                            <span>Where are you going?</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                        <div class="form_search_date">
+                                                            <div class="flight_Search_boxed date_flex_area">
+                                                                <div class="Journey_date">
+                                                                    <p>Check In Date</p>
+                                                                    <input type="date" name="checkin_date" class="txtDate" required>
+                                                                    <span></span>
+                                                                </div>
+                                                                <div class="Journey_date" >
+                                                                    <p>Check Out Date</p>
+                                                                    <input type="date" name="checkout_date" class="txtDate" required>
+                                                                    <span></span>
+                                                                </div>
+                                                                <div class="">
+                                                                    <p>No Of Rooms</p>
+                                                                    <input type="number" name="NoOfRoom" value="1" required>
+                                                                    <span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2  col-md-2 col-sm-12 col-12">
+                                                        <div class="flight_Search_boxed dropdown_passenger_area">
+                                                            <p>Passenger </p>
+                                                            <div class="dropdown">
+                                                                <button class="dropdown-toggle final-count"
+                                                                    data-toggle="dropdown" type="button"
+                                                                    id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false">
+                                                                    1 Passenger
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown_passenger_info"
+                                                                    aria-labelledby="dropdownMenuButton1">
+                                                                    <div class="traveller-calulate-persons">
+                                                                        <div class="passengers">
+                                                                            <h6>Passengers</h6> 
+                                                                            <div class="passengers-types">
+                                                                                <div class="passengers-type">
+                                                                                    <div class="text"><span
+                                                                                            class="count pcount">1</span>
+                                                                                        <div class="type-label">
+                                                                                            <p>Adult</p>
+                                                                                            <span>12+
+                                                                                                yrs</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="button-set">
+                                                                                        <button type="button"
+                                                                                            class="btn-add">
+                                                                                            <i class="fas fa-plus"></i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                            class="btn-subtract">
+                                                                                            <i class="fas fa-minus"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="passengers-type">
+                                                                                    <div class="text"><span
+                                                                                            class="count ccount">0</span>
+                                                                                        <div class="type-label">
+                                                                                            <p class="fz14 mb-xs-0">
+                                                                                                Children
+                                                                                            </p><span>2
+                                                                                                - Less than 12
+                                                                                                yrs</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="button-set">
+                                                                                        <button type="button"
+                                                                                            class="btn-add-c">
+                                                                                            <i class="fas fa-plus"></i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                            class="btn-subtract-c">
+                                                                                            <i class="fas fa-minus"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="passengers-type">
+                                                                                    <div class="text"><span
+                                                                                            class="count incount">0</span>
+                                                                                        <div class="type-label">
+                                                                                            <p class="fz14 mb-xs-0">
+                                                                                                Infant
+                                                                                            </p><span>Less
+                                                                                                than 2
+                                                                                                yrs</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="button-set">
+                                                                                        <button type="button"
+                                                                                            class="btn-add-in">
+                                                                                            <i class="fas fa-plus"></i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                            class="btn-subtract-in">
+                                                                                            <i class="fas fa-minus"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--<div class="cabin-selection">-->
+                                                                        <!--    <h6>Cabin Class</h6>-->
+                                                                        <!--    <div class="cabin-list">-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn">-->
+                                                                        <!--            <span-->
+                                                                        <!--                class="muiButton-label">Economy-->
+                                                                        <!--            </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn active">-->
+                                                                        <!--            <span class="muiButton-label">-->
+                                                                        <!--                Business-->
+                                                                        <!--            </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--        <button type="button"-->
+                                                                        <!--            class="label-select-btn">-->
+                                                                        <!--            <span class="MuiButton-label">First-->
+                                                                        <!--                Class </span>-->
+                                                                        <!--        </button>-->
+                                                                        <!--    </div>-->
+                                                                        <!--</div>-->
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <span>Business</span>
+                                                        </div>
+                                                                       <input type="hidden" name="adult" id="myInput122" value="1">
+                                                                        <input type="hidden" name="children" id="myInput1222">
+                                                                        <input type="hidden" name="infant" id="myInput1222">
+                                                    </div>
+                                                    <div class="top_form_search_button">
+                                                        <button class="btn btn_theme btn_md">Search</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -918,1710 +1072,275 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="left_side_search_area">
-                        <div class="left_side_search_boxed">
-                            <div class="left_side_search_heading">
-                                <h5>Filter by price</h5>
-                            </div>
-                             <form action="{{url('/price-filter')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                            <div class="flight_Search_boxed">
-        <style>
-            .price-input {
-  width: 100%;
-  display: flex;
-  margin: 30px 0 35px;
-}
-.price-input .field {
-  display: flex;
-  width: 100%;
-  height: 45px;
-  align-items: center;
-}
-.field input {
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: 19px;
-  margin-left: 12px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1px solid #999;
-  -moz-appearance: textfield;
-}
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-.price-input .separator {
-  width: 130px;
-  display: flex;
-  font-size: 19px;
-  align-items: center;
-  justify-content: center;
-}
-.slider {
-  height: 5px;
-  position: relative;
-  background: #ddd;
-  border-radius: 5px;
-}
-.slider .progress {
-  height: 100%;
-  left: 25%;
-  right: 25%;
-  position: absolute;
-  border-radius: 5px;
-  background: #17a2b8;
-}
-.range-input {
-  position: relative;
-}
-.range-input input {
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  top: -5px;
-  background: none;
-  pointer-events: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-input[type="range"]::-webkit-slider-thumb {
-  height: 17px;
-  width: 17px;
-  border-radius: 50%;
-  background: #17a2b8;
-  pointer-events: auto;
-  -webkit-appearance: none;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-}
-input[type="range"]::-moz-range-thumb {
-  height: 17px;
-  width: 17px;
-  border: none;
-  border-radius: 50%;
-  background: #17a2b8;
-  pointer-events: auto;
-  -moz-appearance: none;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-}
+<!--                        <div class="left_side_search_boxed">-->
+<!--                            <div class="left_side_search_heading">-->
+<!--                                <h5>Filter by price</h5>-->
+<!--                            </div>-->
+                             
+<!--                            <div class="flight_Search_boxed">-->
+<!--        <style>-->
+<!--            .price-input {-->
+<!--  width: 100%;-->
+<!--  display: flex;-->
+<!--  margin: 30px 0 35px;-->
+<!--}-->
+<!--.price-input .field {-->
+<!--  display: flex;-->
+<!--  width: 100%;-->
+<!--  height: 45px;-->
+<!--  align-items: center;-->
+<!--}-->
+<!--.field input {-->
+<!--  width: 100%;-->
+<!--  height: 100%;-->
+<!--  outline: none;-->
+<!--  font-size: 19px;-->
+<!--  margin-left: 12px;-->
+<!--  border-radius: 5px;-->
+<!--  text-align: center;-->
+<!--  border: 1px solid #999;-->
+<!--  -moz-appearance: textfield;-->
+<!--}-->
+<!--input[type="number"]::-webkit-outer-spin-button,-->
+<!--input[type="number"]::-webkit-inner-spin-button {-->
+<!--  -webkit-appearance: none;-->
+<!--}-->
+<!--.price-input .separator {-->
+<!--  width: 130px;-->
+<!--  display: flex;-->
+<!--  font-size: 19px;-->
+<!--  align-items: center;-->
+<!--  justify-content: center;-->
+<!--}-->
+<!--.slider {-->
+<!--  height: 5px;-->
+<!--  position: relative;-->
+<!--  background: #ddd;-->
+<!--  border-radius: 5px;-->
+<!--}-->
+<!--.slider .progress {-->
+<!--  height: 100%;-->
+<!--  left: 25%;-->
+<!--  right: 25%;-->
+<!--  position: absolute;-->
+<!--  border-radius: 5px;-->
+<!--  background: #17a2b8;-->
+<!--}-->
+<!--.range-input {-->
+<!--  position: relative;-->
+<!--}-->
+<!--.range-input input {-->
+<!--  position: absolute;-->
+<!--  width: 100%;-->
+<!--  height: 5px;-->
+<!--  top: -5px;-->
+<!--  background: none;-->
+<!--  pointer-events: none;-->
+<!--  -webkit-appearance: none;-->
+<!--  -moz-appearance: none;-->
+<!--}-->
+<!--input[type="range"]::-webkit-slider-thumb {-->
+<!--  height: 17px;-->
+<!--  width: 17px;-->
+<!--  border-radius: 50%;-->
+<!--  background: #17a2b8;-->
+<!--  pointer-events: auto;-->
+<!--  -webkit-appearance: none;-->
+<!--  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);-->
+<!--}-->
+<!--input[type="range"]::-moz-range-thumb {-->
+<!--  height: 17px;-->
+<!--  width: 17px;-->
+<!--  border: none;-->
+<!--  border-radius: 50%;-->
+<!--  background: #17a2b8;-->
+<!--  pointer-events: auto;-->
+<!--  -moz-appearance: none;-->
+<!--  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);-->
+<!--}-->
 
-/* Support */
-.support-box {
-  top: 2rem;
-  position: relative;
-  bottom: 0;
-  text-align: center;
-  display: block;
-}
-.b-btn {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-.b-btn.paypal i {
-  color: blue;
-}
-.b-btn:hover {
-  text-decoration: none;
-  font-weight: bold;
-}
-.b-btn i {
-  font-size: 20px;
-  color: yellow;
-  margin-top: 2rem;
-}
-        </style>                      
-     <div class="price-input">
-            <div class="field">
-              <span>Min</span>
-              <input type="number" class="input-min" name="price_filter1" value="2500" style="background-color:white;width: 62px;">
-            </div>
-            <div class="separator">-</div>
-            <div class="field">
-              <span>Max</span>
-              <input type="number" class="input-max" name="price_filter" value="7500" style="background-color:white;width: 62px;">
-            </div>
-      </div>
-          <div class="slider">
-            <div class="progress"></div>
-          </div>
-          <div class="range-input">
-            <input type="range" class="range-min" min="0" max="100000" value="2500" step="100">
-            <input type="range" class="range-max" min="0" max="100000" value="7500" step="100">
-          </div>
-    </div>
-                            <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>"> 
-                                            <button class="apply" style="margin-left: 190px;">Apply</button>
-                            </form>
-                        </div>
+<!--.support-box {-->
+<!--  top: 2rem;-->
+<!--  position: relative;-->
+<!--  bottom: 0;-->
+<!--  text-align: center;-->
+<!--  display: block;-->
+<!--}-->
+<!--.b-btn {-->
+<!--  color: white;-->
+<!--  text-decoration: none;-->
+<!--  font-weight: bold;-->
+<!--}-->
+<!--.b-btn.paypal i {-->
+<!--  color: blue;-->
+<!--}-->
+<!--.b-btn:hover {-->
+<!--  text-decoration: none;-->
+<!--  font-weight: bold;-->
+<!--}-->
+<!--.b-btn i {-->
+<!--  font-size: 20px;-->
+<!--  color: yellow;-->
+<!--  margin-top: 2rem;-->
+<!--}-->
+<!--        </style>                      -->
+<!--     <div class="price-input">-->
+<!--            <div class="field">-->
+<!--              <span>Min</span>-->
+<!--              <input type="number" class="input-min" name="price_filter1" value="2500" style="background-color:white;width: 62px;">-->
+<!--            </div>-->
+<!--            <div class="separator">-</div>-->
+<!--            <div class="field">-->
+<!--              <span>Max</span>-->
+<!--              <input type="number" class="input-max" name="price_filter" value="7500" style="background-color:white;width: 62px;">-->
+<!--            </div>-->
+<!--      </div>-->
+<!--          <div class="slider">-->
+<!--            <div class="progress"></div>-->
+<!--          </div>-->
+<!--          <div class="range-input">-->
+<!--            <input type="range" class="range-min" min="0" max="100000" value="2500" step="100">-->
+<!--            <input type="range" class="range-max" min="0" max="100000" value="7500" step="100">-->
+<!--          </div>-->
+<!--    </div>-->
+                            
+<!--                        </div>-->
                         <div class="left_side_search_boxed">
                             <div class="left_side_search_heading">
                                 <h5>Number of stops</h5>
                             </div>
-                            <form action="{{url('/stops')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
+                            
                             <div class="tour_search_type">
                                 <div class="checkbox">
                                  
-                                <input type="checkbox" name="stops" value="one" > <label style="margin-left: 20px;">  One Stop
+                                <input type="checkbox" name="stops" value="One" > <label style="margin-left: 20px;">  One Stop
                                  </label>
                                 </div>
                                 <div class="checkbox">
                                  
-                                <input type="checkbox" name="stops" value="multi" > <label style="margin-left: 20px;">  Multi Stop
+                                <input type="checkbox" name="stops" value="Multi" > <label style="margin-left: 20px;">  Multi Stop
                                  </label>
                                 </div>
                                 <div class="checkbox">
                                  
-                                <input type="checkbox" name="stops" value="non" checked> <label style="margin-left: 20px;" checked>  Non Stop
-                                 </label>
-                                </div>
-                                <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>"> 
-                                            <button class="apply" style="margin-left: 190px;">Apply</button>
-                            </form>
-                            </div>
-                        </div>
-                        <div class="left_side_search_boxed">
-                            <div class="left_side_search_heading">
-                                <h5>Flight class</h5>
-                            </div>
-                            <form action="{{url('/flight-class')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                               <div class="tour_search_type">
-                                   <div class="checkbox">
-                                     <input type="checkbox" name="cabin_class" value="1" checked> <label style="margin-left: 20px;">  All Class
-                                 </label>
-                                </div>
-                                   <div class="checkbox">
-                                     <input type="checkbox" name="cabin_class" value="2" > <label style="margin-left: 20px;">  Economy
-                                 </label>
-                                </div>
-                                   <div class="checkbox">
-                                     <input type="checkbox" name="cabin_class" value="3" > <label style="margin-left: 20px;">  Premium Economy
-                                 </label>
-                                </div>
-                                   <div class="checkbox">
-                                     <input type="checkbox" name="cabin_class" value="4" > <label style="margin-left: 20px;">  Business
-                                 </label>
-                                </div>
-                                   <div class="checkbox">
-                                     <input type="checkbox" name="cabin_class" value="5" > <label style="margin-left: 20px;">  Premium Business
+                                <input type="checkbox" name="stops" value="Non"  > <label style="margin-left: 20px;"  >  Non Stop
                                  </label>
                                 </div>
                                 
-                                   <div class="checkbox">
-                                     <input type="checkbox" name="cabin_class" value="6" > <label style="margin-left: 20px;">  First Class
-                                 </label>
-                                </div>
-                                <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <button class="apply" style="margin-left: 190px;">Apply</button>
-                            </form>
                             </div>
                         </div>
+                        <!--<div class="left_side_search_boxed">-->
+                        <!--    <div class="left_side_search_heading">-->
+                        <!--        <h5>Flight class</h5>-->
+                        <!--    </div>-->
+                            
+                        <!--       <div class="tour_search_type">-->
+                        <!--           <div class="checkbox">-->
+                        <!--             <input type="checkbox" name="cabin_class" value="1"  > <label style="margin-left: 20px;">  All Class-->
+                        <!--         </label>-->
+                        <!--        </div>-->
+                        <!--           <div class="checkbox">-->
+                        <!--             <input type="checkbox" name="cabin_class" value="2" > <label style="margin-left: 20px;">  Economy-->
+                        <!--         </label>-->
+                        <!--        </div>-->
+                        <!--           <div class="checkbox">-->
+                        <!--             <input type="checkbox" name="cabin_class" value="3" > <label style="margin-left: 20px;">  Premium Economy-->
+                        <!--         </label>-->
+                        <!--        </div>-->
+                        <!--           <div class="checkbox">-->
+                        <!--             <input type="checkbox" name="cabin_class" value="4" > <label style="margin-left: 20px;">  Business-->
+                        <!--         </label>-->
+                        <!--        </div>-->
+                        <!--           <div class="checkbox">-->
+                        <!--             <input type="checkbox" name="cabin_class" value="5" > <label style="margin-left: 20px;">  Premium Business-->
+                        <!--         </label>-->
+                        <!--        </div>-->
+                                
+                        <!--           <div class="checkbox">-->
+                        <!--             <input type="checkbox" name="cabin_class" value="6" > <label style="margin-left: 20px;">  First Class-->
+                        <!--         </label>-->
+                        <!--        </div>-->
+                                
+                        <!--    </div>-->
+                        <!--</div>--> 
                         <div class="left_side_search_boxed">
                             <div class="left_side_search_heading">
                                 <h5>Airlines</h5>
                             </div>
                             <div class="tour_search_type">
                                 
-                            <form action="{{url('/Airlines')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                               <select class="form-control MuiButton-label" name="airlines" required>
-                                   <option value="Aer Lingus"> Aer Lingus </option>
-                                   <option value="Air Fiji"> Air Fiji </option>
-                                   <option value="Air India"> Air India </option>
-                                   <option value="Akasa Air"> Akasa Air </option>
-                                   <option value="Air Arabia"> Air Arabia </option>
-                                   <option value="Air France"> Air France </option>
-                                   <option value="Air India Express"> Air India Express </option>
-                                   <option value="Astrakhan Airlines"> Astrakhan Airlines </option>
-                                   <option value="Air Asia"> Air Asia </option>
-                                   <option value="AirAsia X"> AirAsia X </option>
-                                   <option value="Air Asia India"> Air Asia India </option>
-                                   <option value="Austrian Airlines"> Austrian Airlines </option>
-                                   <option value="British Airways"> British Airways </option>
-                                   <option value="Condor Airlines"> Condor Airlines </option>
-                                   <option value="Eastern Airways"> Eastern Airways </option>
-                                   <option value="Emirates"> Emirates </option>
-                                   <option value="Etihad Airways"> Etihad Airways </option>
-                                   <option value="Finnair"> Finnair </option>
-                                   <option value="Fly Scoot"> Fly Scoot </option>
-                                   <option value="flydubai"> flydubai </option>
-                                   <option value="Go first"> Go first </option>
-                                   <option value="Gulf Air"> Gulf Air </option>
-                                   <option value="Indigo"> Indigo </option>
-                                   <option value="Indonesia AirAsia"> Indonesia AirAsia </option>
-                                   <option value="Jazeera Airways"> Jazeera Airways </option>
-                                   <option value="Jetstar Asia"> Jetstar Asia </option>
-                                   <option value="KLM Airlines"> KLM Airlines </option>
-                                   <option value="Kuwait Airways"> Kuwait Airways </option>
-                                   <option value="Lufthansa"> Lufthansa </option>
-                                   <option value="Malaysia Airlines"> Malaysia Airlines </option>
-                                   <option value="Malmö Aviation"> Malmö Aviation </option>
-                                   <option value="Mesaba Airlines"> Mesaba Airlines </option>
-                                   <option value="Oman Air"> Oman Air </option>
-                                   <option value="Qatar Airways"> Qatar Airways </option>
-                                   <option value="Spicejet"> Spicejet </option>
-                                   <option value="SriLankan"> SriLankan </option>
-                                   <option value="SunExpress"> SunExpress </option>
-                                   <option value="Thai AirAsia"> Thai AirAsia </option>
-                                   <option value="Thai Airways"> Thai Airways </option>
-                                   <option value="Thomas Cook Airlines"> Thomas Cook Airlines </option>
-                                   <option value="Virgin Atlantic"> Virgin Atlantic </option>
-                                   <option value="Vistara"> Vistara </option>
-                                   <option value="WestJet"> WestJet </option>
+                           
+                                   <div class="checkbox"><input type="checkbox" name="airlines" value="AerLingus"><label style="margin-left: 20px;"> Aer Lingus </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirFiji"><label style="margin-left: 20px;"> Air Fiji </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirIndia"><label style="margin-left: 20px;"> Air India </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AkasaAir"><label style="margin-left: 20px;"> Akasa Air </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirArabia"><label style="margin-left: 20px;"> Air Arabia </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirFrance"><label style="margin-left: 20px;"> Air France </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirIndia Express"><label style="margin-left: 20px;"> Air India Express </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AstrakhanAirlines"><label style="margin-left: 20px;"> Astrakhan Airlines </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirAsia"><label style="margin-left: 20px;"> Air Asia </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirAsiaX"><label style="margin-left: 20px;"> AirAsia X </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AirAsiaIndia"><label style="margin-left: 20px;"> Air Asia India </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="AustrianAirlines"><label style="margin-left: 20px;"> Austrian Airlines </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="BritishAirways"><label style="margin-left: 20px;"> British Airways </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="CondorAirlines"><label style="margin-left: 20px;"> Condor Airlines </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="EasternAirways"><label style="margin-left: 20px;"> Eastern Airways </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="Emirates"><label style="margin-left: 20px;"> Emirates </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="EtihadAirways"><label style="margin-left: 20px;"> Etihad Airways </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="Finnair"><label style="margin-left: 20px;"> Finnair </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="FlyScoot"><label style="margin-left: 20px;"> Fly Scoot </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="flydubai"><label style="margin-left: 20px;"> flydubai </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="Gofirst"><label style="margin-left: 20px;"> Go first </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="GulfAir"><label style="margin-left: 20px;"> Gulf Air </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="Indigo"><label style="margin-left: 20px;"> Indigo </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="IndonesiaAirAsia"><label style="margin-left: 20px;"> Indonesia AirAsia </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="JazeeraAirways"><label style="margin-left: 20px;"> Jazeera Airways </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="JetstarAsia"><label style="margin-left: 20px;"> Jetstar Asia </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="KLMAirlines"><label style="margin-left: 20px;"> KLM Airlines </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="KuwaitAirways"><label style="margin-left: 20px;"> Kuwait Airways </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="Lufthansa"><label style="margin-left: 20px;"> Lufthansa </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="MalaysiaAirlines"><label style="margin-left: 20px;"> Malaysia Airlines </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="MalmöAviation"><label style="margin-left: 20px;"> Malmö Aviation </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="MesabaAirlines"><label style="margin-left: 20px;"> Mesaba Airlines </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="OmanAir"><label style="margin-left: 20px;"> Oman Air </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="QatarAirways"><label style="margin-left: 20px;"> Qatar Airways </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="Spicejet"><label style="margin-left: 20px;"> Spicejet </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="SriLankan"><label style="margin-left: 20px;"> SriLankan </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="SunExpress"><label style="margin-left: 20px;"> SunExpress </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="ThaiAirAsia"><label style="margin-left: 20px;"> Thai AirAsia </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="ThaiAirways"><label style="margin-left: 20px;"> Thai Airways </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="ThomasCookAirlines"><label style="margin-left: 20px;"> Thomas Cook Airlines </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="VirginAtlantic"><label style="margin-left: 20px;"> Virgin Atlantic </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="Vistara"><label style="margin-left: 20px;"> Vistara </label></div>
+                                   <div class="checkbox"><input type="checkbox" name="airlines"value="WestJet"><label style="margin-left: 20px;"> WestJet </label></div>
                                    
-                                </select>
-                             
-                            <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>"> 
-                                            <button class="apply" style="margin-left: 190px;">Apply</button>
-                            </form>
+                               
+                           
                             </div>
                         </div>
                         <div class="left_side_search_boxed">
                             <div class="left_side_search_heading">
                                 <h5>Refundable</h5>
                             </div>
-                            <form action="{{url('/Refundable')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
+                            
                             <div class="tour_search_type">
                                 <div class="checkbox">
                                  
-                                <input type="checkbox" name="refundable" value="0" checked> <label style="margin-left: 20px;">  No
+                                <input type="checkbox" name="refundable" value="false"  > <label style="margin-left: 20px;">  No
                                  </label>
                                 </div>
                                 <div class="checkbox">
                                  
-                                <input type="checkbox" name="refundable" value="1" > <label style="margin-left: 20px;">  Yes
+                                <input type="checkbox" name="refundable" value="true" > <label style="margin-left: 20px;">  Yes
                                  </label>
                                 </div>
-                                <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>">
-                                            <button class="apply" style="margin-left: 190px;">Apply</button>
-                            </form>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
         <!--Flight Search Data Start--> 
         <!--Price Filter -->
-@if(isset($price_filter))  
-  
-         <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="flight_search_result_wrapper">
-                                <div class="flight_search_item_wrappper">
-                                    @if(isset($ress))
-                                    
-         @foreach($ress as $res)
-@if(isset($res->Results))        
-    <?php $dat = $res->Results;?>
-            
-    @foreach($dat as $dat1)
-        @foreach($dat1 as $key=>$dat2)
-        
-    @if($dat2->Fare->PublishedFare >$price_filter1 && $dat2->Fare->PublishedFare < $price_filter)    
-        <?php  $Segments = $dat2->Segments; ?>
-        <?php  $FareRules = $dat2->FareRules; ?>
-         @foreach( $Segments as $Segment)
-            @foreach( $Segment as $Segm)
-          <?php $Origin = $Segm->Origin; ?> 
-          
-         <?php  $Destination = $Segm->Destination; ?>
-                @if($Origin->Airport->AirportCode == $from)
-                                    <div class="flight_search_items">
-                                        
-                                        <div class="multi_city_flight_lists">
-                                            <div class="left_side_search_heading">
-                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                      <h5 class="apply" style="margin-left:10px;"> <?php echo $Segm->Airline->AirlineName; ?> </h5>
-                                                                     </div>
-                                                                     <div class="col-lg-6">
-                                                                     <h5 class="apply" style="margin-left:10px;">Aircraft: <?php  echo $Segm->Craft; ?> </h5>
-                                                                     </div>
-                                                                 </div>     
-                                        </div> 
-                            <div class="flight_multis_area_wrapper"> 
-                                            
-                                                <div class="flight_search_left">
-                                                    <div class="">
-                                                        <img src="assets/AirlineLogo/<?php echo $dat2->AirlineCode;?>.gif" alt="img" style="height:30px;width:30px;object-fit: cover;">
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        
-                                                        <p>From</p>
-                                                        <h3><?php echo $sou_code = $Origin->Airport->AirportCode; ?></h3>
-                                                        <h6><?php echo $sou_name = $Origin->Airport->AirportName;?></h6>
-                                                        <h6>Departure Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                            echo $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                        </h6> 
-                                                        
-                                                    </div>
-                                                </div>
-                                                <?php $count = 0; ?>
-                                                @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                    <?php  $AirportCode = $Destination->Airport->AirportCode; ?>
-                                   <?php  $ArrTime = $Destination->ArrTime; ?>
-                                   <?php $AirportName = $Destination->Airport->AirportName;?>
-                                   <?php $CityName = $Destination->Airport->CityName;?>
-                                  <? $count++ ?>
-                                    @endforeach
-                                    @endforeach
-                                                <div class="flight_search_middel">
-                                                    <div class="flight_right_arrow">
-                                                        <img src="assets/img/icon/right_arrow.png" alt="icon">
-                                                        <h6>
-                                                            <?php 
-                                                            if($count == 1){
-                                                                echo "Non"; 
-                                                                }
-                                                            if($count == 2){
-                                                                echo "One"; 
-                                                                }
-                                                            if($count > 2){
-                                                                echo "Multi"; 
-                                                                }    
-                                                            
-                                                             ?> Stops</h6>
-                                                        <p>
-                                                            <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                             $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                             $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            
-                                                            $from_time = strtotime($dapa_time); 
-                                                                $to_time = strtotime($arr1_time); 
-                                                            $diff_minutes = abs($from_time - $to_time) / 60; 
-                                                           
-                                                           $hours = floor($diff_minutes / 60);
-                                                        $min = $diff_minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                       
-                                                            ?>  
-                                                            
-                                                        </p>
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        <p>To</p>
-                                    
-                                    
-                                                         <h3><?php echo $AirportCode; ?></h3>
-                                                        <h6><?php echo $AirportName;?> ,<?php echo $CityName;?></h6>
-                                                        <h6>Arrival Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            </h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="flight_search_right">
-                                            <h5><del></del></h5>
-                                            @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php $base123 = $dat2->Fare->PublishedFare;?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?><sup>*% OFF</sup></h2>
-                                            @else
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php echo $dat2->Fare->PublishedFare;?><sup>*% OFF</sup></h2><sub style="width:10px;height:10px;"> / Adult X {{$adult}}</sub>
-                                            @endif
-                                            <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                            <!--    now</a>-->
-                                            <p>*Discount applicable on some conditions</p>
-                                        @if($dat2->IsLCC == '1' )    
-                                        <form action="{{url('/select_seat')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $Origin->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $Origin->Airport->AirportName;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Select Seat</button>
-                                        </form>
-                                        @else 
-                                        <form action="{{url('/book_now')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $sou_code;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $sou_name;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            <input type="hidden" name="DepTime" value="<?php echo $input1;?>">
-                                            <input type="hidden" name="ArrTime" value="<?php echo $Destination->ArrTime;?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="count" value="<?php echo $count;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Book now</button>
-                                        </form>
-                                        @endif
-                                         <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                         <!--       now</a>-->
-                                            <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample<?php echo $dat2->ResultIndex;?>"
-                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
-                                                    class="fas fa-chevron-down"></i></h6>
-                                        </div>
-                                    </div>    @endif 
-                                    @endforeach
-                                    
-                                    
-                                @endforeach
-                                
-                                    @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    <?php $Origin = $Segm->Origin; ?> 
-                                    <?php $Airline = $Segm->Airline; ?> 
-                                     
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                     
-                                    <div class="flight_policy_refund collapse" id="collapseExample<?php echo $dat2->ResultIndex;?>">
-                                        <div class="flight_show_down_wrapper">
-                                            <div class="flight-shoe_dow_item">
-                                                <div class="airline-details">
-                                                    <div class="img"><img src="assets/AirlineLogo/<?php  echo  $Airline->AirlineCode; ?>.gif" alt="img"></div>
-                                                    <span class="airlineName fw-500"><?php  echo  $Airline->FlightNumber; ?> &nbsp;
-                                                        </span>
-                                                    <span class="flightNumber"></span>
-                                                </div>
-                                                <div class="flight_inner_show_component">
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>From</p>
-                                                                <span class="time"><?php  echo  $Origin->Airport->AirportCode; ?></span>
-                                                                <span class="time"><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                             <h6><?php echo $Origin->Airport->AirportName;?>,<?php echo $Origin->Airport->CityName;?>,<?php echo $Origin->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flight_duration">
-                                                        <div class="arrow_right"></div>
-                                                        <h6><?php  $minutes = $Segm->Duration; ?> 
-                                                        <?php $hours = floor($minutes / 60);
-                                                        $min = $minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                        ?>  </h6>
-                                                    </div>
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>To</p>
-                                                                <span class="time"><?php echo $Destination->Airport->AirportCode; ?></span>
-                                                                 <span class="time"><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                            <h6><?php echo $Destination->Airport->AirportName;?>,<?php echo $Destination->Airport->CityName;?>,<?php echo $Destination->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flight_refund_policy">
-                                                <div class="TabPanelInner flex_widht_less">
-                                                    <h4>Refund Policy</h4>
-                                                    <p class="fz12">1. Refund and Date Change are done as per the
-                                                        following policies.</p>
-                                                    <p class="fz12">2. Refund Amount= Refund Charge (as per airline
-                                                        policy + ShareTrip Convenience Fee). </p>
-                                                    <p class="fz12">3. Date Change Amount= Date Change Fee (as per
-                                                        Airline Policy + ShareTrip Convenience Fee).</p>
-                                                </div>
-                                                <div class="TabPanelInner">
-                                                    <h4>Baggage</h4>
-                                                    <div class="flight_info_taable">
-                                                        <h3><?php echo $Segm->Baggage; ?></h3>
-                                                        <p><span>/</span> person</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach 
-                                    @endforeach 
-                                &nbsp;
-                                <?php if($key == '11' ){ break;  }  ?>
-                                @endif
-                                @endforeach
-                               
-                                @endforeach
-                                @endif
-                                @endforeach
-                                
-                                @endif
-                                    
-                                <!--Flight Search Data End-->
-                               
-                                
-                            <div class="load_more_flight">
-                            <form action="{{url('/all-flight')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>"> 
-                                            <button class="btn btn_md"><i class="fas fa-spinner"></i> Load more..</button>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-    <!--Price Filter--> 
-@endif
-        <!--Stops Filter -->
-@if(isset($stops))  
-  
-         <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="flight_search_result_wrapper">
-                                <div class="flight_search_item_wrappper">
-                                    @if(isset($ress))
-                                    
-         @foreach($ress as $res)
-@if(isset($res->Results))        
-    <?php $dat = $res->Results;?>
-            
-    @foreach($dat as $dat1)
-        @foreach($dat1 as $key=>$dat2)
-        
-     <?php  $Segments = $dat2->Segments; ?>
-        <?php  $FareRules = $dat2->FareRules; ?>
-         @foreach( $Segments as $Segment)
-            @foreach( $Segment as $Segm)
-          <?php $Origin = $Segm->Origin; ?> 
-          
-         <?php  $Destination = $Segm->Destination; ?>
-                @if($Origin->Airport->AirportCode == $from)
-                                    <div class="flight_search_items">
-                                        
-                                        <div class="multi_city_flight_lists">
-                                            <div class="left_side_search_heading">
-                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                      <h5 class="apply" style="margin-left:10px;"> <?php echo $Segm->Airline->AirlineName; ?> </h5>
-                                                                     </div>
-                                                                     <div class="col-lg-6">
-                                                                     <h5 class="apply" style="margin-left:10px;">Aircraft: <?php  echo $Segm->Craft; ?> </h5>
-                                                                     </div>
-                                                                 </div>     
-                                        </div> 
-                            <div class="flight_multis_area_wrapper"> 
-                                            
-                                                <div class="flight_search_left">
-                                                    <div class="">
-                                                        <img src="assets/AirlineLogo/<?php echo $dat2->AirlineCode;?>.gif" alt="img" style="height:30px;width:30px;object-fit: cover;">
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        
-                                                        <p>From</p>
-                                                        <h3><?php echo $sou_code = $Origin->Airport->AirportCode; ?></h3>
-                                                        <h6><?php echo $sou_name = $Origin->Airport->AirportName;?></h6>
-                                                        <h6>Departure Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                            echo $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                        </h6> 
-                                                        
-                                                    </div>
-                                                </div>
-                                                <?php $count = 0; ?>
-                                                @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                    <?php  $AirportCode = $Destination->Airport->AirportCode; ?>
-                                   <?php  $ArrTime = $Destination->ArrTime; ?>
-                                   <?php $AirportName = $Destination->Airport->AirportName;?>
-                                   <?php $CityName = $Destination->Airport->CityName;?>
-                                  <? $count++ ?>
-                                    @endforeach
-                                    @endforeach
-                                                <div class="flight_search_middel">
-                                                    <div class="flight_right_arrow">
-                                                        <img src="assets/img/icon/right_arrow.png" alt="icon">
-                                                        <h6>
-                                                            <?php 
-                                                            if($count == 1){
-                                                                echo "Non"; 
-                                                                }
-                                                            if($count == 2){
-                                                                echo "One"; 
-                                                                }
-                                                            if($count > 2){
-                                                                echo "Multi"; 
-                                                                }    
-                                                            
-                                                             ?> Stops</h6>
-                                                        <p>
-                                                            <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                             $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                             $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            
-                                                            $from_time = strtotime($dapa_time); 
-                                                                $to_time = strtotime($arr1_time); 
-                                                            $diff_minutes = abs($from_time - $to_time) / 60; 
-                                                           
-                                                           $hours = floor($diff_minutes / 60);
-                                                        $min = $diff_minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                       
-                                                            ?>  
-                                                            
-                                                        </p>
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        <p>To</p>
-                                    
-                                    
-                                                         <h3><?php echo $AirportCode; ?></h3>
-                                                        <h6><?php echo $AirportName;?> ,<?php echo $CityName;?></h6>
-                                                        <h6>Arrival Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            </h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="flight_search_right">
-                                            <h5><del></del></h5>
-                                            @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php $base123 = $dat2->Fare->PublishedFare;?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?><sup>*% OFF</sup></h2>
-                                            @else
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php echo $dat2->Fare->PublishedFare;?><sup>*% OFF</sup></h2><sub style="width:10px;height:10px;"> / Adult X {{$adult}}</sub>
-                                            @endif
-                                            <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                            <!--    now</a>-->
-                                            <p>*Discount applicable on some conditions</p>
-                                        @if($dat2->IsLCC == '1' )    
-                                        <form action="{{url('/select_seat')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $Origin->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $Origin->Airport->AirportName;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Select Seat</button>
-                                        </form>
-                                        @else 
-                                        <form action="{{url('/book_now')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $sou_code;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $sou_name;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            <input type="hidden" name="DepTime" value="<?php echo $input1;?>">
-                                            <input type="hidden" name="ArrTime" value="<?php echo $Destination->ArrTime;?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="count" value="<?php echo $count;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Book now</button>
-                                        </form>
-                                        @endif
-                                         <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                         <!--       now</a>-->
-                                            <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample<?php echo $dat2->ResultIndex;?>"
-                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
-                                                    class="fas fa-chevron-down"></i></h6>
-                                        </div>
-                                    </div>    @endif 
-                                    @endforeach
-                                    
-                                    
-                                @endforeach
-                                
-                                    @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    <?php $Origin = $Segm->Origin; ?> 
-                                    <?php $Airline = $Segm->Airline; ?> 
-                                     
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                     
-                                    <div class="flight_policy_refund collapse" id="collapseExample<?php echo $dat2->ResultIndex;?>">
-                                        <div class="flight_show_down_wrapper">
-                                            <div class="flight-shoe_dow_item">
-                                                <div class="airline-details">
-                                                    <div class="img"><img src="assets/AirlineLogo/<?php  echo  $Airline->AirlineCode; ?>.gif" alt="img"></div>
-                                                    <span class="airlineName fw-500"><?php  echo  $Airline->FlightNumber; ?> &nbsp;
-                                                        </span>
-                                                    <span class="flightNumber"></span>
-                                                </div>
-                                                <div class="flight_inner_show_component">
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>From</p>
-                                                                <span class="time"><?php  echo  $Origin->Airport->AirportCode; ?></span>
-                                                                <span class="time"><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                             <h6><?php echo $Origin->Airport->AirportName;?>,<?php echo $Origin->Airport->CityName;?>,<?php echo $Origin->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flight_duration">
-                                                        <div class="arrow_right"></div>
-                                                        <h6><?php  $minutes = $Segm->Duration; ?> 
-                                                        <?php $hours = floor($minutes / 60);
-                                                        $min = $minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                        ?>  </h6>
-                                                    </div>
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>To</p>
-                                                                <span class="time"><?php echo $Destination->Airport->AirportCode; ?></span>
-                                                                 <span class="time"><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                            <h6><?php echo $Destination->Airport->AirportName;?>,<?php echo $Destination->Airport->CityName;?>,<?php echo $Destination->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flight_refund_policy">
-                                                <div class="TabPanelInner flex_widht_less">
-                                                    <h4>Refund Policy</h4>
-                                                    <p class="fz12">1. Refund and Date Change are done as per the
-                                                        following policies.</p>
-                                                    <p class="fz12">2. Refund Amount= Refund Charge (as per airline
-                                                        policy + ShareTrip Convenience Fee). </p>
-                                                    <p class="fz12">3. Date Change Amount= Date Change Fee (as per
-                                                        Airline Policy + ShareTrip Convenience Fee).</p>
-                                                </div>
-                                                <div class="TabPanelInner">
-                                                    <h4>Baggage</h4>
-                                                    <div class="flight_info_taable">
-                                                        <h3><?php echo $Segm->Baggage; ?></h3>
-                                                        <p><span>/</span> person</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach 
-                                    @endforeach 
-                                &nbsp;
-                                <?php if($key == '11' ){ break;  }  ?>
-                                
-                                @endforeach
-                               
-                                @endforeach
-                                @endif
-                                @endforeach
-                                
-                                @endif
-                                    
-                                <!--Flight Search Data End-->
-                               
-                                
-                            <div class="load_more_flight">
-                            <form action="{{url('/all-flight')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>"> 
-                                            <button class="btn btn_md"><i class="fas fa-spinner"></i> Load more..</button>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-    <!--Stops Filter--> 
-@endif
-        <!--Airlines Filter -->
-@if(isset($airlines))         
-           <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="flight_search_result_wrapper">
-                                <div class="flight_search_item_wrappper">
-                                    @if(isset($ress))
-                                    
-         @foreach($ress as $res)
-@if(isset($res->Results))        
-    <?php $dat = $res->Results;?>
-            
-    @foreach($dat as $dat1)
-        @foreach($dat1 as $key=>$dat2)
-        
-    
-        <?php  $Segments = $dat2->Segments; ?>
-        <?php  $FareRules = $dat2->FareRules; ?>
-         @foreach( $Segments as $Segment)
-            @foreach( $Segment as $Segm)
-            @if($Segm->Airline->AirlineName == $airlines) 
-          <?php $Origin = $Segm->Origin; ?> 
-          
-         <?php  $Destination = $Segm->Destination; ?>
-                @if($Origin->Airport->AirportCode == $from)
-                                    <div class="flight_search_items">
-                                        
-                                        <div class="multi_city_flight_lists">
-                                            <div class="left_side_search_heading">
-                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                      <h5 class="apply" style="margin-left:10px;"> <?php echo $Segm->Airline->AirlineName; ?> </h5>
-                                                                     </div>
-                                                                     <div class="col-lg-6">
-                                                                     <h5 class="apply" style="margin-left:10px;">Aircraft: <?php  echo $Segm->Craft; ?> </h5>
-                                                                     </div>
-                                                                 </div>     
-                                        </div> 
-                            <div class="flight_multis_area_wrapper"> 
-                                            
-                                                <div class="flight_search_left">
-                                                    <div class="">
-                                                        <img src="assets/AirlineLogo/<?php echo $dat2->AirlineCode;?>.gif" alt="img" style="height:30px;width:30px;object-fit: cover;">
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        
-                                                        <p>From</p>
-                                                        <h3><?php echo $sou_code = $Origin->Airport->AirportCode; ?></h3>
-                                                        <h6><?php echo $sou_name = $Origin->Airport->AirportName;?></h6>
-                                                        <h6>Departure Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                            echo $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                        </h6> 
-                                                        
-                                                    </div>
-                                                </div>
-                                                <?php $count = 0; ?>
-                                                @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                    <?php  $AirportCode = $Destination->Airport->AirportCode; ?>
-                                   <?php  $ArrTime = $Destination->ArrTime; ?>
-                                   <?php $AirportName = $Destination->Airport->AirportName;?>
-                                   <?php $CityName = $Destination->Airport->CityName;?>
-                                  <? $count++ ?>
-                                    @endforeach
-                                    @endforeach
-                                                <div class="flight_search_middel">
-                                                    <div class="flight_right_arrow">
-                                                        <img src="assets/img/icon/right_arrow.png" alt="icon">
-                                                        <h6>
-                                                            <?php 
-                                                            if($count == 1){
-                                                                echo "Non"; 
-                                                                }
-                                                            if($count == 2){
-                                                                echo "One"; 
-                                                                }
-                                                            if($count > 2){
-                                                                echo "Multi"; 
-                                                                }    
-                                                            
-                                                             ?> Stops</h6>
-                                                        <p>
-                                                            <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                             $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                             $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            
-                                                            $from_time = strtotime($dapa_time); 
-                                                                $to_time = strtotime($arr1_time); 
-                                                            $diff_minutes = abs($from_time - $to_time) / 60; 
-                                                           
-                                                           $hours = floor($diff_minutes / 60);
-                                                        $min = $diff_minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                       
-                                                            ?>  
-                                                            
-                                                        </p>
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        <p>To</p>
-                                    
-                                    
-                                                         <h3><?php echo $AirportCode; ?></h3>
-                                                        <h6><?php echo $AirportName;?> ,<?php echo $CityName;?></h6>
-                                                        <h6>Arrival Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            </h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="flight_search_right">
-                                            <h5><del></del></h5>
-                                            @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php $base123 = $dat2->Fare->PublishedFare;?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?><sup>*% OFF</sup></h2>
-                                            @else
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php echo $dat2->Fare->PublishedFare;?><sup>*% OFF</sup></h2><sub style="width:10px;height:10px;"> / Adult X {{$adult}}</sub>
-                                            @endif
-                                            <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                            <!--    now</a>-->
-                                            <p>*Discount applicable on some conditions</p>
-                                        @if($dat2->IsLCC == '1' )    
-                                        <form action="{{url('/select_seat')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $Origin->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $Origin->Airport->AirportName;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Select Seat</button>
-                                        </form>
-                                        @else 
-                                        <form action="{{url('/book_now')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $sou_code;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $sou_name;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            <input type="hidden" name="DepTime" value="<?php echo $input1;?>">
-                                            <input type="hidden" name="ArrTime" value="<?php echo $Destination->ArrTime;?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="count" value="<?php echo $count;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Book now</button>
-                                        </form>
-                                        @endif
-                                         <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                         <!--       now</a>-->
-                                            <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample<?php echo $dat2->ResultIndex;?>"
-                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
-                                                    class="fas fa-chevron-down"></i></h6>
-                                        </div>
-                                    </div>
-                                        @endif 
-                                        @endif
-                                    @endforeach
-                                    
-                                    
-                                @endforeach
-                                
-                                    @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    <?php $Origin = $Segm->Origin; ?> 
-                                    <?php $Airline = $Segm->Airline; ?> 
-                                     
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                     
-                                    <div class="flight_policy_refund collapse" id="collapseExample<?php echo $dat2->ResultIndex;?>">
-                                        <div class="flight_show_down_wrapper">
-                                            <div class="flight-shoe_dow_item">
-                                                <div class="airline-details">
-                                                    <div class="img"><img src="assets/AirlineLogo/<?php  echo  $Airline->AirlineCode; ?>.gif" alt="img"></div>
-                                                    <span class="airlineName fw-500"><?php  echo  $Airline->FlightNumber; ?> &nbsp;
-                                                        </span>
-                                                    <span class="flightNumber"></span>
-                                                </div>
-                                                <div class="flight_inner_show_component">
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>From</p>
-                                                                <span class="time"><?php  echo  $Origin->Airport->AirportCode; ?></span>
-                                                                <span class="time"><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                             <h6><?php echo $Origin->Airport->AirportName;?>,<?php echo $Origin->Airport->CityName;?>,<?php echo $Origin->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flight_duration">
-                                                        <div class="arrow_right"></div>
-                                                        <h6><?php  $minutes = $Segm->Duration; ?> 
-                                                        <?php $hours = floor($minutes / 60);
-                                                        $min = $minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                        ?>  </h6>
-                                                    </div>
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>To</p>
-                                                                <span class="time"><?php echo $Destination->Airport->AirportCode; ?></span>
-                                                                 <span class="time"><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                            <h6><?php echo $Destination->Airport->AirportName;?>,<?php echo $Destination->Airport->CityName;?>,<?php echo $Destination->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flight_refund_policy">
-                                                <div class="TabPanelInner flex_widht_less">
-                                                    <h4>Refund Policy</h4>
-                                                    <p class="fz12">1. Refund and Date Change are done as per the
-                                                        following policies.</p>
-                                                    <p class="fz12">2. Refund Amount= Refund Charge (as per airline
-                                                        policy + ShareTrip Convenience Fee). </p>
-                                                    <p class="fz12">3. Date Change Amount= Date Change Fee (as per
-                                                        Airline Policy + ShareTrip Convenience Fee).</p>
-                                                </div>
-                                                <div class="TabPanelInner">
-                                                    <h4>Baggage</h4>
-                                                    <div class="flight_info_taable">
-                                                        <h3><?php echo $Segm->Baggage; ?></h3>
-                                                        <p><span>/</span> person</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach 
-                                    @endforeach 
-                                &nbsp;
-                                <?php if($key == '11' ){ break;  }  ?>
-                                
-                                @endforeach
-                               
-                                @endforeach
-                                @endif
-                                @endforeach
-                                
-                                @endif
-                                    
-                                <!--Flight Search Data End-->
-                               
-                                
-                            <div class="load_more_flight">
-                            <form action="{{url('/all-flight')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>"> 
-                                            <button class="btn btn_md"><i class="fas fa-spinner"></i> Load more..</button>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>  
-    <!--Airline--> 
-@endif
-
-        <!--Flight Search Data Start--> 
-@if(isset($refundable))         
-          <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="flight_search_result_wrapper">
-                                <div class="flight_search_item_wrappper">
-                                    @if(isset($ress))
-                                    
-         @foreach($ress as $res)
-@if(isset($res->Results))        
-    <?php $dat = $res->Results;?>
-            
-    @foreach($dat as $dat1)
-        @foreach($dat1 as $key=>$dat2)
-        
-    @if($dat2->IsRefundable == $refundable)   
-        <?php  $Segments = $dat2->Segments; ?>
-        <?php  $FareRules = $dat2->FareRules; ?>
-         @foreach( $Segments as $Segment)
-            @foreach( $Segment as $Segm)
-          <?php $Origin = $Segm->Origin; ?> 
-          
-         <?php  $Destination = $Segm->Destination; ?>
-                @if($Origin->Airport->AirportCode == $from)
-                                    <div class="flight_search_items">
-                                        
-                                        <div class="multi_city_flight_lists">
-                                            <div class="left_side_search_heading">
-                                                <div class="row">
-                                                                    <div class="col-lg-6">
-                                                                      <h5 class="apply" style="margin-left:10px;"> <?php echo $Segm->Airline->AirlineName; ?> </h5>
-                                                                     </div>
-                                                                     <div class="col-lg-6">
-                                                                     <h5 class="apply" style="margin-left:10px;">Aircraft: <?php  echo $Segm->Craft; ?> </h5>
-                                                                     </div>
-                                                                 </div>     
-                                        </div> 
-                            <div class="flight_multis_area_wrapper"> 
-                                            
-                                                <div class="flight_search_left">
-                                                    <div class="">
-                                                        <img src="assets/AirlineLogo/<?php echo $dat2->AirlineCode;?>.gif" alt="img" style="height:30px;width:30px;object-fit: cover;">
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        
-                                                        <p>From</p>
-                                                        <h3><?php echo $sou_code = $Origin->Airport->AirportCode; ?></h3>
-                                                        <h6><?php echo $sou_name = $Origin->Airport->AirportName;?></h6>
-                                                        <h6>Departure Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                            echo $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                        </h6> 
-                                                        
-                                                    </div>
-                                                </div>
-                                                <?php $count = 0; ?>
-                                                @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                    <?php  $AirportCode = $Destination->Airport->AirportCode; ?>
-                                   <?php  $ArrTime = $Destination->ArrTime; ?>
-                                   <?php $AirportName = $Destination->Airport->AirportName;?>
-                                   <?php $CityName = $Destination->Airport->CityName;?>
-                                  <? $count++ ?>
-                                    @endforeach
-                                    @endforeach
-                                                <div class="flight_search_middel">
-                                                    <div class="flight_right_arrow">
-                                                        <img src="assets/img/icon/right_arrow.png" alt="icon">
-                                                        <h6>
-                                                            <?php 
-                                                            if($count == 1){
-                                                                echo "Non"; 
-                                                                }
-                                                            if($count == 2){
-                                                                echo "One"; 
-                                                                }
-                                                            if($count > 2){
-                                                                echo "Multi"; 
-                                                                }    
-                                                            
-                                                             ?> Stops</h6>
-                                                        <p>
-                                                            <?php 
-                                                            $input1 = $Origin->DepTime; 
-                                                            $date = strtotime($input1); 
-                                                             $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                             $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            
-                                                            $from_time = strtotime($dapa_time); 
-                                                                $to_time = strtotime($arr1_time); 
-                                                            $diff_minutes = abs($from_time - $to_time) / 60; 
-                                                           
-                                                           $hours = floor($diff_minutes / 60);
-                                                        $min = $diff_minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                       
-                                                            ?>  
-                                                            
-                                                        </p>
-                                                    </div>
-                                                    <div class="flight_search_destination">
-                                                        <p>To</p>
-                                    
-                                    
-                                                         <h3><?php echo $AirportCode; ?></h3>
-                                                        <h6><?php echo $AirportName;?> ,<?php echo $CityName;?></h6>
-                                                        <h6>Arrival Time :</h6>
-                                                        <h6>
-                                                        <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            </h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="flight_search_right">
-                                            <h5><del></del></h5>
-                                            @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php $base123 = $dat2->Fare->PublishedFare;?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?><sup>*% OFF</sup></h2>
-                                            @else
-                                            <h2><?php echo $dat2->Fare->Currency;?><?php echo $dat2->Fare->PublishedFare;?><sup>*% OFF</sup></h2><sub style="width:10px;height:10px;"> / Adult X {{$adult}}</sub>
-                                            @endif
-                                            <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                            <!--    now</a>-->
-                                            <p>*Discount applicable on some conditions</p>
-                                        @if($dat2->IsLCC == '1' )    
-                                        <form action="{{url('/select_seat')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $Origin->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $Origin->Airport->AirportName;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Select Seat</button>
-                                        </form>
-                                        @else 
-                                        <form action="{{url('/book_now')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
-                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $sou_code;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $sou_name;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
-                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
-                                            <input type="hidden" name="DepTime" value="<?php echo $input1;?>">
-                                            <input type="hidden" name="ArrTime" value="<?php echo $Destination->ArrTime;?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="count" value="<?php echo $count;?>">
-                                            
-                                        <button class="btn btn_theme btn_sm">Book now</button>
-                                        </form>
-                                        @endif
-                                         <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
-                                         <!--       now</a>-->
-                                            <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample<?php echo $dat2->ResultIndex;?>"
-                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
-                                                    class="fas fa-chevron-down"></i></h6>
-                                        </div>
-                                    </div>
-                                        @endif 
-                                    @endforeach
-                                    
-                                    
-                                @endforeach
-                                
-                                    @foreach( $Segments as $Segment)
-                                    @foreach( $Segment as $Segm)
-                                    <?php $Origin = $Segm->Origin; ?> 
-                                    <?php $Airline = $Segm->Airline; ?> 
-                                     
-                                    <?php  $Destination = $Segm->Destination; ?>
-                                     
-                                    <div class="flight_policy_refund collapse" id="collapseExample<?php echo $dat2->ResultIndex;?>">
-                                        <div class="flight_show_down_wrapper">
-                                            <div class="flight-shoe_dow_item">
-                                                <div class="airline-details">
-                                                    <div class="img"><img src="assets/AirlineLogo/<?php  echo  $Airline->AirlineCode; ?>.gif" alt="img"></div>
-                                                    <span class="airlineName fw-500"><?php  echo  $Airline->FlightNumber; ?> &nbsp;
-                                                        </span>
-                                                    <span class="flightNumber"></span>
-                                                </div>
-                                                <div class="flight_inner_show_component">
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>From</p>
-                                                                <span class="time"><?php  echo  $Origin->Airport->AirportCode; ?></span>
-                                                                <span class="time"><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                             <h6><?php echo $Origin->Airport->AirportName;?>,<?php echo $Origin->Airport->CityName;?>,<?php echo $Origin->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Origin->DepTime; 
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flight_duration">
-                                                        <div class="arrow_right"></div>
-                                                        <h6><?php  $minutes = $Segm->Duration; ?> 
-                                                        <?php $hours = floor($minutes / 60);
-                                                        $min = $minutes - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                        ?>  </h6>
-                                                    </div>
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                                <p>To</p>
-                                                                <span class="time"><?php echo $Destination->Airport->AirportCode; ?></span>
-                                                                 <span class="time"><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('h:i a', $date); 
-                                                            ?></span>
-                                                            <h6><?php echo $Destination->Airport->AirportName;?>,<?php echo $Destination->Airport->CityName;?>,<?php echo $Destination->Airport->CountryName;?></h6>
-                                                               
-                                                            </div>
-                                                            <p class="airport">
-                                                            </p>
-                                                            <h6><?php 
-                                                            $input = $Destination->ArrTime;
-                                                            $date = strtotime($input); 
-                                                            echo date('d-M-Y', $date); 
-                                                            ?></h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flight_refund_policy">
-                                                <div class="TabPanelInner flex_widht_less">
-                                                    <h4>Refund Policy</h4>
-                                                    <p class="fz12">1. Refund and Date Change are done as per the
-                                                        following policies.</p>
-                                                    <p class="fz12">2. Refund Amount= Refund Charge (as per airline
-                                                        policy + ShareTrip Convenience Fee). </p>
-                                                    <p class="fz12">3. Date Change Amount= Date Change Fee (as per
-                                                        Airline Policy + ShareTrip Convenience Fee).</p>
-                                                </div>
-                                                <div class="TabPanelInner">
-                                                    <h4>Baggage</h4>
-                                                    <div class="flight_info_taable">
-                                                        <h3><?php echo $Segm->Baggage; ?></h3>
-                                                        <p><span>/</span> person</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach 
-                                    @endforeach 
-                                &nbsp;
-                                <?php if($key == '11' ){ break;  }  ?>
-                                @endif
-                                @endforeach
-                               
-                                @endforeach
-                                @endif
-                                @endforeach
-                                
-                                @endif
-                                    
-                                <!--Flight Search Data End-->
-                               
-                                
-                            <div class="load_more_flight">
-                            <form action="{{url('/all-flight')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="journey_date" value="<?php echo $journey_date;?>"> 
-                                            <input type="hidden" name="from" value="<?php echo $from;?>">
-                                            <input type="hidden" name="to" value="<?php echo $to; ?>">
-                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
-                                            <input type="hidden" name="children" value="<?php echo $children ;?>">
-                                            <input type="hidden" name="infant" value="<?php echo $infant ;?>"> 
-                                            <input type="hidden" name="cabin_class" value="<?php echo $cabin_class;?>"> 
-                                            <button class="btn btn_md"><i class="fas fa-spinner"></i> Load more..</button>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>  
-@endif    
 @if(isset($fli_data)) 
 <div class="col-lg-9">
                     <div class="row">
@@ -2644,7 +1363,370 @@ input[type="range"]::-moz-range-thumb {
           <?php $Origin = $Segm->Origin; ?> 
           
          <?php  $Destination = $Segm->Destination; ?>
-                @if($Origin->Airport->AirportCode == $from)
+                                    <?php $count = 0; ?>
+                                                @foreach( $Segments as $Segment)
+                                    @foreach( $Segment as $Segm)
+                                    
+                                    <?php  $Destination = $Segm->Destination; ?>
+                                    <?php  $AirportCode = $Destination->Airport->AirportCode; ?>
+                                   <?php  $ArrTime = $Destination->ArrTime; ?>
+                                   <?php $AirportName = $Destination->Airport->AirportName;?>
+                                   <?php $CityName = $Destination->Airport->CityName;?>
+                                  <? $count++ ?>
+                                    @endforeach
+                                    @endforeach
+                <!-- @if($Origin->Airport->AirportCode == $from) -->
+                 <?php 
+                                                            if($count == 1){
+                                                                $stops1 = "Non"; 
+                                                                }
+                                                            if($count == 2){
+                                                                $stops1 = "One"; 
+                                                                }
+                                                            if($count > 2){
+                                                                $stops1 = "Multi"; 
+                                                                }    
+                                                            
+                                                             ?>
+                <?php 
+                                        if($dat2->IsRefundable == 1){
+                                            $refund ="false";
+                                        }else{
+                                            $refund ="true";
+                                        }
+                                        $str = str_replace(' ', '', $Segm->Airline->AirlineName);
+                                        ?>
+                                    
+                                    <div class="flight_search_items player <?php echo $str; ?> <?php echo $refund;?> <?php echo $stops1;?> ">
+                                        
+                                        <div class="multi_city_flight_lists ">
+                                            <div class="left_side_search_heading">
+                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                      <h5 class="apply " style="margin-left:10px;"> <?php echo $Segm->Airline->AirlineName; ?> </h5>
+                                                                     </div>
+                                                                     <div class="col-lg-6">
+                                                                     <h5 class="apply" style="margin-left:10px;">Aircraft: <?php  echo $Segm->Craft; ?> </h5>
+                                                                     </div>
+                                                                 </div>     
+                                        </div> 
+                            <div class="flight_multis_area_wrapper"> 
+                                            
+                                                <div class="flight_search_left">
+                                                    <div class="">
+                                                        <img src="public/assets/AirlineLogo/<?php echo $dat2->AirlineCode;?>.gif" alt="img" style="height:30px;width:30px;object-fit: cover;">
+                                                    </div>
+                                                    <div class="flight_search_destination">
+                                                        
+                                                        <p>From</p>
+                                                        <h3><?php echo $sou_code = $Origin->Airport->AirportCode; ?></h3>
+                                                        <h6><?php echo $sou_name = $Origin->Airport->AirportName;?></h6>
+                                                        <h6>Departure Time :</h6>
+                                                        <h6>
+                                                        <?php 
+                                                            $input1 = $Origin->DepTime; 
+                                                            $date = strtotime($input1); 
+                                                            echo $dapa_time = date('d-M-Y h:i a', $date); 
+                                                            ?>
+                                                        </h6> 
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="flight_search_middel">
+                                                    <div class="flight_right_arrow">
+                                                        <img src="assets/img/icon/right_arrow.png" alt="icon">
+                                                        <h6>
+                                                            <?php 
+                                                            if($count == 1){
+                                                                echo "Non"; 
+                                                                }
+                                                            if($count == 2){
+                                                                echo "One"; 
+                                                                }
+                                                            if($count > 2){
+                                                                echo "Multi"; 
+                                                                }    
+                                                            
+                                                             ?> Stops</h6>
+                                                        <p>
+                                                            <?php 
+                                                            $input1 = $Origin->DepTime; 
+                                                            $date = strtotime($input1); 
+                                                             $dapa_time = date('d-M-Y h:i a', $date); 
+                                                            ?>
+                                                            <?php 
+                                                            $input = $ArrTime;
+                                                            $date = strtotime($input); 
+                                                             $arr1_time = date('d-M-Y h:i a', $date); 
+                                                            
+                                                            $from_time = strtotime($dapa_time); 
+                                                                $to_time = strtotime($arr1_time); 
+                                                            $diff_minutes = abs($from_time - $to_time) / 60; 
+                                                           
+                                                           $hours = floor($diff_minutes / 60);
+                                                        $min = $diff_minutes - ($hours * 60);
+                                                        echo $hours."h : ".$min;echo"m ";
+                                                       
+                                                            ?>  
+                                                            
+                                                        </p>
+                                                    </div>
+                                                    <div class="flight_search_destination">
+                                                        <p>To</p>
+                                    
+                                    
+                                                         <h3><?php echo $AirportCode; ?></h3>
+                                                        <h6><?php echo $AirportName;?> ,<?php echo $CityName;?></h6>
+                                                        <h6>Arrival Time :</h6>
+                                                        <h6>
+                                                        <?php 
+                                                            $input = $ArrTime;
+                                                            $date = strtotime($input); 
+                                                            echo $arr1_time = date('d-M-Y h:i a', $date); 
+                                                            ?>
+                                                            </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="flight_search_right">
+                                            <h5><del></del></h5>
+                                            @if(session()->get('user_id')) <?php $comm= \App\Commision_Add_Model::where('user_id',session()->get('user_id'))->where('commision_type','flight')->first();  ?> <?php $markup= \App\Markup_Apply_Model::where('user_id',session()->get('user_id'))->first();  ?>
+                                            <?php if($comm) {  
+                                            $commision= \App\Commision_Model::where('id',$comm->commision_id)->first();
+                                            if($commision){
+                                            $commis= $commision->commision ; $commis_type = $commision->commision_type; 
+                                            }else {$commis= 0; $commis_type ='';}
+                                            }
+                                            else {$commis= 0; $commis_type ='';} ?>
+                                            <?php if($markup) {  $mark_up= \App\Markup_Model::where('id',$markup->markup_id)->first(); $mark_up1= $mark_up->markup_amount ;  }else {$mark_up1= 0; } ?>
+                                           <h2><?php echo $dat2->Fare->Currency;?> <?php echo $dat2->Fare->PublishedFare;?><sup>*% OFF</sup></h2><h6><sub style="width:10px;height:10px;"> Commision : {{$commis}} {{$commis_type}}</sub></h6><h6> <sub style="width:10px;height:10px;"> Mark-UP : {{$mark_up1}}</sub></h6> <h6><sub style="width:10px;height:10px;"> / Adult X {{$adult}}</sub></h6>
+                                            @else
+                                            <h2><?php echo $dat2->Fare->Currency;?> <?php echo $dat2->Fare->PublishedFare;?><sup>*% OFF</sup></h2><sub style="width:10px;height:10px;"> / Adult X {{$adult}}</sub>
+                                            @endif
+                                            <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
+                                            <!--    now</a>-->
+                                            <p>*Discount applicable on some conditions</p>
+                                        @if($dat2->IsLCC == '1' )    
+                                        <form action="{{url('/select_seat')}}" enctype="multipart/form-data" method="post">
+                                                      @csrf
+                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
+                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
+                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
+                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
+                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
+                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
+                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
+                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
+                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
+                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
+                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
+                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
+                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
+                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
+                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
+                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
+                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
+                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
+                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
+                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
+                                            <input type="hidden" name="Source_name" value="<?php echo $Origin->Airport->AirportCode;?>">
+                                            <input type="hidden" name="Source_address" value="<?php echo $Origin->Airport->AirportName;?>">
+                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
+                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
+                                            
+                                        <button class="btn btn_theme btn_sm">Select Seat</button>
+                                        </form>
+                                        @else 
+                                        <form action="{{url('/book_now')}}" enctype="multipart/form-data" method="post">
+                                                      @csrf
+                                            <input type="hidden" name="ResultIndex" value="<?php echo $dat2->ResultIndex;?>"> 
+                                            <input type="hidden" name="TraceId" value="<?php echo $res->TraceId;?>">
+                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
+                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
+                                            <input type="hidden" name="BaseFare" value="<?php echo $dat2->Fare->BaseFare;?>">
+                                            <input type="hidden" name="Currency" value="<?php echo $dat2->Fare->Currency ;?>">
+                                            <input type="hidden" name="Tax" value="<?php echo $dat2->Fare->Tax ;?>"> 
+                                            <input type="hidden" name="YQTax" value="<?php echo $dat2->Fare->YQTax;?>"> 
+                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $dat2->Fare->AdditionalTxnFeeOfrd;?>"> 
+                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $dat2->Fare->AdditionalTxnFeePub;?>"> 
+                                            <input type="hidden" name="OtherCharges" value="<?php echo $dat2->Fare->OtherCharges;?>">
+                                            <input type="hidden" name="Discount" value="<?php echo $dat2->Fare->Discount;?>">
+                                            <input type="hidden" name="PublishedFare" value="<?php echo $dat2->Fare->PublishedFare;?>">
+                                            <input type="hidden" name="OfferedFare" value="<?php echo $dat2->Fare->OfferedFare;?>">
+                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $dat2->Fare->TdsOnCommission;?>">
+                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $dat2->Fare->TdsOnPLB;?>">
+                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $dat2->Fare->TdsOnIncentive;?>">
+                                            <input type="hidden" name="ServiceFee" value="<?php echo $dat2->Fare->ServiceFee;?>">
+                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination->Airport->AirportCode;?>">
+                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination->Airport->AirportName;?>">
+                                            <input type="hidden" name="Source_name" value="<?php echo $sou_code;?>">
+                                            <input type="hidden" name="Source_address" value="<?php echo $sou_name;?>">
+                                            <input type="hidden" name="Duration" value="<?php echo $Segm->Duration;?>">
+                                            <input type="hidden" name="AirlineName" value="<?php echo $Segm->Airline->AirlineName;?>">
+                                            <input type="hidden" name="DepTime" value="<?php echo $input1;?>">
+                                            <input type="hidden" name="ArrTime" value="<?php echo $Destination->ArrTime;?>">
+                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
+                                            <input type="hidden" name="count" value="<?php echo $count;?>">
+                                            
+                                        <button class="btn btn_theme btn_sm">Book now</button>
+                                        </form>
+                                        @endif
+                                         <!--<a href="{{url('/flight_booking')}}" class="btn btn_theme btn_sm">Book-->
+                                         <!--       now</a>-->
+                                            <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample<?php echo $dat2->ResultIndex;?>"
+                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
+                                                    class="fas fa-chevron-down"></i></h6>
+                                        </div>
+                                    </div>
+                                        <!-- @endif  -->
+                                    @endforeach
+                                    
+                                    
+                                @endforeach
+                                
+                                    @foreach( $Segments as $Segment)
+                                    @foreach( $Segment as $Segm)
+                                    <?php $Origin = $Segm->Origin; ?> 
+                                    <?php $Airline = $Segm->Airline; ?> 
+                                     
+                                    <?php  $Destination = $Segm->Destination; ?>
+                                     
+                                    <div class="flight_policy_refund collapse" id="collapseExample<?php echo $dat2->ResultIndex;?>">
+                                        <div class="flight_show_down_wrapper">
+                                            <div class="flight-shoe_dow_item">
+                                                <div class="airline-details">
+                                                    <div class="img"><img src="public/assets/AirlineLogo/<?php  echo  $Airline->AirlineCode; ?>.gif" alt="img"></div>
+                                                    <span class="airlineName fw-500"><?php  echo  $Airline->FlightNumber; ?> &nbsp;
+                                                        </span>
+                                                    <span class="flightNumber"></span>
+                                                </div>
+                                                <div class="flight_inner_show_component">
+                                                    <div class="flight_det_wrapper">
+                                                        <div class="flight_det">
+                                                            <div class="code_time">
+                                                                <p>From</p>
+                                                                <span class="time"><?php  echo  $Origin->Airport->AirportCode; ?></span>
+                                                                <span class="time"><?php 
+                                                            $input = $Origin->DepTime; 
+                                                            $date = strtotime($input); 
+                                                            echo date('h:i a', $date); 
+                                                            ?></span>
+                                                             <h6><?php echo $Origin->Airport->AirportName;?>,<?php echo $Origin->Airport->CityName;?>,<?php echo $Origin->Airport->CountryName;?></h6>
+                                                               
+                                                            </div>
+                                                            <p class="airport">
+                                                            </p>
+                                                            <h6><?php 
+                                                            $input = $Origin->DepTime; 
+                                                            $date = strtotime($input); 
+                                                            echo date('d-M-Y', $date); 
+                                                            ?></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flight_duration">
+                                                        <div class="arrow_right"></div>
+                                                        <h6><?php  $minutes = $Segm->Duration; ?> 
+                                                        <?php $hours = floor($minutes / 60);
+                                                        $min = $minutes - ($hours * 60);
+                                                        echo $hours."h : ".$min;echo"m ";
+                                                        ?>  </h6>
+                                                    </div>
+                                                    <div class="flight_det_wrapper">
+                                                        <div class="flight_det">
+                                                            <div class="code_time">
+                                                                <p>To</p>
+                                                                <span class="time"><?php echo $Destination->Airport->AirportCode; ?></span>
+                                                                 <span class="time"><?php 
+                                                            $input = $Destination->ArrTime;
+                                                            $date = strtotime($input); 
+                                                            echo date('h:i a', $date); 
+                                                            ?></span>
+                                                            <h6><?php echo $Destination->Airport->AirportName;?>,<?php echo $Destination->Airport->CityName;?>,<?php echo $Destination->Airport->CountryName;?></h6>
+                                                               
+                                                            </div>
+                                                            <p class="airport">
+                                                            </p>
+                                                            <h6><?php 
+                                                            $input = $Destination->ArrTime;
+                                                            $date = strtotime($input); 
+                                                            echo date('d-M-Y', $date); 
+                                                            ?></h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flight_refund_policy">
+                                                <div class="TabPanelInner flex_widht_less">
+                                                    <h4>Refund Policy</h4>
+                                                    <p class="fz12">1. Refund and Date Change are done as per the
+                                                        following policies.</p>
+                                                    <p class="fz12">2. Refund Amount= Refund Charge (as per airline
+                                                        policy + ShareTrip Convenience Fee). </p>
+                                                    <p class="fz12">3. Date Change Amount= Date Change Fee (as per
+                                                        Airline Policy + ShareTrip Convenience Fee).</p>
+                                                </div>
+                                                <div class="TabPanelInner">
+                                                    <h4>Baggage</h4>
+                                                    <div class="flight_info_taable">
+                                                        <h3><?php echo $Segm->Baggage; ?></h3>
+                                                        <p><span>/</span> person</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach 
+                                    @endforeach 
+                                &nbsp;
+                                
+                                @endforeach
+                               
+                                @endforeach
+                                @endif
+                                @endforeach
+                                
+                                @endif
+                                    
+                                <!--Flight Search Data End-->
+                               
+                                
+                            <div class="load_more_flight">
+                            <button class="btn btn_md"><i class="fas fa-spinner"></i> Load more..</button>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endif   
+<!--All Flight-->
+@if(isset($all_data)) 
+<div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="flight_search_result_wrapper">
+                                <div class="flight_search_item_wrappper">
+                                    @if(isset($ress))
+                                    
+         @foreach($ress as $res)
+@if(isset($res->Results))        
+    <?php $dat = $res->Results;?>
+            
+    @foreach($dat as $dat1)
+        @foreach($dat1 as $key=>$dat2)
+        
+        <?php  $Segments = $dat2->Segments; ?>
+        <?php  $FareRules = $dat2->FareRules; ?>
+         @foreach( $Segments as $Segment)
+            @foreach( $Segment as $Segm)
+          <?php $Origin = $Segm->Origin; ?> 
+          
+         <?php  $Destination = $Segm->Destination; ?>
+                <!-- @if($Origin->Airport->AirportCode == $from) -->
                                     <div class="flight_search_items">
                                         
                                         <div class="multi_city_flight_lists">
@@ -2662,7 +1744,7 @@ input[type="range"]::-moz-range-thumb {
                                             
                                                 <div class="flight_search_left">
                                                     <div class="">
-                                                        <img src="assets/AirlineLogo/<?php echo $dat2->AirlineCode;?>.gif" alt="img" style="height:30px;width:30px;object-fit: cover;">
+                                                        <img src="public/assets/AirlineLogo/<?php echo $dat2->AirlineCode;?>.gif" alt="img" style="height:30px;width:30px;object-fit: cover;">
                                                     </div>
                                                     <div class="flight_search_destination">
                                                         
@@ -2832,7 +1914,7 @@ input[type="range"]::-moz-range-thumb {
                                                     class="fas fa-chevron-down"></i></h6>
                                         </div>
                                     </div>
-                                        @endif 
+                                        <!-- @endif  -->
                                     @endforeach
                                     
                                     
@@ -2849,7 +1931,7 @@ input[type="range"]::-moz-range-thumb {
                                         <div class="flight_show_down_wrapper">
                                             <div class="flight-shoe_dow_item">
                                                 <div class="airline-details">
-                                                    <div class="img"><img src="assets/AirlineLogo/<?php  echo  $Airline->AirlineCode; ?>.gif" alt="img"></div>
+                                                    <div class="img"><img src="public/assets/AirlineLogo/<?php  echo  $Airline->AirlineCode; ?>.gif" alt="img"></div>
                                                     <span class="airlineName fw-500"><?php  echo  $Airline->FlightNumber; ?> &nbsp;
                                                         </span>
                                                     <span class="flightNumber"></span>
@@ -2932,7 +2014,9 @@ input[type="range"]::-moz-range-thumb {
                                     @endforeach 
                                     @endforeach 
                                 &nbsp;
-                                <?php if($key == '11' ){ break;  }  ?>
+                                <?php 
+                                // if($key == '11' ){ break;  }  
+                                ?>
                                 @endforeach
                                
                                 @endforeach
@@ -2963,7 +2047,7 @@ input[type="range"]::-moz-range-thumb {
             </div>
         </div>
     </section>
-@endif    
+@endif  
     
     <!-- Cta Area -->
     <section id="cta_area">
@@ -3534,25 +2618,99 @@ rangeInput.forEach((input) => {
 });
 
 </script>
+<script>
+        $(document).ready(function () {
+  
+            /*------------------------------------------
+            --------------------------------------------
+            Country Dropdown Change Event
+            --------------------------------------------
+            --------------------------------------------*/
+            $('.city_id').on('keyup',function(){
+                var idCountry = this.value;
+                $("#city_id").html('');
+                $.ajax({
+                    url: "/city_details",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result.states, function (key, value) {
+                            $("#city_id").append('<input type="hidden" name="Destination" value="'+ value.city_id +'">');
+                        });
+                   }
+                });
+            });
+        });
+    </script> 
+<!--Filter -->
+<script>
+    // not exactly vanilla as there is one lodash function
+
+var allCheckboxes = document.querySelectorAll('input[type=checkbox]');
+var allPlayers = Array.from(document.querySelectorAll('.player'));
+var checked = {};
+
+getChecked('stops');
+getChecked('cabin_class');
+getChecked('refundable');
+getChecked('airlines');
+getChecked('conference');
+
+console.log(allCheckboxes);
+
+Array.prototype.forEach.call(allCheckboxes, function (el) {
+  el.addEventListener('change', toggleCheckbox);
+});
+
+function toggleCheckbox(e) {
+  getChecked(e.target.name);
+  setVisibility();
+}
+
+function getChecked(name) {
+  checked[name] = Array.from(document.querySelectorAll('input[name=' + name + ']:checked')).map(function (el) {
+    return el.value;
+  });
+}
+
+function setVisibility() {
+  allPlayers.map(function (el) {
+    var stops = checked.stops.length ? _.intersection(Array.from(el.classList), checked.stops).length : true;
+    var cabin_class = checked.cabin_class.length ? _.intersection(Array.from(el.classList), checked.cabin_class).length : true;
+    var refundable = checked.refundable.length ? _.intersection(Array.from(el.classList), checked.refundable).length : true;
+    var airlines = checked.airlines.length ? _.intersection(Array.from(el.classList), checked.airlines).length : true;
+    var conference = checked.conference.length ? _.intersection(Array.from(el.classList), checked.conference).length : true;
+    if (stops && cabin_class && refundable && airlines && conference) {
+      el.style.display = 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="public/assets/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
     <!-- Range js -->
-    <script src="assets/js/nouislider.min.js"></script>
-    <script src="assets/js/wNumb.js"></script>
+    <script src="public/assets/js/nouislider.min.js"></script>
+    <script src="public/assets/js/wNumb.js"></script>
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="public/assets/js/owl.carousel.min.js"></script>
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+    <script src="public/assets/js/wow.min.js"></script>
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
-    <script src="assets/js/form-dropdown.js"></script>
-
+    <script src="public/assets/js/custom.js"></script>
+    <script src="public/assets/js/add-form.js"></script>
+    <script src="public/assets/js/form-dropdown.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 </body>
 
 </html>

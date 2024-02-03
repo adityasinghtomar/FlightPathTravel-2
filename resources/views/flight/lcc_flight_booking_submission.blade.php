@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -158,7 +158,7 @@
                             <div class="tour_booking_form_box">
                                 <div class="booking_payment_boxed">
                                     <form action="!#" id="payment_checked">
-                                        <div class="form-check">
+                                        <!-- <div class="form-check">
                                             <input class="form-check-input" type="radio" name="flexRadioDefault"
                                                 id="flexRadioDefault1" value="red">
                                             <label class="form-check-label" for="flexRadioDefault1">
@@ -171,21 +171,21 @@
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Paypal
                                             </label>
-                                        </div>
+                                        </div> -->
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="flexRadioDefault"
                                                 id="flexRadioDefault3" value="black">
                                             <label class="form-check-label" for="flexRadioDefault3">
-                                                Payoneer
+                                                Razorpay
                                             </label>
                                         </div>
-                                        <div class="form-check">
+                                        <!-- <div class="form-check">
                                             <input class="form-check-input" type="radio" name="flexRadioDefault"
                                                 id="flexRadioDefault4" value="white">
                                             <label class="form-check-label" for="flexRadioDefault4">
                                                 Cash on delivery
                                             </label>
-                                        </div>
+                                        </div> -->
                                         <div class="payment_filed_wrapper">
                                             <div class="payment_card payment_toggle red">
                                                 <div class="row">
@@ -229,8 +229,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Email Address">
+                                                            <button>Pay</button>
                                                         </div>
                                                     </div>
                                                 </div>

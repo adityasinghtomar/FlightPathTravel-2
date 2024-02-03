@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Hotel_Model;
 use App\Hotel_City_Model;
 use App\UserDetails_Model;
+use App\Hotel_Details_Model;
 use Illuminate\Support\Facades\Http;
 
 class HotelController extends Controller
@@ -71,6 +72,7 @@ $data = $ress->Destinations;
    
     public function hotel_search(Request $request)
     {
+    $form_status = $request->form_status;    
     $city_name = $request->city_name;   
     $checkin_date = $request->checkin_date;
     $checkout_date =$request->checkout_date;
@@ -151,9 +153,28 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $ss = curl_exec($ch);
 $ress = json_decode($ss);   
 
+// 
+$data = $ress->HotelSearchResult->HotelResults;
+foreach($data as $key=>$data1){
+     $hotel_name = $data1->HotelName;
+    $hotel_image = $data1->HotelPicture;
+    $hotel_address = $data1->HotelAddress;
+    $hotel_rating = $data1->StarRating;
+    $hotel_price = $data1->Price->RoomPrice;
+     $user = new Hotel_Details_Model;
+	$user->hotel_name = $hotel_name;
+    $user->hotel_image = $hotel_image;
+    $user->hotel_address = $hotel_address;
+    $user->hotel_rating = $hotel_rating;
+    $user->hotel_price = $hotel_price;
+    $user->save();
+    break;
+}
+  
+    
 $token_id = $result->TokenId;
     // print_r($ress);die;    
-        return view('flight/hotel-search-list',compact('ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
+        return view('flight/hotel-search-list',compact('form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
     }
     
     }    

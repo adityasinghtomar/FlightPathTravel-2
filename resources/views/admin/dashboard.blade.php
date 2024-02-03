@@ -1,4 +1,4 @@
-@extends('admin.layouts.header')
+@include('admin.layouts.header')
 @section('content')	
 
      @if(Session::has('message'))

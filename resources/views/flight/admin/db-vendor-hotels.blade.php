@@ -1,4 +1,4 @@
-@extends('flight.admin.db-header')
+@include('flight.admin.db-header')
     <div class="dashboard__main">
       <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
@@ -29,10 +29,15 @@
                   <table id="example" class="display nowrap" style="width:100%">
         <thead>
             <tr>
-               <th>Full Name</th>
+                        <th>Full Name</th>
+                        <th>From</th>
+                        <th>Source DateTime</th>
+                        <th>To</th>
+                        <th>Destination DateTime</th>
+                        <th>AirlineCode</th>
                         <th>PNR NO.</th>
                         <th>Booking ID</th>
-                        <th>Date</th>
+                        <th>Trace Id</th>
                         <th>Amount</th>
                         <th>Status</th>
             </tr>
@@ -42,9 +47,16 @@
                     @foreach($flight as $flights)    
                      <tr>
                        <td><?php print_r($flights->name);?> <?php print_r($flights->lname);?></td>
-                        <td><?php print_r($flights->pnr_no);?></td>
+                       <td><?php print_r($flights->origin);?></td>
+                       <td><?php print_r($flights->DepTime);?></td>
+                       <td><?php print_r($flights->destination);?></td>
+                       <td><?php print_r($flights->ArrTime);?></td>
+                       <td><?php print_r($flights->AirlineCode);?></td>
+                        
+                       
+                       <td><?php print_r($flights->pnr_no);?></td>
                         <td> <?php print_r($flights->booking_id);?></td>
-                        <td><?php print_r($flights->ticket_date);?></td>
+                        <td><?php print_r($flights->trace_id);?></td>
                         <td><?php print_r($flights->amount);?></td>
                         <td><span class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">Confirmed</span></td>
                         
@@ -53,14 +65,6 @@
                     @endif
         </tbody>
         <tfoot>
-            <tr>
-                <th>Full Name</th>
-                        <th>PNR NO.</th>
-                        <th>Booking ID</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-            </tr>
         </tfoot>
     </table>
                   </table>
@@ -97,4 +101,4 @@
     } );
 } );
 </script>
-@extends('flight.admin.db-footer')
+@include('flight.admin.db-footer')

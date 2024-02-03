@@ -12,16 +12,20 @@ use App\FileStatus_Model;
 use App\UserDetails_Model;  
 use App\Flight_Model;
 use App\Flight_Log_Model;
+use App\Wallet_Model;
+use App\Wallet_Transaction_Model;
 use Illuminate\Support\Facades\Http;
 use Stevebauman\Location\Facades\Location;
-
+use GuzzleHttp\Client;
 class FlightController extends Controller
 {
+     private $apiUrl = 'https://open.er-api.com/v6/latest';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function flight_search_result()
     {
         $filterResult = Airport_Model::get();
@@ -32,18 +36,42 @@ class FlightController extends Controller
         
         return view('flight/flight_booking_submission');
     }
+    public function privacy_policy()
+    {
+        
+        return view('flight/privacy_policy');
+    }
+    public function term_conditions()
+    {
+        
+        return view('flight/term_condition');
+    }
+    public function refund_policy()
+    {
+        
+        return view('flight/refund_policy');
+    }
+     public function contact_us()
+    {
+        
+        return view('flight/contact_us');
+    }
  public function flight(Request $request)
     {
     //   print_r($request->from);die;
+    $form_status = $request->form_status;    
+
 $from = $request->from;
 $to = $request->to;
 $journey_date = $request->journey_date;
-
 $adult = $request->adult;
 $children = $request->children;
 $infant = $request->infant;
 $cabin_class = $request->cabin_class;
-
+$from1 = "";
+ $to1 = "";
+ $journey_date1 = "";
+ 
 // Endpoint you want to access
 $endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
 
@@ -175,7 +203,7 @@ $ress = json_decode($ss);
 //         } 
         // print_r($DestinationDepTime);
 //  die;
-// print_r($daa);die;
+//  print_r($ress);die;
 if(isset($ress)){
 foreach($ress as $res){
     $TraceId = $res->TraceId;
@@ -187,6 +215,12 @@ foreach($ress as $res){
                $user->date_time = date('Y-m-d H:i:s');
                $user->save();
 }
+$user = new Flight_Log_Model;
+			 $user->f_from = $request->from;
+               $user->f_to = $to;
+               $user->trace_id = "sd";
+               $user->date_time = date('Y-m-d H:i:s');
+               $user->save();
 $daa; 
 $fli_data = "dd";
 $token_id = $result->TokenId;
@@ -194,7 +228,7 @@ $token_id = $result->TokenId;
 //  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('fli_data','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
     } 
  
     /**
@@ -258,69 +292,122 @@ $url = $endpoint;
 
  public function flight_booking_details(Request $request)
     {
-    $ResultIndex = $request->ResultIndex;
-    $TraceId = $request->TraceId;
-    $token_id = $request->token_id;
-    $EndUserIp = $request->EndUserIp;
-    $BaseFare = $request->BaseFare;
-    $Currency = $request->Currency;
-    $Tax = $request->Tax;
-    $YQTax = $request->YQTax;
-    $AdditionalTxnFeeOfrd = $request->AdditionalTxnFeeOfrd;
-    $AdditionalTxnFeePub = $request->AdditionalTxnFeePub;
-    $OtherCharges = $request->OtherCharges;
-    $Discount = $request->Discount;
-    $PublishedFare = $request->PublishedFare;
-    $TdsOnCommission = $request->TdsOnCommission;
-    $TdsOnPLB = $request->TdsOnPLB;
-    $TdsOnIncentive = $request->TdsOnIncentive;
-    $ServiceFee = $request->ServiceFee;
-    $Destination_name = $request->Destination_name;
-    $Destination_address = $request->Destination_address;
-    $Source_name = $request->Source_name;
-    $Source_address = $request->Source_address;
-    $Duration = $request->Duration;
+     session()->put('ResultIndex',$request->ResultIndex);
+     session()->put('TraceId',$request->TraceId);
+     session()->put('token_id',$request->token_id);
+     session()->put('EndUserIp',$request->EndUserIp);
+     session()->put('BaseFare',$request->BaseFare);
+     session()->put('Currency',$request->Currency);
+     session()->put('Tax',$request->Tax);
+     session()->put('YQTax',$request->YQTax);
+     session()->put('AdditionalTxnFeeOfrd',$request->AdditionalTxnFeeOfrd);
+     session()->put('AdditionalTxnFeePub',$request->AdditionalTxnFeePub);
+     session()->put('OtherCharges',$request->OtherCharges);
+     session()->put('Discount',$request->Discount);
+     session()->put('PublishedFare',$request->PublishedFare);
+     session()->put('TdsOnCommission',$request->TdsOnCommission);
+     session()->put('TdsOnPLB',$request->TdsOnPLB);
+     session()->put('TdsOnIncentive',$request->TdsOnIncentive);
+     session()->put('ServiceFee',$request->ServiceFee);
+     session()->put('Destination_name',$request->Destination_name);
+     session()->put('Destination_address',$request->Destination_address);
+     session()->put('Source_name',$request->Source_name);
+     session()->put('Source_address',$request->Source_address);
+     session()->put('Duration',$request->Duration);
+    
+        $ResultIndex = session()->get('ResultIndex');
+    // print_r($ResultIndex);die;
+    $TraceId = session()->get('TraceId');
+    $token_id = session()->get('token_id');
+    $EndUserIp = session()->get('EndUserIp');
+    $BaseFare = session()->get('BaseFare');
+    $Currency = session()->get('Currency');
+    $Tax = session()->get('Tax');
+    $YQTax = session()->get('YQTax');
+    $AdditionalTxnFeeOfrd = session()->get('AdditionalTxnFeeOfrd');
+    $AdditionalTxnFeePub = session()->get('AdditionalTxnFeePub');
+    $OtherCharges = session()->get('OtherCharges');
+    $Discount = session()->get('Discount');
+    $PublishedFare = session()->get('PublishedFare');
+    $TdsOnCommission = session()->get('TdsOnCommission');
+    $TdsOnPLB = session()->get('TdsOnPLB');
+    $TdsOnIncentive = session()->get('TdsOnIncentive');
+    $ServiceFee = session()->get('ServiceFee');
+    $Destination_name = session()->get('Destination_name');
+    $Destination_address = session()->get('Destination_address');
+    $Source_name = session()->get('Source_name');
+    $Source_address = session()->get('Source_address');
+    $Duration = session()->get('Duration');
+    
+    $curre12 = $BaseFare + $Tax;
+        $fromCurrency = "INR";
+        $toCurrency = "GBP";
+
+        // Make API request to get the latest exchange rates
+        $exchangeRates = $this->getExchangeRates();
+
+        // Calculate the converted amount
+        $convertedAmount =  $curre12 * ($exchangeRates[$toCurrency] / $exchangeRates[$fromCurrency]);
+           $convertedAmount = round($convertedAmount, 0);
+    // print_r($curre12);print_r($convertedAmount);die;
     $all_city = City_Model::get();
     $all_state = State_Model::get();
     $all_countries = Countries_Model::get(); 
-    $AirlineName = $request->AirlineName;
-    $ArrTime = $request->ArrTime;
-    $DepTime = $request->DepTime;
-    $adult = $request->adult;
-    $count = $request->count;
-    return view('flight/flight_booking_submission',compact('count','adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
+    $AirlineName = session()->put('AirlineName',$request->AirlineName);
+    $ArrTime = session()->put('ArrTime',$request->ArrTime);
+    $DepTime = session()->put('DepTime',$request->DepTime);
+    $adult = session()->put('adult',$request->adult);
+    $count = session()->put('count',$request->count);
+    
+    $AirlineName = session()->get('AirlineName');
+    $ArrTime = session()->get('ArrTime');
+    $DepTime = session()->get('DepTime');
+    $adult = session()->get('adult');
+    $count = session()->get('count');
+    $success = '';
+    return view('flight/flight_booking_submission',compact('convertedAmount','success','Duration','count','adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
     }	
 	
  public function flight_booking_det(Request $request)
     {
-    $ResultIndex = $request->ResultIndex;
-    $TraceId = $request->TraceId;
-    $token_id = $request->token_id;
-    $EndUserIp = $request->EndUserIp;
-    $BaseFare = $request->BaseFare;
-    $Currency = $request->Currency;
-    $Tax = $request->Tax;
-    $YQTax = $request->YQTax;
-    $AdditionalTxnFeeOfrd = $request->AdditionalTxnFeeOfrd;
-    $AdditionalTxnFeePub = $request->AdditionalTxnFeePub;
-    $OtherCharges = $request->OtherCharges;
-    $Discount = $request->Discount;
-    $PublishedFare = $request->PublishedFare;
-    $TdsOnCommission = $request->TdsOnCommission;
-    $TdsOnPLB = $request->TdsOnPLB;
-    $TdsOnIncentive = $request->TdsOnIncentive;
-    $ServiceFee = $request->ServiceFee;
-    $Destination_name = $request->Destination_name;
-    $Destination_address = $request->Destination_address;
-    $Source_name = $request->Source_name;
-    $Source_address = $request->Source_address;
-    $Duration = $request->Duration;
+        
+    $ResultIndex = session()->get('ResultIndex');
+    // print_r($ResultIndex);die;
+    $TraceId = session()->get('TraceId');
+    $token_id = session()->get('token_id');
+    $EndUserIp = session()->get('EndUserIp');
+    $BaseFare = session()->get('BaseFare');
+    $Currency = session()->get('Currency');
+    $Tax = session()->get('Tax');
+    $YQTax = session()->get('YQTax');
+    $AdditionalTxnFeeOfrd = session()->get('AdditionalTxnFeeOfrd');
+    $AdditionalTxnFeePub = session()->get('AdditionalTxnFeePub');
+    $OtherCharges = session()->get('OtherCharges');
+    $Discount = session()->get('Discount');
+    $PublishedFare = session()->get('PublishedFare');
+    $TdsOnCommission = session()->get('TdsOnCommission');
+    $TdsOnPLB = session()->get('TdsOnPLB');
+    $TdsOnIncentive = session()->get('TdsOnIncentive');
+    $ServiceFee = session()->get('ServiceFee');
+    $Destination_name = session()->get('Destination_name');
+    $Destination_address = session()->get('Destination_address');
+    $Source_name = session()->get('Source_name');
+    $Source_address = session()->get('Source_address');
+    $Duration = session()->get('Duration');
     $dateofbirth = $request->dateofbirth;
-    $fname = $request->fname;
-    $lname = $request->lname;
-    $email = $request->email;
-    $mobile = $request->mobile;
-    $street_address = $request->street_address;
+    
+    $fname = session()->put('fname',$request->fname);
+    $lname = session()->put('lname',$request->lname);
+    $email = session()->put('email',$request->email);
+    $mobile = session()->put('mobile',$request->mobile);
+    $payment = session()->put('payment',$request->payment);
+    
+    echo $fname = $request->fname;
+    echo $lname = $request->lname;
+    echo $email = $request->email;
+    echo $mobile = $request->mobile;
+    echo $payment = $request->payment; die;
+    
     $address = $request->address;
     $city = $request->city;
     $state = $request->state;
@@ -375,7 +462,7 @@ $url = $endpoint;
 			"PublishedFare": "'.$PublishedFare.'",
 			"OfferedFare": 0.0,
 			"TdsOnCommission": "'.$TdsOnCommission.'",
-			"TdsOnPLB": 9.14,
+			"TdsOnPLB": "'.$TdsOnPLB.'",
 			"TdsOnIncentive": '.$TdsOnIncentive.',
 			"ServiceFee": "'.$ServiceFee.'"
 		},
@@ -416,33 +503,109 @@ foreach($result1 as $res){
         $lname = $Passengers->LastName;
     }
     $pnr_no = $res->Response->PNR;
+    $Origin = $res->Response->FlightItinerary->Origin;
+    $Destination = $res->Response->FlightItinerary->Destination;
+    $AirlineCode = $res->Response->FlightItinerary->AirlineCode; 
+    $TraceId = $res->TraceId;
     $booking_id = $res->Response->BookingId;
-    $ticket_date = $res->Response->FlightItinerary->LastTicketDate;
-    $amount = $res->Response->FlightItinerary->Fare->BaseFare; 
+    $ticket_date = 0;
+    $amount = $res->Response->FlightItinerary->Fare->PublishedFare;
+    
+    $segmen = $res->Response->FlightItinerary->Segments;
+    if(isset($segmen)){
+        foreach($segmen as $segmens){
+            $DepTime = $segmens->Origin->DepTime;
+            $ArrTime = $segmens->Destination->ArrTime;
+                }
+    }
     $data = array();
             $data['name']= $fname;
 			$data['lname']= $lname;
 			$data['pnr_no']=$pnr_no;
+            $data['origin']= $Origin;
+			$data['destination']= $Destination;
+            $data['AirlineCode']= $AirlineCode;
+            $data['DepTime']= $DepTime;
+            $data['ArrTime']= $ArrTime;
+			$data['trace_id']=$TraceId;
 			$data['booking_id']=$booking_id;
 			$data['amount'] = $amount;
 			$data['ticket_date'] = $ticket_date;
 			$data['user_id'] = session()->get('user_id');
 // 			print_r($data);die;
 			$contact_id = Flight_Model::create($data);
-			
+	
+	    $user_id = session()->get('user_id');
+	    if($user_id){
+	    $wallet_details = Wallet_Model::where('user_id',$user_id)->first();
+        
+        $new = $amount;
+       if($wallet_details){
+           $amount1 = $wallet_details->amount; 
+        }else{
+            $amount1 = 0;
+        }
+        
+        if($wallet_details){
+            $credit_amount1 = $wallet_details->debit_amount;
+        }else{
+            $credit_amount1 = 0;
+        }
+        
+        $total = $amount1 - $new;
+        $total_credit_amount = $new + $credit_amount1;
+		$data2['amount'] = $total ; 
+		$data2['debit_amount'] = $new; ;
+// 			print_r($data);die;
+		$contact_id = Wallet_Model::where('user_id',$user_id)->update($data2);
+		
+        $id = session()->get('user_id');
+        
+            $data1['user_id']= $user_id;
+			$data1['amount']= $total;
+			$data1['debit_amount']=  $new ;
+// 			print_r($data);die;
+			 Wallet_Transaction_Model::create($data1);
+        
+        $user_count = 0;
+	    }	
 // 	Mail Function 		 
-	$data = ['pnr_no' =>"$pnr_no", 'booking_id'=>"$booking_id" ,'amount'=>"$amount" ,'ticket_date'=>"$ticket_date" ];
-    $user['to'] = $email;
-Mail::send('welcome',$data,function($messages) use ($user){
+// 	$data = ['pnr_no' =>"$pnr_no", 'booking_id'=>"$booking_id" ,'amount'=>"$amount" ,'ticket_date'=>"$ticket_date" ];
+//     $user['to'] = $email;
+// Mail::send('welcome',$data,function($messages) use ($user){
     
-    $messages->to($user['to']);
-    $messages->subject('flight Booking');   
-});		
+//     $messages->to($user['to']);
+//     $messages->subject('flight Booking');   
+// });		
 			
     }
     }
 }
-
+// session()->forget('PaymentID');
+ session()->forget('TraceId');
+ session()->forget('ResultIndex');
+ session()->forget('token_id');
+ session()->forget('EndUserIp');
+ session()->forget('BaseFare');
+ session()->forget('Currency');
+ session()->forget('Tax');
+ session()->forget('YQTax');
+ session()->forget('AdditionalTxnFeeOfrd');
+ session()->forget('AdditionalTxnFeePub');
+ session()->forget('OtherCharges');
+ session()->forget('Discount');
+ session()->forget('PublishedFare');
+ session()->forget('TdsOnCommission');
+ session()->forget('TdsOnPLB');
+ session()->forget('TdsOnIncentive');
+ session()->forget('ServiceFee');
+ session()->forget('Destination_name');
+ session()->forget('Destination_address');
+ session()->forget('Source_address');
+ session()->forget('Source_name');
+  session()->forget('Duration');
+  
+// print_r($result1);die;
  return view('flight/booking-confirmation',compact('result1'));
    
     }
@@ -913,7 +1076,6 @@ $result1    = json_decode($result);
 $from = $request->from;
 $to = $request->to;
 $journey_date = $request->journey_date;
-
 $adult = $request->adult;
 $children = $request->children;
 $infant = $request->infant;
@@ -961,8 +1123,8 @@ $json1='{
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
 "AdultCount": "'.$adult.'",
-"ChildCount": "'.$children.'",
-"InfantCount": "'.$infant.'",
+"ChildCount": "0",
+"InfantCount": "0",
 "DirectFlight": "false",
 "OneStopFlight": "false",
 "JourneyType": "1",
@@ -979,27 +1141,37 @@ $json1='{
         ],
 "Sources": null
 }';
+// $url = 'https://www.example.com/api';
 
+// Create a new cURL resource
 $ch = curl_init($search);
 
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
 $payload1 = $json1;
 
+// Attach encoded JSON string to the POST fields
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
 
+// Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 
+// Return response instead of outputting
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+// print_r("ddw");die; 
+// Execute the POST request
 $ss = curl_exec($ch);
 $ress = json_decode($ss);
 $daa; 
+$all_data = "dd";
 $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/all_flight',compact('ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
-    }
+        return view('flight/flight_search_result',compact('all_data','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
+     }
     
    // Price Filter 
      public function price_filter(Request $request)
@@ -1798,15 +1970,20 @@ $filterResult = Airport_Model::get();
  public function return_flight(Request $request)
     {
     //   print_r($request->from);die;
+$form_status = $request->form_status;    
 $from = $request->from;
 $to = $request->to;
 $journey_date = $request->journey_date;
 
+ $from1 = "";
+ $to1 = "";
+ $journey_date1 = "";
+ 
 $adult = $request->adult;
 $children = $request->children;
 $infant = $request->infant;
 $cabin_class = $request->cabin_class;
-
+//  die;
 // Endpoint you want to access
 $endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
 
@@ -1848,7 +2025,7 @@ $search = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/res
 $json1='{
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
-"AdultCount": "1",
+"AdultCount": "'.$adult.'",
 "ChildCount": "0",
 "InfantCount": "0",
 "DirectFlight": "false",
@@ -1859,14 +2036,14 @@ $json1='{
 {
 "Origin": "'.$request->from.'",
 "Destination": "'.$request->to.'",
-"FlightCabinClass": "1",
+"FlightCabinClass": "'.$cabin_class.'",
 "PreferredDepartureTime": "'.$request->journey_date.'T00: 00: 00",
 "PreferredArrivalTime": "'.$request->journey_date.'T00: 00: 00"
 },
 {
 "Origin": "'.$request->to.'",
 "Destination": "'.$request->from.'",
-"FlightCabinClass": "1",
+"FlightCabinClass": "'.$cabin_class.'",
 "PreferredDepartureTime": "'.$request->return_date.'T00: 00: 00",
 "PreferredArrivalTime": "'.$request->return_date.'T00: 00: 00"
 }
@@ -1903,18 +2080,23 @@ $token_id = $result->TokenId;
 //  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('fli_data','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
     } 
     
     //Multi City 
      
  public function multi_city_flight(Request $request)
     {
-    //   print_r($request->from);die;
-$from = $request->from;
-$to = $request->to;
-$journey_date = $request->journey_date;
+    //   print_r("dd");die;
+    $form_status = $request->form_status;
+ $from = $request->from;
+ $to = $request->to;
+ $journey_date = $request->journey_date;
 
+ $from1 = $request->from1;
+ $to1 = $request->to1;
+ $journey_date1 = $request->journey_date1;
+//  die;
 $adult = $request->adult;
 $children = $request->children;
 $infant = $request->infant;
@@ -1970,34 +2152,21 @@ $json1='{
 "PreferredAirlines": null,
 "Segments": [
     {
-    "Origin": "'.$request->from.'",
-    "Destination": "'.$request->to.'",
-    "FlightCabinClass": "1",
-    "PreferredDepartureTime": "'.$request->journey_date.'T00: 00: 00",
-    "PreferredArrivalTime": "'.$request->journey_date.'T00: 00: 00"
+      "Origin": "'.$from.'",
+      "Destination": "'.$to.'",
+      "FlightCabinClass": "1",
+      "PreferredDepartureTime": "'.$journey_date.'T00: 00: 00",
+      "PreferredArrivalTime": "'.$journey_date.'T00: 00: 00"
     },
     {
-    "Origin": "'.$request->to.'",
-    "Destination": "'.$request->from.'",
-    "FlightCabinClass": "1",
-    "PreferredDepartureTime": "'.$request->return_date.'T00: 00: 00",
-    "PreferredArrivalTime": "'.$request->return_date.'T00: 00: 00"
+      "Origin": "'.$from1.'",
+      "Destination": "'.$to1.'",
+      "FlightCabinClass": "1",
+      "PreferredDepartureTime": "'.$journey_date1.'T00: 00: 00",
+      "PreferredArrivalTime": "'.$journey_date1.'T00: 00: 00"
     }
-{
-    "Origin": "'.$request->from1.'",
-    "Destination": "'.$request->to1.'",
-    "FlightCabinClass": "1",
-    "PreferredDepartureTime": "'.$request->journey_date1.'T00: 00: 00",
-    "PreferredArrivalTime": "'.$request->journey_date1.'T00: 00: 00"
-    },
-    {
-    "Origin": "'.$request->to1.'",
-    "Destination": "'.$request->from1.'",
-    "FlightCabinClass": "1",
-    "PreferredDepartureTime": "'.$request->return_date1.'T00: 00: 00",
-    "PreferredArrivalTime": "'.$request->return_date1.'T00: 00: 00"
-    }    
-        ],
+
+  ],
 "Sources": null
 }';
 // $url = 'https://www.example.com/api';
@@ -2027,10 +2196,10 @@ $daa;
 $fli_data = "dd";
 $token_id = $result->TokenId;
 // Close cURL resource 
- print_r($ress);die;
+//  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('fli_data','ress','token_id','filterResult','journey_date','from','to','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
     }
     
     // 
@@ -2059,5 +2228,66 @@ $filterResult = Airport_Model::get();
   
         return response()->json($data);
     }
+     public function easebuzz(Request $request)
+    {
+         $MERCHANT_KEY = "10PBP71ABZ2";
+    $SALT = "ABC55E8IBW";         
+    $ENV = "test";   // set enviroment name 
+    $easebuzzObj = new Easebuzz($MERCHANT_KEY, $SALT, $ENV);
+        $postData = array ( 
+        "txnid" => "T3SAT0B5OL", 
+        "amount" => "100.0", 
+        "firstname" => "jitendra", 
+        "email" => "test@gmail.com", 
+        "phone" => "1231231235", 
+        "productinfo" => "Laptop", 
+        "surl" => "http://localhost:3000/response.php", 
+        "furl" => "http://localhost:3000/response.php", 
+        "udf1" => "aaaa", 
+        "udf2" => "aaaa", 
+        "udf3" => "aaaa", 
+        "udf4" => "aaaa", 
+        "udf5" => "aaaa", 
+        "address1" => "aaaa", 
+        "address2" => "aaaa", 
+        "city" => "aaaa", 
+        "state" => "aaaa", 
+        "country" => "aaaa", 
+        "zipcode" => "123123" 
+    );
+
+   $data = $easebuzzObj->initiatePaymentAPI($postData); 
+   print_r($data);die;
+    }
     
+ public function filter(Request $request)
+    {
+      $dat[] =  $request->ress;  
+//         foreach($ress as $res){
+//     $TraceId = $res->TraceId;
+// }   
+// print_r($dat);
+        foreach($dat as $key=>$dat1){
+          $dat1 = $dat1;
+        }
+        foreach($dat1 as $dat2){
+          $dat2 = $dat2;
+          echo $dat2;
+        }
+        
+die;
+    //   $data['states'] = Hotel_City_Model::where('name',$request->country_id )
+    //                             //  ->orWhere('AIRPORTCODE', $request->country_id )
+    //                             ->get(["city_id"]);
+  
+    //     return response()->json($data);
+    }  
+     private function getExchangeRates()
+    {
+        $client = new Client();
+        $response = $client->get($this->apiUrl);
+        $data = json_decode($response->getBody(), true);
+
+        return $data['rates'];
+    }
 }

@@ -1,4 +1,4 @@
-@extends('flight.partner.db-header')
+@include('flight.partner.db-header')
   <div class="dashboard__main">
       <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">

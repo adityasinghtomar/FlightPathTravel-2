@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -36,35 +36,40 @@
             </div>
         </div>
     </section>
+    @if(session()->has('message'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+{{ session()->get('message')}} <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
 
-    <!--  Common Author Area -->
+</div>
+@endif  <!--  Common Author Area -->
     <section id="common_author_area" class="section_padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="common_author_boxed">
                         <div class="common_author_heading">
-                            <h3>Register account</h3>
-                            <h2>Register your account</h2>
+                            <h3>User Register account</h3>
                         </div>
                         <div class="common_author_form">
                             <form action="{{url('/user-register')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="name" placeholder="Enter first name*" />
+                            <div class="row">                          
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" name="name" placeholder="Enter first name*" required/>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="lname" placeholder="Enter last name*" />
+                                <div class="form-group col-sm-6">
+                                    <input type="text" class="form-control" name="lname" placeholder="Enter last name*" required/>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" name="email" class="form-control"
-                                        placeholder="your email address (Optional)" />
+                                <div class="form-group col-sm-6">
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="your email address" required/>
                                 </div>
-                                <div class="form-group">
-                                    <input type="number" class="form-control" name="mobile" placeholder="Mobile number*" />
+                                <div class="form-group col-sm-6">
+                                    <input type="number" class="form-control" name="mobile" placeholder="Mobile number*" required/>
                                 </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" name="password" placeholder="Password" />
+                                <div class="form-group col-sm-6">
+                                    <input type="password" class="form-control" name="password" placeholder="Password" required/>
+                                </div>
                                 </div>
                                 <div class="common_form_submit">
                                     <button class="btn btn_theme btn_md">Register</button>

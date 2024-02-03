@@ -1,4 +1,4 @@
-@extends('admin.layouts.header')
+@include('admin.layouts.header')
 @section('content')	
 <link rel="stylesheet" href=
 "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">

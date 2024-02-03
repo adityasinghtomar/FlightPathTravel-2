@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -38,199 +38,22 @@
             </div>
         </div>
     </section>
-
+     
     <!-- Tour Booking Submission Areas -->
     <section id="tour_booking_submission" class="section_padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="tou_booking_form_Wrapper">
-                        <div class="booking_tour_form">
-                            <h3 class="heading_theme">Passenger information</h3>
-                            <div class="tour_booking_form_box">
-                                <form action="{{url('/booking_det')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                                      <div class="row">
-                                      <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <lable>Email</lable>
-                                                <input type="text" name="email" class="form-control bg_input"
-                                                    placeholder="Email address" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <lable>Mobile No.</lable>
-                                                <input type="number" name="mobile" class="form-control bg_input"
-                                                    placeholder="Mobile number*" required>
-                                            </div>
-                                        </div> 
-                                   <?php for ($row=1; $row <= $adult; $row++) {  ?>  
-                                    <h3 class="heading_theme">Passenger {{$row}}</h3>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <lable>First Name</lable>
-                                                <input type="text" name="fname" class="form-control bg_input"
-                                                    placeholder="First name*" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <lable>Last Name</lable>
-                                                <input type="text" name="lname" class="form-control bg_input"
-                                                    placeholder="Last name*" required>
-                                            </div>
-                                        </div>
-                                        
-                                        <!--<div class="col-lg-12">-->
-                                        <!--    <div class="form-group">-->
-                                        <!--        <lable>Address</lable>-->
-                                        <!--        <input type="text" name="street_address" class="form-control bg_input"-->
-                                        <!--            placeholder="Street address" required>-->
-                                        <!--    </div>-->
-                                        <!--</div>-->
-                                    <?php }  ?>   
-                                    </div>
-                                     <input type="hidden" name="ResultIndex" value="<?php echo $ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="<?php echo $EndUserIp; ?>">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $PublishedFare;?>">
-                                            
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination_name;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination_address;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $Source_name;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $Source_address;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Duration;?>">
-                                       
-                            </div>
-                        </div>
-                        <div class="booking_tour_form">
-                            <h3 class="heading_theme">Payment method</h3>
-                            <div class="tour_booking_form_box">
-                                <div class="booking_payment_boxed">
-                                    <!--<form action="!#" id="payment_checked">-->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1" value="red">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                Razorpay
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault2" value="green">
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                               Other Pay
-                                            </label> 
-                                        </div>
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="flexRadioDefault"-->
-                                        <!--        id="flexRadioDefault3" value="black">-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault3">-->
-                                        <!--        Payoneer-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="flexRadioDefault"-->
-                                        <!--        id="flexRadioDefault4" value="white">-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault4">-->
-                                        <!--        Cash on delivery-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
-                                        <div class="payment_filed_wrapper">
-                                            <div class="payment_card payment_toggle red">
-                                                <div class="row">
-                <form action="{{ url('payment') }}" method="post" id="addPaymentForm">
-                   @csrf
-                    <div class="popupForm">
-                       
-                        <div class="form-group floating-field">
-                            <input type="hidden" name="razorpay_payment_id" value="" id="razorpay_payment_id">
-                            <input type="hidden" name="razorpay_order_id" value="" id="razorpay_order_id">
-                            <input type="hidden" name="razorpay_signature" value="" id="razorpay_signature">
-                            <input type="hidden" name="generated_signature" value="" id="generated_signature">
-							 <input type="hidden" name="amount" value="<?php echo $BaseFare; ?>" id="payment">
-
-                    </div><!--//popupForm-->
-
-                            <div class="col-sm-6 text-right">                                 
-                                <button class="btn btn-primary" type="button" id="addPaymentButton"><?php echo $BaseFare; ?> Pay</button>
-                            </div>
-
-                    </div>
-                </form>
-                                                </div>
-                                            </div>
-                                            <div class="paypal_payment payment_toggle green">
-                                                   
-                                  
-                                             </div>
-                                                
-                                            <div class="payoneer_payment payment_toggle black">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control bg_input"
-                                                                placeholder="Email Address">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                            </div>
-                         </div>
-                    </div>
-                                        <div class="booking_tour_form_submit">
-                                             <div class="panel panel-default">
-        <div class="panel-body">   
-            @if (session()->has('success'))
-                <div class="alert alert-success">
-                    {{ session()->get('success') }}
-                </div>
-            @endif
-            <center>
-               
-               
-            </center>
-        </div>
-    </div>
-                            <div class="form-check write_spical_check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">
-                                <label class="form-check-label" for="flexCheckDefaultf1">
-                                    I read and accept all <a href="terms-service.html">Terms and conditios</a>
-
-                                </label>
-                            </div>
-                                    </div>
-                                        <button class="btn btn_theme btn_sm">Book now</button>
-                                    </form>
-                                
-                       
-                </div>
-                <div class="col-lg-4">
-                    <div class="tour_details_right_sidebar_wrapper">
+                <div class="tour_details_right_sidebar_wrapper">
+                    <h3 class="heading_theme">Flight </h3>
                         <div class="tour_detail_right_sidebar">
                             <div class="tour_details_right_boxed">
                                 <div class="tour_details_right_box_heading">
                                     <h3><?php if(isset($AirlineName)){ echo $AirlineName; }?> </h3>
                                 </div>
                                 <div class="flight_sidebar_right">
-                                    <div class="flight_search_left_sidebar">
-                                        <div class="flight_search_destination_sidebar">
+                                    <div class="flight_search_left_sidebar col-lg-4">
+                                        <div class="flight_search_destination_sidebar ">
                                             <h3>From</h3>
                                            <div class="code_time">
                                                                 <span class="code"><?php echo $Source_name; ?></span>
@@ -251,7 +74,7 @@
                                         </div>
                                     </div>
                                     <div class="flight_search_middel_sidebar">
-                                        <div class="flight_right_arrow_sidebar">
+                                        <div class="flight_right_arrow_sidebar  col-lg-4">
                                             <img src="assets/img/icon/right_arrow.png" alt="icon">
                                             <h6><?php 
                                                             if($count == 1){
@@ -288,7 +111,7 @@
                                             </p>
                                             
                                         </div>
-                                        <div class="flight_search_destination_sidebar">
+                                        <div class="flight_search_destination_sidebar col-lg-4" style="margin-left: 167px;">
                                             <h3>To</h3>
                                            <div class="code_time">
                                                                 <span class="code"><?php echo $Destination_name; ?></span>
@@ -306,9 +129,7 @@
                                                             echo date('d-M-Y', $date); 
                                                             ?></h6>
                                                             </div> 
-                                            <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
-                                                    class="fas fa-chevron-down"></i></h6>                
+                                                            
                                         </div>
                                     </div>
                                 </div>
@@ -324,60 +145,191 @@
                                 <!--    </ul>-->
                                 <!--</div>-->
                                 
-                                <div class="flight_policy_refund collapse" id="collapseExample">
-                                        <div class="flight_show_down_wrapper">
-                                            <div class="flight-shoe_dow_item">
-                                                <div class="airline-details">
-                                                    <div class="img"><img src="assets/img/icon/bg.png" alt="img"></div>
-                                                    <span class="airlineName fw-500">Biman Bangladesh Airlines &nbsp;
-                                                        BG435</span>
-                                                    <span class="flightNumber">BOEING 737-800 - 738</span>
-                                                </div>
-                                                   
-                                                    <div class="flight_det_wrapper">
-                                                        <div class="flight_det">
-                                                            <div class="code_time">
-                                                               <h5>Refund Policy</h5>
-                                                    <p class="fz12">1. Refund and Date Change are done as per the
-                                                        following policies.</p>
-                                                    <p class="fz12">2. Refund Amount= Refund Charge (as per airline
-                                                        policy + ShareTrip Convenience Fee). </p>
-                                                    <p class="fz12">3. Date Change Amount= Date Change Fee (as per
-                                                        Airline Policy + ShareTrip Convenience Fee).</p>
-                                                
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tour_package_details_bar_price">
-                                    <h5>Price</h5>
-                                    <div class="tour_package_bar_price">
-                                        <!--<h6><del>$ 35,500</del></h6>-->
-                                        @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h3><?php echo $Currency;?><?php $base123 = $BaseFare?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?></h3>
-                                        @else
-                                        <h3><?php echo $Currency; ?>  <?php echo $BaseFare + $Tax; ?>  <sub> / Adult X {{$adult}}</sub> </h3>
-                                        @endif
-                                    </div>
-                                </div>
-                                            </div>
-                                        
-                                        
-                                    </div> 
-                                    
-                                    </div> 
+                                
                                 <div class="tour_package_details_bar_price">
-                                    <h5>Price</h5>
-                                    <div class="tour_package_bar_price">
-                                        <!--<h6><del>$ 35,500</del></h6>-->
-                                        @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h3><?php echo $Currency;?><?php $base123 = $BaseFare?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?></h3>
-                                        @else
-                                        <h3><?php echo $Currency; ?>  <?php echo $BaseFare + $Tax; ?>  <sub> / Adult X {{$adult}}</sub> </h3>
-                                        @endif
-                                    </div>
+                                   <!--<h6 data-bs-toggle="collapse" data-bs-target="#collapseExample"-->
+                                   <!--             aria-expanded="false" aria-controls="collapseExample">Show more <i-->
+                                   <!--                 class="fas fa-chevron-down"></i></h6>-->
+                                    
                                 </div>
                             </div>
                         </div>
+                       </div> 
+                       
+                    <div class="tou_booking_form_Wrapper">
+                        <div class="booking_tour_form">
+                            <h3 class="heading_theme">Passenger information</h3>
+                            <div class="tour_booking_form_box">
+                                <form action="{{url('/preparePayment')}}" enctype="multipart/form-data" method="post">
+                                                      @csrf
+                                                      <div class="row">
+                                      <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Email</lable>
+                                                <input type="text" name="email" class="form-control bg_input"
+                                                    placeholder="Email address" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Mobile No.</lable>
+                                                <input type="number" name="mobile" class="form-control bg_input"
+                                                    placeholder="Mobile number*" required>
+                                            </div>
+                                        </div> 
+                                   <?php for ($row=1; $row <= $adult; $row++) {  ?>  
+                                    <h3 class="heading_theme">Passenger {{$row}}</h3>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>First Name</lable>
+                                                <input type="text" name="fname" class="form-control bg_input"
+                                                    placeholder="First name*" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Last Name</lable>
+                                                <input type="text" name="lname" class="form-control bg_input"
+                                                    placeholder="Last name*" required>
+                                                <input type="hidden" name="amount1" value="{{$convertedAmount}}.00"  >  
+                                            </div>
+                                        </div>
+                                        
+                                        <!--<div class="col-lg-12">-->
+                                        <!--    <div class="form-group">-->
+                                        <!--        <lable>Address</lable>-->
+                                        <!--        <input type="text" name="street_address" class="form-control bg_input"-->
+                                        <!--            placeholder="Street address" required>-->
+                                        <!--    </div>-->
+                                        <!--</div>-->
+                                    <?php }  ?>   
+                                    </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                                        <div class="booking_tour_form_submit">
+                                             <div class="panel panel-default">
+        <div class="panel-body">   
+            @if (session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
+            <center>
+               
+               
+            </center>
+        </div>
+    </div>
+    <div class="booking_tour_form">
+                            <h3 class="heading_theme">Payment method</h3>
+                            <div class="tour_booking_form_box">
+                                <div class="booking_payment_boxed">
+                                    <!--<form action="!#" id="payment_checked">-->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault1" value="easybuzz" required>
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Easybuzz Pay
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault2" value="mollie" checked="checked" required>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                               Mollie Pay
+                                            </label> 
+                                        </div>
+                                        @if(session()->get('user_id'))
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault3" value="wallet" required>
+                                            <label class="form-check-label" for="flexRadioDefault3">
+                                                Wallet
+                                            </label>
+                                        </div>
+                                        @endif
+                                       </div>
+                            </div>
+                         </div>
+                            <div class="form-check write_spical_check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">
+                                <label class="form-check-label" for="flexCheckDefaultf1">
+                                    I read and accept all <a href="terms-service.html">Terms and conditios</a>
+
+                                </label>
+                            </div>
+                            <style>
+                                .popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+                            </style>
+                                    </div>
+                                    <!--@if(session()->get('PaymentID'))-->
+                                    <!--   <button class="btn btn_theme btn_sm">Book now</button>-->
+                                    <!--@else-->
+                                    <!--<div class="popup" onclick="myFunction()" style="background-color: #e98c06; color:#ffffff;font-size: 18px; border-radius: 12px; padding: 12px 35px;">Book now-->
+                                    <!--  <span class="popuptext" id="myPopup">Please Pay </span>-->
+                                    <!--</div>-->
+                                    <!--@endif-->
+                                    <button class="btn btn_theme btn_sm">Book now</button>
+                                    </form>
+                            <!--<a href="{{url('/easebuzz')}}" >Easebuzz</a>     -->
+                       
+                </div>
+                <div class="col-lg-4">
+                    <div class="tour_details_right_sidebar_wrapper">
+                        
                         <!--<div class="tour_detail_right_sidebar">-->
                         <!--    <div class="tour_details_right_boxed">-->
                         <!--        <div class="tour_details_right_box_heading">-->
@@ -431,39 +383,55 @@
                                     <h3>Coupon code</h3>
                                 </div>
                                 <div class="coupon_code_area_booking">
-                                    <form id="myForm" method="POST" action="{{ route('coupon.check') }}">
+                                    <form id="myForm" method="POST" action="#">
                                          @csrf
                                         <div class="form-group">
                                             <input type="text" name="coupon" class="form-control bg_input"
                                                 placeholder="Enter coupon code">
                                         </div>
-                                        <input type="hidden" name="ResultIndex" value="<?php echo $ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="<?php echo $EndUserIp; ?>">
-                                            <input type="hidden" name="BaseFare" value="<?php echo $BaseFare;?>">
-                                            <input type="hidden" name="Currency" value="<?php echo $Currency ;?>">
-                                            <input type="hidden" name="Tax" value="<?php echo $Tax ;?>"> 
-                                            <input type="hidden" name="YQTax" value="<?php echo $YQTax;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeeOfrd" value="<?php echo $AdditionalTxnFeeOfrd;?>"> 
-                                            <input type="hidden" name="AdditionalTxnFeePub" value="<?php echo $AdditionalTxnFeePub;?>"> 
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $OtherCharges;?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $Discount;?>">
-                                            <input type="hidden" name="PublishedFare" value="<?php echo $PublishedFare;?>">
-                                            
-                                            <input type="hidden" name="TdsOnCommission" value="<?php echo $TdsOnCommission;?>">
-                                            <input type="hidden" name="TdsOnPLB" value="<?php echo $TdsOnPLB;?>">
-                                            <input type="hidden" name="TdsOnIncentive" value="<?php echo $TdsOnIncentive;?>">
-                                            <input type="hidden" name="ServiceFee" value="<?php echo $ServiceFee;?>">
-                                            <input type="hidden" name="Destination_name" value="<?php echo $Destination_name;?>">
-                                            <input type="hidden" name="Destination_address" value="<?php echo $Destination_address;?>">
-                                            <input type="hidden" name="Source_name" value="<?php echo $Source_name;?>">
-                                            <input type="hidden" name="Source_address" value="<?php echo $Source_address;?>">
-                                            <input type="hidden" name="Duration" value="<?php echo $Duration;?>">
                                      
                                         <div class="coupon_code_submit">
                                             <button type="submit" class="btn btn-primary">Apply voucher</button>
                                         </div>
+                                        <h6 data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                                aria-expanded="false" aria-controls="collapseExample">Show more <i
+                                                    class="fas fa-chevron-down"></i></h6>
+                                    
+                                        <div class="flight_policy_refund collapse" id="collapseExample">
+                                        <div class="flight_show_down_wrapper">
+                                            <div class="flight-shoe_dow_item">
+                                                <div class="airline-details">
+                                                    <!--<div class="img"><img src="assets/img/icon/bg.png" alt="img"></div>-->
+                                                    <!--<span class="airlineName fw-500">Biman Bangladesh Airlines &nbsp;-->
+                                                    <!--    BG435</span>-->
+                                                    <!--<span class="flightNumber">BOEING 737-800 - 738</span>-->
+                                                </div>
+                                                   
+                                                    <div class="flight_det_wrapper">
+                                                        <div class="flight_det">
+                                                            <div class="code_time">
+                                                                <?php $Currency1 =\App\Coupon_Model::where('status','active')->get(); ?>
+                                                
+                                                @foreach($Currency1 as $Currency12)
+                                                <h6>{{__($Currency12->coupon_code)}} <span style="margin-left:100px;">{{__($Currency12->amount)}}</span></h6>
+                                                @endforeach
+                                               
+                                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tour_package_details_bar_price">
+                                    <div class="tour_package_bar_price">
+                                        <!--<h6><del>$ 35,500</del></h6>-->
+                                        
+                                    </div>
+                                </div>
+                                            </div>
+                                        
+                                        
+                                    </div> 
+                                    
+                                    </div> 
                                     </form>
                                 </div>
 
@@ -477,7 +445,7 @@
 
                                 <div class="tour_booking_amount_area">
                                     <ul>
-                                        <li>Adult Price x 1 <span>@if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
+                                        <li>Adult Price x {{$adult}} <span>@if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
                                             <h3><?php echo $Currency;?><?php $base123 = $BaseFare?> <?php $perce = $base123/100*$commision ?> <?php echo $total = $perce + $base123; ?></h3>
                                         @else
                                         <?php echo $BaseFare; ?>
@@ -486,7 +454,7 @@
                                         <li>Discount <span>-<?php echo $Discount; ?>%</span></li>
                                         <li>Tax<span><?php echo $Tax; ?></span></li>
                                     </ul>
-                                    <div class="tour_bokking_subtotal_area">
+                                    <div class="total_subtotal_booking">
                                         <h6>Subtotal <span>@if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
                                             <?php echo $Currency;?><?php $base123 = $BaseFare?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123 + $Tax; ?>
                                         @else
@@ -685,9 +653,8 @@ $(document).ready(function() {
     });
 });
 </script>
-        
-<script>
-    $('#addPaymentButton').on('click', function (e) {
+  <script>
+    $('#addPaymentButton1').on('click', function (e) {
         e.preventDefault();
         var amount = $('#payment').val();
 
@@ -698,67 +665,89 @@ $(document).ready(function() {
         });
         $.ajax({
             type: "post",
-            url: "/orderid-generate",
-            data: $("#addPaymentForm").serialize(),
+            url: "/wallet-payment",
+            data: $("#addPaymentForm1").serialize(),
             success: function (data) {
-                var order_id = '';
-                if (data.order_id) {
-                    order_id = data.order_id;
-                }
-
-                var options = {
-                    "key": "{{ config('app.razorpay_api_key') }}", // Enter the Key ID generated from the Dashboard
-                    "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                    "currency": "{{ config('app.currency') }}",
-                    "name": "{{ config('app.account_name') }}",
-                    "description": remarks,
-                    "image": "{{ asset('images/logo-black.svg') }}",
-                    "order_id": order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                    "handler": function (response) {
-                        $('#razorpay_payment_id').val(response.razorpay_payment_id);
-                        $('#razorpay_order_id').val(response.razorpay_order_id);
-                        $('#razorpay_signature').val(response.razorpay_signature);
-                        $('#addPaymentForm').submit();
-                    },
-                    "prefill": {
-                        "name": "umesh",
-                        "email": "umesh@gmail.com",
-                        "contact": "7999510032"
-                    },
-            "notes": {
-                "address": "Razorpay Corporate Office"
-            },
-                    "theme": {
-                        "color": "#3399cc"
-                    }
-                };
-                var rzp1 = new Razorpay(options);
-                rzp1.on('payment.failed', function (response) {
-
-                });
-
-                rzp1.open();
-
-
+                alert(data.message);
+                // document.location.reload(true);
             },
 
         });
 
     });
-</script>   
-    <script src="assets/js/jquery-3.6.0.min.js"></script>  
+</script>  
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        $('body').on('click','#rzp-button1',function(e){
+            e.preventDefault();
+            var amount = $('.amount').val();
+            var name = $('.name').val();
+            var email = $('.email').val();
+            var mobile = $('.mobile').val();
+            var total_amount = amount * 100;
+            var options = {
+                "key": "{{ env('RAZOR_KEY') }}", // Enter the Key ID generated from the Dashboard
+                "amount": total_amount, // Amount is in currency subunits. Default currency is INR. Hence, 10 refers to 1000 paise
+                "currency": "INR",
+                "name": name,
+                "description": "Flight",
+                "image": "https://www.mywebtuts.com/image/logo-1.png",
+                "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        url:"{{ route('payment') }}",
+                        data:{razorpay_payment_id:response.razorpay_payment_id,amount:amount},
+                        success:function(data){
+                            $('.success-message').text(data.success);
+                            $('.success-alert').fadeIn('slow', function(){
+                               $('.success-alert').delay(5000).fadeOut(); 
+                            });
+                            $('.amount').val('');
+                        }
+                    });
+                },
+                "prefill": {
+                    "name": name,
+                    "email": email,
+                    "contact": mobile
+                },
+                "notes": {
+                    "address": "test test"
+                },
+                "theme": {
+                    "color": "#218838"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        });
+    </script>   
+<script>
+// When the user clicks on <div>, open the popup
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+</script>
+    <script src="public/assets/js/jquery-3.6.0.min.js"></script>  
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="public/assets/js/owl.carousel.min.js"></script>
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+    <script src="public/assets/js/wow.min.js"></script>
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
-    <script src="assets/js/payment-form.js"></script>
+    <script src="public/assets/js/custom.js"></script>
+    <script src="public/assets/js/add-form.js"></script>
+    <script src="public/assets/js/payment-form.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>

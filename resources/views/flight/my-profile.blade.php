@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="dashboard_menu_area">
                             <ul>
-                                <li><a href="dashboard.html" class="active"><i
+                                <li><a href="{{url('/customer-dashboard')}}" class="active"><i
                                             class="fas fa-tachometer-alt"></i>Dashboard</a></li>
                                 <li class="dashboard_dropdown_button" id="dashboard_dropdowns"><i
                                         class="fas fa-address-card"></i>My Profile
@@ -77,7 +77,7 @@
                                 </li>
                                 <li><a href="{{ url('/customer-profile') }}"><i class="fas fa-user-circle"></i>My profile</a></li>
                                 <li><a href="{{ url('/customer-wallet') }}"><i class="fas fa-wallet"></i>Wallet</a></li>
-                                <li><a href="notification.html"><i class="fas fa-bell"></i>Notifications</a></li>
+                                <li><a href="#"><i class="fas fa-bell"></i>Notifications</a></li>
                                 <li>
                                     <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-sign-out-alt"></i>Logout

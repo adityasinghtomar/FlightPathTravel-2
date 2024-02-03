@@ -1,4 +1,4 @@
-@extends('flight.header')
+@include('flight.header')
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -36,7 +36,11 @@
             </div>
         </div>
     </section>
-
+    @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+    @endif
     <!--  Common Author Area -->
     <section id="common_author_area" class="section_padding">
         <div class="container">
@@ -51,10 +55,10 @@
                              <form action="{{url('/user-login')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="email" placeholder="Enter user email" />
+                                    <input type="email" class="form-control" name="email" placeholder="Enter user email" required/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" name="password" placeholder="Enter password" />
+                                    <input type="password" class="form-control" name="password" placeholder="Enter password" required/>
                                     <a href="forgot-password.html">Forgot password?</a>
                                 </div>
                                 <div class="common_form_submit">

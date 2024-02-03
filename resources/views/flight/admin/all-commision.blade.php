@@ -1,4 +1,4 @@
-@extends('flight.admin.db-header')
+@include('flight.admin.db-header')
     <div class="dashboard__main">
       <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
@@ -69,14 +69,14 @@
         </table>
         <div class="modal fade" id="practice_modal">
                         <div class="modal-dialog" style="width:100%;">
-                           <form id="companydata">
-                                <div class="modal-content">
+                            <div class="modal-content">
                            <form action="{{url('/commision-update')}}" enctype="multipart/form-data" method="post">
                                                       @csrf   
                     <input type="hidden" name="id" value="">                                  
                    <div class="row">
                     <div class="col-6">
                       <div class="form-input ">
+                          <input type="hidden" name="id" value="" id="id">
                         <label class="lh-1 text-16 text-light-1" style="padding:16px 1px 15px 12px;">Name</label>
                         <input type="text" name="name" value="" id="name" required style="margin-left:10px;">
                       </div>
@@ -149,35 +149,35 @@
  </script>
 <script>
 
-$(document).ready(function () {
+// $(document).ready(function () {
 
-$.ajaxSetup({
-    headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-});
+// $.ajaxSetup({
+//     headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+// });
 
-$('body').on('click', '#submit', function (event) {
-    event.preventDefault()
-    var id = $("#color_id").val();
-    var name = $("#name").val();
+// $('body').on('click', '#submit', function (event) {
+//     event.preventDefault()
+//     var id = $("#color_id").val();
+//     var name = $("#name").val();
    
-    $.ajax({
-      url: 'color/' + id,
-      type: "POST",
-      data: {
-        id: id,
-        name: name,
-      },
-      dataType: 'json',
-      success: function (data) {
+//     $.ajax({
+//       url: 'color/' + id,
+//       type: "POST",
+//       data: {
+//         id: id,
+//         name: name,
+//       },
+//       dataType: 'json',
+//       success: function (data) {
           
-          $('#companydata').trigger("reset");
-          $('#practice_modal').modal('hide');
-          window.location.reload(true);
-      }
-  });
-});
+//           $('#companydata').trigger("reset");
+//           $('#practice_modal').modal('hide');
+//           window.location.reload(true);
+//       }
+//   });
+// });
 
 $('body').on('click', '#editCompany', function (event) {
  var id = $(this).data('id');      
@@ -233,4 +233,4 @@ $('body').on('click', '#editCompany', function (event) {
     } );
 } );
 </script>
-@extends('flight.admin.db-footer')
+@include('flight.admin.db-footer')

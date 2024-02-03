@@ -1,4 +1,4 @@
-@extends('admin.layouts.header')
+@include('admin.layouts.header')
 @section('content')	
      <div class="app-page-title">
 			<div class="page-title-wrapper">

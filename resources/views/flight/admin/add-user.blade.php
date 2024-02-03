@@ -1,4 +1,4 @@
-@extends('flight.admin.db-header')
+@include('flight.admin.db-header')
     <div class="dashboard__main">
       <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
@@ -68,17 +68,17 @@
                         <input type="password" name="password" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Commision</label>
-                        <select class="form-control demo-select2-placeholder" name="commision" id="state_id" >
-                             <option value="">Select User</option>
-                            @foreach($commision as $state_)
-                             <option value="{{$state_->commision}}">{{__($state_->name)}}</option>
-                             @endforeach
-                        </select>
-                      </div>
-                    </div>
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Commision</label>-->
+                    <!--    <select class="form-control demo-select2-placeholder" name="commision" id="state_id" >-->
+                    <!--         <option value="">Select User</option>-->
+                    <!--        @foreach($commision as $state_)-->
+                    <!--         <option value="{{$state_->commision}}">{{__($state_->name)}}</option>-->
+                    <!--         @endforeach-->
+                    <!--    </select>-->
+                    <!--  </div>-->
+                    <!--</div>-->
 
                   
                 <div class="d-inline-block pt-30">
@@ -92,4 +92,4 @@
         </div>
 
 
-@extends('flight.admin.db-footer')                        
+@include('flight.admin.db-footer')                        

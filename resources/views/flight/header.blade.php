@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="public/assets/css/responsive.css" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/assets/img/favicon.png">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -51,7 +53,21 @@
             </div>
         </div>
     </div>
+<?php 
+ $ip = $_SERVER['SERVER_ADDR'];
+$ipdat = @json_decode(file_get_contents( 
+	"http://www.geoplugin.net/json.gp?ip=" . $ip)); 
 
+// echo 'Country Name: ' . $ipdat->geoplugin_countryName . "\n"; 
+// echo 'City Name: ' . $ipdat->geoplugin_city . "\n"; 
+// echo 'Continent Name: ' . $ipdat->geoplugin_continentName . "\n"; 
+// echo 'Latitude: ' . $ipdat->geoplugin_latitude . "\n"; 
+// echo 'Longitude: ' . $ipdat->geoplugin_longitude . "\n"; 
+$Currency_Symbol= "dd"; 
+ $Currency = "d"; 
+// echo 'Timezone: ' . $ipdat->geoplugin_timezone; 
+
+?> 
     <!-- Header Area -->
     <header class="main_header_arae">
         <!-- Top Bar -->
@@ -66,18 +82,16 @@
                                 <a href="#!"><i class="fab fa-instagram"></i></a>
                                 <a href="#!"><i class="fab fa-linkedin"></i></a>
                             </li>
-                            <li><a href="#!"><span>+011 234 567 89</span></a></li>
+                            <li><a href="#!"><span>+44 (0) 203 463 7788</span></a></li>
                             <li><a href="#!"><span>info@flightpathtravel.com</span></a></li>
                         </ul>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <ul class="topbar-others-options"> 
-                        @if(!empty($data))
-                            <li>@if(isset($data->name))<?php echo $data->name; ?>@endif</li>
-                        @else
-                        <li><a href="{{url('/User-login')}}">Login</a></li>
-                            <li><a href="{{url('/User-Register')}}">Sign up</a></li>
-                        @endif
+                        
+                        <li>
+                                    <a href="#" class="btn  btn_navber">Become a partner</a></li>
+                            
                             <li>
                                 <div class="dropdown language-option">
                                     <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -98,9 +112,11 @@
                                         <span class="lang-name"></span>
                                     </button>
                                     <div class="dropdown-menu language-dropdown-menu">
-                                        <a class="dropdown-item" href="#">USD</a>
-                                        <a class="dropdown-item" href="#">BD</a>
-                                        <a class="dropdown-item" href="#">URO</a>
+                                       <?php $Currency1 =\App\Currency_Model::where('status','0')->get(); ?>
+                                                <a class="dropdown-item" href="#">{{$Currency_Symbol}} ({{$Currency}})</a>
+                                                @foreach($Currency1 as $Currency12)
+                                                <a class="dropdown-item" href="#">{{ $Currency12->currency_symbol}} ({{__($Currency12->currency_code)}})</a>
+                                                @endforeach
                                     </div>
                                 </div>
                             </li>
@@ -148,16 +164,16 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour Grid</a>
+                                                    <a href="{{url('/tour-search')}}" class="nav-link">Tour Grid</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour List</a>
+                                                    <a href="{{url('/tour-list')}}" class="nav-link">Tour List</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Tour Map</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour Details</a>
+                                                    <a href="{{url('/tour-details')}}" class="nav-link">Tour Details</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Tour Booking</a>
@@ -177,7 +193,7 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-item">
-                                                    <a href="{{url('/flight-search-result')}}" class="nav-link">Flight</a>
+                                                    <a href="#" class="nav-link">Flight</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Flight Booking</a>
@@ -215,7 +231,7 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-item">
-                                                    <a href="#" class="nav-link">Visa Details</a>
+                                                    <a href="{{url('/Visa-list')}}" class="nav-link">Visa List</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link">Visa Application</a>
@@ -345,49 +361,43 @@
                                         </li>
                                        
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">Privacy Policy</a>
+                                        <a href="{{url('/privacy-policy')}}" class="nav-link">Privacy Policy</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">404 Error</a>
                                         </li>
                                     </ul>
                                 </li>
-                               @if(session()->has('role')) <?php $role = session()->get('role') ?> <?php $id = session()->get('user_id') ?>
-                                 <?php if($role == 'customer'){ ?>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">Dashboard  <i class="fas fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            @if(isset($id))
-                                            <a href="{{ url('customer-dashboard') }}" class="nav-link">Dashboard</a>
-                                            @endif
-                                        </li>
-                                        
-                                        <!--<li class="nav-item">-->
-                                        <!--    <a href="#" class="nav-link">Hotel booking</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="nav-item">-->
-                                        <!--    <a href="#" class="nav-link">Flight booking</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="nav-item">-->
-                                        <!--    <a href="#" class="nav-link">Tour booking</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="nav-item">-->
-                                        <!--    <a href="#" class="nav-link">Booking history</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="nav-item">-->
-                                        <!--    <a href="#" class="nav-link">My profile</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="nav-item">-->
-                                        <!--    <a href="#" class="nav-link">Wallet</a>-->
-                                        <!--</li>-->
-                                        <!--<li class="nav-item">-->
-                                        <!--    <a href="#" class="nav-link">Notifications</a>-->
-                                        <!--</li>-->
-                                    </ul>
+                                    
+                                   @if(session()->has('user_id'))  <a href="{{url('/customer-dashboard')}}" class="nav-link">Dashboard </a>  @endif
+                                    <!--<ul class="dropdown-menu">-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Dashboard</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Hotel booking</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Flight booking</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Tour booking</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Booking history</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">My profile</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Wallet</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Notifications</a>-->
+                                    <!--    </li>-->
+                                    <!--</ul>-->
                                 </li>
-                                <?php } ?>
-                             @endif
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">News <i class="fas fa-angle-down"></i></a>
                                     <ul class="dropdown-menu">
@@ -412,15 +422,15 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">Contact <i class="fas fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Contact v1</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Contact v2</a>
-                                        </li>
-                                    </ul>
+                                    <a href="{{url('/contact-us')}}" class="nav-link">Contact Us</a>
+                                    <!--<ul class="dropdown-menu">-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Contact v1</a>-->
+                                    <!--    </li>-->
+                                    <!--    <li class="nav-item">-->
+                                    <!--        <a href="#" class="nav-link">Contact v2</a>-->
+                                    <!--    </li>-->
+                                    <!--</ul>-->
                                 </li>
                             </ul>
                             <div class="others-options d-flex align-items-center">
@@ -430,7 +440,13 @@
                                     </a>
                                 </div>
                                 <div class="option-item">
-                                    <a href="{{ route('partner.signup') }}" class="btn  btn_navber">Become a partner</a>
+                                    @if(session()->has('name'))
+                                    <a href="#" class="btn  btn_navber">{{session()->get('name')}}</a>
+                                    <a href="{{url('/logout')}}" class="btn  btn_navber">Logout</a>
+                         @else
+                        <a href="{{url('/User-login')}}" class="btn  btn_navber">Login</a>
+                            <a href="{{url('/User-Register')}}" class="btn  btn_navber">Sign up</a>
+                        @endif
                                 </div>
                             </div>
                         </div>
