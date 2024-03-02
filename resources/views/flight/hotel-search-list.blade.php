@@ -55,226 +55,94 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="left_side_search_area">
-                        <!--<div class="left_side_search_boxed">-->
-                        <!--    <div class="item_searc_map_area">-->
-                        <!--        <iframe-->
-                        <!--            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9916.975593321238!2d-0.2763166259126239!3d51.58209318700696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877a17cca5d0001%3A0x46d236266ce7b49!2sFlightPath%20Travel!5e0!3m2!1sen!2sin!4v1693608443247!5m2!1sen!2sin"></iframe>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <!--<div class="left_side_search_boxed">-->
-                        <!--    <div class="left_side_search_heading">-->
-                        <!--        <h5>Search by name</h5>-->
-                        <!--    </div>-->
-                        <!--    <div class="name_search_form">-->
-                        <!--        <input type="text" class="form-control" placeholder="e.g Deluxe bus">-->
-                        <!--        <i class="fas fa-search"></i>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <!--<div class="left_side_search_boxed">-->
-                        <!--    <div class="left_side_search_heading">-->
-                        <!--        <h5>Filter by price</h5>-->
-                        <!--    </div>-->
-                        <!--    <div class="filter-price">-->
-                               
-                        <!--    </div>-->
-                        <!--    <button class="apply" type="button">Apply</button>-->
-                        <!--</div>-->
-                        <!--<div class="left_side_search_boxed">-->
-                        <!--    <div class="left_side_search_heading">-->
-                        <!--        <h5>Filter by Review</h5>-->
-                        <!--    </div>-->
-                        <!--    <div class="filter_review">-->
-                        <!--        <form class="review_star">-->
-                        <!--            <div class="form-check">-->
-                        <!--                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">-->
-                        <!--                <label class="form-check-label" for="flexCheckDefault">-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                </label>-->
-                        <!--            </div>-->
-                        <!--            <div class="form-check">-->
-                        <!--                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">-->
-                        <!--                <label class="form-check-label" for="flexCheckDefault1">-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                </label>-->
-                        <!--            </div>-->
-                        <!--            <div class="form-check">-->
-                        <!--                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">-->
-                        <!--                <label class="form-check-label" for="flexCheckDefault2">-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                </label>-->
-                        <!--            </div>-->
-                        <!--            <div class="form-check">-->
-                        <!--                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">-->
-                        <!--                <label class="form-check-label" for="flexCheckDefault3">-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                </label>-->
-                        <!--            </div>-->
-                        <!--            <div class="form-check">-->
-                        <!--                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">-->
-                        <!--                <label class="form-check-label" for="flexCheckDefault5">-->
-                        <!--                    <i class="fas fa-star color_theme"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                    <i class="fas fa-star color_asse"></i>-->
-                        <!--                </label>-->
-                        <!--            </div>-->
-                        <!--        </form>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <div class="left_side_search_boxed">
-                            <div class="left_side_search_heading">
-                                <h5>Filter by hotel star</h5>
-                            </div>
-                            <div class="filter_review">
-                                <form class="review_star">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                    <input type="checkbox" class="form-check-input" name="star" value="One" > <label style="margin-left: 20px;">  1 Star
-                                 </label>
-                                </div>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="form-check-input" name="star" value="Two" > <label style="margin-left: 20px;">  2 Star
-                                 </label>
-                                </div>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="form-check-input" name="star" value="Three" > <label style="margin-left: 20px;">  3 Star
-                                 </label>
-                                </div>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="form-check-input" name="star" value="Four" > <label style="margin-left: 20px;">  4 Star
-                                 </label>
-                                </div>
-                                <div class="checkbox">
-                                    <input type="checkbox" class="form-check-input" name="star" value="Five" > <label style="margin-left: 20px;">  5 Star
-                                 </label>
-                                </div>
-                                    </div>
-                                </form>
-                            </div>
+                    <div class="sec-filter pb-20 mb-40">
+                        <div class="sec-filter__left">
+                            <h4 class="sec-filter__left__title">
+                                Filters
+                            </h4>
+                            <h6 class="sec-filter__left__content">
+                                Showing <span class="fw-bold"></span> results
+                            </h6>
                         </div>
-                        <!--<div class="left_side_search_boxed">-->
-                        <!--    <div class="left_side_search_heading">-->
-                        <!--        <h5>Facilities</h5>-->
-                        <!--    </div>-->
-                        <!--    <div class="tour_search_type">-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultf1">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Wake-up call</span>-->
-                        <!--                    <span>20</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf2">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultf2">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Flat TV</span>-->
-                        <!--                    <span>14</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultaf3">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultaf3">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Vehicle service</span>-->
-                        <!--                    <span>30</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultaf4">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultaf4">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Guide service</span>-->
-                        <!--                    <span>22</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultaf5">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultaf5">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Internet, Wi-fi</span>-->
-                        <!--                    <span>41</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <!--<div class="left_side_search_boxed">-->
-                        <!--    <div class="left_side_search_heading">-->
-                        <!--        <h5>Hotel service</h5>-->
-                        <!--    </div>-->
-                        <!--    <div class="tour_search_type">-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt1">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultt1">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Gymnasium</span>-->
-                        <!--                    <span>20</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt2">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultt2">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Mountain Bike</span>-->
-                        <!--                    <span>14</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt3">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultt3">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Wifi</span>-->
-                        <!--                    <span>62</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt4">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultt4">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Aerobics Room</span>-->
-                        <!--                    <span>08</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--        <div class="form-check">-->
-                        <!--            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultt5">-->
-                        <!--            <label class="form-check-label" for="flexCheckDefaultt5">-->
-                        <!--                <span class="area_flex_one">-->
-                        <!--                    <span>Golf Cages</span>-->
-                        <!--                    <span>12</span>-->
-                        <!--                </span>-->
-                        <!--            </label>-->
-                        <!--        </div>-->
-                        <!--    </div>-->
-                        <!--</div>-->
+                        <div class="sec-filter__right">
+                            <h6 class="sec-filter__right__sub-title">
+                                Clear all
+                            </h6>  
+                        </div>
                     </div>
+                    <div class="sec-filter-block mb-20">
+                        <div class="sec-filter-block__left">
+                            <h4 class="sec-filter-block__left__title">
+                                Star
+                            </h4>
+                        </div>
+                        <div class="sec-filter-block__right">
+                            <h6 class="sec-filter__right__sub-title">
+                                Reset
+                            </h6>  
+                        </div>
+                    </div>
+                    <div class="row sec-filter-block-options mb-20">
+                        <div class="col-md-12 mb-10">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="travelstops" id="travelstopsany" value="Any" checked="">
+                                    <label class="form-check-label" for="tripOneway">Any</label>
+                                </div>
+                                <small></small>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="form-check">    
+                                    <input type="checkbox" class="form-check-input" name="star" value="Three" >
+                                    <label class="form-check-label" for="tripRoundtrip">3 Star</label>
+                                </div>
+                                <small>0</small>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="star" value="Four" >
+                                    <label class="form-check-label" for="tripMulticity">4 star</label>
+                                </div>
+                                <small>0</small>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="star" value="Five" >
+                                    <label class="form-check-label" for="tripMulticity">5 star</label>
+                                </div>
+                                <small>0</small>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--<div class="left_side_search_area">-->
+                        
+                    <!--    <div class="left_side_search_boxed">-->
+                    <!--        <div class="left_side_search_heading">-->
+                    <!--            <h5>Filter by hotel star</h5>-->
+                    <!--        </div>-->
+                    <!--        <div class="filter_review">-->
+                    <!--            <form class="review_star">-->
+                    <!--                <div class="form-check">-->
+                                       
+                    <!--            <div class="checkbox">-->
+                    <!--                <input type="checkbox" class="form-check-input" name="star" value="Three" > <label style="margin-left: 20px;">  3 Star-->
+                    <!--             </label>-->
+                    <!--            </div>-->
+                    <!--            <div class="checkbox">-->
+                    <!--                <input type="checkbox" class="form-check-input" name="star" value="Four" > <label style="margin-left: 20px;">  4 Star-->
+                    <!--             </label>-->
+                    <!--            </div>-->
+                    <!--            <div class="checkbox">-->
+                    <!--                <input type="checkbox" class="form-check-input" name="star" value="Five" > <label style="margin-left: 20px;">  5 Star-->
+                    <!--             </label>-->
+                    <!--            </div>-->
+                    <!--                </div>-->
+                    <!--            </form>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                       
+                    <!--</div>-->
                 </div>
                  <?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
                 <!--Data-->
@@ -307,12 +175,14 @@
   pointer-events: none;
 }
     </style>    
-                <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            
-                @if(isset($ress->HotelSearchResult->HotelResults))
+    <div class="col-md-9">
+                    <div class="flight-list-grid">
+                        @if(isset($ress->HotelSearchResult->HotelResults))
                 <?php $data = $ress->HotelSearchResult->HotelResults; ?>
+                <?php $NoOfRooms = $ress->HotelSearchResult->NoOfRooms; ?>
+                
+                <?php $CheckInDate = $ress->HotelSearchResult->CheckInDate; ?>
+                <?php $CheckOutDate = $ress->HotelSearchResult->CheckOutDate; ?>
                 <?php $TraceId = $ress->HotelSearchResult->TraceId; ?>
                 @foreach($data as $data1)
                         <?php 
@@ -334,82 +204,56 @@
                                                             else{
                                                                $star = "three";   
                                                             }
-                                                             ?>
-                            <div class="cruise_search_result_wrapper">
-                                <div class="cruise_search_item content player <?php echo $star; ?>">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="cruise_item_img">
-                                                <img src="<?php print_r($data1->HotelPicture); ?>" alt="img">
-                                            </div>
+                                                             ?>    
+                        <div class="border-box-style-1 p-20 content player <?php echo $star; ?>">
+                            <div class="flight-list-grid-airline">
+                                <div class="flight-list-grid-airline__left">
+                                    <div class="flight-list-grid-airline__left__img">
+                                        <div class="rounded-square-40-style-1">
+                                            <img src="<?php print_r($data1->HotelPicture); ?>" onerror="this.src='public/assets/img/hote.avif'" />
                                         </div>
-                                        <div class="col-lg-8">
-                                            <div class="cruise_item_inner_content">
-                                                <div class="cruise_content_top_wrapper">
-                                                    <div class="cruise_content_top_left">
-                                                        <h4><?php print_r($data1->HotelName); ?></h4>
-                                                        <p><i class="fas fa-map-marker-alt"></i><?php print_r($data1->HotelAddress); ?></p>
-                                                    </div>
-                                                    <div class="cruise_content_top_right">
-                                                        <h5><?php print_r($data1->StarRating); ?> Star</h5>
-                                                        <h4>(1214 reviewes)</h4>
-                                                    </div>
-                                                </div>
-                                                <div class="cruise_content_middel_wrapper">
-                                                    <div class="cruise_content_middel_left">
-                                                        <h5>Deluxe room</h5>
-                                                        <p>1 extra large double bed</p>
-                                                    </div>
-                                                    <div class="cruise_content_middel_right">
-                                                        <p>2 nights, 1 adult</p>
-                                                    </div>
-                                                </div>
-                                                <div class="cruise_content_middel_wrapper">
-                                                    <div class="cruise_content_middel_left">
-                                                        <h5>Free cancellation</h5>
-                                                        <p>Cancel your booking at any time</p>
-                                                    </div>
-                                                    <div class="cruise_content_middel_right">
-                                                        
-                                            @if(session()->get('user_id')) <?php $comm= \App\Commision_Add_Model::where('user_id',session()->get('user_id'))->where('commision_type','hotel')->first();  ?> <?php $markup= \App\Markup_Apply_Model::where('user_id',session()->get('user_id'))->first();  ?>
-                                            <?php if($comm) {  
-                                            $commision= \App\Commision_Model::where('id',$comm->commision_id)->first();
-                                            if($commision){
-                                            $commis= $commision->commision ; $commis_type = $commision->commision_type; 
-                                            }else {$commis= 0; $commis_type ='';}
-                                            }
-                                            else {$commis= 0; $commis_type ='';} ?>
-                                            <?php if($markup) {  $mark_up= \App\Markup_Model::where('id',$markup->markup_id)->first(); $mark_up1= $mark_up->markup_amount ;  }else {$mark_up1= 0; } ?>
-                                           <h3><?php print_r($data1->Price->CurrencyCode); ?><?php echo $base123 = $data1->Price->RoomPrice ; ?> </h3> <h6><sub style="width:10px;height:10px;"> Commision : {{$commis}} {{$commis_type}}</sub></h6><h6> <sub style="width:10px;height:10px;"> Mark-UP : {{$mark_up1}}</sub></h6> <sub>/Per person</sub>
-                                        @else
-                                        <h3> {{ $Currency_active->currency_symbol}} <?php  $subtotal= $data1->Price->RoomPrice / $Currency_active->currency_rates ;echo round($subtotal, 2); ?> <sub>/Per person</sub></h3>
-                                        @endif
-                                                        <p>{{ $Currency_active->currency_symbol}} <?php  $subtotal= $data1->Price->ServiceTax / $Currency_active->currency_rates ;echo round($subtotal, 2); ?>  +  {{ $Currency_active->currency_symbol}} <?php  $subtotal= $data1->Price->OtherCharges / $Currency_active->currency_rates ;echo round($subtotal, 2); ?> tax and vat</p>
-                                                    </div>
-                                                </div>
-                                                <div class="cruise_content_bottom_wrapper">
-                                                    <div class="cruise_content_bottom_left">
-                                                        <ul>
-                                                          
-                                                        </ul>
-                                                    </div>
-                                                    <?php $room_price = $data1->Price->RoomPrice; ?><?php $room_service_tax = $data1->Price->ServiceTax; ?><?php $room_OtherCharges = $data1->Price->OtherCharges; ?> 
+                                    </div>
+                                    <div class="flight-list-grid-airline__left__title px-20">
+                                        <?php print_r($data1->HotelName); ?>
+                                    </div>
+                                    <div class="flight-list-grid-airline__left__sub-title px-20">
+                                        Star <span><?php print_r($data1->StarRating); ?></span>
+                                    </div>
+                                </div>
+                                <div class="flight-list-grid-airline__right">
+                                    </i><?php print_r($data1->HotelAddress); ?>
+                                </div>
+                            </div>
+                            <div class="flight-list-grid-price-time mt-15">
+                                <div class="flight-list-grid-price-time__left">
+                                    <div class="flight-list-grid-price-time__left__block-1">
+                                        <h4>Check In Date</h4>
+                                        <h6><?php print_r($CheckInDate); ?></h6>
+                                    </div>
+                                    <div class="flight-list-grid-price-time__left__block-2">
+                                        <h6 class="flight-list-grid-price-time__left__block-2__time"><?php print_r($NoOfRooms);?></h6>
+                                        <h6>Rooms</h6>
+                                    </div>
+                                    <div class="flight-list-grid-price-time__left__block-3">
+                                        <h4>Check Out Date</h4>
+                                        <h6><?php print_r($CheckOutDate); ?></h6>
+                                    </div>
+                                </div>
+                                <div class="flight-list-grid-price-time__right">
+                                    <div class="flight-list-grid-price-time__right__price">
+                                        <h6>Off.Rate {{ $Currency_active->currency_symbol}} <?php  $subtotal= $data1->Price->OfferedPriceRoundedOff;echo round($subtotal, 2); ?></h6>
+                                        <h6>Pub.Rate {{ $Currency_active->currency_symbol}} <?php  $subtotal1= $data1->Price->PublishedPriceRoundedOff;echo round($subtotal1, 2); ?></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flight-list-grid-more-details-book-now mt-15">
+                                <div class="flight-list-grid-more-details-book-now__left">
+                                    <h4></h4>
+                                </div>
+                                 <?php $room_price = $data1->Price->RoomPrice; ?><?php $room_service_tax = $data1->Price->ServiceTax; ?><?php $room_OtherCharges = $data1->Price->OtherCharges; ?> 
                                                     <?php $total_amount = $room_price + $room_service_tax + $room_OtherCharges?>
-                                                    <form action="{{url('/hotel_information')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                            <input type="hidden" name="ResultIndex" value="<?php echo $data1->ResultIndex;?>"> 
-                                            <input type="hidden" name="TraceId" value="<?php echo $TraceId?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
-                                            <input type="hidden" name="EndUserIp" value="192.168.11.120">
-                                            <input type="hidden" name="HotelCode" value="<?php echo $data1->HotelCode;?>">
-                                            <input type="hidden" name="total_amount" value="<?php echo $total_amount;?>">
-                                            <input type="hidden" name="CurrencyCode" value="<?php echo $data1->Price->CurrencyCode;?>">
-                                            
-                                             <div class="cruise_content_bottom_right">
-                                            <button class="btn btn_theme btn_md">Hotel Details</button>
-                                            </div>
-                                        </form>
-                                             <form action="{{url('/room_information')}}" enctype="multipart/form-data" method="post">
+                                                   
+                                  <form action="{{url('/room_information')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                             <input type="hidden" name="StarRating" value="<?php echo $data1->StarRating;?>">
                                             <input type="hidden" name="Hotelname" value="<?php echo $data1->HotelName;?>">
@@ -421,25 +265,18 @@
                                             <input type="hidden" name="HotelCode" value="<?php echo $data1->HotelCode;?>">
                                             <input type="hidden" name="total_amount" value="<?php echo $total_amount;?>">
                                             <input type="hidden" name="CurrencyCode" value="<?php echo $data1->Price->CurrencyCode;?>">
-                                             <div class="cruise_content_bottom_right">
-                                            <button class="btn btn-info btn_md">Room Details</button>
+                                             <div class="flight-list-grid-more-details-book-now__right">
+                                                <button class="btn btn-theme-blue px-25 py-10">Room Select</button>
                                             </div> 
                                         </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                          @endforeach
-                          @endif
-                            </div>
-                            <div class="load_more_flight">
-                                <a href="#" id="loadMore">Load More</a>
-                                <!--<button class="btn btn_md"><i class="fas fa-spinner"></i> Load more..</button>-->
+                                
                             </div>
                         </div>
+                        @endforeach
+                          @endif
                     </div>
                 </div>
+    
             </div>
         </div>
     </section>
@@ -1285,23 +1122,47 @@ function setVisibility() {
   
 })
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="assets/js/jquery-3.6.0.min.js"></script> 
+
+
+
+    <script src="public/assets/js/jquery-3.6.0.min.js"></script>
+
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
+
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
+
     <!-- Range js -->
-    <script src="assets/js/nouislider.min.js"></script>
-    <script src="assets/js/wNumb.js"></script> 
+
+    <script src="public/assets/js/nouislider.min.js"></script>
+
+    <script src="public/assets/js/wNumb.js"></script>
+
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+
+    <script src="public/assets/js/wow.min.js"></script>
+
+    <!-- Select2 -->
+
+    <script src="public/assets/js/select2.min.js"></script>
+
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
-    <script src="assets/js/form-dropdown.js"></script>
+
+    <script src="public/assets/js/custom.js"></script>
+
+    <script src="public/assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/form-dropdown.js"></script>
+
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 </body>
 

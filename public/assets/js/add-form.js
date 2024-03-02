@@ -182,6 +182,7 @@ $(document).ready(function () {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <span>Business</span>
                                                                 </div>
                                                             </div> 
                                                             <input type="hidden" name="adult" id="myInput">

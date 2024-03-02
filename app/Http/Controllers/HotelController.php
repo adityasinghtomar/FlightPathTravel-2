@@ -12,6 +12,7 @@ use Stevebauman\Location\Facades\Location;
 use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
 use Easebuzz\Easebuzz;
 use GuzzleHttp\Client;
+use DateTime;
 class HotelController extends Controller
 {
    private $apiUrl = 'https://open.er-api.com/v6/latest';
@@ -48,7 +49,7 @@ $search1 = 'http://api.tektravels.com/SharedServices/StaticData.svc/rest/GetDest
 $json12='{ 
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
-"CountryCode" :"IN",
+"CountryCode" :"IO",
 "SearchType"  :"1"
 }'; 
 $ch = curl_init($search1);
@@ -61,18 +62,24 @@ $ress = json_decode($ss);
 // print_r($ress);die;
 $token_id = $result->TokenId;
 $data = $ress->Destinations;
-// foreach($data as $state_){
+foreach($data as $state_){
     
-//     $DestinationId =$state_->DestinationId;
-//     $CityName = $state_->CityName;
+    $DestinationId =$state_->DestinationId;
+    $CityName = $state_->CityName;
+    $CountryCode = $state_->CountryCode;
+    $CountryName = $state_->CountryName;
+    $StateProvince = $state_->StateProvince;
     
-//      $user = new Hotel_City_Model;
-// 			 $user->name = $CityName;
-//               $user->city_id = $DestinationId;
-//                 $user->save();
+     $user = new Hotel_City_Model;
+			 $user->name = $CityName;
+              $user->city_id = $DestinationId;
+              $user->CountryCode = $CountryCode;
+              $user->CountryName = $CountryName;
+              $user->StateProvince = $StateProvince;
+                $user->save();
                 
     
-// }
+}
 $form_status1 ="hotel_form";
         return view('flight/hotel-search-list',compact('data','token_id','form_status1'));
     }
@@ -85,10 +92,16 @@ $form_status1 ="hotel_form";
     $checkout_date =$request->checkout_date;
     $NoOfRoom =$request->NoOfRoom;
     
+    $datetime1 = new DateTime($checkin_date);
+    $datetime2 = new DateTime($checkout_date);
+$interval = $datetime1->diff($datetime2);
+$days = $interval->format('%a');
+    // print_r($days);die;
    $hotel1 =  Hotel_City_Model::where('name',$request->city_name)->first(); 
    
   if($hotel1){
   $city_id = $hotel1->city_id ;
+  $CountryCode =$hotel1->CountryCode;
         $date =\Carbon\Carbon::createFromFormat('Y-m-d', $request->checkin_date)
                     ->format('d/m/Y');
         // print_r($date);die;
@@ -131,8 +144,8 @@ $data = $ress->Destinations;
 $search = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelResult/'; // Replace with the actual flight search endpoint
 $json1='{ 
   "CheckInDate": "'.$date.'",
-  "NoOfNights": "4",
-  "CountryCode": "IN",
+  "NoOfNights": "'.$days.'",
+  "CountryCode": "'.$CountryCode.'",
   "CityId": "'.$city_id.'",
   "ResultCount": null,
   "PreferredCurrency": "INR",
@@ -146,7 +159,7 @@ $json1='{
     }
   ],
   "MaxRating": 5,
-  "MinRating": 0,
+  "MinRating": 3,
   "ReviewScore": null,
   "IsNearBySearchAllowed": false,
   "EndUserIp": "192.168.11.120",
@@ -179,10 +192,11 @@ foreach($data as $key=>$data1){
     break;
 }
 }
+$NoOfNights ="4";
     $form_status1 ="hotel_form";
 $token_id = $result->TokenId;
-    // print_r($ress);die;    
-        return view('flight/hotel-search-list',compact('form_status1','form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
+//  print_r($ress);die;    
+        return view('flight/hotel-search-list',compact('NoOfNights','form_status1','form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
     }
     
     }    
@@ -350,7 +364,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $ss = curl_exec($ch);
 $ress = json_decode($ss);   
 //  print_r($ress);die;
-        return view('flight/room-booking' ,compact('AgentMarkUp','ResultIndex','Hotelname','TraceId','token_id','EndUserIp','HotelCode','RoomIndex','RoomTypeName','RoomTypeCode','RatePlanCode','SmokingPreference','CurrencyCode','RoomPrice','Tax','ExtraGuestCharge','ChildCharge','OtherCharges','Discount','PublishedPrice','PublishedPriceRoundedOff','OfferedPrice','OfferedPriceRoundedOff','AgentCommission','TDS','ServiceTax')
+        return view('flight/room-booking' ,compact('ress','AgentMarkUp','ResultIndex','Hotelname','TraceId','token_id','EndUserIp','HotelCode','RoomIndex','RoomTypeName','RoomTypeCode','RatePlanCode','SmokingPreference','CurrencyCode','RoomPrice','Tax','ExtraGuestCharge','ChildCharge','OtherCharges','Discount','PublishedPrice','PublishedPriceRoundedOff','OfferedPrice','OfferedPriceRoundedOff','AgentCommission','TDS','ServiceTax')
        );
     }        
     // Booking API 
@@ -407,22 +421,22 @@ $json1='{
       "SmokingPreference": 0,
       "Supplements": null,
       "Price": {
-        "CurrencyCode": "'.$CurrencyCode.'",
-        "RoomPrice": "'.$RoomPrice.'",
-        "Tax": "'.$Tax.'",
-        "ExtraGuestCharge": "'.$ExtraGuestCharge.'",
-        "ChildCharge": "'.$ChildCharge.'",
-        "OtherCharges": "'.$OtherCharges.'",
-        "Discount": "'.$Discount.'",
-        "PublishedPrice": "'.$PublishedPrice.'",
-        "PublishedPriceRoundedOff": "'.$PublishedPriceRoundedOff.'",
-        "OfferedPrice": "'.$OfferedPrice.'",
-        "OfferedPriceRoundedOff": "'.$OfferedPriceRoundedOff.'",
-        "AgentCommission": "'.$AgentCommission.'",
-        "AgentMarkUp": "'.$AgentMarkUp.'",
-        "ServiceTax":"'.$ServiceTax.'",
-        "TDS": "'.$TDS.'"
-     },
+           "CurrencyCode": "'.$CurrencyCode.'",
+                    "RoomPrice": "'.$RoomPrice.'",
+                    "Tax": "'.$Tax.'",
+                    "ExtraGuestCharge": "'.$ExtraGuestCharge.'",
+                    "ChildCharge": "'.$ChildCharge.'",
+                    "OtherCharges": "'.$OtherCharges.'",
+                    "Discount": "'.$Discount.'",
+                    "PublishedPrice": "'.$PublishedPrice.'",
+                    "PublishedPriceRoundedOff": "'.$PublishedPriceRoundedOff.'",
+                    "OfferedPrice": "'.$OfferedPrice.'",
+                    "OfferedPriceRoundedOff": "'.$OfferedPriceRoundedOff.'",
+                    "AgentCommission": "'.$AgentCommission.'",
+                    "AgentMarkUp": 0.00,
+                    "ServiceTax": "'.$ServiceTax.'",
+                    "TDS": "'.$TDS.'"
+                          },
       "HotelPassenger": [
         {
           "Title": "mr",
@@ -440,7 +454,7 @@ $json1='{
       ]
     }
   ],
-  "EndUserIp": "'.$EndUserIp.'",
+  "EndUserIp": "192.168.11.120",
   "TokenId": "'.$token_id.'",
   "TraceId": "'.$TraceId.'"
 }'; 
@@ -455,6 +469,7 @@ $ress = json_decode($ss);
 if($ress){
 if($ress->BookResult->HotelBookingStatus){
 $data = array();
+            $data['amount']= $OfferedPriceRoundedOff + $PublishedPriceRoundedOff ;
             $data['name']= $name;
 			$data['lname']= $lname;
 			$data['email']=$email;
@@ -468,6 +483,7 @@ $data = array();
 //  print_r($ress);die;
 }
 }
+//  print_r($ress);die;
         return view('flight/hotel-confirm' ,compact('ress'));
     }    
      public function get_hotel_details()
@@ -490,6 +506,7 @@ $data = array();
      session()->put('lname',$request->lname);
      session()->put('email',$request->email);
      session()->put('mobile',$request->mobile);
+     
      session()->put('payment_type',$request->payment);
    $amount = session()->put('payment',$request->amount1); 
 //   Easybuzz Payment

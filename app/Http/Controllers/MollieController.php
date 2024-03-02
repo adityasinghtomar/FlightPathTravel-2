@@ -375,7 +375,7 @@ class MollieController extends Controller
         	    $user_id = session()->get('user_id');
         	    	
         // 	Mail Function 		 
-        // 	$data = ['pnr_no' =>"$pnr_no", 'booking_id'=>"$booking_id" ,'amount'=>"$amount" ,'ticket_date'=>"$ticket_date" ];
+        // 	$data = ['pnr_no' =>"$pnr_no", 'booking_id'=>"$booking_id" ,'amount'=>"$amount" ,'ticket_date'=>"$ticket_date",'Destination'=>"$Destination",'Origin'=>"$Origin",'DepTime'=>"$DepTime",'ArrTime'=>"$ArrTime",'fname'=>"$fname",'lname'=>"$lname"];
         //     $user['to'] = $email;
         // Mail::send('welcome',$data,function($messages) use ($user){
             

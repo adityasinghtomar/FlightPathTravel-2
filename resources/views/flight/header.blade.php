@@ -21,10 +21,14 @@
     <link rel="stylesheet" href="public/assets/css/navber.css" />
     <!-- meanmenu css -->
     <link rel="stylesheet" href="public/assets/css/meanmenu.css" />
+    <!-- Spacing css -->
+    <link rel="stylesheet" href="public/assets/css/spacing.css" />
     <!-- Style css -->
     <link rel="stylesheet" href="public/assets/css/style.css" />
     <!-- Responsive css -->
     <link rel="stylesheet" href="public/assets/css/responsive.css" />
+    <!-- Select2 -->
+    <link rel="stylesheet" href="public/assets/css/select2.min.css" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/assets/img/favicon.png">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -475,6 +479,7 @@ $Currency_Symbol= "dd";
             </div>
         </div>
     </header>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    
 <script>

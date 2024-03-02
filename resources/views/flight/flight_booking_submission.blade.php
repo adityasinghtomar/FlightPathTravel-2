@@ -83,31 +83,23 @@
                                                             if($count == 2){
                                                                 echo "One"; 
                                                                 }
-                                                            if($count > 2){
+                                                            if($count == 4){
+                                                                echo "One"; 
+                                                                }     
+                                                            if($count == 3){
                                                                 echo "Multi"; 
                                                                 }    
+                                                            if($count > 4){
+                                                                echo "Multi"; 
+                                                                }  
                                                             
                                                              ?> Stops</h6>
                                             <p>
-                                                <?php 
-                                                            $input1 = $DepTime;; 
-                                                            $date = strtotime($input1); 
-                                                             $dapa_time = date('d-M-Y h:i a', $date); 
-                                                            ?>
-                                                            <?php 
-                                                            $input = $ArrTime;
-                                                            $date = strtotime($input); 
-                                                             $arr1_time = date('d-M-Y h:i a', $date); 
-                                                            
-                                                            $from_time = strtotime($dapa_time); 
-                                                                $to_time = strtotime($arr1_time); 
-                                                            $diff_minutes = abs($from_time - $to_time) / 60; 
-                                                           
-                                                           $hours = floor($diff_minutes / 60);
-                                                        $min = $diff_minutes - ($hours * 60);
+                                                <?php  $minutes = $Duration_time ?> 
+                                                        <?php $hours = floor($minutes / 60);
+                                                        $min = $minutes - ($hours * 60);
                                                         echo $hours."h : ".$min;echo"m ";
-                                                       
-                                                            ?>  
+                                                        ?> 
                                             </p>
                                             
                                         </div>

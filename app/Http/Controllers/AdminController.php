@@ -185,8 +185,13 @@ $data = $ress->Destinations;
         // print_r("sf");die;
        $data = UserDetails_Model::where('email',$request->email)->where('password',$request->password)->first();
         		$user_count = 0;
-// 		
-        return view('flight/admin/db-dashboard',compact('user_count'));
+        if($data){	
+            	$user_count = 0;
+        return view('flight/admin/db-dashboard',compact('user_count'));		
+// 		return view('flight/login')->with('message',"User Register Successfull...");    
+        // return view('flight/login');
+      }
+      return redirect()->back()->with('message',"Email And Password Wrong...");
     }
 
     /**

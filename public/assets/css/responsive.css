@@ -50,6 +50,31 @@
 }
 
 @media (max-width: 1199px) {
+    /* Multy City Begin */
+    .parent-new-flight-row .child-flight-row {
+        position: relative;
+        margin: 0px;
+        border: 1px solid #dddddd;
+        padding: 20px 10px 0px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .parent-new-flight-row .child-flight-row .btn.btn-th-outline-danger {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        border-radius: 0px;
+        padding: 0 !important;
+        height: 100%;
+        width: 30px;
+        background: #da5f5f;
+        color: white;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    /* Multy City End */
+
     .flight_show_down_wrapper {
         display: inherit;
     }
@@ -99,9 +124,68 @@
     .video_play_area img {
         height: 50vh;
     }
+
+    .topbar-others-options {
+        li {
+            a {
+                border: none;
+                padding: 0;
+                background: none !important;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .login-func-visible {
+        display: block;
+        top: 20px;
+        right: 65px;
+        position: absolute;
+        color: white;
+        font-size: 19px;
+        z-index: 999;
+    }
 }
 
 @media (max-width: 992px) {
+    /* One Way Begin */
+    .opt-one-way .btn.btn-interchange {
+        border: none;
+        padding: 0 !important;
+        background: transparent;
+    }
+
+    .opt-one-way .btn.btn-interchange svg path {
+        fill: var(--blue-color);
+    }
+    /* One Way End */
+
+    /* Multy City Begin */
+    .parent-new-flight-row .child-flight-row {
+        position: relative;
+        margin: 0px;
+        border: 1px solid #dddddd;
+        padding: 20px 10px;
+        border-radius: 10px;
+        margin-bottom: 40px;
+    }
+
+    .parent-new-flight-row .child-flight-row .btn.btn-th-outline-danger {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: -20px;
+        top: unset;
+        border-radius: 30px;
+        padding: 0 !important;
+        height: 40px;
+        width: 40px;
+        background: #da5f5f;
+        color: white;
+    }
+    /* Multy City End */
+
     .theme_search_form_tabbtn .nav-tabs {
         border-bottom: none;
         justify-content: center;
@@ -152,7 +236,7 @@
     }
 
     #home_one_banner {
-        padding: 275px 0 280px 0;
+        padding: 140px 0 160px 0;
     }
 
     .topbar-list li:first-child {
@@ -230,6 +314,12 @@
 }
 
 @media (max-width: 767px) {
+    .btns-top-right {
+        position: relative;
+        right: unset;
+        text-align: right;
+        margin-bottom: 20px;
+    }
     .cruise_content_bottom_wrapper {
         display: inherit;
         padding-top: 13px;
@@ -365,7 +455,7 @@
     }
 
     #home_one_banner {
-        padding: 160px 0 155px 0;
+        padding: 40px 0 155px 0;
     }
 
     .section_heading_center h2 {

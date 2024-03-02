@@ -39,7 +39,6 @@
             </div>
         </div>
     </section>
-
     <!-- Tour Booking Submission Areas -->
     <section id="tour_booking_submission" class="section_padding">
         <div class="container">
@@ -170,16 +169,6 @@
                 <?php print_r($RoomTypeName); ?>
                 @endif</h3>
                                 </div>
-                                <div class="valid_date_area">
-                                    <div class="valid_date_area_one">
-                                        <h5>Valid from</h5>
-                                        <p></p>
-                                    </div>
-                                    <div class="valid_date_area_one">
-                                        <h5>Valid till</h5>
-                                        <p></p>
-                                    </div>
-                                </div>
                                 <div class="tour_package_details_bar_list">
                                     <h5>Room facilities</h5>
                                     <ul>
@@ -199,11 +188,11 @@
                                     <div class="tour_package_bar_price">
                                         <!--<h6><del>$ 35,500</del></h6>-->
                                          @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h3>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php $base123 = $OfferedPriceRoundedOff; ?> <?php $perce = $base123/100*$commision ?> <?php echo round($total = $perce + $base123); ?> @endif<sub> </sub></h3>
+                                            <h3>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h3>
                                         @else
                                         <h3>@if(isset($RoomTypeName))
-                                        <?php print_r($CurrencyCode); ?> <?php print_r($OfferedPriceRoundedOff); ?>
-                                        @endif<sub>/Per serson</sub> </h3>
+                                        <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>
+                                        @endif<sub></sub> </h3>
                                         @endif
                                     </div>
                                 </div>
@@ -256,25 +245,25 @@
                         <!--        </div>-->
                         <!--    </div>-->
                         <!--</div>-->
-                        <div class="tour_detail_right_sidebar">
-                            <div class="tour_details_right_boxed">
-                                <div class="tour_details_right_box_heading">
-                                    <h3>Coupon code</h3>
-                                </div>
-                                <div class="coupon_code_area_booking">
-                                    <form action="#!">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control bg_input"
-                                                placeholder="Enter coupon code">
-                                        </div>
-                                        <div class="coupon_code_submit">
-                                            <button class="btn btn_theme btn_md">Apply voucher</button>
-                                        </div>
-                                    </form>
-                                </div>
+                        <!--<div class="tour_detail_right_sidebar">-->
+                        <!--    <div class="tour_details_right_boxed">-->
+                        <!--        <div class="tour_details_right_box_heading">-->
+                        <!--            <h3>Coupon code</h3>-->
+                        <!--        </div>-->
+                        <!--        <div class="coupon_code_area_booking">-->
+                        <!--            <form action="#!">-->
+                        <!--                <div class="form-group">-->
+                        <!--                    <input type="text" class="form-control bg_input"-->
+                        <!--                        placeholder="Enter coupon code">-->
+                        <!--                </div>-->
+                        <!--                <div class="coupon_code_submit">-->
+                        <!--                    <button class="btn btn_theme btn_md">Apply voucher</button>-->
+                        <!--                </div>-->
+                        <!--            </form>-->
+                        <!--        </div>-->
 
-                            </div>
-                        </div>
+                        <!--    </div>-->
+                        <!--</div>-->
                         <div class="tour_detail_right_sidebar">
                             <div class="tour_details_right_boxed">
                                 <div class="tour_details_right_box_heading">
@@ -283,44 +272,32 @@
 
                                 <div class="tour_booking_amount_area">
                                     <ul>
-                                        <li>Adult Price x 1 <span>
-                                            @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h6>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php $base123 = $OfferedPriceRoundedOff; ?> <?php $perce = $base123/100*$commision ?> <?php echo round($total = $perce + $base123); ?> @endif<sub> </sub></h6>
-                                        @else
-                                            @if(isset($RoomTypeName))
+                                        <li>Off.Rate <span>
                                             <?php print_r($CurrencyCode); ?> <?php print_r($OfferedPriceRoundedOff); ?>
-                                            @endif
-                                        @endif    
-                                        </span></li>
-                                        <li>Discount <span>@if(isset($RoomTypeName))
-                <?php print_r($CurrencyCode); ?> <?php print_r($Discount); ?>
-                @endif</span></li>
-                                        <li>Tax<span>@if(isset($RoomTypeName))
-                <?php print_r($CurrencyCode); ?> <?php print_r($Tax); ?>
-                @endif</span></li>
+                                        </span>
+                                        </li>
+                                        <li>Pub.Rate <span>
+                                            <?php print_r($CurrencyCode); ?> <?php print_r($PublishedPriceRoundedOff); ?>
+                                        </span>
+                                        </li>
                                     </ul>
                                     <div class="tour_bokking_subtotal_area">
                                         <h6>Subtotal <span>
                                              @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                                <h6>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php $base123 = $OfferedPriceRoundedOff; ?> <?php $perce = $base123/100*$commision ?> <?php echo round($total = $perce + $base123 + $Tax); ?> @endif<sub> </sub></h6>
+                                                <h6>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h6>
                                              @else
                                                 @if(isset($RoomTypeName))
-                                                <?php print_r($CurrencyCode); ?> <?php print_r($OfferedPriceRoundedOff + $Tax - $Discount); ?>
+                                                <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>
                                                 @endif
                                              @endif
                 </span></h6>
                                     </div>
-                                    <div class="coupon_add_area">
-                                        <h6><span class="remove_coupon_tour">Remove</span> Coupon code (OFF 5000)
-                                            <span>00.00</span>
-                                        </h6>
-                                    </div>
                                     <div class="total_subtotal_booking">
                                         <h6>Total Amount <span> @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                                <h6>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php $base123 = $OfferedPriceRoundedOff; ?> <?php $perce = $base123/100*$commision ?> <?php echo round($total = $perce + $base123 + $Tax); ?> @endif<sub> </sub></h6>
+                                                <h6>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h6>
                                              @else
                                                 @if(isset($RoomTypeName))
-                                                <?php print_r($CurrencyCode); ?> <?php print_r($OfferedPriceRoundedOff + $Tax - $Discount); ?>
+                                                <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>
                                                 @endif
                                              @endif
                                              </span> </h6>

@@ -226,6 +226,14 @@ $daa;
 $fli_data = "dd";
 $form_status1 ="flight_form";
 $token_id = $result->TokenId;
+
+//   	$data = ['pnr_no' =>"6677", 'booking_id'=>"67676" ,'amount'=>"5665" ,'ticket_date'=>"5656",'fname'=>"Umesh",'lname'=>"mandrai",'Origin'=>"BHO",'Destination'=>"DEL",'DepTime'=>"22-04-2024", ];
+//             $user['to'] = "umeshmandrai1998@gmail.com";
+//         Mail::send('welcome',$data,function($messages) use ($user){
+            
+//             $messages->to($user['to']);
+//             $messages->subject('flight Booking');   
+//         });	
 // Close cURL resource 
 //  print_r($ress);die;
 curl_close($ch); 
@@ -316,9 +324,12 @@ $url = $endpoint;
      session()->put('Source_name',$request->Source_name);
      session()->put('Source_address',$request->Source_address);
      session()->put('Duration',$request->Duration);
+     session()->put('Duration_time',$request->Duration_time);
+     
     
         $ResultIndex = session()->get('ResultIndex');
     // print_r($ResultIndex);die;
+    $Duration_time = session()->get('Duration_time');
     $TraceId = session()->get('TraceId');
     $token_id = session()->get('token_id');
     $EndUserIp = session()->get('EndUserIp');
@@ -367,7 +378,7 @@ $url = $endpoint;
     $adult = session()->get('adult');
     $count = session()->get('count');
     $success = '';
-    return view('flight/flight_booking_submission',compact('convertedAmount','success','Duration','count','adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
+    return view('flight/flight_booking_submission',compact('Duration_time','convertedAmount','success','Duration','count','adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
     }	
 	
  public function flight_booking_det(Request $request)
@@ -2062,7 +2073,7 @@ $form_status = $request->form_status;
 $from = $request->from;
 $to = $request->to;
 $journey_date = $request->journey_date;
-
+$return_date = $request->return_date;
  $from1 = "";
  $to1 = "";
  $journey_date1 = "";
@@ -2169,7 +2180,7 @@ $token_id = $result->TokenId;
 //  print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
+        return view('flight/flight_search_result',compact('return_date','form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
     } 
     
     //Multi City 

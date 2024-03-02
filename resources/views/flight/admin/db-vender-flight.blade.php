@@ -34,7 +34,9 @@
                         <th>Mobile</th>
                         <th>Booking ID</th>	
                         <th>Confimation No</th>
+                        <th>Amount</th>
                         <th>Booking Status</th>
+                        
                         
             </tr>
         </thead>
@@ -47,6 +49,7 @@
                         <td><?php print_r($flights->mobile);?></td>
                         <td> <?php print_r($flights->booking_id);?></td>
                         <td><?php print_r($flights->confimation_no);?></td>
+                        <td><?php print_r($flights->amount);?></td>
                         <td><span class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">Confirmed</span></td>
                         
                       </tr>

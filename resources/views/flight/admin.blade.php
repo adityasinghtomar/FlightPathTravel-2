@@ -37,7 +37,11 @@
             </div>
         </div>
     </section>
-
+    @if (session()->has('message'))
+                                <div class="alert alert-success" style="margin-left: 70%;font-style: italic;color: green;font-size: large;">
+                                    {{ session()->get('message') }}
+                                </div>
+                            @endif
     <!--  Common Author Area -->
     <section id="common_author_area" class="section_padding">
         <div class="container">

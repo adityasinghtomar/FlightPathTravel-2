@@ -39,7 +39,7 @@
             </div>
         </div>
     </section>
-
+<?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
     <!-- Room Details Areas -->
     <div class="col-sm-12">
                     <div class="row">
@@ -60,8 +60,7 @@
                                                         <p><i class="fas fa-map-marker-alt"></i> <?php echo $Hoteladdress?></p>
                                                     </div>
                                                     <div class="cruise_content_top_right">
-                                                        <h5><?php echo $StarRating?></h5>
-                                                        <h4>(1214 reviewes)</h4>
+                                                        <h5><?php echo $StarRating?> Star</h5>
                                                     </div>
                                                 </div>
                                                 <div class="cruise_content_middel_wrapper">
@@ -80,17 +79,17 @@
                                                     </div>
                                                     <div class="cruise_content_middel_right">
                                                         @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                                        <h3><?php echo $room_data1->Price->CurrencyCode;?><?php $base123 = $room_data1->Price->OfferedPriceRoundedOff;?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?></h3>
+                                                        <p>Off.Rate {{ $Currency_active->currency_symbol}}<?php $base123 = $room_data1->Price->OfferedPriceRoundedOff;?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?></p>
                                                         @else
-                                                        <h3><?php echo $room_data1->Price->CurrencyCode; ?> <?php echo $room_data1->Price->OfferedPriceRoundedOff; ?></h3>
+                                                        <p>Off.Rate {{ $Currency_active->currency_symbol}} <?php echo $room_data1->Price->OfferedPriceRoundedOff; ?></p>
                                                         @endif
-                                                        <p>+ <?php echo $room_data1->Price->CurrencyCode; ?> <?php echo $room_data1->Price->Tax; ?></p>
+                                                        <p>Pub.Rate {{ $Currency_active->currency_symbol}} <?php echo $room_data1->Price->PublishedPriceRoundedOff; ?></p>
                                                     </div>
                                                 </div>
                                                 <div class="cruise_content_bottom_wrapper">
                                                     <div class="cruise_content_bottom_left">
                                                         <ul>
-                                                            <li><?php echo $room_data1->RatePlanName; ?></li>
+                                                            <li><?php if(isset($room_data1->RatePlanName)){ echo $room_data1->RatePlanName; } ?></li>
                                                         </ul>
                                                     </div>
                                                     <div class="cruise_content_bottom_right">

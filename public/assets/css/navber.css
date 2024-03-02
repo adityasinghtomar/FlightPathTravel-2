@@ -23,7 +23,7 @@
 .topbar-list li::before {
     content: "";
     position: absolute;
-    top: 5px;
+    top: 3px;
     right: -15px;
     width: 1px;
     height: 15px;
@@ -54,7 +54,9 @@
 .topbar-others-options {
     padding: 0;
     margin-bottom: 0;
-    text-align: end
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 
 .topbar-others-options li {
@@ -67,8 +69,8 @@
 .topbar-others-options li::before {
     content: "";
     position: absolute;
-    top: 5px;
-    right: -15px;
+    top: 3px;
+    left: -15px;
     width: 1px;
     height: 15px;
     background-color: #dbdbdb78;
@@ -78,7 +80,7 @@
     margin-right: 0
 }
 
-.topbar-others-options li:last-child::before {
+.topbar-others-options li:first-child::before {
     display: none
 }
 
@@ -476,13 +478,16 @@
     margin-top: 0
 }
 
-.main-navbar .navbar .others-options {
+.navbar-area.is-sticky .main-navbar .navbar .others-options {
     margin-left: 25px
 }
 
 .main-navbar .navbar .others-options .option-item {
-    margin-right: 30px;
     position: relative
+}
+
+.main-navbar .navbar .others-options .option-item:last-child {
+    display: none;
 }
 
 .main-navbar .navbar .others-options .option-item::before {
@@ -495,7 +500,7 @@
     background-color: #dbdbdb
 }
 
-.main-navbar .navbar .others-options .option-item:first-child {
+.navbar-area.is-sticky .main-navbar .navbar .others-options .option-item:first-child {
     margin-right: 35px;
 }
 
@@ -1176,8 +1181,8 @@
 
     .navbar-area {
         background-color: var(--main-color);
-        padding-top: 15px;
-        padding-bottom: 15px
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
     .topbar-area {
