@@ -52,7 +52,7 @@
                             <h2>Logged in to stay in touch</h2>
                         </div>
                         <div class="common_author_form">
-                             <form action="{{url('/user-login')}}" enctype="multipart/form-data" method="post">
+                             <form action="{{url('/user_login')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                 <div class="form-group">
                                     <input type="email" class="form-control" name="email" placeholder="Enter user email" required/>
@@ -215,18 +215,49 @@
         <i class="fas fa-chevron-up"></i>
     </div>
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+    <script src="public/assets/js/jquery-3.6.0.min.js"></script>
+
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
+
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
+
+    <!-- Range js -->
+
+    <script src="public/assets/js/nouislider.min.js"></script>
+
+    <script src="public/assets/js/wNumb.js"></script>
+
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+
+    <script src="public/assets/js/wow.min.js"></script>
+
+    <!-- Select2 -->
+
+    <script src="public/assets/js/select2.min.js"></script>
+
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/custom.js"></script>
+
+    <script src="public/assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/form-dropdown.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+
 
 </body>
 

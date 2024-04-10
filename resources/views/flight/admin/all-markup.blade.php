@@ -30,7 +30,9 @@
         <thead>
             <tr>
                         <th>Mark-Up Name</th>
-                        <th>Mark-Up %</th>
+                        <th>Mark-Up Type</th>
+                        <th>Mark-Up Amount</th>
+                        <th>Mark-Up Status</th>
                         <th>Action</th>
                         
             </tr>
@@ -40,13 +42,15 @@
                     @foreach($commision as $flights)    
                      <tr>
                        <td><?php echo $flights->name; ?></td>
+                       <td><?php echo $flights->markup_type; ?></td>
                         <td><?php echo $flights->markup_amount; ?></td>
+                        <td><?php echo $flights->status; ?></td>
                         <td>
                           <div class="row x-gap-10 y-gap-10 items-center">
 
                              <div class="col-auto">
                            <a href="" id="editCompany" class="addAttr" data-toggle="modal" data-target='#practice_modal' data-id="{{$flights->id}}" 
-                                data-name="{{$flights->name}}" data-commision="{{$flights->markup_amount}}"
+                                data-name="{{$flights->status}}" data-commision="{{$flights->markup_amount}}"
                                 >Edit</a>
                                 </div>
 
@@ -73,13 +77,16 @@
                     <div class="col-6">
                       <div class="form-input ">
                           <input type="hidden" name="id" id="id" value=""> 
-                        <label class="lh-1 text-16 text-light-1" style="padding:16px 1px 15px 12px;">Mark-Up Name</label>
-                        <input type="text" name="name" value="" id="name" required style="margin-left:10px;">
+                        <label class="lh-1 text-16 text-light-1" style="padding:16px 1px 15px 12px;">Mark-Up Status</label>
+                        <select class="form-control demo-select2-placeholder" name="name" id="name" >
+                            <option value="active">Active</option>
+                            <option value="inactive">In-Active</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1" style="padding:16px 1px 15px 12px;">Mark-Up % </label>
+                        <label class="lh-1 text-16 text-light-1" style="padding:16px 1px 15px 12px;">Mark-Up Amount </label>
                         <input type="number" name="markup_amount" id="commision" value="" required>
                       </div>
                     </div>

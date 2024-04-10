@@ -42,6 +42,27 @@
     <!-- Form Area -->
    @include('flight.flight_search_form')
 
+ @if(isset($ress->HotelSearchResult->HotelResults))
+                <?php $data = $ress->HotelSearchResult->HotelResults; ?>
+                <?php $Total_three = 0; ?>
+ <?php $Total_four = 0; ?>
+  <?php $Total_five = 0; ?>
+  <?php $Total_hotels = 0; ?>
+                @foreach($data as $data1)
+                           <?php if($data1->StarRating){
+                            $Total_hotels++; 
+                            } ?>
+                           <?php if($data1->StarRating == '3'){
+                            $Total_three++; 
+                            } ?>
+                            <?php if($data1->StarRating == '4'){
+                            $Total_four++; 
+                            } ?>
+                            <?php if($data1->StarRating == '5'){
+                            $Total_five++; 
+                            } ?>
+                @endforeach
+@endif                
     <!-- Flight Search Areas -->
     <section id="explore_area" class="section_padding">
         <div class="container">
@@ -86,34 +107,33 @@
                         <div class="col-md-12 mb-10">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="travelstops" id="travelstopsany" value="Any" checked="">
-                                    <label class="form-check-label" for="tripOneway">Any</label>
+                                    <label class="form-check-label" for="tripOneway">ALL</label>
                                 </div>
-                                <small></small>
+                                <small><?php if(isset($Total_hotels)){ echo $Total_hotels; }?></small>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="form-check">    
                                     <input type="checkbox" class="form-check-input" name="star" value="Three" >
                                     <label class="form-check-label" for="tripRoundtrip">3 Star</label>
                                 </div>
-                                <small>0</small>
+                                <small><?php if(isset($Total_three)){ echo $Total_three; }?></small>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="star" value="Four" >
                                     <label class="form-check-label" for="tripMulticity">4 star</label>
                                 </div>
-                                <small>0</small>
+                                <small><?php if(isset($Total_four)){ echo $Total_four; }?></small>
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="star" value="Five" >
                                     <label class="form-check-label" for="tripMulticity">5 star</label>
                                 </div>
-                                <small>0</small>
+                                <small><?php if(isset($Total_five)){ echo $Total_five; }?></small>
                             </div>
                             
-                        </div>
+                        </div> 
                     </div>
                     <!--<div class="left_side_search_area">-->
                         
@@ -174,10 +194,132 @@
   background-color: transparent !important;
   pointer-events: none;
 }
-    </style>    
-    <div class="col-md-9">
-                    <div class="flight-list-grid">
-                        @if(isset($ress->HotelSearchResult->HotelResults))
+    </style>   
+    <style>
+        
+.search-card-result {
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  margin: 1rem 0;
+  padding: 0.5rem 0;
+  background-color: #fff;
+}
+.search-card-result img {
+  height: 190px;
+  width:100%;
+}
+.search-card-result h5 {
+  font-style: 1.1rem;
+  font-weight: 700;
+}
+.search-card-result p {
+  font-size: 0.9rem;
+}
+
+.search-card-result .more-offers p {
+  margin-bottom: 0.3rem;
+}
+
+.more-offers .additional {
+  padding-top: 0.2rem;
+  font-weight: 700;
+}
+
+.fa.checked {
+  color: orange;
+}
+
+.map-container-btn {
+  height: 100px;
+
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  background-color: wheat;
+}
+
+.map-container-btn .btn {
+  margin-top: 30px;
+}
+
+.filter-card {
+  padding: 0;
+  background: #fff;
+  color: black;
+}
+
+.filter-card h5 {
+  margin: 10px 0;
+  padding: 1rem;
+
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  color: #000;
+}
+.filter-card form {
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  padding: 0.5rem 2rem;
+}
+.map-btn {
+  background-color: #fff !important;
+}
+
+/* SOCIAL ICONS.CSS */
+
+  .nav .fa {
+    margin: 5px 2px;
+    padding: 20px;
+    
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  
+  .fa-google {
+    background: #dd4b39;
+    color: white;
+  }
+  
+  .fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  
+  .fa-instagram {
+    background: #DA4453;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #89216B, #DA4453);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #89216B, #DA4453); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    color: white;
+  }
+  
+  .fa-pinterest {
+    background: #cb2027;
+    color: white;
+  }
+  
+  .fa-snapchat-ghost {
+    background: #fffc00;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+    </style>
+    <div class="col-lg-9">
+          @if(isset($ress->HotelSearchResult->HotelResults))
                 <?php $data = $ress->HotelSearchResult->HotelResults; ?>
                 <?php $NoOfRooms = $ress->HotelSearchResult->NoOfRooms; ?>
                 
@@ -185,7 +327,7 @@
                 <?php $CheckOutDate = $ress->HotelSearchResult->CheckOutDate; ?>
                 <?php $TraceId = $ress->HotelSearchResult->TraceId; ?>
                 @foreach($data as $data1)
-                        <?php 
+                         <?php 
                                                             if($data1->StarRating == '1'){
                                                                 $star = "One"; 
                                                                 }
@@ -204,56 +346,82 @@
                                                             else{
                                                                $star = "three";   
                                                             }
-                                                             ?>    
-                        <div class="border-box-style-1 p-20 content player <?php echo $star; ?>">
-                            <div class="flight-list-grid-airline">
-                                <div class="flight-list-grid-airline__left">
-                                    <div class="flight-list-grid-airline__left__img">
-                                        <div class="rounded-square-40-style-1">
-                                            <img src="<?php print_r($data1->HotelPicture); ?>" onerror="this.src='public/assets/img/hote.avif'" />
-                                        </div>
+                                                             ?> 
+                        <div class="content player <?php echo $star; ?>">
+					<div class="row search-card-result ">
+						<div class="col-md-3">
+						  
+							<img class="img-fluid"src="<?php print_r($data1->HotelPicture); ?>" onerror="this.src='public/assets/img/hote.avif'" alt="">
+						</div>
+						<div class="col-md-6">
+							<h5> <?php print_r($data1->HotelName); ?></h5>
+							<div class="review">
+							 
+<?php
+$StarRating = $data1->StarRating; 
+
+
+echo '<div>';
+for ($i = 1; $i <= 5; $i++) {
+    if ($i <= $StarRating) {
+        echo '<span class="fa fa-star checked"></span>';
+    }
+}
+echo '</div>';
+?>
+							</div>
+							<p><i class="fas fa-map-marker-alt"></i> <?php print_r($data1->HotelAddress); ?></p>
+						
+							<p>
+							     <h5>Free cancellation</h5>
+                                                        <p>Cancel your booking at any time</p>
+							    
+								<i class="fa fa-bath"></i>
+								<i class="fa fa-phone"></i>
+								<i class="fa fa-wifi"></i>
+								<i class="fa fa-tv"></i>
+							</p>
+						</div>
+						
+						<div class="col-md-3 border-left text-center more-offers" style="border-left: 1px solid #ababab;
+    background: #f1f1f1;">
+							<h2 style="margin:10px 0px 15px 0px;">
+								Top Deal
+							</h2>
+							<div class="text-warning">
+
+							</div>
+							<div class="text-success">
+							    <div class="flight-list-grid-price-time__right__price">
+                                        <del><h5 style="margin-bottom:10px;">Pub.Rate {{ $Currency_active->currency_symbol}} <?php  $subtotal1= $data1->Price->PublishedPriceRoundedOff;echo round($subtotal1, 2); ?></h5></del>
+                                        <h5 style="margin-bottom:10px;">Off.Rate {{ $Currency_active->currency_symbol}} 
+                                         <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
+                                 
+                                <?php if($mark_up) { 
+                                            if($mark_up->markup_type =='fixed'){
+                                                $mark_up->markup_amount;
+                                                $subtotal= $data1->Price->OfferedPriceRoundedOff + $mark_up->markup_amount;
+                                                echo round($subtotal, 2);
+                                            }
+                                            else {
+                                              $percentage = ($mark_up->markup_amount / 100) * $data1->Price->OfferedPriceRoundedOff; 
+                                              $subtotal= $data1->Price->OfferedPriceRoundedOff + $percentage;
+                                                echo round($subtotal);
+                                            //   echo $percentage;
+                                            }
+                                            } 
+                                             else{
+                                    $subtotal= $data1->Price->OfferedPriceRoundedOff;
+                                                echo round($subtotal);
+                                              }   
+                                            ?>
+                                         </h5>
+                                        
                                     </div>
-                                    <div class="flight-list-grid-airline__left__title px-20">
-                                        <?php print_r($data1->HotelName); ?>
-                                    </div>
-                                    <div class="flight-list-grid-airline__left__sub-title px-20">
-                                        Star <span><?php print_r($data1->StarRating); ?></span>
-                                    </div>
-                                </div>
-                                <div class="flight-list-grid-airline__right">
-                                    </i><?php print_r($data1->HotelAddress); ?>
-                                </div>
-                            </div>
-                            <div class="flight-list-grid-price-time mt-15">
-                                <div class="flight-list-grid-price-time__left">
-                                    <div class="flight-list-grid-price-time__left__block-1">
-                                        <h4>Check In Date</h4>
-                                        <h6><?php print_r($CheckInDate); ?></h6>
-                                    </div>
-                                    <div class="flight-list-grid-price-time__left__block-2">
-                                        <h6 class="flight-list-grid-price-time__left__block-2__time"><?php print_r($NoOfRooms);?></h6>
-                                        <h6>Rooms</h6>
-                                    </div>
-                                    <div class="flight-list-grid-price-time__left__block-3">
-                                        <h4>Check Out Date</h4>
-                                        <h6><?php print_r($CheckOutDate); ?></h6>
-                                    </div>
-                                </div>
-                                <div class="flight-list-grid-price-time__right">
-                                    <div class="flight-list-grid-price-time__right__price">
-                                        <h6>Off.Rate {{ $Currency_active->currency_symbol}} <?php  $subtotal= $data1->Price->OfferedPriceRoundedOff;echo round($subtotal, 2); ?></h6>
-                                        <h6>Pub.Rate {{ $Currency_active->currency_symbol}} <?php  $subtotal1= $data1->Price->PublishedPriceRoundedOff;echo round($subtotal1, 2); ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flight-list-grid-more-details-book-now mt-15">
-                                <div class="flight-list-grid-more-details-book-now__left">
-                                    <h4></h4>
-                                </div>
-                                 <?php $room_price = $data1->Price->RoomPrice; ?><?php $room_service_tax = $data1->Price->ServiceTax; ?><?php $room_OtherCharges = $data1->Price->OtherCharges; ?> 
+							<?php $room_price = $data1->Price->RoomPrice; ?><?php $room_service_tax = $data1->Price->ServiceTax; ?><?php $room_OtherCharges = $data1->Price->OtherCharges; ?> 
                                                     <?php $total_amount = $room_price + $room_service_tax + $room_OtherCharges?>
-                                                   
-                                  <form action="{{url('/room_information')}}" enctype="multipart/form-data" method="post">
+
+						 <form action="{{url('/room_information')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                             <input type="hidden" name="StarRating" value="<?php echo $data1->StarRating;?>">
                                             <input type="hidden" name="Hotelname" value="<?php echo $data1->HotelName;?>">
@@ -264,18 +432,26 @@
                                             <input type="hidden" name="EndUserIp" value="192.168.11.120">
                                             <input type="hidden" name="HotelCode" value="<?php echo $data1->HotelCode;?>">
                                             <input type="hidden" name="total_amount" value="<?php echo $total_amount;?>">
+                                            <input type="hidden" name="adult" value="<?php echo $adult;?>">
                                             <input type="hidden" name="CurrencyCode" value="<?php echo $data1->Price->CurrencyCode;?>">
                                              <div class="flight-list-grid-more-details-book-now__right">
                                                 <button class="btn btn-theme-blue px-25 py-10">Room Select</button>
                                             </div> 
                                         </form>
-                                
-                            </div>
-                        </div>
-                        @endforeach
+						</div>
+					</div>
+					
+				</div>
+				</div>
+				 @endforeach
+				 
                           @endif
-                    </div>
-                </div>
+                          <div class="load_more_flight">
+                                <a href="#" id="loadMore">Load More</a>
+                                <!--<button class="btn btn_md"><i class="fas fa-spinner"></i> Load more..</button>-->
+                            </div>
+				</div>
+    
     
             </div>
         </div>
@@ -310,112 +486,7 @@
     </section>
 
     <!-- Footer  -->
-    <footer id="footer_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Need any help?</h5>
-                    </div>
-                    <div class="footer_first_area">
-                        <div class="footer_inquery_area">
-                            <h5>Call 24/7 for any help</h5>
-                            <h3> <a href="tel:+00-123-456-789">+00 123 456 789</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Mail to our support team</h5>
-                            <h3> <a href="mailto:support@flightpathtravel.com">support@flightpathtravel.com</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Follow us on</h5>
-                            <ul class="soical_icon_footer">
-                                <li><a href="#!"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-twitter-square"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Company</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li><a href="faqs.html">Rewards</a></li>
-                            <li><a href="terms-service.html">Work with Us</a></li>
-                            <li><a href="tour-guides.html">Meet the Team </a></li>
-                            <li><a href="news.html">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Support</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="dashboard.html">Account</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="testimonials.html">Legal</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="top-destinations.html"> Affiliate Program</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Other Services</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="top-destinations-details.html">Community program</a></li>
-                            <li><a href="top-destinations-details.html">Investor Relations</a></li>
-                            <li><a href="flight-search-result.html">Rewards Program</a></li>
-                            <li><a href="room-booking.html">PointsPLUS</a></li>
-                            <li><a href="testimonials.html">Partners</a></li>
-                            <li><a href="hotel-search.html">List My Hotel</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Top cities</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="room-details.html">Chicago</a></li>
-                            <li><a href="hotel-details.html">New York</a></li>
-                            <li><a href="hotel-booking.html">San Francisco</a></li>
-                            <li><a href="tour-search.html">California</a></li>
-                            <li><a href="tour-booking.html">Ohio </a></li>
-                            <li><a href="tour-guides.html">Alaska</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="copyright_area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_left">
-                        <p>Copyright © 2022 All Rights Reserved</p>
-                    </div>
-                </div>
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_right">
-                        <img src="assets/img/common/cards.png" alt="img">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  @include('auth.cust_footer')
     <div class="go-top">
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>

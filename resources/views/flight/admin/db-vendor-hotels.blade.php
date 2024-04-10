@@ -40,10 +40,11 @@
                         <th>Trace Id</th>
                         <th>Amount</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Cancel Ticket</th>
+                        <th>Ticket</th>
                         
             </tr>
-        </thead>
+        </thead> 
         <tbody>
             @if(isset($flight))    
                     @foreach($flight as $flights)    
@@ -64,6 +65,11 @@
                        <td> <div class="col-auto">
                            <a href="{{url('/ticket-cancel'.$flights->booking_id)}}"  class="btn btn_theme btn_md addAttr" 
                                 style="background-color:blue; color:white;border-radius: 12px;padding: 12px 28px;">Cancel</a>
+                         </div>
+                        </td> 
+                        <td> <div class="col-auto">
+                           <a href="{{url('/ticket-details'.$flights->booking_id)}}"  class="btn btn_theme btn_md addAttr" 
+                                style="background-color:blue; color:white;border-radius: 12px;padding: 12px 28px;">Ticket </a>
                          </div>
                         </td> 
                       </tr>

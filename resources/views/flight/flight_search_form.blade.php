@@ -1,4 +1,330 @@
+<style>
+        .custom-select-wrapper {
+            position: relative;
+        }
 
+        .select-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+         .select-options1 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #f8f9fa;
+        }
+         .option1 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option1:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .select-options3 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option3 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option3:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options2 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option2 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option2:hover {
+            background-color: #f8f9fa;
+        }
+         .option3:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options4{
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option4 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option4:hover {
+            background-color: #f8f9fa;
+        }
+       
+           .select-options5 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option5 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option5:hover {
+            background-color: #f8f9fa;
+        }
+        .select-options6 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option6 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option6:hover {
+            background-color: #f8f9fa;
+        }
+        .select-options7 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option7 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option7:hover {
+            background-color: #f8f9fa;
+        }
+         .select-options8 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option8 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option8:hover {
+            background-color: #f8f9fa;
+        }
+          .select-options9 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option9 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option9:hover {
+            background-color: #f8f9fa;
+        }
+          .select-options10 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option10 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option10:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+    const adultInput = document.querySelector('.getadult_data');
+    const childInput = document.querySelector('.form-control[name="child"]');
+    const adultCountDisplay = document.getElementById('adultCount');
+    const childCountDisplay = document.getElementById('childCount');
+       const adult1CountDisplay = document.getElementById('adultCount1');
+    const child1CountDisplay = document.getElementById('childCount1');
+    const totalTravellersDisplay = document.getElementById('totalTravellers');
+    const doneButton = document.getElementById('doneButton');
+
+    // Function to update the display for both adult and child counts
+    const updateDisplay = () => {
+        const adultCount = parseInt(adultInput.value) || 0;
+        const childCount = parseInt(childInput.value) || 0;
+        const totalTravellers = adultCount + childCount;
+
+         adultCountDisplay.textContent = adultCount;
+        childCountDisplay.textContent = childCount;
+             adult1CountDisplay.value = adultCount;
+        child1CountDisplay.value = childCount;
+        totalTravellersDisplay.textContent = totalTravellers;
+    };
+
+    // Increase Adult count
+    document.querySelector('.inc-dec-count-box__plus').addEventListener('click', function() {
+        adultInput.value = parseInt(adultInput.value) + 1;
+        updateDisplay(); // Update the display
+    });
+
+    // Decrease Adult count
+    document.querySelector('.inc-dec-count-box__minus').addEventListener('click', function() {
+        const currentValue = parseInt(adultInput.value);
+        if (currentValue > 1) {
+            adultInput.value = currentValue - 1;
+        } else {
+            adultInput.value = 1; // Ensure adult count doesn't go below 1
+        }
+        updateDisplay(); // Update the display
+    });
+
+    // Increase Child count
+    document.querySelector('.inc-dec-count-box__plus1').addEventListener('click', function() {
+        childInput.value = parseInt(childInput.value) + 1;
+        updateDisplay(); // Update the display
+    });
+
+    // Decrease Child count
+    document.querySelector('.inc-dec-count-box__minus1').addEventListener('click', function() {
+        const currentValue = parseInt(childInput.value);
+        if (currentValue > 0) {
+            childInput.value = currentValue - 1;
+        }
+        updateDisplay(); // Update the display
+    });
+
+    // Done button click event (you can replace this with your actual logic)
+    doneButton.addEventListener('click', function() {
+        alert('Passenger selection done!');
+    });
+});
+
+
+</script>
 <section class="sec-booking">
         <div class="container">
             <div class="row">
@@ -91,7 +417,8 @@
                                         <div class="dropdown dropdown-style-1">
                                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span>Adult 1</span>
+                                                <span>Adult <span id="adultCount">1</span></span>
+    <span>Child <span id="childCount">0</span></span>
                                             </button>
                                             <ul class="dropdown-menu pt-0 pb-0" aria-labelledby="dropdownMenuButton1">
                                                 <li>
@@ -110,7 +437,7 @@
                                                                         <i class="fas fa-minus"></i>
                                                                     </div>
                                                                     <div class="inc-dec-count-box__value">
-                                                                        <input type="email" class="form-control"
+                                                                        <input type="email" class="form-control  getadult_data"
                                                                             id="exampleFormControlInput1" name="adult" value="1">
                                                                     </div>
                                                                     <div class="inc-dec-count-box__plus">
@@ -129,14 +456,14 @@
                                                             <div
                                                                 class="dropdown-menu-passenger-selection__block__right">
                                                                 <div class="inc-dec-count-box">
-                                                                    <div class="inc-dec-count-box__minus">
+                                                                    <div class="inc-dec-count-box__minus1">
                                                                         <i class="fas fa-minus"></i>
                                                                     </div>
                                                                     <div class="inc-dec-count-box__value">
                                                                         <input type="email" class="form-control"
                                                                             id="exampleFormControlInput1" name="child" value="0">
                                                                     </div>
-                                                                    <div class="inc-dec-count-box__plus">
+                                                                    <div class="inc-dec-count-box__plus1">
                                                                         <i class="fas fa-plus"></i>
                                                                     </div>
                                                                 </div>
@@ -144,17 +471,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="dropdown-menu-footer">
-                                                        <div class="dropdown-menu-footer__total-travellers">
-                                                            <span class="fw-bold">6</span> <span>travellers</span>
-                                                        </div>
-                                                        <div class="dropdown-menu-footer__done-selected-travellers">
-                                                            <a href="javascript:void(0)" class="btn btn-theme-blue">
-                                                                Done </a>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                              
                                             </ul>
                                         </div>
                                     </div>
@@ -186,42 +503,43 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form action="{{url('/flight_search')}}" enctype="multipart/form-data" method="post">
+                              <form action="{{url('/flight_search')}}" enctype="multipart/form-data" method="post">
                                          @csrf
                                 <div class="row opt-one-way onChangeOneWay">
                                     
                                     <div class="col-xxl-4 col-xl-3 col-lg-3 mb-10">
-                                        <?php $filterResult =\App\Airport_Model::get(); ?>
-                                        <select class="select-from select2-style-1 select-takeoff" name="from" required>
-                                            <option value="<?if(isset($from)){ echo $from; }?>"><?if(isset($from)){ echo $from; }?></option>
-                                             @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                            
-                                        </select>
+                                        <div class="custom-select-wrapper">
+                    <input type="text" class="form-control select-input" name="from" value="<?if(isset($from)){ echo $from; }?>" id="from" placeholder="Select an option">
+                      <?php $filterResult =\App\Airport_Model::get(); ?>
+                    <ul class="list-unstyled select-options">
+                            
+                          @foreach($filterResult as $state_)
+                         
+                            <li class="option" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                        @endforeach
+                    </ul>
+                </div>
                                     </div>
                                     <div class="col-xxl-auto col-xl-auto col-lg-auto col-md mb-10 d-flex justify-content-center">
                                         <button class="btn btn-interchange px-10 py-10">
-                                            <svg viewBox="0 0 106 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M81.361 81.7225L96.9998 66.0414L81.361 50.3604L75.3591 56.3623L80.8538 61.8147H44.5464V70.2681H80.8538L75.3591 75.7206L81.361 81.7225Z" />
-                                                <path
-                                                    d="M30.6407 50.3602L25.146 44.9078H61.4534V36.4544H25.146L30.6407 31.0019L24.6388 25L9 40.6811L24.6388 56.3622L30.6407 50.3602Z" />
-                                            </svg>
+                                               <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
                                         </button>
                                     </div>
                                     <div class="col-xxl-4 col-xl-3 col-lg-3 mb-10 mb-md-20">
-                                        <select class="select-to select2-style-1 select-land" name="to" required>
-                                            <option value="<?if(isset($to)){ echo $to; }?>"><?if(isset($to)){ echo $to; }?></option>
-                                             @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                            
-                                        </select>
+                                      <div class="custom-select-wrapper">
+                    <input type="text" class="form-control select-input1" name="to" value="<?if(isset($to)){ echo $to; }?>" id="to" placeholder="Select an option">
+                     
+                    <ul class="list-unstyled select-options1">
+                        
+                          @foreach($filterResult as $state_)
+                            <li class="option1" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                        @endforeach
+                    </ul>
+                </div>
                                     </div>
                                     <div class="col-xxl-2 col-xl-3 col-lg mb-10 mb-md-20">
-                                        <input type="date" value="<?php echo date('Y-m-d'); ?>" id="demo"
-                                            name="journey_date" class="txtDate form-control" value="<?if(isset($journey_date)){ echo $journey_date; }?>" required>
+                                        <input type="date" id="demo11"
+                                            name="journey_date" value="<?if(isset($journey_date)){ echo $journey_date; }?>" class="txtDate form-control getDate" required>
                                     </div>
                                       <input type="hidden" name="adult" value="1">
                                       <input type="hidden" name="children" value="0">
@@ -229,54 +547,65 @@
                                       <input type="hidden" name="cabin_class" value="2">
                                       <input type="hidden" name="form_status" value="one"> 
                                     <div class="col mb-10 d-flex justify-content-lg-end justify-content-center">
-                                        <button type="submit" class="btn btn-theme-blue px-30 py-10">Search</button>
+                                        <button type="submit" class="btn btn-theme-blue px-30 py-10 Click-here">Search</button>
                                     </div>
-                                    
+                                      
                                 </div>
                                     </form>
                                 <form action="{{url('/return-flight-search')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                 <div class="row opt-round-trip onChangeRoundTrip">
                                     <div class="col-xxl-3 mb-10">
-                                        <select class="select-from select2-style-1 select-takeoff" name="from" required>
-                                            <option value="<?if(isset($from)){ echo $from; }?>"><?if(isset($from)){ echo $from; }?></option>
-                                            @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                        </select>
+                                             <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input2" name="from" value="<?if(isset($from)){ echo $from; }?>" placeholder="Select an option">
+                                              <?php $filterResult =\App\Airport_Model::get(); ?>
+                                            <ul class="list-unstyled select-options2">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option2" data-value="{{ $state_->AIRPORTCODE }}"> {{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="col-xxl-auto mb-10 d-flex justify-content-center">
                                         <button class="btn btn-interchange px-10 py-10">
-                                            <svg viewBox="0 0 106 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M81.361 81.7225L96.9998 66.0414L81.361 50.3604L75.3591 56.3623L80.8538 61.8147H44.5464V70.2681H80.8538L75.3591 75.7206L81.361 81.7225Z" />
-                                                <path
-                                                    d="M30.6407 50.3602L25.146 44.9078H61.4534V36.4544H25.146L30.6407 31.0019L24.6388 25L9 40.6811L24.6388 56.3622L30.6407 50.3602Z" />
-                                            </svg>
+                                              <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
                                         </button>
                                     </div>
                                     <div class="col-xxl-3 mb-10 mb-md-20">
-                                        <select class="select-to select2-style-1 select-land" name="to" required>
-                                            <option value="<?if(isset($to)){ echo $to; }?>"><?if(isset($to)){ echo $to; }?></option>
-                                            @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                        </select>
+                                             <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input3" name="to" value="<?if(isset($to)){ echo $to; }?>"  placeholder="Select an option">
+                                              <?php $filterResult =\App\Airport_Model::get(); ?>
+                                            <ul class="list-unstyled select-options3">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option3" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="col-xxl-2 col-md-6 mb-10 mb-md-20 position-relative">
+                                         <input type="date" id="demo1"
+                                                        name="journey_date" value="<?if(isset($journey_date)){ echo $journey_date; }?>" class="txtDate form-control getDate" required>
+                                        <!--<input type="text" id="demo" value="" name="journey_date"-->
+                                        <!--    class="txtDate form-control date-box getDate" placeholder="Journey Date"-->
+                                        <!--    min="date()" required>-->
+                                        <!--<i class="far fa-calendar"></i>-->
                                     </div>
                                     <div class="col-xxl-2 col-md-6 mb-10 mb-md-20 position-relative">
-                                        <input type="text" id="demo" value="" name="journey_date"
-                                            class="txtDate form-control date-box" placeholder="Journey Date"
-                                            min="date()" value="<?if(isset($journey_date)){ echo $journey_date; }?>" required>
-                                        <i class="far fa-calendar"></i>
+                                       <input type="date" id="demo2"
+                                                        name="return_date" value="<?if(isset($return_date)){ echo $return_date; }?>" class="txtDate form-control getDate" required>
+                                       <!--<input type="text" value="" name="return_date"-->
+                                       <!--     class="txtDate form-control date-box" placeholder="Return Date" min="date()"-->
+                                       <!--     required>-->
+                                        <!--<i class="far fa-calendar"></i>-->
                                     </div>
-                                    <div class="col-xxl-2 col-md-6 mb-10 mb-md-20 position-relative">
-                                        <input type="text" value="" name="return_date"
-                                            class="txtDate form-control date-box" placeholder="Return Date" value="<?if(isset($return_date)){ echo $return_date; }?>" min="date()"
-                                            required>
-                                        <i class="far fa-calendar"></i>
-                                    </div>
-                                    <input type="hidden" name="adult" value="1">
-                                      <input type="hidden" name="children" value="0">
+                                    <input type="hidden" id="adultCount1" name="adult" value="1">
+                                      <input type="hidden" id= "childCount1" name="children" value="0">
                                       <input type="hidden" name="infant" value="0">
                                       <input type="hidden" name="cabin_class" value="2">
                                       <input type="hidden" name="form_status" value="return">
@@ -292,36 +621,39 @@
                                         <div class="parent-new-flight-row parentNewFlightRows">
                                             <div class="row child-flight-row childFlightRow">
                                                 <div class="col-lg-4 mb-20 mb-md-10">
-                                                    <select class="select-from select2-style-1 select-takeoff"
-                                                        name="from" required>
-                                                        <option value="<?if(isset($from)){ echo $from; }?>"><?if(isset($from)){ echo $from; }?></option>
-                                                        @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                                    </select>
+                                                     <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input4" name="from" value="<?if(isset($from)){ echo $from; }?>"  placeholder="Select an option">
+                                              <?php $filterResult =\App\Airport_Model::get(); ?>
+                                            <ul class="list-unstyled select-options4">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option4" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                   
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
                                                     <button class="btn btn-interchange px-10 py-10">
-                                                        <svg viewBox="0 0 106 107" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M81.361 81.7225L96.9998 66.0414L81.361 50.3604L75.3591 56.3623L80.8538 61.8147H44.5464V70.2681H80.8538L75.3591 75.7206L81.361 81.7225Z" />
-                                                            <path
-                                                                d="M30.6407 50.3602L25.146 44.9078H61.4534V36.4544H25.146L30.6407 31.0019L24.6388 25L9 40.6811L24.6388 56.3622L30.6407 50.3602Z" />
-                                                        </svg>
+                                                           <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
                                                     </button>
                                                 </div>
                                                 <div class="col-lg-4 mb-20">
-                                                    <select class="select-to select2-style-1 select-land" name="to" required>
-                                                        <option value="<?if(isset($to)){ echo $to; }?>"><?if(isset($to)){ echo $to; }?></option>
-                                                         @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                                    </select>
+                                                     <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input5" name="to" value="<?if(isset($to)){ echo $to; }?>" placeholder="Select an option">
+                                              <?php $filterResult =\App\Airport_Model::get(); ?>
+                                            <ul class="list-unstyled select-options5">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option5" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                                 </div>
                                                 <div class="col-lg mb-20 mb-md-10">
-                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" id="demo"
-                                                        name="journey_date" value="<?if(isset($journey_date)){ echo $journey_date; }?>" class="txtDate form-control" required>
+                                                    
+                                                    <input type="date" id="demo1"
+                                                        name="journey_date" value="<?if(isset($journey_date)){ echo $journey_date; }?>" class="txtDate form-control getDate" required>
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10">
                                                     <button type="submit"
@@ -337,36 +669,37 @@
                                     
                                             <div class="row child-flight-row childFlightRow">
                                                 <div class="col-lg-4 mb-20 mb-md-10">
-                                                    <select class="select-from select2-style-1 select-takeoff"
-                                                        name="from1" required>
-                                                        <option value="<?if(isset($from1)){ echo $from1; }?>">value="<?if(isset($from1)){ echo $from1; }?></option>
-                                                         @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                                    </select>
+                                                     <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input6" name="from1" value="<?if(isset($from1)){ echo $from1; }?>"  placeholder="Select an option">
+                                              <?php $filterResult =\App\Airport_Model::get(); ?>
+                                            <ul class="list-unstyled select-options6">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option6" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
                                                     <button class="btn btn-interchange px-10 py-10">
-                                                        <svg viewBox="0 0 106 107" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M81.361 81.7225L96.9998 66.0414L81.361 50.3604L75.3591 56.3623L80.8538 61.8147H44.5464V70.2681H80.8538L75.3591 75.7206L81.361 81.7225Z" />
-                                                            <path
-                                                                d="M30.6407 50.3602L25.146 44.9078H61.4534V36.4544H25.146L30.6407 31.0019L24.6388 25L9 40.6811L24.6388 56.3622L30.6407 50.3602Z" />
-                                                        </svg>
+                                                          <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
                                                     </button>
                                                 </div>
                                                 <div class="col-lg-4 mb-20">
-                                                    <select class="select-to select2-style-1 select-land" name="to1" required>
-                                                        <option value="<?if(isset($to1)){ echo $to1; }?>"><?if(isset($to1)){ echo $to1; }?></option>
-                                                         @foreach($filterResult as $state_)
-                                            <option value="{{$state_->AIRPORTCODE}}">{{__($state_->AIRPORTNAME)}} - {{__($state_->CITYNAME)}}  ( {{__($state_->COUNTRYCODE)}} )</option>
-                                            @endforeach
-                                                    </select>
+                                                    <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input7" name="to1" value="<?if(isset($to1)){ echo $to1; }?>" placeholder="Select an option">
+                                              <?php $filterResult =\App\Airport_Model::get(); ?>
+                                            <ul class="list-unstyled select-options7">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option7" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                                 </div>
                                                 <div class="col-lg mb-20 mb-md-10">
-                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" id="demo"
-                                                        name="journey_date1" value="<?if(isset($journey_date1)){ echo $journey_date1; }?>" class="txtDate form-control" required>
+                                                    <input type="date" id="demo2"
+                                                        name="journey_date1" value="<?if(isset($journey_date1)){ echo $journey_date1; }?>" class="txtDate form-control getDate" required>
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10">
                                                     <button type="submit"
@@ -398,40 +731,109 @@
                                 </div>
                                 </form>
                             </div>
+                                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+    const adultInput = document.querySelector('.getadult_data1');
+    const childInput = document.querySelector('.getchild_data1');
+    const adultCountDisplay = document.getElementById('adultCount1');
+    const childCountDisplay = document.getElementById('childCount1');
+    const totalTravellersDisplay = document.getElementById('totalTravellers');
+    const doneButton = document.getElementById('doneButton');
+
+    // Function to update the display for both adult and child counts
+    const updateDisplay = () => {
+        const adultCount = parseInt(adultInput.value) || 0;
+        const childCount = parseInt(childInput.value) || 0;
+        const totalTravellers = adultCount + childCount;
+
+        adultCountDisplay.textContent = adultCount;
+        childCountDisplay.textContent = childCount;
+        totalTravellersDisplay.textContent = totalTravellers;
+    };
+
+    // Increase Adult count
+    document.querySelector('.inc-dec-count-box__plus3').addEventListener('click', function() {
+        adultInput.value = parseInt(adultInput.value) + 1;
+        updateDisplay(); // Update the display
+    });
+
+    // Decrease Adult count
+    document.querySelector('.inc-dec-count-box__minus3').addEventListener('click', function() {
+        const currentValue = parseInt(adultInput.value);
+        if (currentValue > 1) {
+            adultInput.value = currentValue - 1;
+        } else {
+            adultInput.value = 1; // Ensure adult count doesn't go below 1
+        }
+        updateDisplay(); // Update the display
+    });
+
+    // Increase Child count
+    document.querySelector('.inc-dec-count-box__plus4').addEventListener('click', function() {
+        childInput.value = parseInt(childInput.value) + 1;
+        updateDisplay(); // Update the display
+    });
+
+    // Decrease Child count
+    document.querySelector('.inc-dec-count-box__minus4').addEventListener('click', function() {
+        const currentValue = parseInt(childInput.value);
+        if (currentValue > 0) {
+            childInput.value = currentValue - 1;
+        }
+        updateDisplay(); // Update the display
+    });
+
+    // Done button click event (you can replace this with your actual logic)
+    doneButton.addEventListener('click', function() {
+        alert('Passenger selection done!');
+    });
+});
+</script>
+                            
+                            
                             <div class="tab-pane fade <?if($form_status1 =="hotel_form"){ echo "active"; }?> <?if($form_status1 =="hotel_form"){ echo "show"; }?>" id="nav-hotels" role="tabpanel" aria-labelledby="nav-hotels-tab">
                                <form action="{{url('/hotel_search')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                 <div class="row">
                                     
                                     <div class="col-xxl-4 col-xl-3 col-lg-4 mb-20">
-                                        <select class="select-destination select2-style-1 select-takeoff"
-                                            name="city_name" required>
-                                            <?php $data =\App\Hotel_City_Model::get(); ?>
-                                             <option value="<?if(isset($city_name)){ echo $city_name; }?>"><?if(isset($city_name)){ echo $city_name; }?></option>
-                                               @foreach($data as $state_)
-                                                <option value="{{$state_->name}}">{{__($state_->name)}}</option>
-                                               @endforeach
-                                        </select>
+                                          <div class="custom-select-wrapper">
+                                              <label>City</label>
+                                            <input type="text" class="form-control select-input8" value="<?if(isset($city_name)){ echo $city_name; }?>" name="city_name" placeholder="Select an option">
+                                          <?php $data =\App\Hotel_City_Model::get(); ?>
+                                            <ul class="list-unstyled select-options8">
+                                                
+                                                   @foreach($data as $state_)
+                                                    <li class="option8" data-value="{{$state_->name}}">{{__($state_->name)}} {{__($state_->CountryName)}} ( {{__($state_->CountryCode)}} )</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="col-xl-2 col-md-6 col-lg-4 mb-20 position-relative">
+                                           <label>Check In</label>
                                         <input type="text" id="demo" value="<?if(isset($checkin_date)){ echo $checkin_date; }?>" name="checkin_date"
                                             class="txtDate form-control date-box" placeholder="Check In Date"
                                             min="date()" required>
                                         <i class="far fa-calendar"></i>
                                     </div>
                                     <div class="col-xl-2 col-md-6 col-lg-4 mb-20 position-relative">
+                                           <label>Check out</label>
                                         <input type="text" value="<?if(isset($checkout_date)){ echo $checkout_date; }?>" name="checkout_date"
                                             class="txtDate form-control date-box" placeholder="Check Out Date" min="date()"
                                             required>
                                         <i class="far fa-calendar"></i>
                                     </div>
                                     <div class="col-xl-auto col-md-6 mb-20">
-                                        <input type="number" name="NoOfRoom" class="form-control" value="<?if(isset($NoOfRoom)){ echo $NoOfRoom; }?>" id="exampleFormControlInput1" placeholder="Rooms" required>
+                                           <label>Rooms</label>
+                                        <input type="number" name="NoOfRoom" class="form-control" value="<?if(isset($NoOfRoom)){ echo $NoOfRoom; }else{ echo '1'; }?>" id="exampleFormControlInput1" placeholder="Rooms"  required>
                                     </div>
                                     <div class="col-md mb-20 mb-20">
                                         <div class="dropdown dropdown-style-2">
+                                               <label>Guest</label>
                                             <button class="btn dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                No. of People
+                                               <span>Adult:<span id="adultCount1">2</span></span>
+    <span>Child: <span id="childCount1">0</span></span>
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 <li>
@@ -446,14 +848,14 @@
                                                             <div
                                                                 class="dropdown-menu-passenger-selection__block__right">
                                                                 <div class="inc-dec-count-box">
-                                                                    <div class="inc-dec-count-box__minus">
+                                                                    <div class="inc-dec-count-box__minus3">
                                                                         <i class="fas fa-minus"></i>
                                                                     </div>
                                                                     <div class="inc-dec-count-box__value">
-                                                                        <input type="number" class="form-control" name="adult12"
-                                                                            id="exampleFormControlInput1" value="1">
+                                                                        <input type="number" class="form-control getadult_data1" name="adult12"
+                                                                            id="exampleFormControlInput1" value="2">
                                                                     </div>
-                                                                    <div class="inc-dec-count-box__plus">
+                                                                    <div class="inc-dec-count-box__plus3">
                                                                         <i class="fas fa-plus"></i>
                                                                     </div>
                                                                 </div>
@@ -469,14 +871,14 @@
                                                             <div
                                                                 class="dropdown-menu-passenger-selection__block__right">
                                                                 <div class="inc-dec-count-box">
-                                                                    <div class="inc-dec-count-box__minus">
+                                                                    <div class="inc-dec-count-box__minus4">
                                                                         <i class="fas fa-minus"></i>
                                                                     </div>
                                                                     <div class="inc-dec-count-box__value">
-                                                                        <input type="number" class="form-control"
+                                                                        <input type="number" class="form-control getchild_data1"
                                                                            name="child12" id="exampleFormControlInput1" value="0">
                                                                     </div>
-                                                                    <div class="inc-dec-count-box__plus">
+                                                                    <div class="inc-dec-count-box__plus4">
                                                                         <i class="fas fa-plus"></i>
                                                                     </div>
                                                                 </div>
@@ -484,18 +886,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="dropdown-menu-footer">
-                                                        <div class="dropdown-menu-footer__total-travellers">
-                                                            <span class="fw-bold">6</span> 
-                                                            <span>People</span>
-                                                        </div>
-                                                        <div class="dropdown-menu-footer__done-selected-travellers">
-                                                            <a href="javascript:void(0)" class="btn btn-theme-blue">
-                                                                Done </a>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                               
                                             </ul>
                                         </div>
                                     </div>
@@ -518,13 +909,16 @@
                                                         @csrf
                                 <div class="row">
                                     <div class="col-lg-4 mb-md-20">
-                                        <select class="select-destination select2-style-1 select-takeoff" name="city_name" required>
-                                            <?php $data =\App\Hotel_City_Model::get(); ?>
-                                             <option value="<?if(isset($city_name)){ echo $city_name; }?>"><?if(isset($city_name)){ echo $city_name; }?></option>
-                                               @foreach($data as $state_)
-                                                <option value="{{$state_->name}}">{{__($state_->name)}}</option>
-                                               @endforeach
-                                        </select>
+                                       <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input9" value="<?if(isset($city_name)){ echo $city_name; }?>"  name="city_name" placeholder="Select an option">
+                                          <?php $data =\App\Hotel_City_Model::get(); ?>
+                                            <ul class="list-unstyled select-options9">
+                                                
+                                                   @foreach($data as $state_)
+                                                    <li class="option9" data-value="{{$state_->name}}">{{__($state_->name)}} {{__($state_->CountryName)}} ( {{__($state_->CountryCode)}} )</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="col-lg-3 mb-md-20">
                                         <select class="select-tours select2-style-2" name="tour_type" required>
@@ -548,13 +942,16 @@
                                                         @csrf
                                 <div class="row">
                                     <div class="col-lg-4 mb-md-20">
-                                        <select class="select-country select2-style-2" name="country_name" required>
-                                            <?php $data =\App\Hotel_City_Model::get(); ?>
-                                             <option value="<?if(isset($country_name)){ echo $country_name; }?>"><?if(isset($country_name)){ echo $country_name; }?></option>
-                                               @foreach($data as $state_)
-                                                <option value="{{$state_->name}}">{{__($state_->name)}}</option>
-                                               @endforeach
-                                        </select>
+                                        <div class="custom-select-wrapper">
+                                            <input type="text" class="form-control select-input10" value="<?if(isset($country_name)){ echo $country_name; }?>" name="country_name" placeholder="Select an option">
+                                          <?php $data =\App\Hotel_City_Model::get(); ?>
+                                            <ul class="list-unstyled select-options10">
+                                                
+                                                   @foreach($data as $state_)
+                                                    <li class="option10" data-value="{{$state_->name}}">{{__($state_->name)}} {{__($state_->CountryName)}} ( {{__($state_->CountryCode)}} )</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="col-lg-3 mb-md-20">
                                         <select class="select-visa-type select2-style-2" name="visa_type" required>
@@ -583,3 +980,933 @@
             </div>
         </div>
     </section>
+    
+    
+    
+    
+    
+    
+     
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Include Select2 JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+$(document).ready(function() {
+      
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input').attr('placeholder', 'From');
+    $('.select-options').hide();
+
+    // Show options when input is clicked
+    $('.select-input').on('click', function(event) {
+        $('.select-options').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options').hide();
+    });
+
+    // Handle option selection
+    $('.option').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input').val(airportCode); // Set input value to the airport code
+        $('.select-input').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input').attr('placeholder', 'Select an option');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+
+
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options1');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option1" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input1').attr('placeholder', 'Where To ?');
+    $('.select-options1').hide();
+
+    // Show options when input is clicked
+    $('.select-input1').on('click', function(event) {
+        $('.select-options1').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options1').hide();
+    });
+
+    // Handle option selection
+    $('.option1').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input1').val(airportCode); // Set input value to the airport code
+        $('.select-input1').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options1').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input1').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option1').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input1').attr('placeholder', 'Select an option');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options2');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option2" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input2').attr('placeholder', 'From');
+    $('.select-options2').hide();
+
+    // Show options when input is clicked
+    $('.select-input2').on('click', function(event) {
+        $('.select-options2').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options2').hide();
+    });
+
+    // Handle option selection
+    $('.option2').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input2').val(airportCode); // Set input value to the airport code
+        $('.select-input2').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options2').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input2').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option2').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input2').attr('placeholder', 'From');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+
+
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options3');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option3" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input3').attr('placeholder', 'Where To?');
+    $('.select-options3').hide();
+
+    // Show options when input is clicked
+    $('.select-input3').on('click', function(event) {
+        $('.select-options3').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options3').hide();
+    });
+
+    // Handle option selection
+    $('.option3').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input3').val(airportCode); // Set input value to the airport code
+        $('.select-input3').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options3').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input3').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option3').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input3').attr('placeholder', 'Where To?');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options4');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option4" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input4').attr('placeholder', 'From');
+    $('.select-options4').hide();
+
+    // Show options when input is clicked
+    $('.select-input4').on('click', function(event) {
+        $('.select-options4').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options4').hide();
+    });
+
+    // Handle option selection
+    $('.option4').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input4').val(airportCode); // Set input value to the airport code
+        $('.select-input4').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options4').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input4').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option4').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input4').attr('placeholder', 'From');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options5');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option5" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input5').attr('placeholder', 'Where To ?');
+    $('.select-options5').hide();
+
+    // Show options when input is clicked
+    $('.select-input5').on('click', function(event) {
+        $('.select-options5').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options5').hide();
+    });
+
+    // Handle option selection
+    $('.option5').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input5').val(airportCode); // Set input value to the airport code
+        $('.select-input5').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options5').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input5').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option5').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input5').attr('placeholder', 'Where To ?');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options6');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option6" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input6').attr('placeholder', 'From');
+    $('.select-options6').hide();
+
+    // Show options when input is clicked
+    $('.select-input6').on('click', function(event) {
+        $('.select-options6').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options6').hide();
+    });
+
+    // Handle option selection
+    $('.option6').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input6').val(airportCode); // Set input value to the airport code
+        $('.select-input6').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options6').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input6').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option6').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input6').attr('placeholder', 'From');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options7');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option7" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input7').attr('placeholder', 'Where To ?');
+    $('.select-options7').hide();
+
+    // Show options when input is clicked
+    $('.select-input7').on('click', function(event) {
+        $('.select-options7').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options7').hide();
+    });
+
+    // Handle option selection
+    $('.option7').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input7').val(airportCode); // Set input value to the airport code
+        $('.select-input7').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options7').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input7').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option7').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input7').attr('placeholder', 'Where To ?');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options8');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option8" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input8').attr('placeholder', 'Select Option');
+    $('.select-options8').hide();
+
+    // Show options when input is clicked
+    $('.select-input8').on('click', function(event) {
+        $('.select-options8').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options8').hide();
+    });
+
+    // Handle option selection
+    $('.option8').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input8').val(airportCode); // Set input value to the airport code
+        $('.select-input8').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options8').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input8').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option8').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input8').attr('placeholder', 'Select an option');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options9');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option9" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input9').attr('placeholder', 'Select Option');
+    $('.select-options9').hide();
+
+    // Show options when input is clicked
+    $('.select-input9').on('click', function(event) {
+        $('.select-options9').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options9').hide();
+    });
+
+    // Handle option selection
+    $('.option9').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input9').val(airportCode); // Set input value to the airport code
+        $('.select-input9').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options9').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input9').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option9').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input9').attr('placeholder', 'Select an option');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        type: 'GET',
+        success: function(data) {
+            var options = data; // Assuming data is an array of airport objects
+
+            // Initialize select options
+            var selectOptions = $('.select-options10');
+            options.forEach(function(option) {
+                selectOptions.append('<li class="option10" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Set default placeholder value and hide options
+    $('.select-input10').attr('placeholder', 'Select an option');
+    $('.select-options10').hide();
+
+    // Show options when input is clicked
+    $('.select-input10').on('click', function(event) {
+        $('.select-options10').show();
+        event.stopPropagation();
+    });
+
+    // Hide options when clicking outside
+    $(document).on('click', function() {
+        $('.select-options10').hide();
+    });
+
+    // Handle option selection
+    $('.option10').on('click', function(event) {
+        var selectedOption = $(this).text();
+        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
+        $('.select-input10').val(airportCode); // Set input value to the airport code
+        $('.select-input10').attr('data-value', airportCode); // Set data-value attribute to the airport code
+        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+        $('.select-options10').hide();
+        event.stopPropagation();
+    });
+
+    // Filter options based on search input
+    $('.select-input10').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option10').each(function() {
+            var optionText = $(this).text().toUpperCase();
+            if (optionText.indexOf(searchText) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Retrieve selected option from cookie on page load
+    var selectedAirport = getCookie("selectedAirport");
+    if (!selectedAirport) {
+        $('.select-input10').attr('placeholder', 'Select an option');
+    }
+
+    // Function to retrieve cookie value by name
+    function getCookie(name) {
+        var cookieName = name + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookieArray = decodedCookie.split(';');
+        for (var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(cookieName) == 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+        return "";
+    }
+});
+</script>

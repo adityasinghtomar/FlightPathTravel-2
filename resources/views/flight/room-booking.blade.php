@@ -1,4 +1,100 @@
 @include('flight.header')
+ <style>
+         /*
+ CSS for the main interaction
+*/
+.tabset > input[type="radio"] {
+  position: absolute;
+  left: -200vw;
+}
+
+.tabset .tab-panel {
+  display: none;
+}
+
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+  display: block;
+}
+
+/*
+ Styling
+*/
+body {
+  font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;
+  color: #333;
+  font-weight: 300;
+}
+
+.tabset > label {
+  position: relative;
+  display: inline-block;
+  padding: 15px 15px 25px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tabset > label::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  width: 22px;
+  height: 4px;
+  background: #8d8d8d;
+}
+
+input:focus-visible + label {
+  outline: 2px solid rgba(0,102,204,1);
+  border-radius: 3px;
+}
+
+.tabset > label:hover,
+.tabset > input:focus + label,
+.tabset > input:checked + label {
+  color: #06c;
+}
+
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
+  background: #06c;
+}
+
+.tabset > input:checked + label {
+  border-color: #ccc;
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+}
+
+.tab-panel {
+  padding: 30px 0;
+  border-top: 1px solid #ccc;
+}
+
+/*
+ Demo purposes only
+*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 30px;
+}
+
+.tabset {
+  max-width: 65em;
+}
+     </style>
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -39,6 +135,96 @@
             </div>
         </div>
     </section>
+    <div class="container">
+            <div class="row">
+    <div class="col-lg-12">
+                @if(empty(session()->get('user_id')))
+                <div id="cf-response-message"></div>
+                        <div class="tabset">
+  <!-- Tab 1 -->
+  <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+  <label for="tab1">Login</label>
+  <!-- Tab 2 -->
+  <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
+  <label for="tab2">Sign Up</label>
+  <!-- Tab 3 -->
+
+  
+  <div class="tab-panels">
+    <section id="marzen" class="tab-panel">
+     <form id="contact-form" method="post">
+        @csrf
+      <div>
+          <div class="form-group">
+            <lable>Email</lable>
+            <input type="text" name="user_name" id="user_name" class="form-control bg_input"
+                placeholder="Email*" required>
+                <input type = "hidden" name ="csrf-token" value = '<?php echo csrf_token(); ?>'>
+        </div>
+           <div class="form-group">
+            <lable>Password</lable>
+            <input type="text" name="user_password" id="user_password" class="form-control bg_input"
+                placeholder="password*" required>
+        </div>
+         <button id="submit" style="margin-top:10px;"class="btn btn-primary">Login</button>
+      </div>
+      </form>
+       </section>
+    <section id="rauchbier" class="tab-panel">
+      
+                                    <form id="signup-form" method="post">
+                                        @csrf
+                                         <input type = "hidden" name ="csrf-token" value = '<?php echo csrf_token(); ?>'>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>First Name</lable>
+                                                <input type="text" name="user_fname" id="fname" class="form-control bg_input"
+                                                    placeholder="First name*" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Last Name</lable>
+                                                <input type="text" name="user_lname" id="lname" class="form-control bg_input"
+                                                    placeholder="Last name*" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Email</lable>
+                                                <input type="text" name="user_email" id="u_gmail"class="form-control bg_input"
+                                                    placeholder="Email address" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Mobile No.</lable>
+                                                <input type="number" name="user_mobile" id="u_mobile" class="form-control bg_input"
+                                                    placeholder="Mobile number*" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <lable>Password</lable>
+                                                <input type="text" name="user_password" id="u_password" class="form-control bg_input"
+                                                    placeholder="Street address" required>
+                                            </div>
+                                        </div>
+                                          
+                                    </div>
+                                     <button id="submit" class="btn btn-primary" style="margin-top:10px;">Sign Up</button>
+                                    </form>
+        </section>
+
+  </div>
+  
+</div>
+</div>
+  
+</div>
+                     @endif
+                </div> 
     <!-- Tour Booking Submission Areas -->
     <section id="tour_booking_submission" class="section_padding">
         <div class="container">
@@ -46,23 +232,13 @@
                 <div class="col-lg-8">
                     <div class="tou_booking_form_Wrapper">
                         <div class="booking_tour_form">
+                           @if(session()->get('user_id'))
                             <h3 class="heading_theme">Booking submission</h3>
                             <div class="tour_booking_form_box">
+                                
                                 <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post">
                                      @csrf
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="text" name="name" class="form-control bg_input"
-                                                    placeholder="First name*">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="text" name="lname" class="form-control bg_input"
-                                                    placeholder="Last name*">
-                                            </div>
-                                        </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input type="text" name="email" class="form-control bg_input"
@@ -75,6 +251,22 @@
                                                     placeholder="Mobile number*">
                                             </div>
                                         </div>
+                                        <?php for ($row=1; $row <= $adult; $row++) {  ?>  
+                                    <h3 class="heading_theme">Passenger {{$row}}</h3>  
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" name="name[]" class="form-control bg_input"
+                                                    placeholder="First name*">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" name="lname[]" class="form-control bg_input"
+                                                    placeholder="Last name*">
+                                            </div>
+                                        </div>
+                                        <?php }  ?> 
+                                        
                                         
                                     </div>
                                     <input type="hidden" name="ResultIndex" value="<?php echo $ResultIndex;?>">
@@ -134,13 +326,13 @@
                                         </div>
                                     @endif     
                                         @if(session()->get('user_id'))
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment"
-                                                id="flexRadioDefault3" value="wallet" required>
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                Wallet
-                                            </label>
-                                        </div>
+                                        <!--<div class="form-check">-->
+                                        <!--    <input class="form-check-input" type="radio" name="payment"-->
+                                        <!--        id="flexRadioDefault3" value="wallet" required>-->
+                                        <!--    <label class="form-check-label" for="flexRadioDefault3">-->
+                                        <!--        Wallet-->
+                                        <!--    </label>-->
+                                        <!--</div>-->
                                         @endif
                                        </div>
                             </div>
@@ -157,47 +349,49 @@
                             </div>
                             <button class="btn btn_theme btn_md">Book Now</button>
                         </form>
+                       
                         </div>
+                         @endif
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="tour_details_right_sidebar_wrapper">
-                        <div class="tour_detail_right_sidebar">
-                            <div class="tour_details_right_boxed">
-                                <div class="tour_details_right_box_heading">
-                                    <h3>@if(isset($RoomTypeName))
-                <?php print_r($RoomTypeName); ?>
-                @endif</h3>
-                                </div>
-                                <div class="tour_package_details_bar_list">
-                                    <h5>Room facilities</h5>
-                                    <ul>
-                                        <li><i class="fas fa-circle"></i>Buffet breakfast as per the Itinerary</li>
-                                        <li><i class="fas fa-circle"></i>Visit eight villages showcasing Polynesian
-                                            culture
-                                        </li>
-                                        <li><i class="fas fa-circle"></i>Complimentary Camel safari, Bonfire,</li>
-                                        <li><i class="fas fa-circle"></i>All toll tax, parking, fuel, and driver
-                                            allowances
-                                        </li>
-                                        <li><i class="fas fa-circle"></i>Comfortable and hygienic vehicle</li>
-                                    </ul>
-                                </div>
-                                <div class="tour_package_details_bar_price">
-                                    <h5>Price</h5>
-                                    <div class="tour_package_bar_price">
+                <!--        <div class="tour_detail_right_sidebar">-->
+                <!--            <div class="tour_details_right_boxed">-->
+                <!--                <div class="tour_details_right_box_heading">-->
+                <!--                    <h3>@if(isset($RoomTypeName))-->
+                <!--<?php print_r($RoomTypeName); ?>-->
+                <!--@endif</h3>-->
+                <!--                </div>-->
+                <!--                <div class="tour_package_details_bar_list">-->
+                <!--                    <h5>Room facilities</h5>-->
+                <!--                    <ul>-->
+                <!--                        <li><i class="fas fa-circle"></i>Buffet breakfast as per the Itinerary</li>-->
+                <!--                        <li><i class="fas fa-circle"></i>Visit eight villages showcasing Polynesian-->
+                <!--                            culture-->
+                <!--                        </li>-->
+                <!--                        <li><i class="fas fa-circle"></i>Complimentary Camel safari, Bonfire,</li>-->
+                <!--                        <li><i class="fas fa-circle"></i>All toll tax, parking, fuel, and driver-->
+                <!--                            allowances-->
+                <!--                        </li>-->
+                <!--                        <li><i class="fas fa-circle"></i>Comfortable and hygienic vehicle</li>-->
+                <!--                    </ul>-->
+                <!--                </div>-->
+                <!--                <div class="tour_package_details_bar_price">-->
+                <!--                    <h5>Price</h5>-->
+                <!--                    <div class="tour_package_bar_price">-->
                                         <!--<h6><del>$ 35,500</del></h6>-->
-                                         @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h3>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h3>
-                                        @else
-                                        <h3>@if(isset($RoomTypeName))
-                                        <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>
-                                        @endif<sub></sub> </h3>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!--                         @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>-->
+                <!--                            <h3>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h3>-->
+                <!--                        @else-->
+                <!--                        <h3>@if(isset($RoomTypeName))-->
+                <!--                        <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>-->
+                <!--                        @endif<sub></sub> </h3>-->
+                <!--                        @endif-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--        </div>-->
                         <!--<div class="tour_detail_right_sidebar">-->
                         <!--    <div class="tour_details_right_boxed">-->
                         <!--        <div class="tour_details_right_box_heading">-->
@@ -264,6 +458,7 @@
 
                         <!--    </div>-->
                         <!--</div>-->
+                        @if(session()->get('user_id'))
                         <div class="tour_detail_right_sidebar">
                             <div class="tour_details_right_boxed">
                                 <div class="tour_details_right_box_heading">
@@ -272,39 +467,49 @@
 
                                 <div class="tour_booking_amount_area">
                                     <ul>
-                                        <li>Off.Rate <span>
-                                            <?php print_r($CurrencyCode); ?> <?php print_r($OfferedPriceRoundedOff); ?>
+                                        <li>Rate(Offered) <span>
+                                             <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
+                                 
+                                <?php if($mark_up) { 
+                                            if($mark_up->markup_type =='fixed'){
+                                                $mark_up->markup_amount;
+                                                $subtotal= $OfferedPriceRoundedOff + $mark_up->markup_amount;
+                                                echo $CurrencyCode;
+                                                echo round($subtotal, 2);
+                                            }
+                                            else {
+                                              $percentage = ($mark_up->markup_amount / 100) * $OfferedPriceRoundedOff; 
+                                              $subtotal= $OfferedPriceRoundedOff + $percentage;
+                                                echo $CurrencyCode;
+                                                echo round($subtotal);
+                                            //   echo $percentage;
+                                            }
+                                            }  
+                                            else{
+                                         $subtotal= $OfferedPriceRoundedOff;
+                                                echo round($subtotal);
+                                              }   
+                                            ?>
                                         </span>
                                         </li>
-                                        <li>Pub.Rate <span>
-                                            <?php print_r($CurrencyCode); ?> <?php print_r($PublishedPriceRoundedOff); ?>
+                                        <li>TDS <span>
+                                            <?php print_r($CurrencyCode); ?> <?php print_r($TDS); ?>
+                                        </span>
+                                        </li>
+                                        <li>Total GST <span>
+                                            <?php print_r($CurrencyCode); ?> <?php print_r($ServiceTax); ?>
                                         </span>
                                         </li>
                                     </ul>
-                                    <div class="tour_bokking_subtotal_area">
-                                        <h6>Subtotal <span>
-                                             @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                                <h6>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h6>
-                                             @else
-                                                @if(isset($RoomTypeName))
-                                                <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>
-                                                @endif
-                                             @endif
-                </span></h6>
-                                    </div>
                                     <div class="total_subtotal_booking">
-                                        <h6>Total Amount <span> @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                                <h6>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h6>
-                                             @else
-                                                @if(isset($RoomTypeName))
-                                                <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>
-                                                @endif
-                                             @endif
-                                             </span> </h6>
+                                        <h6>Total Amount <span> 
+                                            <?php print_r($CurrencyCode); ?> <?php echo round($subtotal + $TDS + $ServiceTax); ?>
+                                            </span> </h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -340,130 +545,107 @@
     </section>
 
     <!-- Footer  -->
-    <footer id="footer_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Need any help?</h5>
-                    </div>
-                    <div class="footer_first_area">
-                        <div class="footer_inquery_area">
-                            <h5>Call 24/7 for any help</h5>
-                            <h3> <a href="tel:+00-123-456-789">+00 123 456 789</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Mail to our support team</h5>
-                            <h3> <a href="mailto:support@flightpathtravel.com">support@flightpathtravel.com</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Follow us on</h5>
-                            <ul class="soical_icon_footer">
-                                <li><a href="#!"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-twitter-square"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Company</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li><a href="faqs.html">Rewards</a></li>
-                            <li><a href="terms-service.html">Work with Us</a></li>
-                            <li><a href="tour-guides.html">Meet the Team </a></li>
-                            <li><a href="news.html">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Support</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="dashboard.html">Account</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="testimonials.html">Legal</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="top-destinations.html"> Affiliate Program</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Other Services</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="top-destinations-details.html">Community program</a></li>
-                            <li><a href="top-destinations-details.html">Investor Relations</a></li>
-                            <li><a href="flight-search-result.html">Rewards Program</a></li>
-                            <li><a href="room-booking.html">PointsPLUS</a></li>
-                            <li><a href="testimonials.html">Partners</a></li>
-                            <li><a href="hotel-search.html">List My Hotel</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Top cities</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="room-details.html">Chicago</a></li>
-                            <li><a href="hotel-details.html">New York</a></li>
-                            <li><a href="hotel-booking.html">San Francisco</a></li>
-                            <li><a href="tour-search.html">California</a></li>
-                            <li><a href="tour-booking.html">Ohio </a></li>
-                            <li><a href="tour-guides.html">Alaska</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="copyright_area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_left">
-                        <p>Copyright © 2022 All Rights Reserved</p>
-                    </div>
-                </div>
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_right">
-                        <img src="assets/img/common/cards.png" alt="img">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('auth.cust_footer')
     <div class="go-top">
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+   
+    $('#contact-form').on('submit', function(event){
+        event.preventDefault();
+        user_name = $('#user_name').val();
+        password = $('#user_password').val();
+        
+        $.ajax({
+          url: "/login-form",
+          type: "POST",
+          data:{
+              name:user_name,
+              password:password,
+              _token: '{{csrf_token()}}'
+          },
+          success:function(response){
+            console.log(response);
+            if (response) {
+                $('#cf-response-message').text(response.message);
+                location.reload();
+            }
+          }
+         });
+        });
+      </script>
+     <script type="text/javascript">
+   
+    $('#signup-form').on('submit', function(event){
+        event.preventDefault();
+        fname = $('#fname').val();
+        lname = $('#lname').val();
+        u_gmail = $('#u_gmail').val();
+        password = $('#u_password').val();
+        u_mobile = $('#u_mobile').val();
+        console.log(fname);
+        $.ajax({
+          url: "/signup-form",
+          type: "POST",
+          data:{
+              fname:fname,
+              lname:lname,
+              u_gmail:u_gmail,
+              u_mobile:u_mobile,
+              password:password,
+              _token: '{{csrf_token()}}'
+          },
+          success:function(response){
+            console.log(response);
+            if (response) {
+                $('#cf-response-message').text(response.message);
+                // location.reload();
+            }
+          }
+         });
+        });
+      </script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+
+ <!-- Bootstrap js -->
+
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
+
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
+
+    <!-- Range js -->
+
+    <script src="public/assets/js/nouislider.min.js"></script>
+
+    <script src="public/assets/js/wNumb.js"></script>
+
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+
+    <script src="public/assets/js/wow.min.js"></script>
+
+    <!-- Select2 -->
+
+    <script src="public/assets/js/select2.min.js"></script>
+
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
-    <script src="assets/js/payment-form.js"></script>
+
+    <script src="public/assets/js/custom.js"></script>
+
+    <script src="public/assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/form-dropdown.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+
 
 </body>
 

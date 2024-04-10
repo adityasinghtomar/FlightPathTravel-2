@@ -31,6 +31,10 @@
             <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>API Name</th>
+                        <th>API Type</th>
+                        <th>Search API</th>
+                        <th>Booking API</th>
                         <th>Status</th>
                         <th>Action</th>
                         
@@ -42,6 +46,10 @@
                      <tr>
                          <td><?php print_r($flights->id);?></td>
                         <td><?php print_r($flights->name);?></td>
+                        <td><?php print_r($flights->api_name);?></td>
+                        <td><?php print_r($flights->api_type);?></td>
+                        <td><?php print_r($flights->api);?></td>
+                        <td><?php print_r($flights->booking_api);?></td>
                         <td>@if($flights->status =='0')<span class="px-10 text-center text-14 fw-500 bg-green-4 text-green-3">Active</span>@else <span class="px-10 text-center text-14 fw-500 bg-red-4 text-red-3">In-Active</span> @endif</td>
                         <td>
                           <div class="row x-gap-10 y-gap-10 items-center">

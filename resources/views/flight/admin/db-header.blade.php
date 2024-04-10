@@ -81,7 +81,7 @@
       <div class="sidebar -dashboard">
         <div class="sidebar__item">
           <div class="sidebar__button -is-active">
-            <a href="#" class="d-flex items-center text-15 lh-1 fw-500">
+            <a href="{{ route('dashboard') }}" class="d-flex items-center text-15 lh-1 fw-500">
               <i class="fas fa-border-all mr-15"></i>
               Dashboard
             </a>
@@ -179,6 +179,46 @@
             </div>
           </div>
         </div>
+        <div class="sidebar__item ">
+          <div class="accordion -db-sidebar js-accordion">
+            <div class="accordion__item">
+              <div class="accordion__button">
+                <div class="sidebar__button col-12 d-flex items-center justify-between">
+                  <div class="d-flex items-center text-15 lh-1 fw-500">
+                    <i class="fas fa-flag  mr-15"></i>
+                    Manage Blog
+                  </div>
+                  <div class="icon-chevron-sm-down text-7"></div>
+                </div>
+              </div>
+
+              <div class="accordion__content">
+                <ul class="list-disc pb-5 pl-40">
+
+                  <li>
+                    <a href="{{url('/all-blog')}}" class="text-15">All Blog</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/create-blog')}}" class="text-15">Add Blog</a>
+                  </li>
+                 <li>
+                    <a href="{{url('/all-author')}}" class="text-15">All Blog author</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/create-author')}}" class="text-15">Add  Blog Author</a>
+                  </li>
+                   <li>
+                    <a href="{{url('/all-category')}}" class="text-15">All Blog Categories</a>
+                  </li>
+                   <li>
+                    <a href="{{url('/create-category')}}" class="text-15">Add Blog Categories</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+         
                 <div class="sidebar__item ">
           <div class="accordion -db-sidebar js-accordion">
             <div class="accordion__item">

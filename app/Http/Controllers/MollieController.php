@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Mollie\Laravel\Facades\Mollie;
 use Mail; 
+use App\Mail\DemoMail;
 use Illuminate\Http\Request;
 use App\Category_Model;
 use App\State_Model;
@@ -20,6 +21,7 @@ use Stevebauman\Location\Facades\Location;
 use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
 use Easebuzz\Easebuzz;
 use GuzzleHttp\Client;
+use App\Api_Model;
 // use Razorpay\Api\Api;
 // use Session;
 // use Redirect;
@@ -204,6 +206,7 @@ class MollieController extends Controller
      */
     public function paymentSuccess() {
     $payment_type = session()->get('payment_type');
+    $api_search = Api_Model::where('api_name','Flight')->first(); 
     // print_r($payment_type);die;
     // $payment_ID = session()->get('PaymentID');
     if($payment_type == 'mollie'){
@@ -251,7 +254,61 @@ class MollieController extends Controller
             // $passport_expiry = $request->passport_expiry;
         // FireQoute
         // FireQoute
-        $endpoint1 = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/FareQuote/'; 
+                // Json Data form field
+                   $itemCount = count(session()->get('fname'));
+        // print_r($itemCount);die;
+         $results = [];
+for($i = 0; $i < $itemCount; $i++) {
+    if($i==$itemCount)
+    {
+        break;
+    }
+    $results[] = [
+        'Title'=> "Mr",
+        		"FirstName"=> $fname[$i],
+        		"LastName"=> $lname[$i],
+        		"PaxType"=> 1,
+        		"DateOfBirth"=> "1987-12-06T00:00:00",
+        		"Gender"=> 1,
+        		"PassportNo"=> "KJHHJKHKJH",
+        		"PassportExpiry"=> "2027-12-06T00:00:00",
+        		"AddressLine1"=> "",
+        		"AddressLine2"=> "",
+        		"Fare"=> [
+        			"Currency"=> $Currency,
+        			"BaseFare"=> $BaseFare,
+        			"Tax"=> $Tax,
+        			"YQTax"=> $YQTax,
+        			"AdditionalTxnFeePub"=> $AdditionalTxnFeePub,
+        			"AdditionalTxnFeeOfrd"=> $AdditionalTxnFeeOfrd,
+        			"OtherCharges"=> $OtherCharges,
+        			"Discount"=> $Discount,
+        			"PublishedFare"=> $PublishedFare,
+        			"OfferedFare"=> 0.0,
+        			"TdsOnCommission"=> $TdsOnCommission,
+        			"TdsOnPLB"=> $TdsOnPLB,
+        			"TdsOnIncentive"=> $TdsOnIncentive,
+        			"ServiceFee"=> $ServiceFee
+        		],
+        		"City"=> "",
+        		"CountryCode"=> "GB",
+        		"CellCountryCode" => "+91",
+                "ContactNo"=> $mobile,
+        		"Nationality"=> "",
+                "Email"=> $email,
+        		"IsLeadPax"=> true,
+        		"FFAirlineCode"=> null,
+        		"FFNumber"=> "",  
+        		"GSTCompanyAddress"=> "",
+        		"GSTCompanyContactNumber"=> "",
+        		"GSTCompanyName"=> "",
+        		"GSTNumber"=> "",
+        		"GSTCompanyEmail"=> ""
+    ];
+}
+$sto = json_encode($results);
+        
+        $endpoint1 = "$api_search->api/rest/FareQuote/"; 
                         $json1='{
         "EndUserIp": "'.$EndUserIp.'",
         "TokenId": "'.$token_id.'",
@@ -270,56 +327,15 @@ class MollieController extends Controller
                 // FareQuote	End	
                 
                 //Booking  
-        $endpoint = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Book/'; 
+        $endpoint = "$api_search->booking_api/rest/Book/"; 
         $url = $endpoint;
-                        $json='{
+               $json='{
                         "ResultIndex": "'.$ResultIndex.'",
-        	"Passengers": [{
-        		"Title": "Mr",
-        		"FirstName": "'.$fname.'",
-        		"LastName": "'.$lname.'",
-        		"PaxType": 1,
-        		"DateOfBirth": "1987-12-06T00:00:00",
-        		"Gender": 1,
-        		"PassportNo": "KJHHJKHKJH",
-        		"PassportExpiry": "2027-12-06T00:00:00",
-        		"AddressLine1": "",
-        		"AddressLine2": "",
-        		"Fare": {
-        			"Currency": "'.$Currency.'",
-        			"BaseFare": "'.$BaseFare.'",
-        			"Tax": "'.$Tax.'",
-        			"YQTax": "'.$YQTax.'",
-        			"AdditionalTxnFeePub": "'.$AdditionalTxnFeePub.'",
-        			"AdditionalTxnFeeOfrd": "'.$AdditionalTxnFeeOfrd.'",
-        			"OtherCharges": "'.$OtherCharges.'",
-        			"Discount": "'.$Discount.'",
-        			"PublishedFare": "'.$PublishedFare.'",
-        			"OfferedFare": 0.0,
-        			"TdsOnCommission": "'.$TdsOnCommission.'",
-        			"TdsOnPLB": "'.$TdsOnPLB.'",
-        			"TdsOnIncentive": '.$TdsOnIncentive.',
-        			"ServiceFee": "'.$ServiceFee.'"
-        		},
-        		"City": "",
-        		"CountryCode": "GB",
-        		"CellCountryCode" : "+91",
-                "ContactNo": "'.$mobile.'",
-        		"Nationality": "",
-                "Email": "'.$email.'",
-        		"IsLeadPax": true,
-        		"FFAirlineCode": null,
-        		"FFNumber": "",
-        		"GSTCompanyAddress": "",
-        		"GSTCompanyContactNumber": "",
-        		"GSTCompanyName": "",
-        		"GSTNumber": "",
-        		"GSTCompanyEmail": ""
-        	}],
+        	"Passengers": '.$sto.',
         	"EndUserIp": "'.$EndUserIp.'",
         	"TokenId": "'.$token_id.'",
         	"TraceId": "'.$TraceId.'"
-        	';
+        	}';
         $ch = curl_init($url);
         $data =$json;
         $payload = $json;
@@ -365,13 +381,23 @@ class MollieController extends Controller
         			$data['trace_id']=$TraceId;
         			$data['booking_id']=$booking_id;
         			$data['amount'] = $BaseFare + $Tax;
+        			$data['tds']=$TdsOnPLB;
+        			$data['gst']=$Tax;
+        			$data['service_tex'] = $ServiceFee;
         			$data['ticket_date'] = $ticket_date;
         			$data['user_id'] = session()->get('user_id'); 
         			$data['payment_id'] = session()->get('paymentID');
         			$data['booking_status'] ='1';
         // 			print_r($data);die;
         			$contact_id = Flight_Model::create($data);
-        	
+        			
+        $data = ['pnr_no' =>"6677", 'booking_id'=>"67676" ,'amount'=>"5665" ,'ticket_date'=>"5656",'fname'=>"Umesh",'lname'=>"mandrai",'Origin'=>"BHO",'Destination'=>"DEL",'DepTime'=>"22-04-2024", ];
+            $user['to'] = $email;
+        Mail::send('welcome',$data,function($messages) use ($user){
+            
+            $messages->to($user['to']);
+            $messages->subject('flight Booking');   
+        });	
         	    $user_id = session()->get('user_id');
         	    	
         // 	Mail Function 		 

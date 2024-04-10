@@ -1,4 +1,428 @@
 @include('flight.header')
+
+ 
+    <style>
+        /* grouped css attributes via type */
+body {
+  font-family: "Lato", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  background: #fff;
+  color: #777;
+}
+
+/* nav */
+nav {
+  margin-bottom: 1rem;
+}
+
+nav a {
+  color: white;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+}
+
+nav a:hover,
+a:active,
+a:focus {
+  color: red;
+  outline: none;
+  text-decoration: none;
+}
+
+/* jumbotron*/
+.colorful {
+  background: #4b79a1;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #283e51, #4b79a1);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #283e51, #4b79a1);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 0px;
+  padding: 0px 0 1rem 0 !important;
+}
+
+.form-card {
+  background: #fff;
+  border-bottom: 7px solid #1e3c72;
+  border-top: 7px solid #1e3c72;
+  color: black;
+  padding: 0 2rem;
+}
+
+.form-card h3 {
+  color: #000;
+  padding: 1rem 0 0.1rem 0;
+}
+
+/* hotel card */
+.hotel-card {
+  border: none !important;
+}
+.hotel-card .card-img-top {
+  border-radius: 0px;
+  height: 230px;
+}
+
+.hotel-card .card-body {
+  padding: 0px !important;
+}
+
+.hotel-card .card-body h5 {
+  margin: 0.5rem 0;
+}
+
+.hotel-card .card-body h5 a {
+  color: #777;
+}
+
+.hotel-card .card-body p {
+  font-size: 0.9rem;
+}
+/* end of hotel cards */
+
+/* business process section */
+#process {
+  background: #2980b9;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #2c3e50, #2980b9);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #2c3e50, #2980b9);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #fff;
+}
+
+#process h2,
+h3 {
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  margin: 1rem 0;
+  padding: 0 0 1rem 0;
+}
+
+#process h2 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+#process h3 {
+  font-size: 1.7rem;
+}
+
+#process p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.icon {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 33px 29px;
+
+  background: #2980b9;
+  color: #fff;
+}
+
+#process .icon {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+
+#process .icon .fa {
+  font-size: 2rem;
+  margin: 11px 2px;
+}
+
+#process .process-step {
+  text-align: center;
+}
+
+#process .process-step h3 {
+  color: white;
+  margin-top: 2.2rem;
+}
+
+#stat-counter {
+  text-align: center;
+}
+#stat-counter h2 {
+  font-size: 3rem;
+
+  border-bottom: 1px solid #777;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+#stat-counter p {
+  padding-top: 1rem;
+}
+
+#stat-counter .counter {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #2980b9;
+  font-size: 50px;
+  font-weight: 100;
+}
+
+#subscribe-panel {
+  background: #1e3c72; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #2a5298,
+    #1e3c72
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #2a5298,
+    #1e3c72
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  padding: 5rem 1rem;
+}
+
+#subscribe-panel h2 {
+  position: relative;
+
+  margin-bottom: 10px;
+
+  color: white;
+  line-height: 1.5;
+  font-size: 50px;
+  font-weight: 300;
+}
+
+#subscribe-panel.form-control {
+  width: 100%;
+
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+
+  background: #fff;
+  color: #fff;
+  font-size: 16px !important;
+}
+
+#subscribe-panel.form-control:focus {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+#subscribe-panel.form-control::-webkit-input-placeholder,
+#subscribe-panel.form-control:-moz-placeholder,
+#subscribe-panel.form-control::-moz-placeholder,
+#subscribe-panel.form-control:-ms-input-placeholder {
+  color: #fff;
+}
+
+#subscribe-panel.btn {
+  height: 46px;
+  border: none !important;
+  padding-left: 50px;
+  padding-right: 50px;
+
+  background: #09c6ab;
+
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+#subscribe-panel.form-inline .form-group {
+  width: 100% !important;
+  margin-bottom: 10px;
+}
+
+#subscribe-panel.form-inline .form-group .form-control {
+  width: 100%;
+}
+
+#subscribe-panel.gtco-heading {
+  margin-bottom: 30px;
+}
+
+#subscribe-panel.gtco-heading h2 {
+  color: #fff;
+}
+
+#subscribe-panel.gtco-heading p {
+  color: rgba(255, 255, 255, 0.5);
+}
+.copyright {
+  background: #005c97; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #363795,
+    #005c97
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #363795,
+    #005c97
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.copyright h3 {
+  color: #fff;
+  font-size: 2.5rem;
+}
+.copyright p {
+  color: #fff;
+}
+
+.footer-nav a {
+  color: #777;
+}
+
+/* destination page */
+.destination-container {
+  height: 70vh;
+  padding: 7rem;
+}
+
+.hotels-form {
+  background: #283e51; /* fallback for old browsers */
+  padding: 1rem;
+}
+
+.hotels-container {
+  padding: 0.5rem 0 7rem 0;
+}
+
+.search-container {
+  background: #ffffff;
+}
+
+.search-card-result {
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  margin: 1rem 0;
+  padding: 0.5rem 0;
+  background-color: #fff;
+}
+.search-card-result img {
+  height: 190px;
+}
+.search-card-result h5 {
+  font-style: 1.1rem;
+  font-weight: 700;
+}
+.search-card-result p {
+  font-size: 0.9rem;
+}
+
+.search-card-result .more-offers p {
+  margin-bottom: 0.3rem;
+}
+
+.more-offers .additional {
+  padding-top: 0.2rem;
+  font-weight: 700;
+}
+
+.fa.checked {
+  color: orange;
+}
+
+.map-container-btn {
+  height: 100px;
+
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  background-color: wheat;
+}
+
+.map-container-btn .btn {
+  margin-top: 30px;
+}
+
+.filter-card {
+  padding: 0;
+  background: #fff;
+  color: black;
+}
+
+.filter-card h5 {
+  margin: 10px 0;
+  padding: 1rem;
+
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  color: #000;
+}
+.filter-card form {
+  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  padding: 0.5rem 2rem;
+}
+.map-btn {
+  background-color: #fff !important;
+}
+
+/* SOCIAL ICONS.CSS */
+
+  .nav .fa {
+    margin: 5px 2px;
+    padding: 20px;
+    
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  
+  .fa-google {
+    background: #dd4b39;
+    color: white;
+  }
+  
+  .fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  
+  .fa-instagram {
+    background: #DA4453;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #89216B, #DA4453);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #89216B, #DA4453); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    color: white;
+  }
+  
+  .fa-pinterest {
+    background: #cb2027;
+    color: white;
+  }
+  
+  .fa-snapchat-ghost {
+    background: #fffc00;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
+ 
+    </style>
+
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -26,10 +450,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="common_bannner_text">
-                        <h2>United states</h2>
+                        <h2>Visa details</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><span><i class="fas fa-circle"></i></span> United states</li>
+                            <li><span><i class="fas fa-circle"></i></span><a href="hotel-search.html">Toars</a></li>
+                            <li><span><i class="fas fa-circle"></i></span><a href="hotel-details.html">Toars details</a>
+                            </li>
+                            <li><span><i class="fas fa-circle"></i></span> Visa details</li>
                         </ul>
                     </div>
                 </div>
@@ -37,535 +464,586 @@
         </div>
     </section>
 
-    <!-- Tour Search Areas -->
-    <section id="tour_details_main" class="section_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="tour_details_leftside_wrapper">
-                        <div class="tour_details_heading_wrapper">
-                            <div class="tour_details_top_heading">
-                                <h2>{{$flight->visa_name}}</h2>
-                                <h5>21,873 visa provided</h5>
-                            </div>
+    <!-- Room Details Areas -->
+    
+    <!-- jumbotron and nav -->
+  <link rel="stylesheet" href="path/to/your/slider-styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+  
+	<section class="search-container">
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-4">
+		             <img src="public/images/{{$flight->image}}" style="width:100%;height:250px;" id="main">
+		        </div>
+		        <div class="col-md-8">
+		            <div class="filter-card" style="margin-top: 22px;">
+		                <form action="#">
+		            <div id="thumbnails" style="margin: 64px 0px 48px 0px;">
+		                <div id="image-slider">
+		                    
+		                     <img src="public/images/{{$flight->image}}">
+		                      
+                          </div>
+                        </div>
+                        	</form>
+                        </div>
+
+		        </div>
+		     
+		    </div>
+		  <div>
+		     
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('#image-slider').slick({
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      autoplay: true, // Enable autoplay
+      autoplaySpeed: 2000, // Set the autoplay speed in milliseconds (adjust as needed)
+      prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+      nextArrow: '<button type="button" class="slick-next">Next</button>',
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    });
+  });
+</script>
+
+
+<style>
+    #thumbnails{
+  text-align:center;
+  img{
+    width:100px;
+    height:100px;
+    margin:10px;
+    cursor:pointer;
+      @media only screen and (max-width:480px){
+    width:50px;
+    height:50px;
+  }
+    @extend %shared;
+    &:hover{
+      transform:scale(1.05)
+    }
+  }
+}
+#main{
+  width:50%;
+  height:400px;
+  object-fit:cover;
+  display:block;
+  margin:20px auto;
+  @extend %shared;
+  @media only screen and (max-width:480px){
+    width:100%;
+  }
+}
+.hidden{
+  opacity:0;
+}
+</style>
+<script>
+    var thumbnails = document.getElementById("thumbnails")
+var imgs = thumbnails.getElementsByTagName("img")
+var main = document.getElementById("main")
+var counter=0;
+
+for(let i=0;i<imgs.length;i++){
+  let img=imgs[i]
+  
+  
+  img.addEventListener("click",function(){
+  main.src=this.src
+})
+  
+}
+</script>
+		  </div>
+			<div class="row">
+				<div class="col-lg-4">
+					
+					<div class="row mt-2 justify-content-between">
+					    <div class="filter-card">
+							<h5>Visa Overview</h5>
+							<form action="#">
+							    <style>.hidden { display: none;}
+                                        .readmore { margin: 0 5px;}</style>
+							  <div class="content">
+							   {{$flight->overview}} </div>
+							</form>
+						</div>
+					 
+
+					</div>
+					<div class="row mt-2 justify-content-between" style="margin-bottom:20px;">
+					    <div class="filter-card">
+							<h5>Visa Documents</h5>
+							<form action="#">
+							    <style>.hidden { display: none;}
+                                        .readmore { margin: 0 5px;}</style>
+							  <div class="content">
+						{{$flight->overview}}	</div>
+							</form>
+						</div>
+					
+
+					</div>
+					<div class="row mt-2 justify-content-between" style="margin-bottom:20px;">
+					    <div class="filter-card">
+							<h5>Visa Included</h5>
+							<form action="#">
+							    <style>.hidden { display: none;}
+                                        .readmore { margin: 0 5px;}</style>
+							  <div class="content">
+						{{$flight->include}}	</div>
+							</form>
+						</div>
+					
+
+					</div>
+					<div class="row mt-2 justify-content-between" style="margin-bottom:20px;">
+					    <div class="filter-card">
+							<h5>Visa Excluded</h5>
+							<form action="#">
+							    <style>.hidden { display: none;}
+                                        .readmore { margin: 0 5px;}</style>
+							  <div class="content">
+						{{$flight->exclude}}	</div>
+							</form>
+						</div>
+					
+
+					</div>
+			
+					
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+<style>
+    .accordion {
+           margin:20px 0px 10px 0px;
+  background-color: #e98c06;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+ 
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+</style>
+				</div>
+
+
+
+				<div class="col-lg-8  px-4">
+					<div class="row search-card-result">
+						<div class="col-md-9">
+							<h5 style="margin-bottom:10px;">{{$flight->visa_name}}</h5>
+							<p  style="margin-bottom:10px;"><i class="fas fa-map-marker-alt"></i> {{$flight->address}}</p>
+							<div class="review">
                             <div class="tour_details_top_heading_right">
-                                <h4>Excellent</h4>
-                                <h6>4.8/5</h6>
-                                <p>(1214 reviewes)</p>
-                            </div>
-                        </div>
-                        <div class="tour_details_top_bottom">
-                            <div class="toru_details_top_bottom_item">
-                                <div class="tour_details_top_bottom_icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="tour_details_top_bottom_text">
-                                    <h5>Duration</h5>
+                               
+                                 <h5 style="margin-top:10px;">Duration</h5>
                                     <p>{{$flight->duration}} days</p>
-                                </div>
+                                     <h5 style="margin-top:10px;">Visa type</h5>
+                                    <p >{{$flight->visa_type}}</p>
                             </div>
-                            <div class="toru_details_top_bottom_item">
-                                <div class="tour_details_top_bottom_icon">
-                                    <i class="fas fa-paw"></i>
+
+							</div>
+							
+						
+                                    
+						</div>
+						
+						<div class="col-md-3 border-left text-center more-offers" style="background:#a7a7a757;">
+							<div class="text-warning">
+                                  @foreach($tour_package as $tour_packages)
+                                   <div class="tour_details_right_box_heading">
+                                    <h3  style="color:#000;">{{$tour_packages->tour_package_name}}</h3>
                                 </div>
-                                <div class="tour_details_top_bottom_text">
-                                    <h5>Visa type</h5>
-                                    <p>{{$flight->visa_type}}</p>
-                                </div>
-                            </div>
-                            <div class="toru_details_top_bottom_item">
-                                <div class="tour_details_top_bottom_icon">
-                                    <i class="fas fa-dollar-sign"></i>
-                                </div>
-                                <div class="tour_details_top_bottom_text">
-                                    <h5>Currency type</h5>
-                                    <p>{{$flight->currency_type}}</p>
-                                </div>
-                            </div>
-                            <div class="toru_details_top_bottom_item">
-                                <div class="tour_details_top_bottom_icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <div class="tour_details_top_bottom_text">
-                                    <h5>Local time</h5>
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tour_details_img_wrapper">
-                            <div class="visa_details_img">
-                                <img src="public/images/{{$flight->image}}" alt="img">
-                            </div>
-                        </div>
-                        <div class="tour_details_boxed">
-                            <h3 class="heading_theme">Overview</h3>
-                            <div class="tour_details_boxed_inner">
-                                <p>{{$flight->overview}}</p>
-                            </div>
-                        </div>
-                        <div class="tour_details_boxed">
-                            <h3 class="heading_theme">Required Documents for visa</h3>
-                            <div class="tour_details_boxed_inner">
-                                <p>{{$flight->documents}}</p>
-                            </div>
-                        </div>
-                       <div class="tour_details_boxed">
-                           <div class="tour_details_boxed_inner">
-                                <div class="row">
-                                <div class="col-sm-6">
-                                    <ul>
-                                        <h3 class="heading_theme">Included</h3>
-                                    <li><i class="fas fa-circle"></i>{{$flight->include}}</li>
-                            
-                                </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                   <ul>
-                                       <h3 class="heading_theme">Excluded</h3>
-                                    <li><i class="fas fa-circle"></i>{{$flight->exclude}}</li>
-                                </ul>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="write_your_review_wrapper">
-                        <h3 class="heading_theme">Write your review</h3>
-                        <div class="write_review_inner_boxed">
-                            <form action="!#" id="news_comment_form">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-froup">
-                                            <input type="text" class="form-control bg_input"
-                                                placeholder="Enter full name">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-froup">
-                                            <input type="text" class="form-control bg_input"
-                                                placeholder="Enter email address">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-froup">
-                                            <textarea rows="6" placeholder="Write your comments"
-                                                class="form-control bg_input"></textarea>
-                                        </div>
-                                        <div class="comment_form_submit">
-                                            <button class="btn btn_theme btn_md">Post comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="tour_details_right_sidebar_wrapper">
-                       @foreach($tour_package as $tour_packages)  <div class="tour_detail_right_sidebar">
-                            <div class="tour_details_right_boxed">
-                                <div class="tour_details_right_box_heading">
-                                    <h3>{{$tour_packages->visa_package}}</h3>
-                                </div>
-                                <div class="tour_package_details_bar_list">
-                                    <h5>Package details</h5>
-                                    <ul>
-                                        <li><i class="fas fa-circle"></i>{{$tour_packages->package_details}}</li>
-                                    </ul>
-                                </div>
-                                <div class="tour_package_details_bar_price">
-                                    <h5>Price</h5>
-                                    <div class="tour_package_bar_price">
-                                        <h3>{{$tour_packages->amount}}<sub>/Per serson</sub> </h3>
-                                    </div>
-                                </div>
-                            </div>
+                                
+                                <h3 style="color:#000;">{{$tour_packages->amount}}<sub>/Per serson</sub> </h3>
+                                
                             <form action="{{url('/book-visa-package')}}" enctype="multipart/form-data" method="post">
                                                       @csrf   
                  
                             <input type="hidden" name="visa_id" value="{{$flight->id}}">
                             <input type="hidden" name="visa_package_id" value="{{$tour_packages->id}}">
-                            <input type="hidden" name="visa_package_amount" value="{{$tour_packages->amount}}">
+                            <input type="hidden" name="tour_package_amount" value="{{$tour_packages->amount}}">
                             <div class="tour_select_offer_bar_bottom">
                                 <button class="button btn btn_theme btn_md w-100">Select Package</button>
                             </div>
                 </form>
-              </div>
-
-                        <!--    <div class="tour_select_offer_bar_bottom">-->
-                        <!--        <button class="btn btn_theme btn_md w-100" data-bs-toggle="offcanvas"-->
-                        <!--            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Select-->
-                        <!--            offer</button>-->
-                        <!--    </div>-->
-                        <!--</div>-->
                     @endforeach
-                    <!--<div class="tour_detail_right_sidebar">-->
-                    <!--        <div class="tour_details_right_boxed">-->
-                    <!--            <div class="tour_details_right_box_heading">-->
-                    <!--                <h3>Deluxe package</h3>-->
-                    <!--            </div>-->
-                    <!--            <div class="tour_package_details_bar_list">-->
-                    <!--                <h5>Package details</h5>-->
-                    <!--                <ul>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Buffet breakfast as per the Itinerary</li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Visit eight villages showcasing Polynesian-->
-                    <!--                        culture-->
-                    <!--                    </li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Complimentary Camel safari, Bonfire,</li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>All toll tax, parking, fuel, and driver-->
-                    <!--                        allowances-->
-                    <!--                    </li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Comfortable and hygienic vehicle</li>-->
-                    <!--                </ul>-->
-                    <!--            </div>-->
-                    <!--            <div class="tour_package_details_bar_price">-->
-                    <!--                <h5>Price</h5>-->
-                    <!--                <div class="tour_package_bar_price">-->
-                    <!--                    <h6><del>$ 35,500</del></h6>-->
-                    <!--                    <h3>$ 30,500 <sub>/Per serson</sub> </h3>-->
-                    <!--                </div>-->
-                    <!--            </div>-->
-                    <!--        </div>-->
-                    <!--        <div class="tour_select_offer_bar_bottom">-->
-                    <!--            <button class="btn btn_theme btn_md w-100" data-bs-toggle="offcanvas"-->
-                    <!--                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Select-->
-                    <!--                offer</button>-->
-                    <!--        </div>-->
-                    <!--    </div>-->
-                    <!--    <div class="tour_detail_right_sidebar">-->
-                    <!--        <div class="tour_details_right_boxed">-->
-                    <!--            <div class="tour_details_right_box_heading">-->
-                    <!--                <h3>Super deluxe package</h3>-->
-                    <!--            </div>-->
-                    <!--            <div class="tour_package_details_bar_list">-->
-                    <!--                <h5>Package details</h5>-->
-                    <!--                <ul>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Buffet breakfast as per the Itinerary</li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Visit eight villages showcasing Polynesian-->
-                    <!--                        culture-->
-                    <!--                    </li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Complimentary Camel safari, Bonfire,</li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>All toll tax, parking, fuel, and driver-->
-                    <!--                        allowances-->
-                    <!--                    </li>-->
-                    <!--                    <li><i class="fas fa-circle"></i>Comfortable and hygienic vehicle</li>-->
-                    <!--                </ul>-->
-                    <!--            </div>-->
-                    <!--            <div class="tour_package_details_bar_price">-->
-                    <!--                <h5>Price</h5>-->
-                    <!--                <div class="tour_package_bar_price">-->
-                    <!--                    <h6><del>$ 35,500</del></h6>-->
-                    <!--                    <h3>$ 30,500 <sub>/Per serson</sub> </h3>-->
-                    <!--                </div>-->
-                    <!--            </div>-->
-                    <!--        </div>-->
-                    <!--        <div class="tour_select_offer_bar_bottom">-->
-                    <!--            <button class="btn btn_theme btn_md w-100" data-bs-toggle="offcanvas"-->
-                    <!--                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Select-->
-                    <!--                offer</button>-->
-                    <!--        </div>-->
-                    <!--    </div>-->
-                        <div class="tour_detail_right_sidebar">
-                            <div class="tour_details_right_boxed">
-                                <div class="tour_details_right_box_heading">
-                                    <h3>Why choose us</h3>
-                                </div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="row">
+					   	<div class="col-md-12">
+				    	<div class="row mt-2 justify-content-between">
+					    <div class="filter-card">
+							<h5>Why choose us</h5>
+							<form action="#">
+							   <p>{{$flight->why_choose_us}}</p>
+							</form>
+						</div>
+					 
 
-                                <div class="tour_package_details_bar_list first_child_padding_none">
-                                    <ul>
-                                        <li><i class="fas fa-circle"></i><p>{{$flight->why_choose_us}}</p></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="all_review_wrapper">
-                        <h3 class="heading_theme">All review</h3>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review1.png" alt="img">
-                            <h4>Manresh Chandra</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                        <div class="all_review_small_img">
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small1.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small2.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small3.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small4.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small5.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <h5>+5</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review2.png" alt="img">
-                            <h4>Michel falak</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review3.png" alt="img">
-                            <h4>Chester dals</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                        <div class="all_review_small_img">
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small1.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small2.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small5.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <h5>+15</h5>
-                            </div>
-                        </div>
-                    </div>
+					</div>
+					</div>
+					
+					
+				</div>
+			
+			
+				</div>
+			</div>
 
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review4.png" alt="img">
-                            <h4>Casper mike</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                        <div class="all_review_small_img">
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small4.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <img src="assets/img/review/review-small5.png" alt="img">
-                            </div>
-                            <div class="all_review_small_img_item">
-                                <h5>+19</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review5.png" alt="img">
-                            <h4>Jason bruno</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+		</div>
+	</section>
+   
+  
+    <style>
 
-    <!--Related tour packages Area -->
-    <section id="related_tour_packages" class="section_padding_bottom">
-        <div class="container">
-            <!-- Section Heading -->
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section_heading_center">
-                        <h2>Related visa packages</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="promotional_tour_slider owl-theme owl-carousel dot_style">
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <img src="assets/img/tab-img/hotel1.png" alt="img">
-                                <p><i class="fas fa-map-marker-alt"></i>New beach, Thailand</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="#!">Kantua hotel, Thailand</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <img src="assets/img/tab-img/hotel2.png" alt="img">
-                                <p><i class="fas fa-map-marker-alt"></i>Indonesia</p>
-                                <div class="discount_tab">
-                                    <span>50%</span>
-                                </div>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="#!">Hotel paradise international</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <img src="assets/img/tab-img/hotel3.png" alt="img">
-                                <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="#!">Family package</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <img src="assets/img/tab-img/hotel4.png" alt="img">
-                                <p><i class="fas fa-map-marker-alt"></i>Mariana island</p>
-                                <div class="discount_tab">
-                                    <span>50%</span>
-                                </div>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="#!">Explorew the evergreen forest</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <img src="assets/img/tab-img/hotel6.png" alt="img">
-                                <p><i class="fas fa-map-marker-alt"></i>Enjoy ancient italy, Couple tour </p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="#!">Thailand grand suit</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two img_hover">
-                            <div class="theme_two_box_img">
-                                <img src="assets/img/tab-img/hotel7.png" alt="img">
-                                <p><i class="fas fa-map-marker-alt"></i>Long island</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="#!">Zefi resort and spa</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  /*right: 0;*/
+  left:30%;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+</style>
+   
+    <div class="container">
+  
+</div>
+
+<script>
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("demo");
+  let captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+
+
+<style>
+    /* Style for the entire page */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('your-background-image.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Style for the custom modal */
+.custom-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+}
+
+.custom-modal-content {
+    width: 50%;
+    margin: 10% auto;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius: 6px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Style for the close button */
+.close {
+   position: relative;
+    top: -13px;
+    right: -904px;
+    padding: 3px;
+    border-radius: 5px;
+    background: #d95313f2;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+@media only screen and (max-width: 700px) {
+   .close {
+   position: relative;
+    top: -13px;
+    right: 0;
+    float:right;
+    padding: 3px;
+    border-radius: 5px;
+    background: #d95313f2;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.custom-modal-content {
+    width: 95%;
+    margin: 10% auto;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius: 6px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    box-sizing: border-box;
+}
+}
+.main{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card{
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow:0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
+  border-radius: 10px;
+}
+.card img{
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+.card-title{
+  width: calc(100% - 40px);
+  background: #fff;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 170px;
+  transform: translateX(-50%);
+  font-family: 'Roboto', sans-serif;
+  border-radius: 5px;
+  box-shadow:0 10px 15px -5px rgba(0,0,0,.1), 0 5px 5px -5px rgba(0,0,0,.01);
+}
+.card-title h4{
+  font-family: 'Roboto', sans-serif;
+}
+.card-title h3{
+  font-weight: normal;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.card-content{
+  width: 100%;
+  background: #fff;
+  padding-top: 40px;
+  border-radius: 0 0 10px 10px;
+}
+.card-content-row{
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #e2e8f0;
+}
+.card-content-col{
+  width: 50%;
+  padding: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.card-content-col .fa{
+  font-size: 25px;
+  vertical-align: middle;
+  margin-right: 10px;
+  color: #718096;
+}
+.card-content-user-info{
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  background: #f7fafc;
+  border-radius: 0 0 10px 10px;
+}
+.card-content-user-info img{
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.card-content-user-info h4{
+  font-family: 'Roboto', sans-serif;
+}
+.card-content-user-info p{
+  font-family: 'Roboto', sans-serif;
+}
+.card-content-user-info .card-content-user-contact{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+}
+</style>
+<script>
+    function openModal() {
+    var modal = document.getElementById('customModal');
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    var modal = document.getElementById('customModal');
+    modal.style.display = 'none';
+}
+
+</script>
+                 
+                 
+                                
 
     <!-- Cta Area -->
     <section id="cta_area">
@@ -596,112 +1074,7 @@
     </section>
 
     <!-- Footer  -->
-    <footer id="footer_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Need any help?</h5>
-                    </div>
-                    <div class="footer_first_area">
-                        <div class="footer_inquery_area">
-                            <h5>Call 24/7 for any help</h5>
-                            <h3> <a href="tel:+00-123-456-789">+00 123 456 789</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Mail to our support team</h5>
-                            <h3> <a href="mailto:support@flightpathtravel.com">support@flightpathtravel.com</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Follow us on</h5>
-                            <ul class="soical_icon_footer">
-                                <li><a href="#!"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-twitter-square"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Company</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li><a href="faqs.html">Rewards</a></li>
-                            <li><a href="terms-service.html">Work with Us</a></li>
-                            <li><a href="tour-guides.html">Meet the Team </a></li>
-                            <li><a href="news.html">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Support</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="dashboard.html">Account</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="testimonials.html">Legal</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="top-destinations.html"> Affiliate Program</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Other Services</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="top-destinations-details.html">Community program</a></li>
-                            <li><a href="top-destinations-details.html">Investor Relations</a></li>
-                            <li><a href="flight-search-result.html">Rewards Program</a></li>
-                            <li><a href="room-booking.html">PointsPLUS</a></li>
-                            <li><a href="testimonials.html">Partners</a></li>
-                            <li><a href="hotel-search.html">List My Hotel</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Top cities</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="room-details.html">Chicago</a></li>
-                            <li><a href="hotel-details.html">New York</a></li>
-                            <li><a href="hotel-booking.html">San Francisco</a></li>
-                            <li><a href="tour-search.html">California</a></li>
-                            <li><a href="tour-booking.html">Ohio </a></li>
-                            <li><a href="tour-guides.html">Alaska</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="copyright_area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_left">
-                        <p>Copyright © 2022 All Rights Reserved</p>
-                    </div>
-                </div>
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_right">
-                        <img src="assets/img/common/cards.png" alt="img">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  @include('auth.cust_footer')
     <div class="go-top">
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>
@@ -720,7 +1093,7 @@
                 <div class="travel_date_side">
                     <div class="form-group">
                         <label for="dates">Select your travel date</label>
-                        <input type="date" id="dates" value="2022-05-05" class="form-control">
+                        <input type="date" value="2022-05-05" class="form-control" id="dates">
                     </div>
                 </div>
                 <div class="select_person_side">
@@ -777,9 +1150,9 @@
                         </div>
                     </div>
                     <div class="write_spical_not">
-                        <label for="textse">Write any special note</label>
-                        <textarea rows="5" id="textse" class="form-control"
-                            placeholder="Write any special note"></textarea>
+                        <label for="texts">Write any special note</label>
+                        <textarea rows="5" class="form-control" placeholder="Write any special note"
+                            id="texts"></textarea>
                     </div>
                     <div class="form-check write_spical_check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">
@@ -793,25 +1166,72 @@
             </div>
         </div>
         <div class="proceed_booking_btn ">
-            <a href="tour-booking-submission.html" class="btn btn_theme btn_md w-100">Proceed to Booking</a>
+            <a href="room-booking.html" class="btn btn_theme btn_md w-100">Proceed to Booking</a>
         </div>
     </div>
+<script>
+    $(function () {
+    
+    var maxL = 500;
+    
+    $('.content').each(function () {
+        
+        var text = $(this).text();
+        if(text.length > maxL) {
+            
+            var begin = text.substr(0, maxL),
+                end = text.substr(maxL);
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+            $(this).html(begin)
+                .append($('<a class="readmore"/>').attr('href', '#').html('read more...'))
+                .append($('<div class="hidden" />').html(end));
+                
+            
+        }
+        
+        
+    });
+            
+    $(document).on('click', '.readmore', function () {
+				// $(this).next('.readmore').fadeOut("400");
+        $(this).next('.hidden').slideToggle(10);
+    })        
+    
+    
+})
+</script>
+    <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+
+    <!--<script src="public/assets/js/jquery-3.6.0.min.js"></script>-->
+
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
+
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
+
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!-- Slick js -->
-    <script src="assets/js/slick.min.js"></script>
-    <script src="assets/js/slick-slider.js"></script>
+
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+
+    <script src="public/assets/js/wow.min.js"></script>
+
+    <!-- Select2 -->
+
+    <script src="public/assets/js/select2.min.js"></script>
+
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/custom.js"></script>
+
+    <script src="public/assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/form-dropdown.js"></script>
 
 </body>
 

@@ -148,7 +148,8 @@ public function book_tour(Request $request)
 			
 			$contact_id = Tour_Booking_Model::create($data);
 			 $flight = Tour_Model::get();
-		return view('flight/tour-search-list',compact('flight'));	
+// 		return view('flight/tour-search-list',compact('flight'));
+return redirect('/login');
     // }
     // return redirect()->back()->with('message',"Agent Already Register...");
 }

@@ -41,77 +41,11 @@
     </section>
 
     <!-- Dashboard Area -->
-    <section id="dashboard_main_arae" class="section_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="tour_details_right_sidebar_wrapper">
-                        <div class="tour_detail_right_sidebar">
-                            <div class="tour_details_right_boxed">
-                                <div class="tour_details_right_box_heading">
-                                    <h3>Flights : <?php echo $AirlineName; ?> </h3>
-                                </div>
-                                <div class="flight_sidebar_right">
-                                    <div class="flight_search_left_sidebar">
-                                        <div class="flight_search_destination_sidebar">
-                                            <p>From</p>
-                                            <h3><?php echo $Source_name; ?></h3>
-                                            <h6><?php echo $Source_address; ?></h6>
-                                        </div>
-                                    </div>
-                                    <div class="flight_search_middel_sidebar">
-                                        <div class="flight_right_arrow_sidebar">
-                                            <img src="assets/img/icon/right_arrow.png" alt="icon">
-                                            <h6>Non-stop</h6>
-                                            <p>
-                                            <?php $hours = floor($Duration / 60);
-                                                        $min = $Duration - ($hours * 60);
-                                                        echo $hours."h : ".$min;echo"m ";
-                                                        ?>
-                                            </p>
-                                            
-                                        </div>
-                                        <div class="flight_search_destination_sidebar">
-                                            <p>To</p>
-                                            <h3><?php echo $Destination_name; ?></h3>
-                                            <h6><?php echo $Destination_address; ?></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour_package_details_bar_list">
-                                    <h5>Package rules</h5>
-                                    <ul>
-                                        <!--<li><i class="fas fa-circle"></i>Buffet breakfast as per the Itinerary</li>-->
-                                        <!--<li><i class="fas fa-circle"></i>Visit eight villages showcasing Polynesian-->
-                                        <!--    culture-->
-                                        <!--</li>-->
-                                        <!--<li><i class="fas fa-circle"></i>Complimentary Camel safari, Bonfire,</li>-->
-                                        <!--<li><i class="fas fa-circle"></i>All toll tax, parking, fuel, and driver-->
-                                        <!--    allowances-->
-                                        <!--</li>-->
-                                        <!--<li><i class="fas fa-circle"></i>Comfortable and hygienic vehicle</li>-->
-                                    </ul>
-                                </div>
-                                <div class="tour_package_details_bar_price"> 
-                                    <h5>Price</h5>
-                                    <div class="tour_package_bar_price">
-                                        <!--<h6><del>$ 35,500</del></h6>-->
-                                        @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <h3><?php echo $Currency;?><?php $base123 = $BaseFare?> <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?></h3>
-                                        @else
-                                        <h3><?php echo $Currency; ?><?php echo $BaseFare; ?>  <sub> / </sub> </h3>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        </div> 
+    
                 <style>
-              *, *:before, *:after {
+               *,*:before,*:after {
   box-sizing: border-box;
 }
-
 html {
   font-size: 16px;
 }
@@ -119,20 +53,48 @@ html {
 .plane {
   margin: 20px auto;
   max-width: 300px;
+  position: relative;
+  
 }
 
 .cockpit {
+  height: 250px; 
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+ 
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    background:#f5f5f5;
+    top: 0;
+    left: 0;
+    height: 500px;
+    width: 100%;
+    border-radius: 50%;
+    border-right: 5px solid #d8d8d8;
+    border-left: 5px solid #d8d8d8;
+  }
+  h1 {
+    width: 60%;
+    margin: 100px auto 35px auto;
+  }
+}
+.cockpit1 {
   height: 250px;
   position: relative;
   overflow: hidden;
   text-align: center;
-  border-bottom: 5px solid #d8d8d8;
+  border-top: 5px solid #d8d8d8;
 }
-.cockpit:before {
+
+.cockpit1:before {
   content: "";
   display: block;
   position: absolute;
-  top: 0;
+  background:#f5f5f5;
+  bottom: 0;
   left: 0;
   height: 500px;
   width: 100%;
@@ -140,198 +102,247 @@ html {
   border-right: 5px solid #d8d8d8;
   border-left: 5px solid #d8d8d8;
 }
-.cockpit h1 {
+
+.cockpit1 h1 {
   width: 60%;
   margin: 100px auto 35px auto;
 }
 
+.cockpit1::before{
+
+} 
 .exit {
   position: relative;
   height: 50px;
-}
-.exit:before, .exit:after {
-  content: "EXIT";
-  font-size: 14px;
-  line-height: 18px;
-  padding: 0px 2px;
-  font-family: "Arial Narrow", Arial, sans-serif;
-  display: block;
-  position: absolute;
-  background: green;
-  color: white;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-.exit:before {
-  left: 0;
-}
-.exit:after {
-  right: 0;
+  &:before,
+  &:after {
+    content: "EXIT";
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 2px;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    display: block;
+    position: absolute;
+    background: green;
+    color: white;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  &:before {
+    left: 0;
+  }
+  &:after {
+    right: 0;
+  }
 }
 
 .fuselage {
+  background:#f5f5f5;
   border-right: 5px solid #d8d8d8;
   border-left: 5px solid #d8d8d8;
 }
 
 ol {
-  list-style: none;
+  list-style :none;
   padding: 0;
   margin: 0;
+}
+
+
+.row {
+  
 }
 
 .seats {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  justify-content: flex-start;  
+  
 }
 
-/*.seat {*/
-/*  display: flex;*/
-/*  flex: 0 0 14.28571428571429%;*/
-/*  padding: 5px;*/
-/*  position: relative;*/
-/*}*/
-.seat:nth-child(3) {
-  margin-right: 14.28571428571429%;
-}
-.seat input[type=checkbox] {
-  position: absolute;
-  opacity: 0;
-}
-.seat input[type=checkbox]:checked + label {
-  background: #bada55;
-  -webkit-animation-name: rubberBand;
-  animation-name: rubberBand;
-  animation-duration: 300ms;
-  animation-fill-mode: both;
-}
-.seat input[type=checkbox]:disabled + label {
-  background: #dddddd;
-  text-indent: -9999px;
-  overflow: hidden;
-}
-.seat input[type=checkbox]:disabled + label:after {
-  content: "X";
-  text-indent: 0;
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translate(-50%, 0%);
-}
-.seat input[type=checkbox]:disabled + label:hover {
-  box-shadow: none;
-  cursor: not-allowed;
-}
-.seat label {
-  display: block;
-  position: relative;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.5rem;
-  padding: 4px 0;
-  background: #F42536;
-  border-radius: 5px;
-  animation-duration: 300ms;
-  animation-fill-mode: both;
-}
-.seat label:before {
-  content: "";
-  position: absolute;
-  width: 75%;
-  height: 75%;
-  top: 1px;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 3px;
-}
-.seat label:hover {
-  cursor: pointer;
-  box-shadow: 0 0 0px 2px #5C6AFF;
+.seat {
+  display: flex;
+  flex: 0 0 14.28571428571429%;
+  padding: 1px;
+  position: relative;  
+   &:nth-child(3) {
+    margin-right: 14.28571428571429%;
+  }
+  input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+  }
+  input[type=checkbox]:checked {
+    + label {
+      background: #bada55;      
+      -webkit-animation-name: rubberBand;
+          animation-name: rubberBand;
+      animation-duration: 300ms;
+      animation-fill-mode: both;
+    }
+  }
+  input[type=checkbox]:disabled {
+    + label {
+      background: #dddddd;
+      text-indent: -9999px;
+      overflow: hidden;
+      &:after {
+        content: "X";
+        text-indent: 0;
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+      }
+      &:hover {
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+    }
+  }
+  label {    
+    display: block;
+    position: relative;    
+    width: 100%;    
+    text-align: center;
+    height:51px;
+    font-weight: bold;
+    line-height: 1.2rem;
+    padding: 4px 0;
+    background: #F42536;
+    border-radius: 5px;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+    
+    &:before {
+      content: "";
+      position: absolute;
+      width: 75%;
+      height: 75%;
+      top: 1px;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      background: rgba(255,255,255,.4);
+      border-radius: 3px;
+    }
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 0px 2px #5C6AFF;
+    }
+    
+  }
 }
 
 @-webkit-keyframes rubberBand {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
   }
+
   30% {
     -webkit-transform: scale3d(1.25, 0.75, 1);
-    transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
   }
+
   40% {
     -webkit-transform: scale3d(0.75, 1.25, 1);
-    transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
   }
+
   50% {
     -webkit-transform: scale3d(1.15, 0.85, 1);
-    transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
   }
+
   65% {
-    -webkit-transform: scale3d(0.95, 1.05, 1);
-    transform: scale3d(0.95, 1.05, 1);
+    -webkit-transform: scale3d(.95, 1.05, 1);
+            transform: scale3d(.95, 1.05, 1);
   }
+
   75% {
-    -webkit-transform: scale3d(1.05, 0.95, 1);
-    transform: scale3d(1.05, 0.95, 1);
+    -webkit-transform: scale3d(1.05, .95, 1);
+            transform: scale3d(1.05, .95, 1);
   }
+
   100% {
     -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
   }
 }
+
 @keyframes rubberBand {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
   }
+
   30% {
     -webkit-transform: scale3d(1.25, 0.75, 1);
-    transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
   }
+
   40% {
     -webkit-transform: scale3d(0.75, 1.25, 1);
-    transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
   }
+
   50% {
     -webkit-transform: scale3d(1.15, 0.85, 1);
-    transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
   }
+
   65% {
-    -webkit-transform: scale3d(0.95, 1.05, 1);
-    transform: scale3d(0.95, 1.05, 1);
+    -webkit-transform: scale3d(.95, 1.05, 1);
+            transform: scale3d(.95, 1.05, 1);
   }
+
   75% {
-    -webkit-transform: scale3d(1.05, 0.95, 1);
-    transform: scale3d(1.05, 0.95, 1);
+    -webkit-transform: scale3d(1.05, .95, 1);
+            transform: scale3d(1.05, .95, 1);
   }
+
   100% {
     -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
   }
 }
+
 .rubberBand {
   -webkit-animation-name: rubberBand;
-  animation-name: rubberBand;
+          animation-name: rubberBand;
 }
 
+.wing-left{
+    position: absolute;
+    width: 40px;
+    height: 165px;
+    background: #ededed;
+    margin: 300% -13.4%;
+    transform: perspective(3em) rotateY(171deg);
+    
+}
+.wing-right{
+    position: absolute;
+    width: 40px;
+    height: 165px;
+    background: #ededed;
+    margin: 300% 100.9%;
+    transform: perspective(3em) rotateY(191deg);
+}
+</style>
+<style>
+
                 </style>
-                <div class="col-lg-8">
-                    <div class="dashboard_common_table">
-                        <h3>Flight Seat Select</h3>
-                        <div class="table-responsive-lg table_common_area">
-<div class="plane">
+                <div class="plane">
+  <div class="wing-left"></div>
+  <div class="wing-right"></div>
   <div class="cockpit">
-    <h1>Please select a seat</h1>
+        <img src="{{ asset('public/images/windows.png') }}" style="transform: rotate(88deg); width: 150px;" alt="">
   </div>
   <div class="exit exit--front fuselage">
     
-  </div>
-                                <table>            
+  </div>          
 @if(isset($result23))
 <?php     
 foreach($result23 as $resu)
@@ -359,15 +370,26 @@ foreach($SeatDynamic as $SeatDynamics){
     foreach($SegmentSeat as $SegmentSeat1){
         $RowSeats = $SegmentSeat1->RowSeats;
     }
-    foreach($RowSeats as $kry=>$RowSeats1){
-        $Seats = $RowSeats1->Seats;
-    foreach($Seats as  $key=>$Seats1){
+   
+      
     
 ?>
 
   
-                                    <td class="seat" type="A">
-                                             <form action="{{url('/Lcc-flight-booking')}}" enctype="multipart/form-data" method="post">
+                                    <ol class="cabin fuselage" style="text-align: center;">
+                                           <li class="row row--1">
+                                               <?php 
+                                                foreach($RowSeats as $kry=>$RowSeats1){
+        $Seats = $RowSeats1->Seats;
+
+                                               ?>
+           <ol class="seats o1" type="A">
+               <?php
+                 foreach($Seats as  $key=>$Seats1){
+                     
+                     ?>
+               <li class="seat l1" >
+             <form action="{{url('/Lcc-flight-booking')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                             <input type="hidden" name="ResultIndex" value="<?php echo $ResultIndex;?>"> 
                                             <input type="hidden" name="TraceId" value="<?php echo $TraceId;?>">
@@ -432,43 +454,64 @@ foreach($SeatDynamic as $SeatDynamics){
                                             <input type="hidden" name="SeatsCurrency" value="<?php echo $Seats1->Currency;?>">
                                             <input type="hidden" name="SeatsPrice" value="<?php echo $Seats1->Price;?>">
                                             
-                                           @if($Seats1->AvailablityType == 1)
-                                            <button class="btn btn-success" style="height:10px; width:10px; margin:3px;"><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
+                                           
+          <input type="checkbox" id="<?php  print_r($Seats1->Code);?>" />
+                                            @if($Seats1->AvailablityType == 1)
+                                           <button style="font-size: 10px;border: none;background: none;"> <label title="₹<?php echo $Seats1->Price;?>" style="background-color:green;padding: 4px 2px 0px 1px;
+  
+    font-size: 14px;
+    color: #000;
+}" for="<?php  print_r($Seats1->Code);?>"><?php  if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
                                             @elseif($Seats1->AvailablityType == 3)
-                                            <button class="btn btn-warning" style="height:10px; width:10px; margin:3px;" disabled><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
+                                            <button style="font-size: 10px;border: none;background: none;"disabled><label title="₹<?php echo $Seats1->Price;?>" style="background-color:yellow;padding: 4px 2px 0px 1px;
+
+    font-size: 14px;
+    color: #000;
+}" for="<?php  print_r($Seats1->Code);?>"><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
                                             @else  
-                                             <button class="btn btn-success" style="height:10px; width:10px; margin:3px;" disabled><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
+                                             <button style="font-size: 10px;border: none;background: none;"disabled><label title="₹<?php echo $Seats1->Price;?>" style="background-color:green;padding: 4px 2px 0px 1px;
+
+    font-size: 14px;
+    color: #000;
+} " for="<?php  print_r($Seats1->Code);?>"><?php if($Seats1->SeatType == 1){ echo "W "; } if($Seats1->SeatType == 2){ echo "A "; } if($Seats1->SeatType == 3){ echo "M "; }?><?php  print_r($Seats1->Code);?></button>
                                              @endif  
-                                        </form>
+                                        </form></label>
+        </li>
+              
+               <?php 
+                                                }
+               ?>
+           </ol>
+           <?php 
+    }
+                                                
+           ?>
+       </li>
+    
+       </ol>
+  
+                                            
                                     
         
                         
-       <?php if($key == 5 ){ echo "<tr>";  }  ?>
-       </td>
+       <?php if($key == 5 ){ echo "<br>";  }  ?>
+      
       
        
 <?php 
-}    
-      
-    }
 
 }
 } 
 }
 ?>
 @endif
-    </table>
-  <div class="exit exit--back fuselage">
+    <div class="exit exit--back fuselage">
     
   </div>
-</div>       
-      <div class="fuselage">
-        
-      </div>
-    </div>
-                </div>
-            </div>
-        </div>
+  <div class="cockpit1">
+   
+  </div>
+</div>
     </section>
 
     <!-- Cta Area -->
@@ -500,112 +543,7 @@ foreach($SeatDynamic as $SeatDynamics){
     </section>
 
     <!-- Footer -->
-    <footer id="footer_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Need any help?</h5>
-                    </div>
-                    <div class="footer_first_area">
-                        <div class="footer_inquery_area">
-                            <h5>Call 24/7 for any help</h5>
-                            <h3> <a href="tel:+00-123-456-789">+00 123 456 789</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Mail to our support team</h5>
-                            <h3> <a href="mailto:support@flightpathtravel.com">support@flightpathtravel.com</a></h3>
-                        </div>
-                        <div class="footer_inquery_area">
-                            <h5>Follow us on</h5>
-                            <ul class="soical_icon_footer">
-                                <li><a href="#!"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-twitter-square"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-6 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Company</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="testimonials.html">Testimonials</a></li>
-                            <li><a href="faqs.html">Rewards</a></li>
-                            <li><a href="terms-service.html">Work with Us</a></li>
-                            <li><a href="tour-guides.html">Meet the Team </a></li>
-                            <li><a href="news.html">Blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Support</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="dashboard.html">Account</a></li>
-                            <li><a href="faq.html">Faq</a></li>
-                            <li><a href="testimonials.html">Legal</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="top-destinations.html"> Affiliate Program</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Other Services</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="top-destinations-details.html">Community program</a></li>
-                            <li><a href="top-destinations-details.html">Investor Relations</a></li>
-                            <li><a href="flight-search-result.html">Rewards Program</a></li>
-                            <li><a href="room-booking.html">PointsPLUS</a></li>
-                            <li><a href="testimonials.html">Partners</a></li>
-                            <li><a href="hotel-search.html">List My Hotel</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                    <div class="footer_heading_area">
-                        <h5>Top cities</h5>
-                    </div>
-                    <div class="footer_link_area">
-                        <ul>
-                            <li><a href="room-details.html">Chicago</a></li>
-                            <li><a href="hotel-details.html">New York</a></li>
-                            <li><a href="hotel-booking.html">San Francisco</a></li>
-                            <li><a href="tour-search.html">California</a></li>
-                            <li><a href="tour-booking.html">Ohio </a></li>
-                            <li><a href="tour-guides.html">Alaska</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="copyright_area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_left">
-                        <p>Copyright © 2022 All Rights Reserved</p>
-                    </div>
-                </div>
-                <div class="co-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="copyright_right">
-                        <img src="assets/img/common/cards.png" alt="img">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   @include('auth.cust_footer')
     <div class="go-top">
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>
@@ -634,18 +572,48 @@ foreach($SeatDynamic as $SeatDynamics){
     </div>
 
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+    <script src="public/assets/js/jquery-3.6.0.min.js"></script>
+
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
+
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
+
+    <!-- Range js -->
+
+    <script src="public/assets/js/nouislider.min.js"></script>
+
+    <script src="public/assets/js/wNumb.js"></script>
+
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+
+    <script src="public/assets/js/wow.min.js"></script>
+
+    <!-- Select2 -->
+
+    <script src="public/assets/js/select2.min.js"></script>
+
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/custom.js"></script>
+
+    <script src="public/assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/form-dropdown.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 
 </body>
 

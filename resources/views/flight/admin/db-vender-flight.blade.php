@@ -36,6 +36,8 @@
                         <th>Confimation No</th>
                         <th>Amount</th>
                         <th>Booking Status</th>
+                        <th>Cancel Hotel</th>
+                        <th>Hotel Details</th>
                         
                         
             </tr>
@@ -51,7 +53,16 @@
                         <td><?php print_r($flights->confimation_no);?></td>
                         <td><?php print_r($flights->amount);?></td>
                         <td><span class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">Confirmed</span></td>
-                        
+                        <td> <div class="col-auto">
+                           <a href="{{url('/hotel-cancel'.$flights->booking_id)}}"  class="btn btn_theme btn_md addAttr" 
+                                style="background-color:blue; color:white;border-radius: 12px;padding: 12px 28px;">Cancel</a>
+                         </div>
+                        </td> 
+                        <td> <div class="col-auto">
+                           <a href="{{url('/hotel-booking-details'.$flights->booking_id)}}"  class="btn btn_theme btn_md addAttr" 
+                                style="background-color:blue; color:white;border-radius: 12px;padding: 12px 28px;">Hotel Booking </a>
+                         </div>
+                        </td> 
                       </tr>
                     @endforeach
                     @endif

@@ -36,6 +36,8 @@
 </head>
 
 <body>
+    
+    
     <!-- preloader Area -->
     <div class="preloader">
         <div class="d-table">
@@ -54,6 +56,7 @@
                     <div></div>
                     <div></div>
                 </div>
+                <h3>Loading..</h3>
             </div>
         </div>
     </div>
@@ -128,355 +131,537 @@ $Currency_Symbol= "dd";
         </div>
 
         <!-- Navbar Bar -->
-        <div class="navbar-area">
+      <div class="navbar-area">
+
             <div class="main-responsive-nav">
+
                 <div class="container">
+
                     <div class="main-responsive-menu">
+
                         <div class="logo">
+
                             <a href="/">
+
                                 <img src="public/assets/img/logo.png" alt="logo">
+
                             </a>
+
                         </div>
+
+                        <div class="login-func-visible">
+                            <a href="https://www.flightpathtravel.com/User-login" class="text-white"><i class="fa fa-user"></i></a>
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
+
             <div class="main-navbar">
+
                 <div class="container">
+
                     <nav class="navbar navbar-expand-md navbar-light">
+
                         <a class="navbar-brand" href="/">
+
                             <img src="public/assets/img/logo.png" alt="logo">
+
                         </a>
+
                         <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+
                             <ul class="navbar-nav">
+
                                 <li class="nav-item">
+
                                     <a href="/" class="nav-link active">
+
                                         Home
+
                                     </a>
+
                                 </li>
-                                <li class="nav-item">
+                                 <li class="nav-item">
+
+                                                    <a href="{{ route('about-us') }}" class="nav-link">About Us</a>
+
+                                                </li>
+
+                         <li class="nav-item">
+
                                     <a href="#" class="nav-link">
+
                                         Categories
+
                                         <i class="fas fa-angle-down"></i>
+
                                     </a>
+
                                     <ul class="dropdown-menu">
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+
+                                            <a href="{{ route('tours-form-search') }}" class="nav-link">
+
                                                 Tours
+
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="nav-item">
-                                                    <a href="{{url('/tour-search')}}" class="nav-link">Tour Grid</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{url('/tour-list')}}" class="nav-link">Tour List</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour Map</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{url('/tour-details')}}" class="nav-link">Tour Details</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tour Booking</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Top Destination</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Destination
-                                                        Details</a>
-                                                </li>
-                                            </ul>
+
+                                        
                                         </li>
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+
+                                            <a href="{{ route('flight-form-search') }}" class="nav-link">
+
                                                 Flights
+
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Flight</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Flight Booking</a>
-                                                </li>
-                                            </ul>
+
+                                          
+
                                         </li>
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+
+                                            <a href="{{ route('search-hotel') }}" class="nav-link">
+
                                                 Hotel
+
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Hotel Grid</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{url('/hotel')}}" class="nav-link">Hotel List</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Hotel Map</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Hotel Booking</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Room Details</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Room Booking</a>
-                                                </li>
-                                            </ul>
+
+                                        
+
                                         </li>
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+
+                                            <a href="{{ route('visa-form-search') }}" class="nav-link">
+
                                                 Visa
+
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li class="nav-item">
-                                                    <a href="{{url('/Visa-list')}}" class="nav-link">Visa List</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Visa Application</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Business visa </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Education visa </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Working visa </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Tourist visa </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Medical visa </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">On-arrival visa </a>
-                                                </li>
-                                            </ul>
+
+                                        
+
                                         </li>
+
                                         <!--<li class="nav-item">
+
                                             <a href="#" class="nav-link">
+
                                                 Apartments
+
                                             </a>
+
                                             <ul class="dropdown-menu">
+
                                                 <li class="nav-item">
+
                                                     <a href="apartment-search.html" class="nav-link">Apartments Grid</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="apartment-search-list.html" class="nav-link">Apartments List</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="apartment-search-map.html" class="nav-link">Apartments Map</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="apartment-details.html" class="nav-link">Apartments Details</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="apartment-booking.html" class="nav-link">Apartments Booking</a>
+
                                                 </li>
+
                                             </ul>
+
                                         </li>-->
+
                                         <!--<li class="nav-item">
+
                                             <a href="#" class="nav-link">
+
                                                 Bus/Cab
+
                                             </a>
+
                                             <ul class="dropdown-menu">
+
                                                 <li class="nav-item">
+
                                                     <a href="bus-search-list.html" class="nav-link">Bus/Cab</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="bus-search-map.html" class="nav-link">Bus Map</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="bus-booking.html" class="nav-link">Bus Booking</a>
+
                                                 </li>
+
                                             </ul>
+
                                         </li>-->
+
                                         <!--<li class="nav-item">
+
                                             <a href="#" class="nav-link">
+
                                                 Cruise
+
                                             </a>
+
                                             <ul class="dropdown-menu">
+
                                                 <li class="nav-item">
+
                                                     <a href="cruise-search-list.html" class="nav-link">Cruise</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="cruise-map.html" class="nav-link">Cruise Map</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="cruise-details.html" class="nav-link">Cruise Details</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="cruise-booking.html" class="nav-link">Cruise Booking</a>
+
                                                 </li>
+
                                             </ul>
+
                                         </li>-->
+
                                     </ul>
+
                                 </li>
+
                                 <li class="nav-item">
+
                                     <a href="#" class="nav-link">
+
                                         Pages
+
                                         <i class="fas fa-angle-down"></i>
+
                                     </a>
+
                                     <ul class="dropdown-menu">
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">About</a>
+
+                                            <a href="{{ route('teams') }}" class="nav-link">Team</a>
+
                                         </li>
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">Team</a>
+
+                                            <a href="{{ route('testimonials') }}" class="nav-link">Testimonials</a>
+
                                         </li>
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">Testimonials</a>
+
+                                            <a href="{{ route('faq') }}" class="nav-link">FAQ</a>
+
                                         </li>
+
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">FAQ</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Booking Confirmation</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Become Expert </a>
-                                        </li>
-                                        <li class="nav-item">
+
                                             <a href="#" class="nav-link">User Pages</a>
+
                                             <ul class="dropdown-menu">
+
                                                 <li class="nav-item">
+
                                                     <a href="{{url('/User-login')}}" class="nav-link">Login</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="#" class="nav-link">Register</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="#" class="nav-link">Forget Password</a>
+
                                                 </li>
+
                                                 <li class="nav-item">
+
                                                     <a href="#" class="nav-link">Verify OTP</a>
+
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">Reset Password</a>
-                                                </li>
+
+                                              
+
                                             </ul>
+
                                         </li>
-                                       
+
+
+
                                         <li class="nav-item">
-                                        <a href="{{url('/privacy-policy')}}" class="nav-link">Privacy Policy</a>
+
+                                            <a href="{{url('/privacy-policy')}}" class="nav-link">Privacy Policy</a>
+
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">404 Error</a>
-                                        </li>
+
                                     </ul>
+
                                 </li>
+
+                                @if(session()->has('user_id'))
                                 <li class="nav-item">
-                                    
-                                   @if(session()->has('user_id'))  <a href="{{url('/customer-dashboard')}}" class="nav-link">Dashboard </a>  @endif
-                                    <!--<ul class="dropdown-menu">-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">Dashboard</a>-->
-                                    <!--    </li>-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">Hotel booking</a>-->
-                                    <!--    </li>-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">Flight booking</a>-->
-                                    <!--    </li>-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">Tour booking</a>-->
-                                    <!--    </li>-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">Booking history</a>-->
-                                    <!--    </li>-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">My profile</a>-->
-                                    <!--    </li>-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">Wallet</a>-->
-                                    <!--    </li>-->
-                                    <!--    <li class="nav-item">-->
-                                    <!--        <a href="#" class="nav-link">Notifications</a>-->
-                                    <!--    </li>-->
-                                    <!--</ul>-->
+                                    <a href="{{url('/customer-dashboard')}}" class="nav-link">Dashboard</a>
                                 </li>
+                                @endif
+
+                                <!--<ul class="dropdown-menu">-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">Dashboard</a>-->
+
+                                <!--     </li>-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">Hotel booking</a>-->
+
+                                <!--     </li>-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">Flight booking</a>-->
+
+                                <!--     </li>-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">Tour booking</a>-->
+
+                                <!--     </li>-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">Booking history</a>-->
+
+                                <!--     </li>-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">My profile</a>-->
+
+                                <!--     </li>-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">Wallet</a>-->
+
+                                <!--     </li>-->
+
+                                <!--     <li class="nav-item">-->
+
+                                <!--         <a href="#" class="nav-link">Notifications</a>-->
+
+                                <!--     </li>-->
+
+                                <!-- </ul>-->
+
+
+
                                 <li class="nav-item">
+
                                     <a href="#" class="nav-link">News <i class="fas fa-angle-down"></i></a>
+
                                     <ul class="dropdown-menu">
+
                                         <li class="nav-item">
+
                                             <a href="#" class="nav-link">News</a>
+
                                         </li>
+
                                         <li class="nav-item">
+
                                             <a href="#" class="nav-link">News v2</a>
+
                                         </li>
+
                                         <li class="nav-item">
+
                                             <a href="#" class="nav-link">News v3</a>
+
                                         </li>
+
                                         <li class="nav-item">
+
                                             <a href="#" class="nav-link">News v4</a>
+
                                         </li>
+
                                         <li class="nav-item">
+
                                             <a href="#" class="nav-link">News Details</a>
+
                                         </li>
+
                                         <li class="nav-item">
+
                                             <a href="#" class="nav-link">News Details v2</a>
+
                                         </li>
+
                                     </ul>
+
                                 </li>
+
                                 <li class="nav-item">
+
                                     <a href="{{url('/contact-us')}}" class="nav-link">Contact Us</a>
+
                                     <!--<ul class="dropdown-menu">-->
+
                                     <!--    <li class="nav-item">-->
+
                                     <!--        <a href="#" class="nav-link">Contact v1</a>-->
+
                                     <!--    </li>-->
+
                                     <!--    <li class="nav-item">-->
+
                                     <!--        <a href="#" class="nav-link">Contact v2</a>-->
+
                                     <!--    </li>-->
+
                                     <!--</ul>-->
+
                                 </li>
+
                             </ul>
+
                             <div class="others-options d-flex align-items-center">
+
                                 <div class="option-item">
+
                                     <a href="#" class="search-box">
+
                                         <i class="bi bi-search"></i>
+
                                     </a>
+
                                 </div>
+
                                 <div class="option-item">
+
                                     @if(session()->has('name'))
-                                    <a href="#" class="btn  btn_navber">{{session()->get('name')}}</a>
-                                    <a href="{{url('/logout')}}" class="btn  btn_navber">Logout</a>
-                         @else
-                        <a href="{{url('/User-login')}}" class="btn  btn_navber">Login</a>
-                            <a href="{{url('/User-Register')}}" class="btn  btn_navber">Sign up</a>
-                        @endif
+
+                                    <a href="#" class="btn btn_navber">{{session()->get('name')}}</a>
+
+                                    <a href="{{url('/logout')}}" class="btn btn_navber">Logout</a>
+
+                                    @else
+
+                                    <a href="{{url('/User-login')}}" class="btn btn_navber">Login</a>
+
+                                    <a href="{{url('/User-Register')}}" class="btn btn_navber">Sign up</a>
+
+                                    @endif
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     </nav>
+
                 </div>
+
             </div>
-            <div class="others-option-for-responsive">
+
+            <!-- <div class="others-option-for-responsive">
+
                 <div class="container">
+
                     <div class="dot-menu">
+
                         <div class="inner">
+
                             <div class="circle circle-one"></div>
+
                             <div class="circle circle-two"></div>
+
                             <div class="circle circle-three"></div>
+
                         </div>
+
                     </div>
+
                     <div class="container">
+
                         <div class="option-inner">
+
                             <div class="others-options d-flex align-items-center">
+
                                 <div class="option-item">
+
                                     <a href="#" class="search-box"><i class="fas fa-search"></i></a>
+
                                 </div>
+
                                 <div class="option-item">
-                                    <a href="#" class="btn  btn_navber">Get free quote</a>
+
+                                    <a href="#" class="btn btn_navber">Get free quote</a>
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
-            </div>
+
+            </div> -->
+
         </div>
     </header>
 
@@ -513,3 +698,41 @@ $Currency_Symbol= "dd";
             });
         });
     </script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+ <!-- Bootstrap js -->
+
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
+
+    <!-- Meanu js -->
+
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
+
+    <!-- Range js -->
+
+    <script src="public/assets/js/nouislider.min.js"></script>
+
+    <script src="public/assets/js/wNumb.js"></script>
+
+    <!-- owl carousel js -->
+
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+
+    <!-- wow.js -->
+
+    <script src="public/assets/js/wow.min.js"></script>
+
+    <!-- Select2 -->
+
+    <script src="public/assets/js/select2.min.js"></script>
+
+    <!-- Custom js -->
+
+    <script src="public/assets/js/custom.js"></script>
+
+    <script src="public/assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/form-dropdown.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>    

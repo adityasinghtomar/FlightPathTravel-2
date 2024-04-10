@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User_Model; 
-
+use App\Http\Middleware\adminmiddleware;
 use App\Markup_Model;
 // use App\Category_Model;
 use App\UserDetails_Model;
@@ -19,7 +19,9 @@ use App\Setting_Flight_Model;
 use App\Setting_Api_Model;
 use App\Setting_General_Model;
 use DateTime;
-
+use App\Flight_Model;
+use Illuminate\Support\Facades\Session;
+use App\Hotel_Model;
 class AdminController extends Controller
 {
     /**
@@ -135,6 +137,36 @@ $data = $ress->Destinations;
         }
     }
     
+     public function login_form(Request $request)
+    {
+       $data = UserDetails_Model::where('email',$request->name)->where('password',$request->password)->first();
+        if(!empty($data)){
+            $request->session()->put('name',$data->name);
+            $request->session()->put('commision',$data->commision);
+            $request->session()->put('user_id',$data->id);
+            $request->session()->put('role',$data->role);
+         return response()->json(['message' => 'Login successfull']);  
+        }else{
+            return response()->json(['message' => 'Wrong Gmail And Password']);
+        }
+    }
+     public function signup_form(Request $request)
+    {
+     $user1 =  UserDetails_Model::where('email',$request->u_gmail)->first(); 
+      if(!$user1){
+            $data['name']= $request->input('fname');
+			$data['lname']= $request->input('lname');
+			$data['email']= $request->input('u_gmail');
+			$data['mobile']= $request->input('u_mobile');
+			$data['password'] = $request->input('password');
+			$data['role'] = 'customer';
+			$data['user_id'] = session()->get('user_id');
+// 			print_r($data);die;
+			$contact_id = UserDetails_Model::create($data);
+           return response()->json(['message' => 'Registration successfull please Login']);
+      }
+      return response()->json(['message' => 'Already Registration Please Login']);
+    }
     // Contact Us Store 
      public function contact_store(Request $request)
     {
@@ -152,6 +184,7 @@ $data = $ress->Destinations;
     // Logout 
     public function logout(Request $request)
     {
+       
         session()->forget(['name','commision','user_id']);
        return view('auth/login'); 
     }
@@ -182,24 +215,65 @@ $data = $ress->Destinations;
     }
      public function login_admin(Request $request)
     {
-        // print_r("sf");die;
-       $data = UserDetails_Model::where('email',$request->email)->where('password',$request->password)->first();
-        		$user_count = 0;
-        if($data){	
-            	$user_count = 0;
-        return view('flight/admin/db-dashboard',compact('user_count'));		
-// 		return view('flight/login')->with('message',"User Register Successfull...");    
-        // return view('flight/login');
-      }
-      return redirect()->back()->with('message',"Email And Password Wrong...");
+       $credentials = $request->only('email', 'password');
+
+    $user = UserDetails_Model::where('email', $request->email)
+                             ->where('password', $request->password)
+                             ->first();
+
+    if ($user) {
+        // Set session variables
+        $request->session()->put('id', $user->id);
+        $request->session()->put('role', $user->role);
+
+        // Redirect to the admin dashboard
+        return redirect()->route('dashboard');
     }
 
+    // If authentication fails, redirect back with an error message
+    return redirect()->route('login')->with('error', 'Invalid email or password');
+    }
+  
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+     
+     
+     public function dashboard()
+{
+    
+    $flight_data = Flight_Model::get(); 
+    $flight_data1 = Flight_Model::get(); 
+    $flight_data2 = Flight_Model::select('origin', \DB::raw('count(*) as count'))->groupBy('origin')->get();
+    $flight_data2_sorted = $flight_data2->sortByDesc('count');
+    $top_10_flight_data = $flight_data2_sorted->take(10);
+    
+    $hotel_data = Hotel_Model::get(); 
+    $total_flight_amount2 = Flight_Model::sum('amount');
+    $total_flight_amount = Flight_Model::where('booking_status','0')->sum('amount');
+    $total_flight_amount1 = Flight_Model::where('booking_status','1')->sum('amount');
+    $total_hotel_amount = Hotel_Model::sum('amount');
+
+    // Aggregate flight and hotel data by month
+    $flight_revenue_by_month = $this->groupByMonth($flight_data);
+    $hotel_revenue_by_month = $this->groupByMonth($hotel_data);
+
+    // Return the dashboard view with aggregated revenue data
+    return view('flight.admin.db-dashboard', compact('flight_revenue_by_month', 'hotel_revenue_by_month','total_flight_amount','top_10_flight_data','total_flight_amount1', 'total_flight_amount2','total_hotel_amount','flight_data1'));
+
+}
+private function groupByMonth($data) {
+    $result = [];
+    foreach ($data as $item) {
+        $created_at = strtotime($item->created_at);
+        $month = date('Y-m', $created_at);
+        $result[$month] = isset($result[$month]) ? $result[$month] + $item->amount : $item->amount;
+    }
+    return $result;
+}
     public function store(Request $request)
     {
         //
@@ -329,7 +403,7 @@ $data = $ress->Destinations;
     {
         // print_r($request->input('id'));die;
             $id= $request->input('id');
-            $data['name']= $request->input('name');
+            $data['status']= $request->input('name');
 			$data['markup_amount']= $request->input('markup_amount');
 			$contact_id = Markup_Model::where('id',$id)->update($data);
            

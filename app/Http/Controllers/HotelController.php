@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Mail; 
 use Mollie\Laravel\Facades\Mollie;
 use Illuminate\Http\Request;
 use App\Hotel_Model;
+use App\Mail\DemoMail;
 use App\Hotel_City_Model;
 use App\UserDetails_Model;
+use App\Markup_Model;
 use App\Hotel_Details_Model;
 use Illuminate\Support\Facades\Http;
 use Stevebauman\Location\Facades\Location;
@@ -13,6 +16,7 @@ use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
 use Easebuzz\Easebuzz;
 use GuzzleHttp\Client;
 use DateTime;
+use App\Api_Model;
 class HotelController extends Controller
 {
    private $apiUrl = 'https://open.er-api.com/v6/latest';
@@ -86,12 +90,14 @@ $form_status1 ="hotel_form";
    
     public function hotel_search(Request $request)
     {
+        $api_authentic = Api_Model::where('api_name','Authentic')->first(); 
+        $api_search = Api_Model::where('api_name','Hotel')->first();
     $form_status = $request->form_status;    
     $city_name = $request->city_name;   
     $checkin_date = $request->checkin_date;
     $checkout_date =$request->checkout_date;
     $NoOfRoom =$request->NoOfRoom;
-    
+    $adult =$request->adult;
     $datetime1 = new DateTime($checkin_date);
     $datetime2 = new DateTime($checkout_date);
 $interval = $datetime1->diff($datetime2);
@@ -106,13 +112,13 @@ $days = $interval->format('%a');
                     ->format('d/m/Y');
         // print_r($date);die;
 // Authenticate API
-$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+$endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
 $url = $endpoint;
                 $json='{
-"ClientId": "ApiIntegrationNew",
-"UserName": "Flightpath",
-"Password": "Flight@1234", 
-"EndUserIp": "192.168.11.120"
+"ClientId": "tboprod",
+"UserName": "AMDF361",
+"Password": "TravelInd@#361$", 
+"EndUserIp": "101.53.132.121"
 }';
 $ch = curl_init($url);
 $data =$json;
@@ -122,26 +128,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $result1 = curl_exec($ch);
 $result = json_decode($result1);
-// Search City 
-
-$search1 = 'http://api.tektravels.com/SharedServices/StaticData.svc/rest/GetDestinationSearchStaticData'; // Replace with the actual flight search endpoint
-$json12='{ 
-"EndUserIp": "192.168.11.120",
-"TokenId": "'.$result->TokenId.'",
-"CountryCode" :"IN",
-"SearchType"  :"1"
-}'; 
-$ch = curl_init($search1);
-$payload12 = $json12;
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload12);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$ss = curl_exec($ch);
-$ress = json_decode($ss);   
-// print_r($ress);die;
-$data = $ress->Destinations;
 // Hotel Search API
-$search = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelResult/'; // Replace with the actual flight search endpoint
+$search = "$api_search->api/rest/GetHotelResult/"; // Replace with the actual flight search endpoint
+// print_r($search);die;
 $json1='{ 
   "CheckInDate": "'.$date.'",
   "NoOfNights": "'.$days.'",
@@ -153,7 +142,7 @@ $json1='{
   "NoOfRooms": "1",
   "RoomGuests": [
     {
-      "NoOfAdults": 1,
+      "NoOfAdults": "'.$adult.'",
       "NoOfChild": 0,
       "ChildAge": null     
     }
@@ -196,7 +185,7 @@ $NoOfNights ="4";
     $form_status1 ="hotel_form";
 $token_id = $result->TokenId;
 //  print_r($ress);die;    
-        return view('flight/hotel-search-list',compact('NoOfNights','form_status1','form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
+        return view('flight/hotel-search-list',compact('adult','NoOfNights','form_status1','form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
     }
     
     }    
@@ -209,6 +198,7 @@ $token_id = $result->TokenId;
         $HotelCode=$request->HotelCode; 
        $total = $request->total_amount;
        $CurrencyCode = $request->CurrencyCode;
+       
      // Hotel Search API
 $search = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelInfo/'; // Replace with the actual flight search endpoint
 $json1='{
@@ -231,6 +221,8 @@ $ress = json_decode($ss);
     
  public function room_information(Request $request)
     {
+        $adult =$request->adult;
+         $api_search = Api_Model::where('api_name','Hotel')->first();
         $Hoteladdress = $request->Hoteladdress;
        $StarRating=  $request->StarRating;
         $Hotelname= $request->Hotelname;
@@ -240,8 +232,24 @@ $ress = json_decode($ss);
         $EndUserIp= $request->EndUserIp;
         $HotelCode = $request->HotelCode;
         $image= $request->image;
-     // Hotel Search API
-$search = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetHotelRoom/'; // Replace with the actual flight search endpoint
+// Hotel Search API
+$search_info = "$api_search->api/rest/GetHotelInfo/"; // Replace with the actual flight search endpoint
+$json_info='{
+  "ResultIndex": "'.$request->ResultIndex.'",
+  "HotelCode": "'.$request->HotelCode.'",
+  "EndUserIp": "'.$request->EndUserIp.'",
+  "TokenId": "'.$request->token_id.'",
+  "TraceId": "'.$request->TraceId.'"
+}'; 
+$ch = curl_init($search_info);
+$payload_info = $json_info;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload_info);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$ss_info = curl_exec($ch);
+$ress_info = json_decode($ss_info);         
+     // Hotel Get Room API
+$search = "$api_search->api/rest/GetHotelRoom/"; // Replace with the actual flight search endpoint
 $json1='{
   "ResultIndex": "'.$request->ResultIndex.'",
   "HotelCode": "'.$request->HotelCode.'",
@@ -256,8 +264,10 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $ss = curl_exec($ch);
 $ress = json_decode($ss);   
+
+
 //   print_r($ress);die;
-        return view('flight/room-details',compact('ress','image','Hotelname','StarRating','Hoteladdress','ResultIndex','TraceId','token_id','EndUserIp','HotelCode'));
+        return view('flight/room-details',compact('adult','ress_info','ress','image','Hotelname','StarRating','Hoteladdress','ResultIndex','TraceId','token_id','EndUserIp','HotelCode'));
     }    
     // Room Block API 
  public function room_book_now(Request $request)
@@ -291,6 +301,7 @@ $ress = json_decode($ss);
         $ResultIndex = $request->ResultIndex;
         $Hotelname = $request->Hotelname;
         $TraceId = $request->TraceId;
+        $adult = $request->adult;
         $token_id = $request->token_id;
         $EndUserIp = $request->EndUserIp;
         $HotelCode = $request->HotelCode;
@@ -314,8 +325,10 @@ $ress = json_decode($ss);
         $AgentMarkUp = $request->AgentMarkUp;
         $TDS = $request->TDS;
         $ServiceTax = $request->ServiceTax;
+         $api_search = Api_Model::where('api_name','Hotel')->first();
+        
      // Room Block  API
-$search = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/BlockRoom/'; // Replace with the actual flight search endpoint
+$search = "$api_search->api/rest/BlockRoom/"; // Replace with the actual flight search endpoint
 $json1='{
   "ResultIndex": "'.$ResultIndex.'",
   "HotelCode": "'.$HotelCode.'",
@@ -363,8 +376,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $ss = curl_exec($ch);
 $ress = json_decode($ss);   
+
 //  print_r($ress);die;
-        return view('flight/room-booking' ,compact('ress','AgentMarkUp','ResultIndex','Hotelname','TraceId','token_id','EndUserIp','HotelCode','RoomIndex','RoomTypeName','RoomTypeCode','RatePlanCode','SmokingPreference','CurrencyCode','RoomPrice','Tax','ExtraGuestCharge','ChildCharge','OtherCharges','Discount','PublishedPrice','PublishedPriceRoundedOff','OfferedPrice','OfferedPriceRoundedOff','AgentCommission','TDS','ServiceTax')
+        return view('flight/room-booking' ,compact('adult','ress','AgentMarkUp','ResultIndex','Hotelname','TraceId','token_id','EndUserIp','HotelCode','RoomIndex','RoomTypeName','RoomTypeCode','RatePlanCode','SmokingPreference','CurrencyCode','RoomPrice','Tax','ExtraGuestCharge','ChildCharge','OtherCharges','Discount','PublishedPrice','PublishedPriceRoundedOff','OfferedPrice','OfferedPriceRoundedOff','AgentCommission','TDS','ServiceTax')
        );
     }        
     // Booking API 
@@ -402,7 +416,32 @@ public function room_book_confirm(Request $request)
         $TDS = session()->get('TDS');
         $ServiceTax = session()->get('ServiceTax');
      // Room Block  API
-$search = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/Book/'; // Replace with the actual flight search endpoint
+      $api_search = Api_Model::where('api_name','Hotel')->first();
+      $itemCount = count(session()->get('fname'));
+        // print_r($name[]);die;
+         $results = [];
+for($i = 0; $i < $itemCount; $i++) {
+    if($i==$itemCount)
+    {
+        break;
+    }
+    $results[] = [
+          "Title"=> "mr",
+          "FirstName"=> $name[$i],
+          "Middlename"=> null,
+          "LastName"=> $lname[$i],
+          "Phoneno"=> $mobile,
+          "Email"=> $email,
+          "PaxType"=> 1,
+          "LeadPassenger"=> true,
+          "Age"=> 0,
+          "PassportNo"=> null,
+	      "PAN"=> "EBQPS3333T"
+    ];
+}
+$sto = json_encode($results);     
+
+$search = "$api_search->api/rest/Book/"; // Replace with the actual flight search endpoint
 $json1='{
   "ResultIndex": "'.$ResultIndex.'",
   "HotelCode": "'.$HotelCode.'",
@@ -437,21 +476,7 @@ $json1='{
                     "ServiceTax": "'.$ServiceTax.'",
                     "TDS": "'.$TDS.'"
                           },
-      "HotelPassenger": [
-        {
-          "Title": "mr",
-          "FirstName": "'.$name.'",
-          "Middlename": null,
-          "LastName": "'.$lname.'",
-          "Phoneno": "'.$mobile.'",
-          "Email": "'.$email.'",
-          "PaxType": 1,
-          "LeadPassenger": true,
-          "Age": 0,
-          "PassportNo": null,
-	      "PAN": "EBQPS3333T"
-        }
-      ]
+      "HotelPassenger": '.$sto.'
     }
   ],
   "EndUserIp": "192.168.11.120",
@@ -468,12 +493,31 @@ $ress = json_decode($ss);
 // foreach($ress as $res){
 if($ress){
 if($ress->BookResult->HotelBookingStatus){
+    $mark_up= Markup_Model::where('name','hotel')->where('status','active')->first();
+                                 
+                                if($mark_up) { 
+                                            if($mark_up->markup_type =='fixed'){
+                                                $mark_up->markup_amount;
+                                                $subtotal= $Tax + $OfferedPriceRoundedOff + $mark_up->markup_amount;
+                                            }
+                                            else {
+                                                $subtotal1= $Tax + $OfferedPriceRoundedOff ;
+                                              $percentage = ($mark_up->markup_amount / 100) * $subtotal1; 
+                                              $subtotal= $subtotal1 + $percentage;
+                                           //   echo $percentage;
+                                            }
+                                }
+                                 else {
+                                                $subtotal= $Tax + $OfferedPriceRoundedOff ;
+                                           //   echo $percentage;
+                                            }
 $data = array();
-            $data['amount']= $OfferedPriceRoundedOff + $PublishedPriceRoundedOff ;
-            $data['name']= $name;
-			$data['lname']= $lname;
+            $data['amount']= $OfferedPriceRoundedOff;
+            $data['name']= $name[0];
+			$data['lname']= $lname[0];
 			$data['email']=$email;
 			$data['mobile']=$mobile;
+			$data['markup_amount']=$subtotal;
 			$data['booking_status'] = $ress->BookResult->HotelBookingStatus;
 			$data['confimation_no'] = $ress->BookResult->ConfirmationNo;
 			$data['booking_id'] = $ress->BookResult->BookingId;
@@ -481,6 +525,13 @@ $data = array();
 // 			print_r($data);die;
 			$contact_id = Hotel_Model::create($data);
 //  print_r($ress);die;
+            $data = ['booking_id' =>$ress->BookResult->BookingId, 'confimation_no'=>$ress->BookResult->ConfirmationNo ,'amount'=>$OfferedPriceRoundedOff ,'mobile'=>$mobile,'fname'=>$name[0],'lname'=>$lname[0], ];
+            $user['to'] = $email;
+        Mail::send('hotel_mail',$data,function($messages) use ($user){
+            
+            $messages->to($user['to']);
+            $messages->subject('flight Booking');   
+        });
 }
 }
 //  print_r($ress);die;
@@ -667,4 +718,104 @@ $data = array();
      *
      * @return Response
      */
+    public function hotel_booking_details(Request $request ,$id)
+    {
+        // Authenticate API
+$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+$url = $endpoint;
+                $json='{
+"ClientId": "ApiIntegrationNew",
+"UserName": "Flightpath",
+"Password": "Flight@1234", 
+"EndUserIp": "192.168.11.120"
+}';
+$ch = curl_init($url);
+$data =$json;
+$payload = $json;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$result1 = curl_exec($ch);
+$result = json_decode($result1);
+// Search City 
+
+$search1 = 'http://api.tektravels.com/BookingEngineService_Hotel/HotelService.svc/rest/GetBookingDetail/'; // Replace with the actual flight search endpoint
+$json12='{ 
+"EndUserIp": "192.168.11.120",
+"TokenId": "'.$result->TokenId.'",
+"BookingId": "'.$id.'",
+}'; 
+$ch = curl_init($search1);
+$payload12 = $json12;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload12);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$ss = curl_exec($ch);
+$ress = json_decode($ss);   
+print_r($ress);die;
+return view('flight/hotel_ticket_booking',compact('ress')); 
+}
+
+public function hotel_cancel(Request $request ,$id)
+    {
+        // Authenticate API
+$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+$url = $endpoint;
+                $json='{
+"ClientId": "ApiIntegrationNew",
+"UserName": "Flightpath",
+"Password": "Flight@1234", 
+"EndUserIp": "192.168.11.120"
+}';
+$ch = curl_init($url);
+$data =$json;
+$payload = $json;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$result1 = curl_exec($ch);
+$result = json_decode($result1);
+// Search City 
+//  print_r($result);die;
+$search1 = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/SendChangeRequest/'; // Replace with the actual flight search endpoint
+$json12='{ 
+"EndUserIp": "192.168.11.120",
+"TokenId": "'.$result->TokenId.'",
+"BookingId": "'.$id.'",
+"RequestType": 4,
+"Remarks": "sds",
+}'; 
+$ch = curl_init($search1);
+$payload12 = $json12;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload12);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$ss = curl_exec($ch);
+$ress = json_decode($ss);   
+//  print_r($ress);die;
+
+$search11 = 'http://api.tektravels.com/BookingEngineService_Hotel/hotelservice.svc/rest/GetChangeRequestStatus/'; // Replace with the actual flight search endpoint
+$json121='{ 
+"EndUserIp": "192.168.11.120",
+"TokenId": "'.$result->TokenId.'",
+"ChangeRequestId": "'.$ress->HotelChangeRequestResult->ChangeRequestId.'",
+}'; 
+$ch = curl_init($search11);
+$payload121 = $json121;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload121);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$ss = curl_exec($ch);
+$ress1 = json_decode($ss);   
+
+  	$data = ['pnr_no' =>"6677", 'booking_id'=>"67676" ,'amount'=>"5665" ,'ticket_date'=>"5656",'fname'=>"Umesh",'lname'=>"mandrai",'Origin'=>"BHO",'Destination'=>"DEL",'DepTime'=>"22-04-2024", ];
+            $user['to'] = "umeshmandrai98@gmail.com";
+        Mail::send('welcome',$data,function($messages) use ($user){
+            
+            $messages->to($user['to']);
+            $messages->subject('flight Booking');   
+        });	
+print_r($ress1);die;
+}
+     
 }    
