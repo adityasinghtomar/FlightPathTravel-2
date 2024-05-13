@@ -90,105 +90,69 @@ $form_status1 ="hotel_form";
    
     public function hotel_search(Request $request)
     {
-        $api_authentic = Api_Model::where('api_name','Authentic')->first(); 
-        $api_search = Api_Model::where('api_name','Hotel')->first();
-    $form_status = $request->form_status;    
-    $city_name = $request->city_name;   
-    $checkin_date = $request->checkin_date;
-    $checkout_date =$request->checkout_date;
-    $NoOfRoom =$request->NoOfRoom;
-    $adult =$request->adult;
-    $datetime1 = new DateTime($checkin_date);
-    $datetime2 = new DateTime($checkout_date);
-$interval = $datetime1->diff($datetime2);
-$days = $interval->format('%a');
-    // print_r($days);die;
-   $hotel1 =  Hotel_City_Model::where('name',$request->city_name)->first(); 
-   
-  if($hotel1){
-  $city_id = $hotel1->city_id ;
-  $CountryCode =$hotel1->CountryCode;
-        $date =\Carbon\Carbon::createFromFormat('Y-m-d', $request->checkin_date)
-                    ->format('d/m/Y');
-        // print_r($date);die;
-// Authenticate API
-$endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
-$url = $endpoint;
-                $json='{
-"ClientId": "tboprod",
-"UserName": "AMDF361",
-"Password": "TravelInd@#361$", 
-"EndUserIp": "101.53.132.121"
-}';
-$ch = curl_init($url);
-$data =$json;
-$payload = $json;
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$result1 = curl_exec($ch);
-$result = json_decode($result1);
-// Hotel Search API
-$search = "$api_search->api/rest/GetHotelResult/"; // Replace with the actual flight search endpoint
-// print_r($search);die;
-$json1='{ 
-  "CheckInDate": "'.$date.'",
-  "NoOfNights": "'.$days.'",
-  "CountryCode": "'.$CountryCode.'",
-  "CityId": "'.$city_id.'",
-  "ResultCount": null,
-  "PreferredCurrency": "INR",
-  "GuestNationality": "IN",
-  "NoOfRooms": "1",
-  "RoomGuests": [
-    {
-      "NoOfAdults": "'.$adult.'",
-      "NoOfChild": 0,
-      "ChildAge": null     
-    }
-  ],
-  "MaxRating": 5,
-  "MinRating": 3,
-  "ReviewScore": null,
-  "IsNearBySearchAllowed": false,
-  "EndUserIp": "192.168.11.120",
-  "TokenId": "'.$result->TokenId.'"
-}'; 
-$ch = curl_init($search);
-$payload1 = $json1;
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$ss = curl_exec($ch);
-$ress = json_decode($ss);   
+      // dd($request->all());
+      $curl = curl_init();
+      
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://test.xmlhub.com/testpanel.php/action/findhotel',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array('XML' => '<HotelFindRequest><Authentication><AgentCode>CD32740</AgentCode><UserName>FLIGHTPATH</UserName></Authentication><Booking><ArrivalDate>13/05/2024</ArrivalDate><DepartureDate>14/05/2024</DepartureDate><CountryCode>IN</CountryCode><City>7561</City><GuestNationality>IN</GuestNationality><HotelRatings><HotelRating>2</HotelRating><HotelRating>3</HotelRating><HotelRating>4</HotelRating><HotelRating>5</HotelRating></HotelRatings><Rooms><Room><Type>Room-1</Type><NoOfAdults>1</NoOfAdults><NoOfChilds>0</NoOfChilds></Room></Rooms></Booking></HotelFindRequest>'),
+        CURLOPT_HTTPHEADER => array(
+          'x-api-key: cf7a091744591cadaf9be2d3c1dd1761'
+        ),
+      ));
+      
+      $response = curl_exec($curl);
+      
+      curl_close($curl);
 
-// 
-if(isset($ress->HotelSearchResult->HotelResults)){
-$data = $ress->HotelSearchResult->HotelResults;
-foreach($data as $key=>$data1){
-     $hotel_name = $data1->HotelName;
-    $hotel_image = $data1->HotelPicture;
-    $hotel_address = $data1->HotelAddress;
-    $hotel_rating = $data1->StarRating;
-    $hotel_price = $data1->Price->RoomPrice;
-     $user = new Hotel_Details_Model;
-	$user->hotel_name = $hotel_name;
-    $user->hotel_image = $hotel_image;
-    $user->hotel_address = $hotel_address;
-    $user->hotel_rating = $hotel_rating;
-    $user->hotel_price = $hotel_price;
-    $user->save();
-    break;
-}
-}
-$NoOfNights ="4";
-    $form_status1 ="hotel_form";
-$token_id = $result->TokenId;
-//  print_r($ress);die;    
-        return view('flight/hotel-search-list',compact('adult','NoOfNights','form_status1','form_status','ress','token_id','data' ,'city_name','checkin_date','checkout_date','NoOfRoom'));
-    }
-    
-    }    
+      $xml = simplexml_load_string($response);
+      $hotels = [];
+
+      $response = (array) $xml->Hotels;
+      $response = current($response);
+
+      if (!empty($response))
+      {
+        foreach($response as $i => $data)
+        {
+           $hotels[$i]['id'] = (string) $data->Id;
+           $hotels[$i]['name'] = (string) $data->Name;
+           $hotels[$i]['rating'] = (string) $data->Rating;
+           $hotels[$i]['ThumbImages'] = (string) $data->ThumbImages;
+           $hotels[$i]['price'] = (string) $data->Price;
+           $hotels[$i]['hotelwiseroomcount'] = (string) $data->Hotelwiseroomcount;
+           
+           $roomDetails = (array) $data->RoomDetails;
+           $roomDetails = current($roomDetails);
+           
+              foreach ($roomDetails as $key => $roomDetail) 
+              {
+                  $hotels[$i][$key]['type'] = (string) $roomDetail->Type;
+                  $hotels[$i][$key]['booking_key'] = (string) $roomDetail->BookingKey;
+                  $hotels[$i][$key]['adults'] = (string) $roomDetail->Adults;
+                  $hotels[$i][$key]['children'] = (string) $roomDetail->Children;
+                  $hotels[$i][$key]['childrenAges'] = (string) $roomDetail->ChildrenAges;
+                  $hotels[$i][$key]['totalRooms'] = (string) $roomDetail->TotalRooms;
+                  $hotels[$i][$key]['totalRate'] = (string) $roomDetail->TotalRate;
+                  $hotels[$i][$key]['boardBasis'] = (string) $roomDetail->BoardBasis;
+                  $hotels[$i][$key]['roomDescription'] = (string) $roomDetail->RoomDescription;
+                  $hotels[$i][$key]['termsAndConditions'] = (string) $roomDetail->TermsAndCondition;
+              }
+        }
+
+      }
+
+     
+        return view('flight/hotel-search-list',compact('hotels','xml'));
+
+    }        
   public function hotel_information(Request $request)
     {
         $ResultIndex=$request->ResultIndex;

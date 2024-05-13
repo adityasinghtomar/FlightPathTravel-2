@@ -16,6 +16,7 @@ use App\Wallet_Model;
 use App\Api_Model;
 use App\Currency_Model;
 use App\Wallet_Transaction_Model;
+use App\API_credential_Model;
 use Illuminate\Support\Facades\Http;
 use Stevebauman\Location\Facades\Location;
 use GuzzleHttp\Client;
@@ -58,220 +59,260 @@ class FlightController extends Controller
         
         return view('flight/contact_us');
     }
- public function flight(Request $request)
+    public function flight(Request $request)
     {
-       $api_authentic = Api_Model::where('api_name','Authentic')->first(); 
-       $api_search = Api_Model::where('api_name','Flight')->first(); 
-    //   print_r($request->from);die;
-    $form_status = $request->form_status;    
-
-$from = $request->from;
-$to = $request->to;
-$journey_date = $request->journey_date;
-$adult = $request->adult;
-$children = $request->children;
-$infant = $request->infant;
-$cabin_class = $request->cabin_class;
-$from1 = "";
- $to1 = "";
- $journey_date1 = ""; 
- 
-// Endpoint you want to access
-$endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
-// Define your search parameters as an array
-// print_r($endpoint);die;
-$url = $endpoint;
-                $json='{
-"ClientId": "tboprod",
-"UserName": "AMDF361",
-"Password": "TravelInd@#361$", 
-"EndUserIp": "101.53.132.121"
-}';
-// $url = 'https://www.example.com/api';
-
-// Create a new cURL resource
-$ch = curl_init($url);
-
-// Setup request to send json via POST
-$data =$json;
-$payload = $json;
-
-// Attach encoded JSON string to the POST fields
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-
-// Set the content type to application/json
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-
-// Return response instead of outputting
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-// Execute the POST request
-$result1 = curl_exec($ch);
-$result = json_decode($result1);
-// print_r($result);die;
-// Search 
-$search = "$api_search->api/rest/Search/"; // Replace with the actual flight search endpoint
-
-// Define your search parameters as an array
-$json1='{
-"EndUserIp": "192.168.11.120",
-"TokenId": "'.$result->TokenId.'",
-"AdultCount": "'.$adult.'",
-"ChildCount": "0",
-"InfantCount": "0",
-"DirectFlight": "false",
-"OneStopFlight": "false",
-"JourneyType": "1",
-"FlightCabinClass":"'.$cabin_class.'",
-"PreferredAirlines": null,
-"Segments": [
-{
-"Origin": "'.$request->from.'",
-"Destination": "'.$request->to.'",
-"FlightCabinClass": "1",
-"PreferredDepartureTime": "'.$request->journey_date.'T00: 00: 00",
-"PreferredArrivalTime": "'.$request->journey_date.'T00: 00: 00"
-}
-        ],
-"Sources": null
-}';
-// $url = 'https://www.example.com/api';
-
-// Create a new cURL resource
-$ch = curl_init($search);
-// print_r($payload1);die;
-// Setup request to send json via POST
-// $data =$json1;
-// print_r($json1);die;
-$payload1 = $json1;
-// print_r($payload1);die;
-// Attach encoded JSON string to the POST fields
-curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
-
-// Set the content type to application/json
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-
-// Return response instead of outputting
- curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// print_r("$tem");die; 
-// Execute the POST request
-$ss = curl_exec($ch);
-$ress = json_decode($ss);
-// print_r($ss);die;
-// foreach($ress as $res){
-//     $dat = $res->Results;
-//     foreach($dat as $dat1){
-//         foreach($dat1 as $dat2){
-//          $Segments = $dat2->Segments;
-//         //  print_r($Segments->Baggage);
-//          foreach( $Segments as $Segment){
-//             foreach( $Segment as $Segm){
-//           $Origin = $Segm->Origin;
-//           $Destination = $Segm->Destination;
-//           $Airportcode[] = $Origin->Airport->AirportCode;
-//           $AirportName[] = $Origin->Airport->AirportName;
-//           $DepTime[] = $Origin->DepTime;
-          
-//           $DestinationDepTime = $Destination->ArrTime;
-//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
-//           $DestinationAirportName[] = $Destination->Airport->AirportName;
-        //   foreach($Airport as $Origin1){
-        //   print_r( $Airport);
-        // } 
-    //     }
-        
-    //     }
-
-    //     }
-    // }
-// }
-// foreach($daa as $dat2){
-//          $Segments = $dat2->Segments;
-//         //  print_r($Segments->Baggage);
-//          foreach( $Segments as $Segment){
-//             foreach( $Segment as $Segm){
-//           $Origin = $Segm->Origin;
-//           $Destination = $Segm->Destination;
-//           $Airportcode[] = $Origin->Airport->AirportCode;
-//           $AirportName[] = $Origin->Airport->AirportName;
-//           $DepTime[] = $Origin->DepTime;
-          
-//           $DestinationDepTime[] = $Destination->ArrTime;
-//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
-//           $DestinationAirportName[] = $Destination->Airport->AirportName;
-//         //   foreach($Airport as $Origin1){
-//         //   print_r( $Airport);
-//         // } 
-//         }
-//         }
-//         } 
-        // print_r($DestinationDepTime);
-//  die;
-//  print_r($ress);die;
-if(isset($ress)){
-foreach($ress as $res){
-    $TraceId = $res->TraceId;
-}    
-            $user = new Flight_Log_Model;
-			 $user->f_from = $request->from;
-               $user->f_to = $to;
-               $user->trace_id = $TraceId;
-               $user->date_time = date('Y-m-d H:i:s');
-               $user->save();
-}
-$user = new Flight_Log_Model;
-			 $user->f_from = $request->from;
-               $user->f_to = $to;
-               $user->trace_id = "sd";
-               $user->date_time = date('Y-m-d H:i:s');
-               $user->save();
-$daa; 
-$fli_data = "dd";
-$form_status1 ="flight_form";
-$token_id = $result->TokenId;
-foreach($ress as $res){
-if(isset($res->Results)) {
-    $dat = $res->Results;
-        foreach($dat as $dat1){
-            foreach($dat1 as $key=>$dat2){
-                $Segments = $dat2->Segments;
+       $flightSearchAPI = $this->checkAuthentication();
+       $flightLists = $this->flightSearchAPI($flightSearchAPI , $request);
+     
+       if ($flightLists->Response->Error->ErrorCode === 0)
+       {
+            $tokenId = $flightSearchAPI->TokenId;
+            $traceId = $flightLists->Response->TraceId;
+            $origin = $flightLists->Response->Origin;
+            $destination = $flightLists->Response->Destination;
+            $flightLists = current($flightLists->Response->Results);
             
-          $unique_fareclasses = collect($dat)->flatMap(function($item) {
-                            return collect($item)->filter(function ($value, $key) {
-                                foreach($value->Segments as $Segment){
-                                     foreach( $Segment as $keyys => $Segm){
-                                return isset($Segm->Origin->DepTime);
-                                     }
-                                    
-                                }
-                            })->pluck('Fare.PublishedFare');
-                        })->unique();
-                    }
-            
+            $directStop = 0;
+            $oneStop = 0;
+            $multiStop = 0;
+            $indigoAirline = 0;
+            $airIndiaAirline = 0;
+            $prepareFlightData = [];
+
+            foreach ($flightLists as $key => $flight)
+            {
+                $segments = current($flight->Segments);
+                $currentSegment = current($segments);
+                
+                if (count($segments) === 1)
+                {
+                    //direct only
+                    $identifyUniq = $currentSegment->Origin->DepTime . $currentSegment->Destination->ArrTime . $flight->Fare->PublishedFare . $currentSegment->Airline->AirlineName . $currentSegment->Airline->FlightNumber;
         
+                    $prepareFlightData = $this->prepareFlightData($prepareFlightData,$currentSegment,$identifyUniq,$flight,$segments,'Direct',$origin,$destination);
+
+                }
+                elseif(count($segments) === 2)
+                {
+                    //one stop
+                    $identifyUniq = $currentSegment->Origin->DepTime . $currentSegment->Destination->ArrTime . $flight->Fare->PublishedFare . $currentSegment->Airline->AirlineName . $currentSegment->Airline->FlightNumber;
+
+                    $prepareFlightData = $this->prepareFlightData($prepareFlightData,$currentSegment,$identifyUniq,$flight,$segments,'One Stop',$origin,$destination);
+                }
+                else
+                {
+                    //multi-stop
+                    $identifyUniq = $currentSegment->Origin->DepTime . $currentSegment->Destination->ArrTime . $flight->Fare->PublishedFare . $currentSegment->Airline->AirlineName . $currentSegment->Airline->FlightNumber;
+
+                    $prepareFlightData = $this->prepareFlightData($prepareFlightData,$currentSegment,$identifyUniq,$flight,$segments,'Multi Stop',$origin,$destination);
+
+                }
+               
+        
+                
+            }
+
+            // $parameters = $this->getFlightsData($flightLists);
+            foreach ($prepareFlightData as $flight)
+            {
+                if ($flight['flightWay'] == 'Direct')
+                {
+                    $directStop = $directStop + 1;
+                }
+                else if ($flight['flightWay'] == 'One Stop')
+                {
+                    $oneStop = $oneStop + 1;
+                }
+                else
+                {
+                    $multiStop = $multiStop + 1;
+                }
+
+                if ($flight['AirlineName'] == 'Indigo')
+                {
+                    $indigoAirline = $indigoAirline + 1;
+                }
+                else if ($flight['AirlineName'] == 'Air India')
+                {
+                    $airIndiaAirline = $airIndiaAirline + 1;
+                }
+            }
+            $parameters = [
+                'directStop' => $directStop,
+                'oneStop' => $oneStop,
+                'multiStop' => $multiStop,
+                'indigoAirline' => $indigoAirline,
+                'airIndiaAirline' => $airIndiaAirline,
+                'flightData' => $prepareFlightData,
+                'traceId' => $traceId,
+                'tokenId' => $tokenId,
+
+            ];
+            
+            return view('flight.flight_search_result', compact('flightLists','parameters'));
+
+        }
+
     }
-}
-} 
-//  $unique_fareclasses = collect($dat)->flatMap(function($item) {
-//                     return collect($item)->filter(function ($value, $key) {
-//                         return isset($value->Fare->PublishedFare);
-//                     })->pluck('Fare.PublishedFare');
-//                 })->unique();
-// print_r($unique_fareclasses);die;
-// die;
-//   	$data = ['pnr_no' =>"6677", 'booking_id'=>"67676" ,'amount'=>"5665" ,'ticket_date'=>"5656",'fname'=>"Umesh",'lname'=>"mandrai",'Origin'=>"BHO",'Destination'=>"DEL",'DepTime'=>"22-04-2024", ];
-//             $user['to'] = "umeshmandrai1998@gmail.com";
-//         Mail::send('welcome',$data,function($messages) use ($user){
+
+
+
+ public function prepareFlightData($prepareFlightData,$currentSegment,$key,$flight,$segments , $stop , $origin,$destination)
+    {
+        $endSegment = end($segments);
+        $originTime = $this->getDateTime($currentSegment->Origin->DepTime);
+        $destinationTime = $this->getDateTime($endSegment->Destination->ArrTime);
+        $dateTime = $this->durationCalculation($currentSegment , $endSegment , $stop);
+        $prepareFlightData[$key]['originTime'] = $originTime;
+        $prepareFlightData[$key]['destinationTime'] = $destinationTime;
+        $prepareFlightData[$key]['dateTime'] = $dateTime;
+
+        $prepareFlightData[$key]['AirlineCode'] = $currentSegment->Airline->AirlineCode;
+        $prepareFlightData[$key]['AirlineName'] = $currentSegment->Airline->AirlineName;
+        $prepareFlightData[$key]['FareClass'] = $currentSegment->Airline->FareClass;
+
+        $prepareFlightData[$key]['Craft'] = $currentSegment->Craft;
+        $prepareFlightData[$key]['Baggage'] = $currentSegment->Baggage;
+        $prepareFlightData[$key]['CabinBaggage'] = $currentSegment->CabinBaggage;
+        $prepareFlightData[$key]['DestinationAirportCode'] = $currentSegment->Destination->Airport->AirportCode;
+        $prepareFlightData[$key]['DestinationAirportName'] = $currentSegment->Destination->Airport->AirportName;
+        $prepareFlightData[$key]['DestinationAirportCityCode'] = $destination;
+        $prepareFlightData[$key]['OriginAirportCode'] = $currentSegment->Origin->Airport->AirportCode;
+        $prepareFlightData[$key]['OriginAirportName'] = $currentSegment->Origin->Airport->AirportName;
+        $prepareFlightData[$key]['CabinClass'] = $currentSegment->CabinClass;
+        $prepareFlightData[$key]['OriginAirportCityCode'] = $origin;
+        $prepareFlightData[$key]['Duration'] = $currentSegment->Duration;
+        
+        $prepareFlightData[$key]['ResultIndex'] = $flight->ResultIndex;
+        $prepareFlightData[$key]['flightWay'] = $stop;
+
+
+        $prepareFlightData[$key]['NoOfSeatAvailable'] = $currentSegment->NoOfSeatAvailable;
+        $prepareFlightData[$key]['Currency'] = $flight->Fare->Currency;
+        $prepareFlightData[$key]['BaseFare'] = $flight->Fare->BaseFare;
+        $prepareFlightData[$key]['Tax'] = $flight->Fare->Tax;
+        $prepareFlightData[$key]['YQTax'] = $flight->Fare->YQTax;
+        $prepareFlightData[$key]['AdditionalTxnFeeOfrd'] = $flight->Fare->AdditionalTxnFeeOfrd;
+        $prepareFlightData[$key]['AdditionalTxnFeePub'] = $flight->Fare->AdditionalTxnFeePub;
+        $prepareFlightData[$key]['OtherCharges'] = $flight->Fare->OtherCharges;
+        $prepareFlightData[$key]['Discount'] = $flight->Fare->Discount;
+        $prepareFlightData[$key]['PublishedFare'] = $flight->Fare->PublishedFare;
+        $prepareFlightData[$key]['TdsOnCommission'] = $flight->Fare->TdsOnCommission;
+        $prepareFlightData[$key]['TdsOnPLB'] = $flight->Fare->TdsOnPLB;
+        $prepareFlightData[$key]['TdsOnIncentive'] = $flight->Fare->TdsOnIncentive;
+        $prepareFlightData[$key]['ServiceFee'] = $flight->Fare->ServiceFee;
+        $prepareFlightData[$key]['OfferedFare'] = $flight->Fare->OfferedFare;
+      
+
+        $prepareFlightData[$key]['IsLCC'] = $flight->IsLCC;
+
+        return $prepareFlightData;
+    }
+   
+    public function getDateTime($dateTime)
+    {
+        $dateTime = strtotime($dateTime); 
+        $time = date('h:i a', $dateTime); 
+        $date = date('d M ', $dateTime);
+
+        return [
+            'time' => $time,
+            'date' => $date,
+        ];
+    }
+
+    public function durationCalculation($currentSegment , $endSegment , $stop)
+    {
+        $totalDuration = $stop == 'Direct' ? $currentSegment->Duration : $currentSegment->Duration + $endSegment->Duration;
+        $hours = intval($totalDuration / 60);
+        $remainingMinutes = $totalDuration % 60;
+
+        return [
+            'hours' => $hours,
+            'minutes' => $remainingMinutes,
+        ];
+    }
+
+
+ public function checkAuthentication()
+    {
+        $apiAuthentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+        $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
+        $endpoint = "$apiAuthentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
+        $jsonRequest ='{
+        "ClientId": "'.$API_credential->ClientId.'",
+        "UserName": "'.$API_credential->UserName.'",
+        "Password": "'.$API_credential->Password.'", 
+        "EndUserIp": "'.$API_credential->EndUserIp.'"
+        }';
+
+
+        $ch = curl_init($endpoint);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonRequest);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        return json_decode($response);
+    }
+
+
+    public function flightSearchAPI($flightSearchAPI , $request)
+    {
+        $apiSearch = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+
+        $enPoint = "$apiSearch->api/rest/Search/"; // Replace with the actual flight search endpoint
+
+        $jsonRequest='{
+        
+        "EndUserIp": "192.168.11.120",
+        
+        "TokenId": "'.$flightSearchAPI->TokenId.'",
+        
+        "AdultCount": "'.$request->adult.'",
+        
+        "ChildCount": "0",
+        
+        "InfantCount": "0",
+        
+        "DirectFlight": "false",
+        
+        "OneStopFlight": "false",
+        
+        "JourneyType": "1",
+        
+        "FlightCabinClass":"'.$request->cabin_class.'",
+        
+        "PreferredAirlines": null,
+        
+        "Segments": [
+        
+        {
+        
+        "Origin": "'.$request->from.'",
+        
+        "Destination": "'.$request->to.'",
+        
+        "FlightCabinClass": "1",
+        
+        "PreferredDepartureTime": "'.$request->journey_date.'T00: 00: 00",
+        
+        "PreferredArrivalTime": "'.$request->journey_date.'T00: 00: 00"
+        
+        }
+        
+        ],
             
-//             $messages->to($user['to']);
-//             $messages->subject('flight Booking');   
-//         });	
-// Close cURL resource 
-//   print_r($res);die;
-curl_close($ch); 
-$filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('unique_fareclasses','form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
-    } 
+        "Sources": null
+            
+        }';
+        
+        $ch = curl_init($enPoint);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonRequest);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        return json_decode($response);
+    }
  
     /**
      * Show the form for creating a new resource.
