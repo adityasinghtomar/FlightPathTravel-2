@@ -24,11 +24,11 @@
 /*
  Styling
 */
-body {
-  font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;
-  color: #333;
-  font-weight: 300;
-}
+/*body {*/
+/*  font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;*/
+/*  color: #333;*/
+/*  font-weight: 300;*/
+/*}*/
 
 .tabset > label {
   position: relative;
@@ -87,9 +87,9 @@ input:focus-visible + label {
   box-sizing: border-box;
 }
 
-body {
-  padding: 30px;
-}
+/*body {*/
+/*  padding: 30px;*/
+/*}*/
 
 .tabset {
   max-width: 65em;
@@ -115,7 +115,7 @@ body {
             </div>
         </div>
     </div>
-
+<?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
     <!-- Common Banner Area -->
     <section id="common_banner">
         <div class="container">
@@ -136,42 +136,40 @@ body {
         </div>
     </section>
     <div class="container">
-            <div class="row">
-    <div class="col-lg-12">
-                @if(empty(session()->get('user_id')))
-                <div id="cf-response-message"></div>
+        <div class="row">
+            <div class="col-lg-12">
+                 @if(empty(session()->get('user_id')))
+                    <div id="cf-response-message"></div>
                         <div class="tabset">
-  <!-- Tab 1 -->
-  <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
-  <label for="tab1">Login</label>
-  <!-- Tab 2 -->
-  <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
-  <label for="tab2">Sign Up</label>
-  <!-- Tab 3 -->
+                        <!-- Tab 1 -->
+                        <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+                        <label for="tab1">Login</label>
+                        <!-- Tab 2 -->
+                        <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
+                        <label for="tab2">Sign Up</label>
+                        <!-- Tab 3 -->
 
   
-  <div class="tab-panels">
-    <section id="marzen" class="tab-panel">
-     <form id="contact-form" method="post">
-        @csrf
-      <div>
-          <div class="form-group">
-            <lable>Email</lable>
-            <input type="text" name="user_name" id="user_name" class="form-control bg_input"
-                placeholder="Email*" required>
-                <input type = "hidden" name ="csrf-token" value = '<?php echo csrf_token(); ?>'>
-        </div>
-           <div class="form-group">
-            <lable>Password</lable>
-            <input type="text" name="user_password" id="user_password" class="form-control bg_input"
-                placeholder="password*" required>
-        </div>
-         <button id="submit" style="margin-top:10px;"class="btn btn-primary">Login</button>
-      </div>
-      </form>
-       </section>
-    <section id="rauchbier" class="tab-panel">
-      
+                        <div class="tab-panels">
+                            <section id="marzen" class="tab-panel">
+                                <form id="contact-form" method="post">
+                                     @csrf
+                                        <div>
+                                            <div class="form-group">
+                                                <lable>Email</lable>
+                                                    <input type="text" name="user_name" id="user_name" class="form-control bg_input" placeholder="Email*" required>
+                                                    <input type = "hidden" name ="csrf-token" value = '<?php echo csrf_token(); ?>'>
+                                            </div>
+                                            <div class="form-group">
+                                                <lable>Password</lable>
+                                                    <input type="text" name="user_password" id="user_password" class="form-control bg_input" placeholder="password*" required>
+                                            </div>
+                                            <button id="submit" style="margin-top:10px;"class="btn btn-primary">Login</button>
+                                        </div>
+                                </form>
+                            </section>
+
+                            <section id="rauchbier" class="tab-panel">
                                     <form id="signup-form" method="post">
                                         @csrf
                                          <input type = "hidden" name ="csrf-token" value = '<?php echo csrf_token(); ?>'>
@@ -214,26 +212,27 @@ body {
                                           
                                     </div>
                                      <button id="submit" class="btn btn-primary" style="margin-top:10px;">Sign Up</button>
-                                    </form>
-        </section>
+                                </form>
+                            </section>
 
-  </div>
+                        </div>
   
-</div>
-</div>
-  
-</div>
-                     @endif
-                </div> 
+                    </div>
+                 @endif        
+            </div>
+        </div>
+    </div> 
     <!-- Tour Booking Submission Areas -->
-    <section id="tour_booking_submission" class="section_padding">
+
+    <!-- TBO API  -->
+    @if (isset($ResultIndex))
+        <section id="tour_booking_submission" class="section_padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="tou_booking_form_Wrapper">
                         <div class="booking_tour_form">
-                           @if(session()->get('user_id'))
-                            <h3 class="heading_theme">Booking submission</h3>
+                           <h3 class="heading_theme">Booking submission</h3>
                             <div class="tour_booking_form_box">
                                 
                                 <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post">
@@ -251,8 +250,8 @@ body {
                                                     placeholder="Mobile number*">
                                             </div>
                                         </div>
-                                        <?php for ($row=1; $row <= $adult; $row++) {  ?>  
-                                    <h3 class="heading_theme">Passenger {{$row}}</h3>  
+                                        <?php //for ($row=1; $row <= $adult; $row++) {  ?>  
+                                    <h3 class="heading_theme">Passenger {{$row ?? ''}}</h3>  
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input type="text" name="name[]" class="form-control bg_input"
@@ -265,38 +264,39 @@ body {
                                                     placeholder="Last name*">
                                             </div>
                                         </div>
-                                        <?php }  ?> 
+                                        <?php //}  ?> 
                                         
                                         
                                     </div>
-                                    <input type="hidden" name="ResultIndex" value="<?php echo $ResultIndex;?>">
-                                            <input type="hidden" name="Hotelname" value="<?php echo $Hotelname;?>">
-                                            <input type="hidden" name="TraceId" value="<?php echo $TraceId;?>">
-                                            <input type="hidden" name="token_id" value="<?php echo $token_id;?>">
-                                            <input type="hidden" name="EndUserIp" value="<?php echo $EndUserIp;?>">
-                                            <input type="hidden" name="HotelCode" value="<?php echo $HotelCode;?>">
+                                    <input type="hidden" name="ResultIndex" value="{{ $ResultIndex ?? ''}}">
+                                            <input type="hidden" name="Hotelname" value="{{ $Hotelname ?? ''}}">
+                                            <input type="hidden" name="TraceId" value="{{ $TraceId ?? ''}}">
+                                            <input type="hidden" name="token_id" value="{{ $token_id ?? ''}}">
+                                            <input type="hidden" name="EndUserIp" value="{{ $EndUserIp ?? ''}}">
+                                            <input type="hidden" name="HotelCode" value="{{ $HotelCode ?? ''}}">
                                             
-                                            <input type="hidden" name="RoomIndex" value="<?php echo $RoomIndex; ?>">
-                                            <input type="hidden" name="RoomTypeCode" value="<?php echo $RoomTypeCode; ?>">
-                                            <input type="hidden" name="RoomTypeName" value="<?php echo $RoomTypeName; ?>">
-                                            <input type="hidden" name="RatePlanCode" value="<?php echo $RatePlanCode; ?>">
-                                            <input type="hidden" name="SmokingPreference" value="<?php echo $SmokingPreference; ?>">
-                                            <input type="hidden" name="CurrencyCode" value="<?php echo $CurrencyCode; ?>">
-                                            <input type="hidden" name="RoomPrice" value="<?php echo $RoomPrice; ?>">  
-                                            <input type="hidden" name="Tax" value="<?php echo $Tax; ?>">
-                                            <input type="hidden" name="ExtraGuestCharge" value="<?php echo $ExtraGuestCharge; ?>">
-                                            <input type="hidden" name="ChildCharge" value="<?php echo $ChildCharge; ?>">
-                                            <input type="hidden" name="OtherCharges" value="<?php echo $OtherCharges; ?>">
-                                            <input type="hidden" name="Discount" value="<?php echo $Discount; ?>">
-                                            <input type="hidden" name="PublishedPrice" value="<?php echo $PublishedPrice; ?>">
-                                            <input type="hidden" name="PublishedPriceRoundedOff" value="<?php echo $PublishedPriceRoundedOff; ?>">
-                                            <input type="hidden" name="OfferedPrice" value="<?php echo $OfferedPrice; ?>">
-                                            <input type="hidden" name="OfferedPriceRoundedOff" value="<?php echo $OfferedPriceRoundedOff; ?>">
-                                             <input type="hidden" name="AgentCommission" value="<?php echo $AgentCommission; ?>">
-                                             <input type="hidden" name="AgentMarkUp" value="<?php echo $AgentMarkUp; ?>">
-                                             <input type="hidden" name="TDS" value="<?php echo $TDS; ?>">
-                                             <input type="hidden" name="ServiceTax" value="<?php echo $ServiceTax; ?>">
+                                            <input type="hidden" name="RoomIndex" value="{{ $RoomIndex ?? ''}} ">
+                                            <input type="hidden" name="RoomTypeCode" value="{{ $RoomTypeCode ?? ''}} ">
+                                            <input type="hidden" name="RoomTypeName" value="{{ $RoomTypeName ?? ''}} ">
+                                            <input type="hidden" name="RatePlanCode" value="{{ $RatePlanCode ?? ''}} ">
+                                            <input type="hidden" name="SmokingPreference" value="{{ $SmokingPreference ?? ''}} ">
+                                            <input type="hidden" name="CurrencyCode" value="{{ $CurrencyCode ?? ''}} ">
+                                            <input type="hidden" name="RoomPrice" value="{{ $RoomPrice ?? ''}} ">  
+                                            <input type="hidden" name="Tax" value="{{ $Tax ?? ''}} ">
+                                            <input type="hidden" name="ExtraGuestCharge" value="{{ $ExtraGuestCharge ?? ''}} ">
+                                            <input type="hidden" name="ChildCharge" value="{{ $ChildCharge ?? ''}} ">
+                                            <input type="hidden" name="OtherCharges" value="{{ $OtherCharges ?? ''}} ">
+                                            <input type="hidden" name="Discount" value="{{ $Discount ?? ''}} ">
+                                            <input type="hidden" name="PublishedPrice" value="{{ $PublishedPrice ?? ''}} ">
+                                            <input type="hidden" name="PublishedPriceRoundedOff" value="{{ $PublishedPriceRoundedOff ?? ''}} ">
+                                            <input type="hidden" name="OfferedPrice" value="{{ $OfferedPrice ?? ''}} ">
+                                            <input type="hidden" name="OfferedPriceRoundedOff" value="{{ $OfferedPriceRoundedOff ?? ''}} ">
+                                             <input type="hidden" name="AgentCommission" value="{{ $AgentCommission ?? ''}} ">
+                                             <input type="hidden" name="AgentMarkUp" value="{{ $AgentMarkUp ?? ''}} ">
+                                             <input type="hidden" name="TDS" value="{{ $TDS ?? ''}} ">
+                                             <input type="hidden" name="ServiceTax" value="{{ $ServiceTax ?? ''}} ">
                                              
+
                                 
                             </div>
                         </div>
@@ -307,6 +307,7 @@ body {
                                     <!--<form action="!#" id="payment_checked">-->
                                     <?php $easybuzz_status =\App\Setting_Model::where('status','0')->where('name','EASYBUZZ PAYMENT')->first(); ?>
                                     @if($easybuzz_status)
+                                    @if($Currency_active->currency_code =='INR')
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"
                                                 id="flexRadioDefault1" value="easybuzz" required>
@@ -314,7 +315,8 @@ body {
                                                 Easybuzz Pay
                                             </label>
                                         </div>
-                                    @endif    
+                                    @endif
+                                    @endif
                                     <?php $mollie_status =\App\Setting_Model::where('status','0')->where('name','Mollie Payment')->first(); ?>
                                     @if($mollie_status)
                                         <div class="form-check">
@@ -325,15 +327,7 @@ body {
                                             </label> 
                                         </div>
                                     @endif     
-                                        @if(session()->get('user_id'))
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="payment"-->
-                                        <!--        id="flexRadioDefault3" value="wallet" required>-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault3">-->
-                                        <!--        Wallet-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
-                                        @endif
+                                        
                                        </div>
                             </div>
                          </div>
@@ -347,11 +341,11 @@ body {
                                     </span>
                                 </label>
                             </div>
+                        
                             <button class="btn btn_theme btn_md">Book Now</button>
                         </form>
                        
                         </div>
-                         @endif
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -458,63 +452,418 @@ body {
 
                         <!--    </div>-->
                         <!--</div>-->
-                        @if(session()->get('user_id'))
                         <div class="tour_detail_right_sidebar">
                             <div class="tour_details_right_boxed">
                                 <div class="tour_details_right_box_heading">
                                     <h3>Booking amount</h3>
                                 </div>
-
+ 
                                 <div class="tour_booking_amount_area">
                                     <ul>
                                         <li>Rate(Offered) <span>
+                                            {{ $Currency_active->currency_symbol}}
                                              <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
                                  
                                 <?php if($mark_up) { 
                                             if($mark_up->markup_type =='fixed'){
                                                 $mark_up->markup_amount;
+                                                $OfferedPriceRoundedOff = 0; // defined
                                                 $subtotal= $OfferedPriceRoundedOff + $mark_up->markup_amount;
-                                                echo $CurrencyCode;
-                                                echo round($subtotal, 2);
+                                               
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
+                                                
                                             }
                                             else {
                                               $percentage = ($mark_up->markup_amount / 100) * $OfferedPriceRoundedOff; 
                                               $subtotal= $OfferedPriceRoundedOff + $percentage;
-                                                echo $CurrencyCode;
-                                                echo round($subtotal);
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
                                             //   echo $percentage;
                                             }
                                             }  
                                             else{
                                          $subtotal= $OfferedPriceRoundedOff;
-                                                echo round($subtotal);
+                                         
+                                         $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
                                               }   
                                             ?>
                                         </span>
                                         </li>
                                         <li>TDS <span>
-                                            <?php print_r($CurrencyCode); ?> <?php print_r($TDS); ?>
+                                            
+                                             {{ $Currency_active->currency_symbol}} <?php $TDS = 0;//error
+                                              $TDS1= $TDS / $Currency_active->currency_rates ;
+                                                echo round($TDS1, 2); ?>
                                         </span>
                                         </li>
                                         <li>Total GST <span>
-                                            <?php print_r($CurrencyCode); ?> <?php print_r($ServiceTax); ?>
+                                             {{ $Currency_active->currency_symbol}} <?php  
+                                             $ServiceTax = 0; //error
+                                             $ServiceTax1= $ServiceTax / $Currency_active->currency_rates ;
+                                                echo round($ServiceTax1, 2); ?>
                                         </span>
                                         </li>
                                     </ul>
                                     <div class="total_subtotal_booking">
-                                        <h6>Total Amount <span> 
-                                            <?php print_r($CurrencyCode); ?> <?php echo round($subtotal + $TDS + $ServiceTax); ?>
+                                        <h6>Total Amount <span>  {{ $Currency_active->currency_symbol}}
+                                            <?php 
+                                            
+                                            $dadd = $subtotal + $TDS + $ServiceTax ; 
+                                            $dadd1= $dadd / $Currency_active->currency_rates ;
+                                                echo round($dadd1, 2); 
+                                                ?>
                                             </span> </h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    @endif
+    <!-- TBO END  -->
+
+    <!-- REZLIVE API  -->
+
+    @if (isset($preBooking))
+        <section id="tour_booking_submission" class="section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="tou_booking_form_Wrapper">
+                        <div class="booking_tour_form">
+                           <h3 class="heading_theme">Booking submission</h3>
+                            <div class="tour_booking_form_box">
+                                
+                                <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post">
+                                     @csrf
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" name="email" class="form-control bg_input"
+                                                    placeholder="Email address (Optional)">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="number" name="mobile" class="form-control bg_input"
+                                                    placeholder="Mobile number*">
+                                            </div>
+                                        </div>
+                                        
+
+                                    <h3 class="heading_theme mt-2">Adults</h3>
+                                        @for ($i = 0; $i < $preBooking['roomDetails']['adults']; $i++)
+                                        
+                                        <div class="col-lg-2 mt-2">
+                                            <select name="AdultSalutation[]" id="AdultSalutation" class="form-control bg_input">
+                                                <option value="Mr">Mr.</option>
+                                                <option value="Mrs">Mrs.</option>
+                                                <option value="Ms">Ms.</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-5 mt-2">
+                                            <div class="form-group">
+                                                <input type="text" name="name[]" class="form-control bg_input" placeholder="First name*" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-5 mt-2">
+                                            <div class="form-group">
+                                                <input type="text" name="lname[]" class="form-control bg_input" placeholder="Last name*" required>
+                                            </div>
+                                        </div>
+                                        @endfor
+                                        <h3 class="heading_theme"></h3>
+
+                                        @if ($preBooking['roomDetails']['children'] > 0)
+                                        
+                                            <h3 class="heading_theme">Child</h3>
+                                            @for ($i = 0; $i < $preBooking['roomDetails']['children']; $i++)
+
+                                            <div class="col-lg-2 mt-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="ChildSalutation[]" class="form-control bg_input" value="Child" placeholder="First name*" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-5 mt-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="name[]" class="form-control bg_input" placeholder="First name*" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5 mt-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="lname[]" class="form-control bg_input" placeholder="Last name*" required>
+                                                </div>
+                                            </div>
+                                            
+                                            @endfor
+                                            <h3 class="heading_theme"></h3>
+                                        @endif
+                                        
+
+                                       
+                                        
+                                        
+                                    </div>
+                                            <input type="hidden" name="arrivalDate" value="{{ $preBooking['arrivalDate'] ?? ''}}">
+                                            <input type="hidden" name="departureDate" value="{{ $preBooking['departureDate'] ?? ''}}">
+                                            <input type="hidden" name="guestNationality" value="{{ $preBooking['guestNationality'] ?? ''}}">
+                                            <input type="hidden" name="countryCode" value="{{ $preBooking['countryCode'] ?? ''}}">
+                                            <input type="hidden" name="cityCode" value="{{ $preBooking['cityCode'] ?? ''}}">
+                                            
+                                            <input type="hidden" name="hotelId" value="{{ $preBooking['hotelId'] ?? ''}} ">
+                                            <input type="hidden" name="price" value="{{ $preBooking['price'] ?? ''}} ">
+                                            <input type="hidden" name="currency" value="{{ $preBooking['currency'] ?? ''}} ">
+                                            <input type="hidden" name="type" value="{{ $preBooking['roomDetails']['type'] ?? ''}} ">
+                                            <input type="hidden" name="bookingKey" value="{{ $preBooking['roomDetails']['bookingKey'] ?? ''}} ">
+                                            <input type="hidden" name="adults" value="{{  $preBooking['roomDetails']['adults'] ?? ''}} ">
+                                            <input type="hidden" name="children" value="{{ $preBooking['roomDetails']['children'] ?? ''}} ">  
+                                            <input type="hidden" name="totalRooms" value="{{  $preBooking['roomDetails']['totalRooms'] ?? ''}} ">
+                                            <input type="hidden" name="totalRate" value="{{ $preBooking['roomDetails']['totalRate'] ?? ''}} ">
+                                            <input type="hidden" name="hotelName" value="{{ $preBooking['hotelName'] ?? ''}} ">
+                                           
+
+                                
+                            </div>
+                        </div>
+                        <div class="booking_tour_form">
+                            <h3 class="heading_theme">Payment method</h3>
+                            <div class="tour_booking_form_box">
+                                <div class="booking_payment_boxed">
+                                    <!--<form action="!#" id="payment_checked">-->
+                                    <?php $easybuzz_status =\App\Setting_Model::where('status','0')->where('name','EASYBUZZ PAYMENT')->first(); ?>
+                                    @if($easybuzz_status)
+                                    @if($Currency_active->currency_code =='INR')
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault1" value="easybuzz" required>
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Easybuzz Pay
+                                            </label>
+                                        </div>
+                                    @endif
+                                    @endif
+                                    <?php $mollie_status =\App\Setting_Model::where('status','0')->where('name','Mollie Payment')->first(); ?>
+                                    @if($mollie_status)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault2" value="mollie" checked="checked" required>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                               Mollie Pay
+                                            </label> 
+                                        </div>
+                                    @endif     
+                                        
+                                       </div>
+                            </div>
+                         </div>
+                        <div class="booking_tour_form_submit">
+                            <div class="form-check write_spical_check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">
+                                <label class="form-check-label" for="flexCheckDefaultf1">
+                                    <span class="main_spical_check">
+                                        <span>I read and accept all <a href="terms-service.html">Terms and
+                                                conditios</a></span>
+                                    </span>
+                                </label>
+                            </div>
+                        
+                            <button class="btn btn_theme btn_md">Book Now</button>
+                        </form>
+                       
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="tour_details_right_sidebar_wrapper">
+                <!--        <div class="tour_detail_right_sidebar">-->
+                <!--            <div class="tour_details_right_boxed">-->
+                <!--                <div class="tour_details_right_box_heading">-->
+                <!--                    <h3>@if(isset($RoomTypeName))-->
+                <!--<?php print_r($RoomTypeName); ?>-->
+                <!--@endif</h3>-->
+                <!--                </div>-->
+                <!--                <div class="tour_package_details_bar_list">-->
+                <!--                    <h5>Room facilities</h5>-->
+                <!--                    <ul>-->
+                <!--                        <li><i class="fas fa-circle"></i>Buffet breakfast as per the Itinerary</li>-->
+                <!--                        <li><i class="fas fa-circle"></i>Visit eight villages showcasing Polynesian-->
+                <!--                            culture-->
+                <!--                        </li>-->
+                <!--                        <li><i class="fas fa-circle"></i>Complimentary Camel safari, Bonfire,</li>-->
+                <!--                        <li><i class="fas fa-circle"></i>All toll tax, parking, fuel, and driver-->
+                <!--                            allowances-->
+                <!--                        </li>-->
+                <!--                        <li><i class="fas fa-circle"></i>Comfortable and hygienic vehicle</li>-->
+                <!--                    </ul>-->
+                <!--                </div>-->
+                <!--                <div class="tour_package_details_bar_price">-->
+                <!--                    <h5>Price</h5>-->
+                <!--                    <div class="tour_package_bar_price">-->
+                                        <!--<h6><del>$ 35,500</del></h6>-->
+                <!--                         @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>-->
+                <!--                            <h3>@if(isset($RoomTypeName)) <?php print_r($CurrencyCode); ?><?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?> @endif<sub> </sub></h3>-->
+                <!--                        @else-->
+                <!--                        <h3>@if(isset($RoomTypeName))-->
+                <!--                        <?php print_r($CurrencyCode); ?> <?php echo $totalw = $OfferedPriceRoundedOff + $PublishedPriceRoundedOff; ?>-->
+                <!--                        @endif<sub></sub> </h3>-->
+                <!--                        @endif-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                        <!--<div class="tour_detail_right_sidebar">-->
+                        <!--    <div class="tour_details_right_boxed">-->
+                        <!--        <div class="tour_details_right_box_heading">-->
+                        <!--            <h3>Travel date</h3>-->
+                        <!--        </div>-->
+                        <!--        <div class="edit_date_form">-->
+                        <!--            <div class="form-group">-->
+                        <!--                <label for="dates">Edit Date</label>-->
+                        <!--                <input type="date" id="dates" value="2022-05-05" class="form-control">-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--        <div class="tour_package_details_bar_list">-->
+                        <!--            <h5>Tourist</h5>-->
+                        <!--            <div class="select_person_item">-->
+                        <!--                <div class="select_person_left">-->
+                        <!--                    <h6>Adult</h6>-->
+                        <!--                    <p>12y+</p>-->
+                        <!--                </div>-->
+                        <!--                <div class="select_person_right">-->
+                        <!--                    <h6>01</h6>-->
+                        <!--                </div>-->
+                        <!--            </div>-->
+
+                        <!--            <div class="select_person_item">-->
+                        <!--                <div class="select_person_left">-->
+                        <!--                    <h6>Children</h6>-->
+                        <!--                    <p>2 - 12 years</p>-->
+                        <!--                </div>-->
+                        <!--                <div class="select_person_right">-->
+                        <!--                    <h6>01</h6>-->
+                        <!--                </div>-->
+                        <!--            </div>-->
+                        <!--            <div class="select_person_item">-->
+                        <!--                <div class="select_person_left">-->
+                        <!--                    <h6>Infant</h6>-->
+                        <!--                    <p>Below 2 years</p>-->
+                        <!--                </div>-->
+                        <!--                <div class="select_person_right">-->
+                        <!--                    <h6>01</h6>-->
+                        <!--                </div>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--        <div class="edit_person">-->
+                        <!--            <p>Edit person</p>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="tour_detail_right_sidebar">-->
+                        <!--    <div class="tour_details_right_boxed">-->
+                        <!--        <div class="tour_details_right_box_heading">-->
+                        <!--            <h3>Coupon code</h3>-->
+                        <!--        </div>-->
+                        <!--        <div class="coupon_code_area_booking">-->
+                        <!--            <form action="#!">-->
+                        <!--                <div class="form-group">-->
+                        <!--                    <input type="text" class="form-control bg_input"-->
+                        <!--                        placeholder="Enter coupon code">-->
+                        <!--                </div>-->
+                        <!--                <div class="coupon_code_submit">-->
+                        <!--                    <button class="btn btn_theme btn_md">Apply voucher</button>-->
+                        <!--                </div>-->
+                        <!--            </form>-->
+                        <!--        </div>-->
+
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <div class="tour_detail_right_sidebar">
+                            <div class="tour_details_right_boxed">
+                                <div class="tour_details_right_box_heading">
+                                    <h3>Booking amount</h3>
+                                </div>
+ 
+                                <div class="tour_booking_amount_area">
+                                    <ul>
+                                        <li>Rate(Offered) <span>
+                                            {{ $Currency_active->currency_symbol}}
+                                             <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
+                                 
+                                <?php if($mark_up) { 
+                                            if($mark_up->markup_type =='fixed'){
+                                                $mark_up->markup_amount;
+                                                $OfferedPriceRoundedOff = $preBooking['roomDetails']['totalRate']; // defined
+                                                $subtotal= $OfferedPriceRoundedOff + $mark_up->markup_amount;
+                                               
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
+                                                
+                                            }
+                                            else {
+                                                $OfferedPriceRoundedOff = $preBooking['roomDetails']['totalRate']; // defined
+                                              $percentage = ($mark_up->markup_amount / 100) * $OfferedPriceRoundedOff; 
+                                              $subtotal= $OfferedPriceRoundedOff + $percentage;
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
+                                            //   echo $percentage;
+                                            }
+                                            }  
+                                            else{
+                                        $OfferedPriceRoundedOff = $preBooking['roomDetails']['totalRate']; // defined
+
+                                         $subtotal= $OfferedPriceRoundedOff;
+                                         
+                                         $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
+                                              }   
+                                            ?>
+                                        </span>
+                                        </li>
+                                        <li>TDS <span>
+                                            
+                                             {{ $Currency_active->currency_symbol}} <?php $TDS = 0;//error
+                                              $TDS1= $TDS / $Currency_active->currency_rates ;
+                                                echo round($TDS1, 2); ?>
+                                        </span>
+                                        </li>
+                                        <li>Total GST <span>
+                                             {{ $Currency_active->currency_symbol}} <?php  
+                                             $ServiceTax = 0; //error
+                                             $ServiceTax1= $ServiceTax / $Currency_active->currency_rates ;
+                                                echo round($ServiceTax1, 2); ?>
+                                        </span>
+                                        </li>
+                                    </ul>
+                                    <div class="total_subtotal_booking">
+                                        <h6>Total Amount <span>  {{ $Currency_active->currency_symbol}}
+                                            <?php 
+                                            
+                                            $dadd = $subtotal + $TDS + $ServiceTax ; 
+                                            $dadd1= $dadd / $Currency_active->currency_rates ;
+                                                echo round($dadd1, 2); 
+                                                ?>
+                                            </span> </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+
+    <!-- REZLIVE END  -->
+
 
     <!-- Cta Area -->
     <section id="cta_area">
@@ -552,8 +901,25 @@ body {
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
-   
+        function selectRefresh() {
+
+$('.select-from').select2({ placeholder: "Where from?" });
+
+$('.select-to').select2({ placeholder: "Where to?" });
+
+$('.select-destination').select2({ placeholder: "What is your destination?" });
+
+$('.select-tours').select2({ placeholder: "Tour Type" });
+
+$('.select-days').select2({ placeholder: "Days" });
+
+$('.select-country').select2({ placeholder: "Select Country" });
+
+$('.select-visa-type').select2({ placeholder: "Visa Type" });
+
+}
     $('#contact-form').on('submit', function(event){
+    
         event.preventDefault();
         user_name = $('#user_name').val();
         password = $('#user_password').val();
