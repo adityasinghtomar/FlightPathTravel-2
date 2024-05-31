@@ -1,4 +1,31 @@
 @include('flight.admin.db-header')
+
+<style>
+      .select-options8 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option8 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option8:hover {
+            background-color: #f8f9fa;
+        }
+         
+</style>
     <div class="dashboard__main">
       <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
@@ -40,36 +67,55 @@
                         <input type="text" name="tour_name" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Address</label>
+        <!--            <div class="col-6">-->
+        <!--              <div class="form-input ">-->
+        <!--                <label class="lh-1 text-16 text-light-1">Address</label>-->
+        <!--             <input type="text" class="form-control select-input8 hoteldate1" id="hoteldate" name="address" placeholder="Select an option" autocomplete="off">-->
+        <!--<input type="hidden" name="address" class="hoteldate2" id="city_name">-->
+        <!--<ul class="list-unstyled select-options8" id="city_list">-->
+        <!--    <?php $data =\App\Hotel_City_Model::select()->take(500)->get(); ?>-->
+        <!--    @foreach($data as $state_)-->
+        <!--        <li class="option8" data-value="{{$state_->name}}">{{$state_->name}} -  {{$state_->CountryName}}</li>-->
+        <!--    @endforeach-->
+        <!--</ul>-->
                     
-                        <select class="form-control demo-select2-placeholder" name="address" required >
-                        <?php $data =\App\Hotel_City_Model::get(); ?>
-                         @foreach($data as $state_)
-                         <option value="{{$state_->name}}">{{__($state_->name)}}</option>
-                         @endforeach
-                           </select>
-                      </div>
-                    </div>
+                    
+                    
+                    
+                    
+                        <!--<select class="form-control demo-select2-placeholder" name="address" required >-->
+                        <!--<?php $data =\App\Hotel_City_Model::orderBy('name', 'asc')->get(); ?>-->
+                       
+                        <!-- @foreach($data as $state_)-->
+                        <!-- <option value="{{$state_->name}}">{{__($state_->name)}}</option>-->
+                        <!-- @endforeach-->
+                        <!--   </select>-->
+        <!--              </div>-->
+        <!--            </div>-->
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">No. of Days</label>
                         <input type="number" name="no_of_day" required>
                       </div>
                     </div>
-                    <div class="col-6">
+                     <div class="col-6">
                       <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Rating</label>
-                        <input type="number" name="rating" required>
+                        <label class="lh-1 text-16 text-light-1">No. Of  Night</label>
+                        <input type="number" name="no_of_people" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Reviewes</label>
-                        <input type="number" name="reviewes" required>
-                      </div>
-                    </div>
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Rating</label>-->
+                    <!--    <input type="number" name="rating" required>-->
+                    <!--  </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Reviewes</label>-->
+                    <!--    <input type="number" name="reviewes" required>-->
+                    <!--  </div>-->
+                    <!--</div>-->
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Price</label>
@@ -78,33 +124,38 @@
                     </div>
                     <div class="col-6">
                       <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Other Facilities</label>
+                        <label class="lh-1 text-16 text-light-1">Extra information</label>
                         <input type="text" name="other_facilities" required>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Tour Type</label>-->
+                    <!--    <select class="form-control demo-select2-placeholder" name="tour_type" id="state_id" >-->
+                    <!--        <option value="single">Select Tour Type</option>-->
+                    <!--        <option value="single">Single</option>-->
+                    <!--       <option value="group">Group</option>-->
+                    <!--       <option value="couple">Couple</option>-->
+                    <!--    </select>-->
+                    <!--  </div>-->
+                    <!--</div>-->
+                     <div class="col-6">
                       <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Tour Type</label>
-                        <select class="form-control demo-select2-placeholder" name="tour_type" id="state_id" >
-                            <option value="single">Select Tour Type</option>
-                            <option value="single">Single</option>
-                           <option value="group">Group</option>
-                           <option value="couple">Couple</option>
+                        <label class="lh-1 text-16 text-light-1">Country</label>
+                        <select class="form-control demo-select2-placeholder" name="country" id="state_id" >
+                            @foreach($country as $row)
+                            <option value="{{ $row->name }}">{{ $row->name }}</option>
+                           @endforeach
                         </select>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Tax</label>
-                        <input type="number" name="tax" required>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">No. of People</label>
-                        <input type="number" name="no_of_people" required>
-                      </div>
-                    </div>
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Tax</label>-->
+                    <!--    <input type="number" name="tax" required>-->
+                    <!--  </div>-->
+                    <!--</div>-->
+                   
                     
                     
                     <div class="col-6">
@@ -168,8 +219,8 @@
           <form name="add_name" id="add_name">
             <table id="dynamic_field">
               <tr>
-                <td> <label class="lh-1 text-16 text-light-1">Day</label><input type="text" name="day[]" value="1" placeholder="" class="form-control form-input name_list" readonly/></td>
-                <td> <label class="lh-1 text-16 text-light-1">Details</label><textarea rows="2" cols="60"  type="text" name="itinerary[]" placeholder="Enter itinerary" class="form-control name_email"/></textarea></td>
+                <td> <label class="lh-1 text-16 text-light-1">Day</label><input type="text"  name="day[]" value="1" placeholder="" class="form-control form-input name_list" readonly/></td>
+                <td> <label class="lh-1 text-16 text-light-1">Details</label><textarea rows="2"id="default" cols="60"  type="text" name="itinerary[]" placeholder="Enter itinerary" class="form-control name_email"/></textarea></td>
 				<!--<td> <label class="lh-1 text-16 text-light-1">Image</label><input type="file" name="amount[]" value="700" placeholder="Enter your Money" class="form-control total_amount"/></td>-->
                 <td><button type="button" name="add" id="add" class="button h-50 px-24 -dark-1 bg-blue-1 text-white">Add More</button></td>  
               </tr>
@@ -188,8 +239,61 @@
             </div>
           </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>   
-   
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="{{ asset('public/assets/tinmace/tinymce.min.js') }}"></script>
+    <script src="{{ asset('public/assets/script.js') }}"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+   <script>
+        $(document).ready(function() {
+            $('#hoteldate').on('input', function() {
+                var searchText = $(this).val();
+                $.ajax({
+                    url: '/search-cities', // Backend URL that returns filtered cities
+                    type: 'GET',
+                    data: { query: searchText },
+                    success: function(data) {
+                        var selectOptions = $('#city_list');
+                        selectOptions.empty(); // Clear existing options
+
+                        data.forEach(function(item) {
+                            selectOptions.append($('<li class="option8" data-value="' + item.name + '">')
+                                .text(item.name + ' - ' + item.CountryName + ''));
+                        });
+                        // Show the list if there are results
+                        if (data.length > 0) {
+                            selectOptions.show();
+                        }
+                    }
+                });
+            });
+
+            $('#city_list').on('click', 'li', function() {
+                var selectedText = $(this).text();
+                var selectedValue = $(this).attr('data-value');
+                $('#hoteldate').val(selectedText); // Display the selected text in the input
+                $('#city_name').val(selectedValue); // Store the data-value in the hidden input
+                $('#city_list').hide(); // Hide the list after selection
+            });
+
+            // Additional code to manage showing and hiding the list
+            $('#hoteldate').on('focus', function() {
+                $('#city_list').show();
+            });
+
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.custom-select-wrapper').length) {
+                    $('#city_list').hide();
+                }
+            });
+
+            // Prevent immediate hiding on input click
+            $('#hoteldate').on('click', function(e) {
+                e.stopPropagation();
+                $('#city_list').show();
+            });
+        });
+    </script>
+
 <script>
      $(document).ready(function(){
    

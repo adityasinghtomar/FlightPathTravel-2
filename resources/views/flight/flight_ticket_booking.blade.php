@@ -11,6 +11,7 @@
  	<link rel="stylesheet" href="file:///C:/xampp/htdocs/Niyati/Flightpath(elw)/flight-details/bookingpdf.css">
 <title>Booking Conform Details</title>
 </head>
+
 <style>/*.col-md-3 , .col-md-6 , .col-md-4 ,.col-md-2 ,.col-md-12{
     padding: 0;
 }*/
@@ -220,6 +221,8 @@
 
 }</style>
 <body>
+    
+    
      @if(isset($ress->Response))
     <?php $passenger = $ress->Response->FlightItinerary->Passenger ?>
      <?php $Segment = $ress->Response->FlightItinerary->Segments ?>
@@ -307,6 +310,8 @@
                                                             $date = strtotime($input); 
                                                             echo $arr1_time = date('d M Y', $date); 
                                             ?></b></p>
+                                        <?php $FlightStatus = $Segments->FlightStatus; ?>    
+                                        <?php $AirlinePNR = $Segments->AirlinePNR; ?>
 					<p></p>
 				</div>
 			</div>
@@ -316,7 +321,6 @@
 		<br>
 		@foreach($passenger as $passengers) 
 		 
-		 @foreach($Segment as $Segments)
 		<div class="passengers-details">
 			<div class="passengers-details-inner">
 				<h4 class="color-nevy pd-bt-tp">Passangers</h4>
@@ -333,9 +337,9 @@
 				  	<tr>
 					    <td><?php print_r($passengers->FirstName); ?> <?php print_r($passengers->LastName); ?></td>
 					    <td><?php print_r($ress->Response->FlightItinerary->AirlineCode); ?></td>
-					    <td><?php print_r($Segments->FlightStatus); ?></td>
+					    <td><?php print_r($FlightStatus); ?></td>
 					    <td><?php print_r($ress->Response->FlightItinerary->Origin); ?> - <?php print_r($ress->Response->FlightItinerary->Destination); ?></td>
-					    <td><?php print_r($Segments->AirlinePNR); ?></td>
+					    <td><?php print_r($AirlinePNR); ?></td>
 					    <td></td>
 					    <td> &nbsp;</td>
 				  	</tr>
@@ -344,7 +348,6 @@
 			</div>
 		</div>
 		<!--<br>-->
-		@endforeach
 		@endforeach
 		<!--<div class="flight-inclusion">-->
 		<!--	<div class="flight-inclusion-inner">-->
@@ -446,7 +449,7 @@
 		<div class="fee-collaction">
 			<div class="fee-collaction-inner">
 				<h4 class="color-nevy pd-bt-tp">Cancellation Charges</h4>
-				<p>EaseMyTrip Fee: <span>Rs. 250 prr sector</span></p>
+    				<!--<p>EaseMyTrip Fee: <span>Rs. 250 prr sector</span></p>-->
 				<br>
 				<div class="airline-fee">
 					<div class="airline-fee-inner">	

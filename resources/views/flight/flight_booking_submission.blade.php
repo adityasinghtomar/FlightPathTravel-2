@@ -1,4 +1,4 @@
-@include('flight.header')
+@include('auth.cust_header')
  <style>
          /*
  CSS for the main interaction
@@ -24,11 +24,7 @@
 /*
  Styling
 */
-body {
-  font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;
-  color: #333;
-  font-weight: 300;
-}
+
 
 .tabset > label {
   position: relative;
@@ -87,9 +83,7 @@ input:focus-visible + label {
   box-sizing: border-box;
 }
 
-body {
-  padding: 30px;
-}
+
 
 .tabset {
   max-width: 65em;
@@ -329,30 +323,64 @@ body {
 </div>
                      @endif
                 </div> 
-                @if(session()->get('user_id'))
+                
                     <div class="tou_booking_form_Wrapper">
                         <div class="booking_tour_form">
                             <h3 class="heading_theme">Passenger information</h3>
                             <div class="tour_booking_form_box">
-                                <form action="{{url('/preparePayment')}}" enctype="multipart/form-data" method="post">
+                                <form action="{{url('/preparePayment')}}" enctype="multipart/form-data" method="post" target="_blank">
                                                       @csrf
                                                       <div class="row">
-                                      <div class="col-lg-6">
+                                      <div class="col-lg-4">
                                             <div class="form-group">
                                                 <lable>Email</lable>
                                                 <input type="text" name="email" class="form-control bg_input"
                                                     placeholder="Email address" required>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
                                             <div class="form-group">
                                                 <lable>Mobile No.</lable>
                                                 <input type="number" name="mobile" class="form-control bg_input"
                                                     placeholder="Mobile number*" required>
                                             </div>
                                         </div> 
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <lable>Address</lable>
+                                                <input type="text" name="address" class="form-control bg_input"
+                                                    placeholder="Address*" required>
+                                            </div>
+                                        </div> 
+                                        
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>PassportNo</lable>
+                                                <input type="text" name="PassportNo" class="form-control bg_input"
+                                                    placeholder="PassportNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Passport Expiry Date</lable>
+                                                <input type="date" name="PassportExpiry" class="form-control bg_input"
+                                                    placeholder="PassportExpiry*">
+                                            </div>
+                                        </div> 
+                                        
                                    <?php for ($row=1; $row <= $adult; $row++) {  ?>  
                                     <h3 class="heading_theme">Passenger {{$row}}</h3>
+                                    <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Title</lable>
+                                                <select name="title[]" class="form-control bg_input">
+                                                      <option value="Mr">Mr</option>
+                                                      <option value="Mrs">Mrs</option>
+                                                      <option value="Miss">Miss</option>
+                                                      <option value="Mstr">Mstr</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <lable>First Name</lable>
@@ -368,7 +396,15 @@ body {
                                                 <input type="hidden" name="amount1" value="{{$convertedAmount}}.00"  >  
                                             </div>
                                         </div>
-                                        
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <lable>Gender</lable>
+                                                <select name="gender[]" class="form-control bg_input">
+                                                      <option value="1">Male</option>
+                                                      <option value="2">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <!--<div class="col-lg-12">-->
                                         <!--    <div class="form-group">-->
                                         <!--        <lable>Address</lable>-->
@@ -405,6 +441,7 @@ body {
                                     <!--<form action="!#" id="payment_checked">-->
                                     <?php $easybuzz_status =\App\Setting_Model::where('status','0')->where('name','EASYBUZZ PAYMENT')->first(); ?>
                                     @if($easybuzz_status)
+                                        @if($Currency_active->currency_code =='INR' )
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"
                                                 id="flexRadioDefault1" value="easybuzz" required>
@@ -412,9 +449,11 @@ body {
                                                 Easybuzz Pay
                                             </label>
                                         </div>
+                                        @endif 
                                     @endif    
                                     <?php $mollie_status =\App\Setting_Model::where('status','0')->where('name','Mollie Payment')->first(); ?>
                                     @if($mollie_status)
+                                    @if($Currency_active->currency_code !=='INR' )
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"
                                                 id="flexRadioDefault2" value="mollie" checked="checked" required>
@@ -422,15 +461,18 @@ body {
                                                Mollie Pay
                                             </label> 
                                         </div>
-                                    @endif     
-                                        @if(session()->get('user_id'))
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="payment"-->
-                                        <!--        id="flexRadioDefault3" value="wallet" required>-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault3">-->
-                                        <!--        Wallet-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
+                                    @endif
+                                    @endif
+                                       @if(session()->get('user_id'))
+                                            @if(session()->get('role') =='agent')
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment"
+                                                id="flexRadioDefault3" value="wallet" required>
+                                            <label class="form-check-label" for="flexRadioDefault3">
+                                                Wallet
+                                            </label>
+                                        </div>
+                                            @endif
                                         @endif
                                        </div>
                             </div>
@@ -629,28 +671,22 @@ body {
                                 <div class="tour_booking_amount_area">
                                     <ul>
                                         <li>Adult Price x {{$adult}} <span>
-                                            <?php $mark_up= \App\Markup_Model::where('name','flight')->where('status','active')->first();?>
+                                            <?php $mark_up= \App\Markup_Model::where('currency_code',$Currency_active->currency_code)->where('markup_type','flight')->first();?>
                                  
                                 <?php if($mark_up) { 
-                                            if($mark_up->markup_type =='fixed'){
-                                                $mark_up->markup_amount;
-                                                $subtotal= $PublishedFare + $mark_up->markup_amount;
+                                            $mark_up->markup_amount;
+                                                $subtotal= $PublishedFare;
                                                 echo $Currency_active->currency_symbol;
-                                                echo round($subtotal, 2);
+                                                // echo round($subtotal, 2);
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                $subtotal13 = $subtotal1 + $mark_up->markup_amount ;
+                                                echo round($subtotal13, 2);
                                             }
-                                            else {
-                                              $percentage = ($mark_up->markup_amount / 100) * $PublishedFare; 
-                                              $subtotal= $PublishedFare + $percentage;
-                                                echo $Currency_active->currency_symbol;
-                                                echo round($subtotal);
-                                            //   echo $percentage;
-                                                 }
-                                            } 
                                             else{
-                                    $subtotal= $PublishedFare;
-                                                echo $Currency_active->currency_symbol;
-                                                echo round($subtotal);
-                                }   
+                                            echo $Currency_active->currency_symbol;
+                                            $subtotal= $PublishedFare;
+                                            $subtotal1= $subtotal / $Currency_active->currency_rates ;echo round($subtotal1, 2);
+                                        }
                                             
                                             ?>
                                         </span></li>
@@ -658,8 +694,23 @@ body {
                                     </ul>
                                     <div class="total_subtotal_booking">
                                         <h6>Subtotal <span>
-                                            <?php echo round($subtotal) ?> 
-                                           </span></h6>
+                                            <?php if($mark_up) { 
+                                            $mark_up->markup_amount;
+                                                $subtotal= $PublishedFare;
+                                                echo $Currency_active->currency_symbol;
+                                                // echo round($subtotal, 2);
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                $subtotal13 = $subtotal1 + $mark_up->markup_amount ;
+                                                echo round($subtotal13, 2);
+                                            }
+                                            else{
+                                            echo $Currency_active->currency_symbol;
+                                            $subtotal= $PublishedFare;
+                                            $subtotal1= $subtotal / $Currency_active->currency_rates ;echo round($subtotal1, 2);
+                                        }
+                                            
+                                            ?>
+                                            </span></h6>
                                     </div>
                                     <div class="coupon_add_area">
                                         @if(isset($coupon))
@@ -671,8 +722,22 @@ body {
                                     <div class="total_subtotal_booking">
                                         
                                         <h6>Total Amount<span>
-                                            <?php echo round($subtotal); ?> 
-                                         </span></h6>
+                                           <?php if($mark_up) { 
+                                            $mark_up->markup_amount;
+                                                $subtotal= $PublishedFare;
+                                                echo $Currency_active->currency_symbol;
+                                                // echo round($subtotal, 2);
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                $subtotal13 = $subtotal1 + $mark_up->markup_amount ;
+                                                echo round($subtotal13, 2);
+                                            }
+                                            else{
+                                            echo $Currency_active->currency_symbol;
+                                            $subtotal= $PublishedFare;
+                                            $subtotal1= $subtotal / $Currency_active->currency_rates ;echo round($subtotal1, 2);
+                                        }
+                                            
+                                            ?> </span></h6>
                                     </div>
                                 </div>
                             </div>
@@ -681,7 +746,7 @@ body {
                 </div>
             </div>
         </div>
-         @endif
+      
     </section>
 
     <!-- Cta Area -->
@@ -718,7 +783,8 @@ body {
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>   -->
     <script>
 $(document).ready(function() {
     $('#myForm').submit(function(event) {
@@ -879,7 +945,7 @@ function myFunction() {
          });
         });
       </script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 
  <!-- Bootstrap js -->

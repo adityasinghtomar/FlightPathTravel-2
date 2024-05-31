@@ -21,7 +21,11 @@
     </div>
 
     <!-- Common Banner Area -->
-    <section id="common_banner">
+    <section id="" style="background-image: url(public/assets/img/common/counter_bg.png);
+    padding: 200px 0 130px 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -176,8 +180,7 @@ padding-left: 0;
               </div>
               <div class="contact-info-text">
                 <h2>address</h2>
-                <span>1215 Lorem Ipsum, Ch 176080 </span> 
-                <span>Chandigarh , INDIA</span> 
+                <span>107/1, Near Central Bank of India, College road, Thala, Chikhli - 396521, Gujarat</span> 
               </div>
             </div>            
           </div>          
@@ -190,8 +193,8 @@ padding-left: 0;
               </div>
               <div class="contact-info-text">
                 <h2>E-mail</h2>
-                <span>info@LoremIpsum.com</span> 
-                <span>yourmail@gmail.com</span>
+                <span>info@flightpathtravel.com</span> 
+               
               </div>
             </div>            
           </div>                
@@ -203,9 +206,9 @@ padding-left: 0;
                 <i class="fas fa-clock"></i>
               </div>
               <div class="contact-info-text">
-                <h2>office time</h2>
-                <span>24 / 7</span></span>
-               
+                <h2>Contact Us</h2>
+                <span>+91 2634 277277</span></span>
+                <span>+91 9081986645</span>
               </div>
             </div>            
           </div>          
@@ -262,7 +265,7 @@ padding-left: 0;
                                 </div>
                                 <div class="contact_detais_item">
                                     <h4>Support mail</h4>
-                                    <h3><a href="mailto:support@flightpathtravel.com">support@flightpathtravel.com</a></h3>
+                                    <h3><a href="mailto:info@flightpathtravel.com">info@flightpathtravel.com</a></h3>
                                 </div>
                                 
                                 <div class="contact_detais_item">
@@ -271,17 +274,34 @@ padding-left: 0;
                                 </div>
                                 <div class="contact_detais_item">
                                     <h4>Address</h4>
-                                    <h3>Office No. 1, Jubilee Business Centre, 211 Kingsbury Road, Kingsbury, London, NW9 8AQ</h3>
+                                     <div style="margin-top:10px; line-height: 1.6;">
+                                                  <h5>UK Office</h5>
+                                    <h3><a href="https://maps.app.goo.gl/r2zrquqouvF2bP6B6" target="_blank">Office No. 1, Jubilee Business Centre, 211 Kingsbury Road, Kingsbury, London, NW9 8AQ</a></h3>
+                                    </div>
+                                    <div  style="margin-top:10px; line-height: 1.6;">
+                                        <h5>Chikhli Office</h5>
+                                    <h3><a href="https://maps.app.goo.gl/HxVRwxD4PTGwDqno9" target="_blank">107/1, Near Central Bank of India, College road, Thala, Chikhli - 396521, Gujarat</a></h3>
+                                    </div>
+                                    <div style="margin-top:10px; line-height: 1.6;">
+                                        <h5>Surat Office</h5>
+                                    <h3><a href="https://maps.app.goo.gl/Lbo6GkfP4t52mNVG7" target="_blank">406, 4th Floor, Rajhans Montessa, Dumas Road, Magdalla, Near Airport, Surat - 395007</a></h3>
+                                    
+                                    </div>
+                                   
+                                    
                                 </div>
-                                <div class="contact_map_area">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9916.975593321238!2d-0.2763166259126239!3d51.58209318700696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877a17cca5d0001%3A0x46d236266ce7b49!2sFlightPath%20Travel!5e0!3m2!1sen!2sin!4v1693608443247!5m2!1sen!2sin"></iframe>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
+              
             </div>
         </div>
+        
+          <div class="contact_map_area" style="margin-top:15px;">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9916.975593321238!2d-0.2763166259126239!3d51.58209318700696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4877a17cca5d0001%3A0x46d236266ce7b49!2sFlightPath%20Travel!5e0!3m2!1sen!2sin!4v1693608443247!5m2!1sen!2sin"height="500px"></iframe>
+                                </div>
     </section>
 
     <!-- Cta Area -->

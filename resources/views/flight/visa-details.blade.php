@@ -1,4 +1,4 @@
-@include('flight.header')
+@include('auth.cust_header')
 
  
     <style>

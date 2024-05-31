@@ -1,81 +1,14 @@
 (function ($) {
     "use strict";
-
-    function selectRefresh() {
-        $('.select-from').select2({ placeholder: "Where from?" });
-        $('.select-to').select2({ placeholder: "Where to?" });
-        $('.select-destination').select2({ placeholder: "What is your destination?" });
-        $('.select-tours').select2({ placeholder: "Tour Type" });
-        $('.select-days').select2({ placeholder: "Days" });
-        $('.select-country').select2({ placeholder: "Select Country" });
-        $('.select-visa-type').select2({ placeholder: "Visa Type" });
-    }
-
-    $("#btnAddNewFlight").on('click', function () {
-        $(".parentNewFlightRows").append(`
-        <div class="row child-flight-row childFlightRow">
-            <div class="col-lg-4 mb-20 mb-md-10">
-                <select class="select-from select2-style-1 select-takeoff"
-                    name="state">
-                    <option></option>
-                    <option>DBD,DHANBAD,Dhanbad,IN</option>
-                    <option>DBR,Darbhanga Airport,Darbhanga,IN</option>
-                    <option>DEL,Indira Gandhi Airport,Delhi,IN</option>
-                    <option>DDN,DELTA DOWNS,Delta Downs,AU </option>
-                    <option>DJN,Delta Junction,Delta Junction,US</option>
-                </select>
-            </div>
-            <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
-                <button class="btn btn-interchange px-10 py-10">
-                    <svg viewBox="0 0 106 107" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M81.361 81.7225L96.9998 66.0414L81.361 50.3604L75.3591 56.3623L80.8538 61.8147H44.5464V70.2681H80.8538L75.3591 75.7206L81.361 81.7225Z" />
-                        <path
-                            d="M30.6407 50.3602L25.146 44.9078H61.4534V36.4544H25.146L30.6407 31.0019L24.6388 25L9 40.6811L24.6388 56.3622L30.6407 50.3602Z" />
-                    </svg>
-                </button>
-            </div>
-            <div class="col-lg-4 mb-20 mb-md-10">
-                <select class="select-to select2-style-1 select-land" name="state">
-                    <option></option>
-                    <option>DBD,DHANBAD,Dhanbad,IN</option>
-                    <option>DBR,Darbhanga Airport,Darbhanga,IN</option>
-                    <option>DEL,Indira Gandhi Airport,Delhi,IN</option>
-                    <option>DDN,DELTA DOWNS,Delta Downs,AU </option>
-                    <option>DJN,Delta Junction,Delta Junction,US</option>
-                </select>
-            </div>
-            <div class="col-lg mb-20 mb-md-10">
-                <input type="date" value="<?php echo date('Y-m-d'); ?>" id="demo"
-                    name="journey_date" class="txtDate form-control" required>
-            </div>
-            <div class="col-lg-auto mb-20 mb-md-10">
-                <button type="submit"
-                    class="btn btn-th-outline-danger btnRemove py-10 px-20"><i
-                        class="fas fa-times"></i></button>
-            </div>
-        </div>
-        `);
         selectRefresh();
-        $(".btnRemove").css("opacity","1");   
-    });
+       
 
     $(".date-box").on('click', function () {
         $(this).next().hide();
         $(this).attr("type", "date");
     });
 
-    $(document).on('click',".btnRemove", function(){
-        var getChildFlightRowCount = $(".parentNewFlightRows").find(".childFlightRow").length;
-        if(getChildFlightRowCount > 1) {
-            $(this).closest(".childFlightRow").remove();    
-            if(getChildFlightRowCount == 2) {
-                $(".btnRemove").css("opacity","0.5");    
-            }
-        }
-    });
-
+   
     selectRefresh();
 
     var getFlightTripRadioButtonValue = $('input[type=radio][name=flighttrip]:checked').val();

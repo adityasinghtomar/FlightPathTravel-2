@@ -2816,7 +2816,7 @@ input[type="date"]::-webkit-inner-spin-button {
 
 .contact_map_area iframe {
     width: 100%;
-    height: 200px;
+    height: 500px;
 }
 
 
@@ -3847,7 +3847,8 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .all_review_text img {
-    width: 70px;
+    width: 129px;
+    margin-top:28px;
     height: 70px;
     border-radius: 50%;
 }

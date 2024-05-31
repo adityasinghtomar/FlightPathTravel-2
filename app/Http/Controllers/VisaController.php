@@ -15,6 +15,7 @@ use App\Tour_Detail_Model;
 use App\Visa_Model;
 use App\Visa_Package_Model;
 use App\Visa_Booking_Model;
+use App\CountryCode_Model;
 use DateTime;
 use Illuminate\Support\Facades\Http;
 use Mollie\Laravel\Facades\Mollie;
@@ -37,12 +38,14 @@ class VisaController extends Controller
      public function index()
     {
         $flight = Visa_Model::get();
+        $country = Visa_Model::get();
         return view('flight/admin/all-visa',compact('flight'));
     }
       public function add_visa()
     {
         $flight = Visa_Model::get();
-        return view('flight/admin/add-visa',compact('flight'));
+         $country = CountryCode_Model::get();
+        return view('flight/admin/add-visa',compact('flight','country'));
     }
      public function visa_edit($id)
     {
@@ -57,6 +60,7 @@ class VisaController extends Controller
       public function add_visa_package()
     {
         $flight = Visa_Model::get();
+         
         return view('flight/admin/add-visa-package',compact('flight'));
     }
         public function visa_store(Request $request)
@@ -68,10 +72,12 @@ class VisaController extends Controller
 			$data['overview']= $request->input('overview');
 			$data['documents'] = $request->input('documents');
 		    $data['include'] = $request->input('include');
+		    
 			$data['exclude'] = $request->input('exclude');
 			$data['why_choose_us'] = $request->input('why_choose_us');
 			$data['amount'] = $request->input('amount');
 			$data['currency_type'] = $request->input('currency_type');
+			$data['country'] = $request->input('country');
 			if ($request->hasFile('image')) {
             $file = $request->file('image');
             $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();

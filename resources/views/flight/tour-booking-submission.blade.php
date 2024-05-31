@@ -1,355 +1,405 @@
-@include('flight.header')
-    <!-- search -->
-    <div class="search-overlay">
-        <div class="d-table">
-            <div class="d-table-cell">
-                <div class="search-overlay-layer"></div>
-                <div class="search-overlay-layer"></div>
-                <div class="search-overlay-layer"></div>
-                <div class="search-overlay-close">
-                    <span class="search-overlay-close-line"></span>
-                    <span class="search-overlay-close-line"></span>
-                </div>
-                <div class="search-overlay-form">
-                    <form>
-                        <input type="text" class="input-search" placeholder="Search here...">
-                        <button type="button"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Common Banner Area -->
-    <section id="common_banner">
+<style>
+    /********************************************
+************ Global settings ****************
+*********************************************/
+
+html {
+  box-sizing: border-box;  
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/********************************************
+************ Floating label ****************
+*********************************************/
+
+.form-capsule .form-group {
+  /* Form group*/
+  position: relative;
+}
+
+/******* Label *******/
+
+.form-capsule .form-group label {
+  /* Input field floating label */
+  position: absolute;
+  font-size: 0.8em;
+  top: 0px;
+  width: 100%;
+  padding: 0 10px;
+  margin: 5px 0 10px 0;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  /* prevent flickering */
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
+}
+
+.form-capsule .show-label label {
+  /* Active state for label when visible */
+  opacity: 1;
+}
+
+/******** Form control fields ********/
+
+.form-capsule .form-control {
+  /* Form control fields */
+  height: 50px;
+  padding: 15px 10px;
+  box-shadow: 0 0 0 2px transparent;  
+  transition: all 0.2s ease-out;
+}
+
+.form-capsule .form-control:focus{
+  /* Focus state for form-control fields */
+  box-shadow: 0 0 0 2px #000066;
+  outline: transparent;
+  border-color: transparent;
+}
+
+.form-capsule .show-label .form-control {
+  /* Active state for form-control fields */
+  padding-top: 25px;
+  padding-bottom: 5px;
+}
+
+/********************************************
+************ Textarea ***********************
+*********************************************/
+
+.form-capsule .form-group-textarea label {
+  /* Textarea floating label */
+  background-color: white;
+  width: auto;
+  right: 0;
+  left: 0;
+  margin: 1px 18px 1px 1px;
+  border-radius: 3px 3px 0 0;
+  padding-top:4px;
+}
+
+.form-capsule .form-group-textarea .form-control {
+  /* Textarea */
+  min-height: 100px;
+  height:auto;
+  max-width:100%;
+  min-width: 100%;
+}
+
+/********************************************
+************ Markdown ***********************
+*********************************************/
+
+.form-capsule .form-group-markdown label {
+  /* Markdown textarea floating label */
+  background-color: white;
+  width: auto;
+  right: 0;
+  left: 0;
+  margin: 1px 18px 1px 1px;
+  border-radius: 3px 3px 0 0;
+  padding-top:4px;
+}
+
+
+.form-capsule .form-group-markdown .form-control {
+  /* Markdown textarea */
+  margin-top: 10px;
+  min-height: 200px;
+  height:auto;
+  max-width:100%;
+  min-width: 100%;  
+}
+
+.form-capsule .markdown-upload-button {
+  /* Markdown file upload buttong */
+  cursor: pointer;
+  color: blue;
+}
+
+.form-capsule .markdown-preview {
+  /* Markdown preview */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 230px;  
+  width:100%;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+}
+
+/********************************************
+************ Select *************************
+*********************************************/
+
+.form-capsule .form-group-select label {
+  /* Select floating label */
+  opacity: 1;
+  z-index: 1;
+}
+
+.form-capsule .form-group-select .form-control {
+  /* Select */
+  padding-top: 25px;
+  padding-bottom: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.select-wrapper {
+  /* Select wrapper */
+  position:relative;
+  z-index: 0;
+}
+
+.select-wrapper:before {
+  /* Select arrow image background */
+  content:'';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width:50px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  background-image: url(https://tlc-web.qcode.co.uk/Graphics/dropdown-arrow-down-dark.svg);
+}
+
+
+
+/********************************************
+************ Help block *********************
+*********************************************/
+
+.help-block-inline {
+  /* Inline help block */
+  position: absolute;
+  top: 0;
+  right: 25px;
+  line-height: 50px;
+  margin: 0;
+  font-size: 90%;
+  color: #CCC;
+}
+
+/********************************************
+************ Units help-block ***************
+*********************************************/
+
+.help-block-floating {
+  /* Inline help block for units */
+  color: #555;  
+}
+
+.help-block-background {
+  right: 0;
+  background-color: #eee;
+  color: #555;
+  border-radius:0 3px 3px 0;
+  height: 48px;
+  margin: 1px;
+  padding: 0 12px;
+}
+
+/********************************************
+************ Tooltip ************************
+*********************************************/
+
+.tooltip-icon {
+  /* Tooltip icon */
+  position: absolute;
+  top: 15px;
+  right: 30px;
+}
+
+/********************************************
+************ Radio group ********************
+*********************************************/
+
+.radio-group {
+  border: 1px solid #ccc;
+  border-radius: 4px;  
+}
+
+.radio, .radio+.radio {
+  border-bottom: 1px solid #ccc;
+  margin:0;
+}
+
+.radio:last-child {
+  border-bottom:0;
+}
+
+.radio-option {
+  display: none;
+}
+
+.radio-option:checked + .radio-option-label:before {
+  border-color: #000666;
+  border-width: 5px;  
+}
+
+.radio-option-label {
+  display:table
+}
+.radio-option-label:before {
+  content:"";
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  margin: 17px;
+  border-radius: 50%;
+  background-color: white;
+  transition: border-width 0.3s ease;
+}
+
+.radio-option-label-text {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px 10px 10px 0;
+  width: 100%;
+  margin: 0;
+}
+
+</style>
+@include('auth.cust_header')
+ <section id="" style="    background-image: url(public/images/flex/comen.jpg);
+    padding: 200px 0 130px 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="common_bannner_text">
-                        <h2>Booking submission</h2>
+                        <h2>Enquiry Form</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
-                            <li><span><i class="fas fa-circle"></i></span><a href="tour-search.html">Tours</a></li>
-                            <li><span><i class="fas fa-circle"></i></span><a href="tour-details.html">Amazon tour</a>
-                            </li>
-                            <li><span><i class="fas fa-circle"></i></span> Booking</li>
+                            <li><span><i class="fas fa-circle"></i></span>Enquiry Form</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Tour Booking Submission Areas -->
-    <section id="tour_booking_submission" class="section_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="tou_booking_form_Wrapper">
-                        <div class="booking_tour_form">
-                            <h3 class="heading_theme">Booking submission</h3>
-                            <div class="tour_booking_form_box">
-                               <form action="{{url('/book-tour-payment')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                    <input type="hidden" name="tour_id" value="{{$tour_package->tour_id}}">
-                                    <input type="hidden" name="tour_package_id" value="{{$tour_package->id}}">                  
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="text" name="name"  class="form-control bg_input"
-                                                    placeholder="First name*">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="text" name="lname" class="form-control bg_input"
-                                                    placeholder="Last name*">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="email" name="email" class="form-control bg_input"
-                                                    placeholder="Email address (Optional)">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="number" name="mobile" class="form-control bg_input"
-                                                    placeholder="Mobile number*">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <input type="text" name="address" class="form-control bg_input"
-                                                    placeholder="Street address">
-                                            </div>
-                                        </div>
-                                     
-                                     </div>
+<section>
+    <div class="container">
+        <div style="    background: #f5f5f5f5;
+    padding: 15px;
+    margin-top: 20px;">
+            <form action="{{url('/tour-enquiry')}}" enctype="multipart/form-data" method="post" style="padding:50px;">
+                 @csrf
+                <div style="margin-bottom:15px;"> 
+                     <h2 style="border-bottom: 3px solid #054887;
+    width: max-content;">Tour Details</h2>
+                </div>
+                <div class="row">
+                   
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+    font-weight: 600;">Destination</label>
+                            <select class="form-control" name="destination">
+                                <option>--SELECT DESTINATION -- </option>
+                                @foreach($flight as $row)
+                                <option value="{{ $row->country}}">{{ $row->country}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+    font-weight: 600;">Interested In</label>
+                            <select class="form-control" name="interested_in">
+                                <option>--SELECT TOUR NAME -- </option>
                                
-                            </div>
+                                @foreach($flight as $row)
+                                <option value="{{ $row->tour_name }}">{{ $row->tour_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="booking_tour_form">
-                            <h3 class="heading_theme">Payment method</h3>
-                            <div class="tour_booking_form_box">
-                                <div class="booking_payment_boxed">
-                                    <!--<form action="!#" id="payment_checked">-->
-                                    <?php $easybuzz_status =\App\Setting_Model::where('status','0')->where('name','EASYBUZZ PAYMENT')->first(); ?>
-                                    @if($easybuzz_status)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment"
-                                                id="flexRadioDefault1" value="easybuzz" required>
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                Easybuzz Pay
-                                            </label>
-                                        </div>
-                                    @endif    
-                                    <?php $mollie_status =\App\Setting_Model::where('status','0')->where('name','Mollie Payment')->first(); ?>
-                                    @if($mollie_status)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment"
-                                                id="flexRadioDefault2" value="mollie" checked="checked" required>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                               Mollie Pay
-                                            </label> 
-                                        </div>
-                                    @endif     
-                                        @if(session()->get('user_id'))
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment"
-                                                id="flexRadioDefault3" value="wallet" required>
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                Wallet
-                                            </label>
-                                        </div>
-                                        @endif
-                                       </div>
-                            </div>
-                         </div>
-                        <div class="booking_tour_form_submit">
-                            <div class="form-check write_spical_check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">
-                                <label class="form-check-label" for="flexCheckDefaultf1">
-                                    <span class="main_spical_check">
-                                        <span>I read and accept all <a href="terms-service.html">Terms and
-                                                conditios</a></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <button class="button btn btn_theme btn_md w-100">Book Now</button>
-                        </div>
-                         </form>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="tour_details_right_sidebar_wrapper">
-                        <div class="tour_detail_right_sidebar">
-                            <div class="tour_details_right_boxed">
-                                <div class="tour_details_right_box_heading">
-                                    <h3>{{$tour_package->tour_package_name}}</h3>
-                                </div>
-                                <!--<div class="valid_date_area">-->
-                                <!--    <div class="valid_date_area_one">-->
-                                <!--        <h5>Valid from</h5>-->
-                                <!--        <p>01 Feb 2022</p>-->
-                                <!--    </div>-->
-                                <!--    <div class="valid_date_area_one">-->
-                                <!--        <h5>Valid till</h5>-->
-                                <!--        <p>15 Feb 2022</p>-->
-                                <!--    </div>-->
-                                <!--</div>-->
-                                <div class="tour_package_details_bar_list">
-                                    <h5>Package details</h5>
-                                    <ul>
-                                        <li><i class="fas fa-circle"></i>{{$tour_package->details}}</li>
-                                        
-                                    </ul>
-                                </div>
-                                <div class="tour_package_details_bar_price">
-                                    <h5>Price</h5>
-                                    <div class="tour_package_bar_price">
-                                        <!--<h6><del>$ 35,500</del></h6>-->
-                                        <h3>{{$tour_package->amount}} <sub>/Per serson</sub> </h3>
-                                    </div>
-                                </div>
-                            </div>
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+    font-weight: 600;">Preferred Category</label>
+                            <select class="form-control" name="Preferred_Category">
+                                <option>--SELECT CATEGORY -- </option>
+                                <option value="Standard">Standard</option>
+                                 <option value="Superior">Superior</option>
+                                  <option value="Deluxe">Deluxe</option>
+                                   <option value="Luxury">luxury</option>
+                            </select>
                         </div>
-                        <!--<div class="tour_detail_right_sidebar">-->
-                        <!--    <div class="tour_details_right_boxed">-->
-                        <!--        <div class="tour_details_right_box_heading">-->
-                        <!--            <h3>Travel date</h3>-->
-                        <!--        </div>-->
-                        <!--        <div class="edit_date_form">-->
-                        <!--            <div class="form-group">-->
-                        <!--                <label for="dates">Edit Date</label>-->
-                        <!--                <input type="date" id="dates" value="2022-05-05" class="form-control">-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--        <div class="tour_package_details_bar_list">-->
-                        <!--            <h5>Tourist</h5>-->
-                        <!--            <div class="select_person_item">-->
-                        <!--                <div class="select_person_left">-->
-                        <!--                    <h6>Adult</h6>-->
-                        <!--                    <p>12y+</p>-->
-                        <!--                </div>-->
-                        <!--                <div class="select_person_right">-->
-                        <!--                    <h6>01</h6>-->
-                        <!--                </div>-->
-                        <!--            </div>-->
-
-                        <!--            <div class="select_person_item">-->
-                        <!--                <div class="select_person_left">-->
-                        <!--                    <h6>Children</h6>-->
-                        <!--                    <p>2 - 12 years</p>-->
-                        <!--                </div>-->
-                        <!--                <div class="select_person_right">-->
-                        <!--                    <h6>01</h6>-->
-                        <!--                </div>-->
-                        <!--            </div>-->
-                        <!--            <div class="select_person_item">-->
-                        <!--                <div class="select_person_left">-->
-                        <!--                    <h6>Infant</h6>-->
-                        <!--                    <p>Below 2 years</p>-->
-                        <!--                </div>-->
-                        <!--                <div class="select_person_right">-->
-                        <!--                    <h6>01</h6>-->
-                        <!--                </div>-->
-                        <!--            </div>-->
-                        <!--        </div>-->
-                        <!--        <div class="edit_person">-->
-                        <!--            <p>Edit person</p>-->
-                        <!--        </div>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <!--<div class="tour_detail_right_sidebar">-->
-                        <!--    <div class="tour_details_right_boxed">-->
-                        <!--        <div class="tour_details_right_box_heading">-->
-                        <!--            <h3>Coupon code</h3>-->
-                        <!--        </div>-->
-                        <!--        <div class="coupon_code_area_booking">-->
-                        <!--            <form action="#!">-->
-                        <!--                <div class="form-group">-->
-                        <!--                    <input type="text" class="form-control bg_input"-->
-                        <!--                        placeholder="Enter coupon code">-->
-                        <!--                </div>-->
-                        <!--                <div class="coupon_code_submit">-->
-                        <!--                    <button class="btn btn_theme btn_md">Apply voucher</button>-->
-                        <!--                </div>-->
-                        <!--            </form>-->
-                        <!--        </div>-->
-
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <div class="tour_detail_right_sidebar">
-                            <div class="tour_details_right_boxed">
-                                <div class="tour_details_right_box_heading">
-                                    <h3>Booking amount</h3>
-                                </div>
-
-                                <div class="tour_booking_amount_area">
-                                    <ul>
-                                        <li>Price <span>{{$tour_package->amount}}</span></li>
-                                        <li>Discount <span>0%</span></li>
-                                        <li>Tax<span>0%</span></li>
-                                    </ul>
-                                    <div class="tour_bokking_subtotal_area">
-                                        <h6>Subtotal <span>{{$tour_package->amount}}</span></h6>
-                                    </div>
-                                    <!--<div class="coupon_add_area">-->
-                                    <!--    <h6><span class="remove_coupon_tour">Remove</span> Coupon code (OFF 5000)-->
-                                    <!--        <span>$5,000.00</span>-->
-                                    <!--    </h6>-->
-                                    <!--</div>-->
-                                    <div class="total_subtotal_booking">
-                                        <h6>Total Amount <span>{{$tour_package->amount}}</span> </h6>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+    font-weight: 600;">Preferred Depart Date</label>
+                            <input type="date" class="form-control" name="Preferred_Depart_Date">
                         </div>
                     </div>
                 </div>
-            </div>
+                <div style="margin:15px 0px 15px 0px;"> 
+                     <h2 style="border-bottom: 3px solid #054887;
+    width: max-content;">Personal Details</h2>
+                </div>
+                 <div class="row">
+                   
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+    font-weight: 600;">Title</label>
+                            <select class="form-control" name="Title">
+                                <option value="Mr">Mr</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Ms">Ms</option>
+                               
+                            </select>
+                        </div>
+                    </div>
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+                            font-weight: 600;">Full name*</label>
+                            <input type="text" name="Full_name" class="form-control" placeholder="Full Name*" required>
+                        </div>
+                    </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+                            font-weight: 600;">Telephone*</label>
+                            <input type="tel" name="Telephone" placeholder="Phone Number*" class="form-control" required>
+                        </div>
+                    </div>
+                  <div class="col-md-3">
+                        <div class="form-group">
+                            <label style="font-size: 18px;
+                            font-weight: 600;">Email*</label>
+                            <input type="email" name="Email" placeholder="Email Id*" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" >
+                            <label style="font-size: 18px;
+                            font-weight: 600;">Your Message</label>
+                           <textarea name="Your_Message" id="" class="form-control" cols="10" rows="5" placeholder="Enter Your Message"></textarea>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div style="margin-top:35px;"> <button type="submit" name="submit" class="btn btn-primary">Submit</button></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-    </section>
-
-    <!-- Cta Area -->
-    <section id="cta_area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <div class="cta_left">
-                        <div class="cta_icon">
-                            <img src="assets/img/common/email.png" alt="icon">
-                        </div>
-                        <div class="cta_content">
-                            <h4>Get the latest news and offers</h4>
-                            <h2>Subscribe to our newsletter</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="cat_form">
-                        <form id="cta_form_wrappper">
-                            <div class="input-group"><input type="text" class="form-control"
-                                    placeholder="Enter your mail address"><button class="btn btn_theme btn_md"
-                                    type="button">Subscribe</button></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer  -->
-    @include('auth.cust_footer')
-    <div class="go-top">
-        <i class="fas fa-chevron-up"></i>
-        <i class="fas fa-chevron-up"></i>
     </div>
-
-   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
-
-    <script src="public/assets/js/jquery-3.6.0.min.js"></script>
-
-    <!-- Bootstrap js -->
-
-    <script src="public/assets/js/bootstrap.bundle.js"></script>
-
-    <!-- Meanu js -->
-
-    <script src="public/assets/js/jquery.meanmenu.js"></script>
-
-    <!-- Range js -->
-
-    <script src="public/assets/js/nouislider.min.js"></script>
-
-    <script src="public/assets/js/wNumb.js"></script>
-
-    <!-- owl carousel js -->
-
-    <script src="public/assets/js/owl.carousel.min.js"></script>
-
-    <!-- wow.js -->
-
-    <script src="public/assets/js/wow.min.js"></script>
-
-    <!-- Select2 -->
-
-    <script src="public/assets/js/select2.min.js"></script>
-
-    <!-- Custom js -->
-
-    <script src="public/assets/js/custom.js"></script>
-
-    <script src="public/assets/js/add-form.js"></script>
-
-    <script src="public/assets/js/form-dropdown.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
-
-</body>
-
-</html>
+</section>
+@include('auth.cust_footer')

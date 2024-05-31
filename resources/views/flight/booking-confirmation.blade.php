@@ -55,6 +55,7 @@
 </div>
 </div>
 @endif
+@if(isset($result1))
  @foreach($result1 as $res)
   @if(isset($res->Response))
     <!-- Tour Booking Submission Areas -->
@@ -116,26 +117,24 @@
                                         @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
                                             <li>@if(isset($res->Response->FlightItinerary->Fare->Currency))<?php print_r($res->Response->FlightItinerary->Fare->Currency);?>@endif @if(isset($res->Response->FlightItinerary->Fare->BaseFare))<?php $base123 = $res->Response->FlightItinerary->Fare->BaseFare;?>@endif <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123; ?><sup></sup></li>
                                         @else
-                                        <li>Adult Price x 1 <span>@if(isset($res->Response->FlightItinerary->Fare->Currency))<?php print_r($res->Response->FlightItinerary->Fare->Currency);?>@endif @if(isset($res->Response->FlightItinerary->Fare->BaseFare))<?php print_r($res->Response->FlightItinerary->Fare->BaseFare);?>@endif</span></li>
+                                        <li>Adult Price <span>@if(isset($res->Response->FlightItinerary->Fare->Currency))<?php print_r($res->Response->FlightItinerary->Fare->Currency);?>@endif @if(isset($res->Response->FlightItinerary->Fare->BaseFare))<?php print_r($res->Response->FlightItinerary->Fare->BaseFare);?>@endif</span></li>
                                         @endif
                                         <!--<li class="remove_coupon_tour">Discount <span>10%</span></li>-->
                                         <li>Tax <span>@if(isset($res->Response->FlightItinerary->Fare->Currency))<?php print_r($res->Response->FlightItinerary->Fare->Currency);?>@endif @if(isset($res->Response->FlightItinerary->Fare->Tax))<?php print_r($res->Response->FlightItinerary->Fare->Tax);?>@endif</span></li>
                                     </ul>
                                     <div class="tour_bokking_subtotal_area">
-                                        <h6 class="remove_coupon_tour">Subtotal <span>
-                                            @if(session()->has('commision')) <?php $commision = session()->get('commision') ?>
-                                            <li>@if(isset($res->Response->FlightItinerary->Fare->Currency))<?php print_r($res->Response->FlightItinerary->Fare->Currency);?>@endif @if(isset($res->Response->FlightItinerary->Fare->Tax))<?php $tax = $res->Response->FlightItinerary->Fare->Tax;?>@endif @if(isset($res->Response->FlightItinerary->Fare->BaseFare))<?php $base123 = $res->Response->FlightItinerary->Fare->BaseFare;?>@endif <?php $perce = $base123/100*$commision ?> <?php echo $perce + $base123 + $tax; ?><sup></sup></li>
-                                        @endif
-                                        </span></h6>
+                                        <h6 class="remove_coupon_tour">Total Amount<span>
+                                            <li>@if(isset($res->Response->FlightItinerary->Fare->Currency))<?php print_r($res->Response->FlightItinerary->Fare->Currency);?>@endif @if(isset($res->Response->FlightItinerary->Fare->Tax))<?php $tax = $res->Response->FlightItinerary->Fare->Tax;?>@endif @if(isset($res->Response->FlightItinerary->Fare->BaseFare))<?php $base123 = $res->Response->FlightItinerary->Fare->BaseFare;?>@endif  <?php echo $base123 + $tax; ?><sup></sup></li>
+                                       </span></h6>
                                     </div>
-                                    <!--<div class="coupon_add_area">-->
+                                    <!--<div class="coupon_add_area">--> 
                                     <!--    <h6><span class="remove_coupon_tour">Remove</span> Coupon code (OFF 5000)-->
                                     <!--        <span>$5,000.00</span>-->
                                     <!--    </h6>-->
                                     <!--</div>-->
-                                    <div class="total_subtotal_booking">
-                                        <h6 class="remove_coupon_tour">Total Amount <span></span> </h6>
-                                    </div>
+                                    <!--<div class="total_subtotal_booking">-->
+                                    <!--    <h6 class="remove_coupon_tour">Total Amount <span></span> </h6>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -146,6 +145,7 @@
     </section>
 @endif
 @endforeach
+@endif
 
     <!-- Cta Area -->
     <section id="cta_area">

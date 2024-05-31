@@ -1,4 +1,4 @@
-@include('flight.header')
+@include('auth.cust_header')
  <style>
          /*
  CSS for the main interaction
@@ -24,11 +24,11 @@
 /*
  Styling
 */
-body {
-  font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;
-  color: #333;
-  font-weight: 300;
-}
+/*body {*/
+/*  font: 16px/1.5em "Overpass", "Open Sans", Helvetica, sans-serif;*/
+/*  color: #333;*/
+/*  font-weight: 300;*/
+/*}*/
 
 .tabset > label {
   position: relative;
@@ -87,9 +87,9 @@ input:focus-visible + label {
   box-sizing: border-box;
 }
 
-body {
-  padding: 30px;
-}
+/*body {*/
+/*  padding: 30px;*/
+/*}*/
 
 .tabset {
   max-width: 65em;
@@ -115,7 +115,7 @@ body {
             </div>
         </div>
     </div>
-
+<?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
     <!-- Common Banner Area -->
     <section id="common_banner">
         <div class="container">
@@ -138,7 +138,7 @@ body {
     <div class="container">
             <div class="row">
     <div class="col-lg-12">
-                @if(empty(session()->get('user_id')))
+         @if(empty(session()->get('user_id')))
                 <div id="cf-response-message"></div>
                         <div class="tabset">
   <!-- Tab 1 -->
@@ -223,8 +223,8 @@ body {
 </div>
   
 </div>
-                     @endif
                 </div> 
+        @endif        
     <!-- Tour Booking Submission Areas -->
     <section id="tour_booking_submission" class="section_padding">
         <div class="container">
@@ -232,8 +232,7 @@ body {
                 <div class="col-lg-8">
                     <div class="tou_booking_form_Wrapper">
                         <div class="booking_tour_form">
-                           @if(session()->get('user_id'))
-                            <h3 class="heading_theme">Booking submission</h3>
+                           <h3 class="heading_theme">Booking submission</h3>
                             <div class="tour_booking_form_box">
                                 
                                 <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post">
@@ -307,6 +306,7 @@ body {
                                     <!--<form action="!#" id="payment_checked">-->
                                     <?php $easybuzz_status =\App\Setting_Model::where('status','0')->where('name','EASYBUZZ PAYMENT')->first(); ?>
                                     @if($easybuzz_status)
+                                    @if($Currency_active->currency_code =='INR')
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"
                                                 id="flexRadioDefault1" value="easybuzz" required>
@@ -314,8 +314,10 @@ body {
                                                 Easybuzz Pay
                                             </label>
                                         </div>
-                                    @endif    
+                                    @endif
+                                    @endif
                                     <?php $mollie_status =\App\Setting_Model::where('status','0')->where('name','Mollie Payment')->first(); ?>
+                                    @if($Currency_active->currency_code !=='INR')
                                     @if($mollie_status)
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="payment"
@@ -324,16 +326,9 @@ body {
                                                Mollie Pay
                                             </label> 
                                         </div>
-                                    @endif     
-                                        @if(session()->get('user_id'))
-                                        <!--<div class="form-check">-->
-                                        <!--    <input class="form-check-input" type="radio" name="payment"-->
-                                        <!--        id="flexRadioDefault3" value="wallet" required>-->
-                                        <!--    <label class="form-check-label" for="flexRadioDefault3">-->
-                                        <!--        Wallet-->
-                                        <!--    </label>-->
-                                        <!--</div>-->
-                                        @endif
+                                    @endif
+                                    @endif
+                                        
                                        </div>
                             </div>
                          </div>
@@ -351,7 +346,6 @@ body {
                         </form>
                        
                         </div>
-                         @endif
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -458,58 +452,70 @@ body {
 
                         <!--    </div>-->
                         <!--</div>-->
-                        @if(session()->get('user_id'))
                         <div class="tour_detail_right_sidebar">
                             <div class="tour_details_right_boxed">
                                 <div class="tour_details_right_box_heading">
                                     <h3>Booking amount</h3>
                                 </div>
-
+ 
                                 <div class="tour_booking_amount_area">
                                     <ul>
                                         <li>Rate(Offered) <span>
-                                             <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
+                                            {{ $Currency_active->currency_symbol}}
+                                             <?php $mark_up= \App\Markup_Model::where('currency_code',$Currency_active->currency_code)->where('markup_type','hotel')->first();?>
                                  
-                                <?php if($mark_up) { 
-                                            if($mark_up->markup_type =='fixed'){
-                                                $mark_up->markup_amount;
-                                                $subtotal= $OfferedPriceRoundedOff + $mark_up->markup_amount;
-                                                echo $CurrencyCode;
-                                                echo round($subtotal, 2);
+                                            <?php if($mark_up) { 
+                                                   $mark_up->markup_amount;
+                                                $subtotal= $OfferedPriceRoundedOff;
+                                               $subtotal1w= $subtotal / $Currency_active->currency_rates ;
+                                                $subtotal1 = $subtotal1w + $mark_up->markup_amount;
+                                                echo round($subtotal1, 2);
+                                                
                                             }
-                                            else {
-                                              $percentage = ($mark_up->markup_amount / 100) * $OfferedPriceRoundedOff; 
-                                              $subtotal= $OfferedPriceRoundedOff + $percentage;
-                                                echo $CurrencyCode;
-                                                echo round($subtotal);
-                                            //   echo $percentage;
-                                            }
-                                            }  
                                             else{
                                          $subtotal= $OfferedPriceRoundedOff;
-                                                echo round($subtotal);
+                                         
+                                         $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
                                               }   
                                             ?>
                                         </span>
                                         </li>
                                         <li>TDS <span>
-                                            <?php print_r($CurrencyCode); ?> <?php print_r($TDS); ?>
+                                             {{ $Currency_active->currency_symbol}} <?php $TDS1= $TDS / $Currency_active->currency_rates ;
+                                                echo round($TDS1, 2); ?>
                                         </span>
                                         </li>
                                         <li>Total GST <span>
-                                            <?php print_r($CurrencyCode); ?> <?php print_r($ServiceTax); ?>
+                                             {{ $Currency_active->currency_symbol}} <?php  $ServiceTax1= $ServiceTax / $Currency_active->currency_rates ;
+                                                echo round($ServiceTax1, 2); ?>
                                         </span>
                                         </li>
                                     </ul>
                                     <div class="total_subtotal_booking">
-                                        <h6>Total Amount <span> 
-                                            <?php print_r($CurrencyCode); ?> <?php echo round($subtotal + $TDS + $ServiceTax); ?>
+                                        <h6>Total Amount <span>  {{ $Currency_active->currency_symbol}}
+                                            <?php $dadd = $subtotal + $TDS + $ServiceTax ; 
+                                            if($mark_up) { 
+                                                   $mark_up->markup_amount;
+                                                $subtotal= $dadd;
+                                               $subtotal1w= $subtotal / $Currency_active->currency_rates ;
+                                                $subtotal1 = $subtotal1w + $mark_up->markup_amount;
+                                                echo round($subtotal1, 2);
+                                                
+                                            }
+                                            else{
+                                         $subtotal= $dadd;
+                                         
+                                         $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                                echo round($subtotal1, 2);
+                                              }   
+                                            
+                                                ?>
                                             </span> </h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>

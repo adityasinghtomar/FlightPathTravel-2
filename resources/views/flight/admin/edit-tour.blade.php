@@ -41,37 +41,37 @@
                         <input type="text" name="tour_name" value="{{$flight->tour_name}}" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Address</label>
-                        <select class="form-control demo-select2-placeholder" name="address" required >
-                        <?php $data =\App\Hotel_City_Model::get(); ?>
-                        <option value="{{$flight->address}}">{{$flight->address}}</option>
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Address</label>-->
+                    <!--    <select class="form-control demo-select2-placeholder" name="address" required >-->
+                    <!--    <?php $data =\App\Hotel_City_Model::get(); ?>-->
+                    <!--    <option value="{{$flight->address}}">{{$flight->address}}</option>-->
                          
-                         @foreach($data as $state_)
-                         <option value="{{$state_->name}}">{{__($state_->name)}}</option>
-                         @endforeach
-                           </select>
-                      </div>
-                    </div>
+                    <!--     @foreach($data as $state_)-->
+                    <!--     <option value="{{$state_->name}}">{{__($state_->name)}}</option>-->
+                    <!--     @endforeach-->
+                    <!--       </select>-->
+                    <!--  </div>-->
+                    <!--</div>-->
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">No. of Days</label>
                         <input type="number" name="no_of_day" value="{{$flight->no_of_day}}" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Rating</label>
-                        <input type="number" name="rating" value="{{$flight->rating}}" required>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Reviewes</label>
-                        <input type="number" name="reviewes" value="{{$flight->reviewes}}" required>
-                      </div>
-                    </div>
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Rating</label>-->
+                    <!--    <input type="number" name="rating" value="{{$flight->rating}}" required>-->
+                    <!--  </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Reviewes</label>-->
+                    <!--    <input type="number" name="reviewes" value="{{$flight->reviewes}}" required>-->
+                    <!--  </div>-->
+                    <!--</div>-->
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Price</label>
@@ -84,26 +84,26 @@
                         <input type="text" name="other_facilities" value="{{$flight->other_facilities}}" required>
                       </div>
                     </div>
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Tour Type</label>-->
+                    <!--    <select class="form-control demo-select2-placeholder" name="tour_type" id="state_id" >-->
+                    <!--        <option value="{{$flight->tour_type}}">{{$flight->tour_type}}</option>-->
+                    <!--        <option value="single">Single</option>-->
+                    <!--       <option value="group">Group</option>-->
+                    <!--       <option value="couple">Couple</option>-->
+                    <!--    </select>-->
+                    <!--  </div>-->
+                    <!--</div>-->
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">Tax</label>-->
+                    <!--    <input type="number" name="tax" value="{{$flight->tax}}" required>-->
+                    <!--  </div>-->
+                    <!--</div>-->
                     <div class="col-6">
                       <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Tour Type</label>
-                        <select class="form-control demo-select2-placeholder" name="tour_type" id="state_id" >
-                            <option value="{{$flight->tour_type}}">{{$flight->tour_type}}</option>
-                            <option value="single">Single</option>
-                           <option value="group">Group</option>
-                           <option value="couple">Couple</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Tax</label>
-                        <input type="number" name="tax" value="{{$flight->tax}}" required>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">No. of People</label>
+                        <label class="lh-1 text-16 text-light-1">No. of Night</label>
                         <input type="number" name="no_of_people" value="{{$flight->no_of_people}}" required>
                       </div>
                     </div>
@@ -129,7 +129,7 @@
                         @else
                                 <p>No image found</p>
                         @endif
-                        <input type="file" name="images" value="{{$flight->images}}">
+                        <input type="file" name="images[]" value="{{$flight->images}}" multiple="multiple">
                       </div>
                     </div>
                     <div class="col-6">

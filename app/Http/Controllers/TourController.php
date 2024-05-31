@@ -13,6 +13,8 @@ use App\ContactUs_Model;
 use App\Tour_Model;
 use App\Tour_Detail_Model;
 use DateTime;
+use App\Tour_Enquiry_Model;
+use App\CountryCode_Model;
 use Illuminate\Support\Facades\Http;
 use Mollie\Laravel\Facades\Mollie;
 use Stevebauman\Location\Facades\Location;
@@ -53,9 +55,10 @@ class TourController extends Controller
     public function tour_list_search(Request $request)
     {
         $city_name= $request->input('city_name');
+        // print_r($city_name);die;
         $tour_type= $request->input('tour_type');
         $day= $request->input('day');
-        $flight = Tour_Model::where('address',$city_name)->where('tour_type',$tour_type)->where('no_of_day',$day)->get();
+        $flight = Tour_Model::where('country',$city_name)->where('tour_type',$tour_type)->get();
         $form_status1 ="tour_form";
         return view('flight/tour-search-list',compact('flight','form_status1'));
     }
@@ -66,8 +69,9 @@ class TourController extends Controller
     }
      public function add_tour()
     {
+          $country = CountryCode_Model::get();
        $flight = Hotel_Model::where('user_id',session()->get('user_id'))->get();
-        return view('flight/admin/add-tour',compact('flight'));
+        return view('flight/admin/add-tour',compact('flight','country'));
     }
     public function tour_detail($id)
     {
@@ -82,43 +86,61 @@ class TourController extends Controller
     }
      public function book_package(Request $request)
     {
-        $tour_id= $request->input('tour_id');
-        $tour_package_id= $request->input('tour_package_id');
-    // print_r($tour_package_id);    die;
-        $data['tour_name']= $request->input('tour_name');
-        $tour_package = Tour_Detail_Model::where('id',$tour_package_id)->first();
-        $flight = Tour_Model::get();
-        return view('flight/tour-booking-submission',compact('flight','tour_package'));
-    }
-     public function tour_store(Request $request)
-    {
         
-            $data['tour_name']= $request->input('tour_name');
-			$data['address']= $request->input('address');
-			$data['no_of_day']= $request->input('no_of_day');
-			$data['rating']= $request->input('rating');
-			$data['reviewes'] = $request->input('reviewes');
-		    $data['price'] = $request->input('price');
-			$data['tax'] = $request->input('tax');
-			$data['other_facilities'] = $request->input('other_facilities');
-			$data['tour_type'] = $request->input('tour_type');
-			$data['no_of_people'] = $request->input('no_of_people');
-			$data['overview'] = $request->input('overview');
-			$data['included'] = $request->input('included');
-			$data['excluded'] = $request->input('excluded');
-			$data['why_choose_us'] = $request->input('why_choose_us');
-			$data['itinerary'] = json_encode($request->input('itinerary'));
-			if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
-            $request->file('image')->move("public/images", $name);
-            }
-            $data['image'] = $name;
-			$contact_id = Tour_Model::create($data);
-			 $flight = Tour_Model::get();
-		return view('flight/admin/all-tour',compact('flight'));	
-    // }
-    // return redirect()->back()->with('message',"Agent Already Register...");
+        
+        
+    //     $tour_id= $request->input('tour_id');
+    //     $tour_package_id= $request->input('tour_package_id');
+    // // print_r($tour_id);die;
+    //     $data['tour_name']= $request->input('tour_name');
+    //     $tour_package = Tour_Detail_Model::where('id',$tour_package_id)->first();
+        
+    //     //   print_r($tour_package);die;
+        $flight = Tour_Model::get();
+        return view('flight/tour-booking-submission',compact('flight'));
+    }
+   public function tour_store(Request $request)
+{
+    $data['tour_name'] = $request->input('tour_name');
+    $data['address'] = $request->input('address');
+    $data['no_of_day'] = $request->input('no_of_day');
+    $data['rating'] = $request->input('rating');
+    $data['reviewes'] = $request->input('reviewes');
+    $data['price'] = $request->input('price');
+    $data['tax'] = $request->input('tax');
+    $data['other_facilities'] = $request->input('other_facilities');
+    $data['tour_type'] = 'single';
+    $data['no_of_people'] = $request->input('no_of_people');
+    $data['overview'] = $request->input('overview');
+    $data['included'] = $request->input('included');
+    $data['excluded'] = $request->input('excluded');
+    $data['why_choose_us'] = $request->input('why_choose_us');
+    $data['itinerary'] = json_encode($request->input('itinerary'));
+    $data['country'] = $request->input('country');
+
+    // Handling main image upload
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images'), $name);
+        $data['image'] = $name;
+    }
+
+    // Handling multiple images upload
+    if ($request->hasFile('images')) {
+        $images = [];
+        foreach ($request->file('images') as $file) {
+            $name = rand(11111, 95999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $name);
+            $images[] = $name;
+        }
+        $data['images'] = json_encode($images); // Convert array to JSON string to store in the database
+    }
+
+    $tour = Tour_Model::create($data);
+
+    $flights = Tour_Model::all();
+    return view('flight/admin/all-tour', compact('flights'));
 }
 
     public function tour_package(Request $request)
@@ -232,12 +254,16 @@ public function currency_update(Request $request)
 			}
 			
 			if(!empty($request->hasFile('images'))){
-			if ($request->hasFile('images')) {
-            $file = $request->file('images');
-            $name = rand(11111, 99999) . '.' . $file->getClientOriginalExtension();
-            $request->file('images')->move("public/images", $name);
-            }
-            $data['images'] = $name; 
+		 if ($request->hasFile('images')) {
+        $images = [];
+        foreach ($request->file('images') as $file) {
+            $name = rand(11111, 95999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $name);
+            $images[] = $name;
+        }
+        $data['images'] = json_encode($images); // Convert array to JSON string to store in the database
+    }
+         
 			}
 			$contact_id = Tour_Model::where('id',$id)->update($data);
 			 $flight = Tour_Model::get();
@@ -401,4 +427,27 @@ public function currency_update(Request $request)
 
         
     }
+     public function tour_enquiry(Request $request)
+    {
+            $data['destination']= $request->input('destination');
+			$data['interested_in']= $request->input('interested_in');
+			$data['Preferred_Category']= $request->input('Preferred_Category');
+			$data['Preferred_Depart_Date']= $request->input('Preferred_Depart_Date');
+			$data['Title']= $request->input('Title');
+			$data['Full_name']= $request->input('Full_name');
+			$data['Telephone']= $request->input('Telephone');
+			$data['Email']= $request->input('Email');
+			$data['Your_Message']= $request->input('Your_Message');
+			$contact_id = Tour_Enquiry_Model::create($data);
+			$flight = Tour_Model::get();
+			return redirect('/');
+// 	 return redirect()->back()->with('message',"Tour Enquiry successfull");
+}
+
+ public function tour_enquiry_details(Request $request)
+    {
+            $Tour_Enquiry = Tour_Enquiry_Model::get();
+		return view('flight/admin/tour_enquiry_details',compact('Tour_Enquiry'));
+}
+    
 }

@@ -79,6 +79,40 @@
               </div>
             </div>
           </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+            <div class="py-15 px-30 custom_border_left_green custom_rounded bg-white custom_shadow">
+              <div class="row y-gap-20 justify-between items-center">
+                <div class="col-md-6">
+                  <div class="fw-500 lh-14">total Hotal hits</div>
+                  <div class="text-30 lh-16 fw-600 mt-5 text_blue">
+                     {{ $hotel_log }}
+                      </div>
+                  <!--<div class="text-15 lh-14 text-light-1 mt-5 text_green">(+2.35%) <span><i class="fas fa-arrow-up"></i></span></div>-->
+                </div>
+
+                <div class="col-md-6">
+                  <img src="{{ asset('public/images/flex/tbo.png') }}" style="height:80px;" alt="icon">
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+            <div class="py-15 px-30 custom_border_left_green custom_rounded bg-white custom_shadow">
+              <div class="row y-gap-20 justify-between items-center">
+                <div class="col-md-6">
+                  <div class="fw-500 lh-14">Total Flight Hits</div>
+                  <div class="text-30 lh-16 fw-600 mt-5 " style="color:#ba7e0b;">
+                     {{ $flight_log }}
+                      </div>
+                  <!--<div class="text-15 lh-14 text-light-1 mt-5 text_green">(+2.35%) <span><i class="fas fa-arrow-up"></i></span></div>-->
+                </div>
+
+                <div class="col-md-6">
+                  <img src="{{ asset('public/images/flex/tbo.png') }}" style="height:80px;" alt="icon">
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -108,6 +142,20 @@
              
 
           <div id="container" style="width:100%; height:400px;"></div>
+            </div>
+          </div>
+           <div class="col-xl-6 col-md-6">
+            <div class="py-30 px-30 custom_rounded bg-white custom_shadow">
+             
+
+          <div id="container2" style="width:100%; height:400px;"></div>
+            </div>
+          </div>
+           <div class="col-xl-6 col-md-6">
+            <div class="py-30 px-30 custom_rounded bg-white custom_shadow">
+             
+
+          <div id="container3" style="width:100%; height:400px;"></div>
             </div>
           </div>
            <div class="col-xl-6 col-md-6">
@@ -359,7 +407,134 @@ $(function () {
     });
 });
 </script>
+ <script>
+        $(function () {
+            // Assuming you're passing aggregated flight revenue data from the backend
+            var flightLogData = {!! json_encode($flightLogByMonth) !!};
 
+            $('#container2').highcharts({
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#36394B'
+                },
+                title: {
+                    text: 'Flight Monthly Hit',
+                    style: {
+                        color: '#fff'
+                    }
+                },
+                xAxis: {
+                    tickWidth: 0,
+                    labels: {
+                        style: {
+                            color: '#fff',
+                        }
+                    },
+                    categories: Object.keys(flightLogData)
+                },
+                yAxis: {
+                    gridLineWidth: .5,
+                    gridLineDashStyle: 'dash',
+                    gridLineColor: 'black',
+                    title: {
+                        text: '',
+                        style: {
+                            color: '#fff'
+                        }
+                    },
+                    labels: {
+                        formatter: function () {
+                            return Highcharts.numberFormat(this.value, 0, '', ',');
+                        },
+                        style: {
+                            color: '#fff',
+                        }
+                    }
+                },
+                legend: {
+                    enabled: false,
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    column: {
+                        borderRadius: 2,
+                        pointPadding: 0,
+                        groupPadding: 0.1
+                    }
+                },
+                series: [{
+                    name: 'Flight Hits',
+                    data: Object.values(flightLogData)
+                }]
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            // Assuming you're passing aggregated flight revenue data from the backend
+            var HotelLogData = {!! json_encode($HotelLogByMonth) !!};
+
+            $('#container3').highcharts({
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#36394B'
+                },
+                title: {
+                    text: 'Hotel Monthly Hit',
+                    style: {
+                        color: '#fff'
+                    }
+                },
+                xAxis: {
+                    tickWidth: 0,
+                    labels: {
+                        style: {
+                            color: '#fff',
+                        }
+                    },
+                    categories: Object.keys(HotelLogData)
+                },
+                yAxis: {
+                    gridLineWidth: .5,
+                    gridLineDashStyle: 'dash',
+                    gridLineColor: 'black',
+                    title: {
+                        text: '',
+                        style: {
+                            color: '#fff'
+                        }
+                    },
+                    labels: {
+                        formatter: function () {
+                            return Highcharts.numberFormat(this.value, 0, '', ',');
+                        },
+                        style: {
+                            color: '#fff',
+                        }
+                    }
+                },
+                legend: {
+                    enabled: false,
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    column: {
+                        borderRadius: 2,
+                        pointPadding: 0,
+                        groupPadding: 0.1
+                    }
+                },
+                series: [{
+                    name: 'Flight Hits',
+                    data: Object.values(HotelLogData)
+                }]
+            });
+        });
+    </script>
 
         <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"  rel="stylesheet" type="text/css">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"  rel="stylesheet" type="text/css">

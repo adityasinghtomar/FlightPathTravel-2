@@ -1,4 +1,4 @@
-@include('flight.header')
+@include('auth.cust_header')
 
     <!-- search -->
     <div class="search-overlay">
@@ -215,10 +215,7 @@
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>
     </div>
-
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 
 
     <script src="public/assets/js/jquery-3.6.0.min.js"></script>
@@ -231,33 +228,25 @@
 
     <script src="public/assets/js/jquery.meanmenu.js"></script>
 
-    <!-- Range js -->
-
-    <script src="public/assets/js/nouislider.min.js"></script>
-
-    <script src="public/assets/js/wNumb.js"></script>
-
     <!-- owl carousel js -->
 
     <script src="public/assets/js/owl.carousel.min.js"></script>
 
     <!-- wow.js -->
 
-    <script src="public/assets/js/wow.min.js"></script>
+    <!--<script src="public/assets/js/wow.min.js"></script>-->
 
     <!-- Select2 -->
 
     <script src="public/assets/js/select2.min.js"></script>
-
+ 
     <!-- Custom js -->
 
     <script src="public/assets/js/custom.js"></script>
 
-    <script src="public/assets/js/add-form.js"></script>
+    <!--<script src="public/assets/js/add-form.js"></script>-->
 
-    <script src="public/assets/js/form-dropdown.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+    <!--<script src="public/assets/js/form-dropdown.js"></script>-->
 
 </body>
 

@@ -606,7 +606,7 @@
                                     
                                     <div class="col-xxl-4 col-xl-3 col-lg-3 mb-10">
                                         <div class="custom-select-wrapper">
-                    <input type="text" class="form-control select-input" name="from" id="from" placeholder="Select an option">
+                    <input type="text" class="form-control select-input fromInput" name="from" id="from" placeholder="Select an option">
                       <?php $filterResult =\App\Airport_Model::get(); ?>
                     <ul class="list-unstyled select-options">
                         
@@ -618,13 +618,13 @@
                 </div>
                                     </div>
                                     <div class="col-xxl-auto col-xl-auto col-lg-auto col-md mb-10 d-flex justify-content-center">
-                                        <button class="btn btn-interchange px-10 py-10">
+                                        <a class="btn btn-interchange px-10 py-10 interchangeButton">
                                            <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                     <div class="col-xxl-4 col-xl-3 col-lg-3 mb-10 mb-md-20">
                                       <div class="custom-select-wrapper">
-                    <input type="text" class="form-control select-input1" name="to" id="to" placeholder="Select an option">
+                    <input type="text" class="form-control select-input1 toInput" name="to" id="to" placeholder="Select an option">
                      
                     <ul class="list-unstyled select-options1">
                         
@@ -652,9 +652,9 @@
                                 <form action="{{url('/return-flight-search')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                 <div class="row opt-round-trip onChangeRoundTrip">
-                                    <div class="col-lg-3 mb-10">
+                                    <div class="col-md-3 mb-10">
                                              <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input2" name="from"  id="from1"placeholder="Select an option">
+                                            <input type="text" class="form-control select-input2 fromInput1" name="from"  id="from1"placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options2">
                                                 
@@ -664,14 +664,14 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-auto mb-10 d-flex justify-content-center">
-                                        <button class="btn btn-interchange px-10 py-10">
+                                    <div class="col-sm-auto mb-10 d-flex justify-content-center">
+                                        <a class="btn btn-interchange px-10 py-10 interchangeButton1">
                                           <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
-                                        </button>
+                                        </a>
                                     </div>
-                                    <div class="col-lg-3 mb-10 mb-md-20">
+                                    <div class="col-md-3 mb-10 mb-md-20">
                                              <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input3" name="to" id="to1" placeholder="Select an option">
+                                            <input type="text" class="form-control select-input3 toInput1" name="to" id="to1" placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options3">
                                                 
@@ -685,7 +685,7 @@
                                     
                                     
                                     
-                                    <div class="col-xxl-2 col-md-6 mb-10 mb-md-20 position-relative">
+                                    <div class="col-md-2 col-md-2 mb-10 mb-md-20 position-relative">
                                          <input type="date" value="<?php echo date('Y-m-d'); ?>" id="demo1"
                                                         name="journey_date" class="txtDate form-control getDate" required>
                                         <!--<input type="text" id="demo" value="" name="journey_date"-->
@@ -693,7 +693,7 @@
                                         <!--    min="date()" required>-->
                                         <!--<i class="far fa-calendar"></i>-->
                                     </div>
-                                    <div class="col-xxl-2 col-md-6 mb-10 mb-md-20 position-relative">
+                                    <div class="col-md-2 col-md-2 mb-10 mb-md-20 position-relative">
                                        <input type="date" value="<?php echo date('Y-m-d'); ?>" id="demo3"
                                                         name="return_date" class="txtDate form-control getDate" required>
                                        <!--<input type="text" value="" name="return_date"-->
@@ -719,7 +719,7 @@
                                             <div class="row child-flight-row childFlightRow">
                                                 <div class="col-lg-4 mb-20 mb-md-10">
                                                      <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input4" name="from[]"id="from5" placeholder="Select an option">
+                                            <input type="text" class="form-control select-input4 fromInput" name="from[]"id="from5" placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options4">
                                                 
@@ -731,13 +731,13 @@
                                                    
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
-                                                    <button class="btn btn-interchange px-10 py-10">
+                                                    <a class="btn btn-interchange px-10 py-10 interchangeButton">
                                                        <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
-                                                    </button>
+                                                    </a>
                                                 </div>
                                                 <div class="col-lg-4 mb-20">
                                                      <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input5" name="to[]" id="to5" placeholder="Select an option">
+                                            <input type="text" class="form-control select-input5 toInput" name="to[]" id="to5" placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options5">
                                                 
@@ -3225,719 +3225,639 @@ console.log($('.getadult').html($('.getadult_data').val()))
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Include Select2 JS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
 <script>
 $(document).ready(function() {
-      
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input').attr('placeholder', 'From');
-    $('.select-options').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input').on('click', function(event) {
         $('.select-options').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options').hide();
     });
 
     // Handle option selection
-    $('.option').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input').val(airportCode); // Set input value to the airport code
-        $('.select-input').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options').on('click', '.option', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option:visible').length === 0) {
+            $('.option').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
-
 
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options1');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option1" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option1" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input1').attr('placeholder', 'Where To ?');
-    $('.select-options1').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input1').on('click', function(event) {
         $('.select-options1').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options1').hide();
     });
 
     // Handle option selection
-    $('.option1').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input1').val(airportCode); // Set input value to the airport code
-        $('.select-input1').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options1').on('click', '.option1', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input1').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options1').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input1').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option1').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option1').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input1').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option1:visible').length === 0) {
+            $('.option1').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
+
+
 
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options2');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option2" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option2" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input2').attr('placeholder', 'From');
-    $('.select-options2').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input2').on('click', function(event) {
         $('.select-options2').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options2').hide();
     });
 
     // Handle option selection
-    $('.option2').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input2').val(airportCode); // Set input value to the airport code
-        $('.select-input2').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options2').on('click', '.option2', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input2').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options2').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input2').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option2').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option2').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input2').attr('placeholder', 'From');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option2:visible').length === 0) {
+            $('.option2').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
-
-
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options3');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option3" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option3" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input3').attr('placeholder', 'Where To?');
-    $('.select-options3').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input3').on('click', function(event) {
         $('.select-options3').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options3').hide();
     });
 
     // Handle option selection
-    $('.option3').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input3').val(airportCode); // Set input value to the airport code
-        $('.select-input3').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options3').on('click', '.option3', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input3').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options3').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input3').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option3').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option3').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input3').attr('placeholder', 'Where To?');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option3:visible').length === 0) {
+            $('.option3').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
+
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options4');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option4" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option4" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input4').attr('placeholder', 'From');
-    $('.select-options4').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input4').on('click', function(event) {
         $('.select-options4').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options4').hide();
     });
 
     // Handle option selection
-    $('.option4').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input4').val(airportCode); // Set input value to the airport code
-        $('.select-input4').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options4').on('click', '.option4', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input4').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options4').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input4').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option4').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option4').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input4').attr('placeholder', 'From');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option4:visible').length === 0) {
+            $('.option4').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options5');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option5" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option5" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input5').attr('placeholder', 'Where To ?');
-    $('.select-options5').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input5').on('click', function(event) {
         $('.select-options5').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options5').hide();
     });
 
     // Handle option selection
-    $('.option5').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input5').val(airportCode); // Set input value to the airport code
-        $('.select-input5').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options5').on('click', '.option5', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input5').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options5').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input5').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option5').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option5').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input5').attr('placeholder', 'Where To ?');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option5:visible').length === 0) {
+            $('.option5').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options6');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option6" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option6" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input6').attr('placeholder', 'From');
-    $('.select-options6').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input6').on('click', function(event) {
         $('.select-options6').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options6').hide();
     });
 
     // Handle option selection
-    $('.option6').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input6').val(airportCode); // Set input value to the airport code
-        $('.select-input6').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options6').on('click', '.option6', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input6').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options6').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input6').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option6').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option6').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input6').attr('placeholder', 'From');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option6:visible').length === 0) {
+            $('.option6').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options7');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option7" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option7" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input7').attr('placeholder', 'Where To ?');
-    $('.select-options7').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input7').on('click', function(event) {
         $('.select-options7').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options7').hide();
     });
 
     // Handle option selection
-    $('.option7').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input7').val(airportCode); // Set input value to the airport code
-        $('.select-input7').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options7').on('click', '.option7', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input7').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options7').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input7').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option7').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option7').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input7').attr('placeholder', 'Where To ?');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option7:visible').length === 0) {
+            $('.option7').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options8');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option8" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.name) {
+                        selectOptions.append('<li class="option8" data-value="' + option.name + '">' +
+                            option.name + ' - ' + option.CountryName + ' (' + option.CountryCode + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input8').attr('placeholder', 'Select Option');
-    $('.select-options8').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input8').on('click', function(event) {
         $('.select-options8').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options8').hide();
     });
 
     // Handle option selection
-    $('.option8').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input8').val(airportCode); // Set input value to the airport code
-        $('.select-input8').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options8').on('click', '.option8', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input8').val(selectedOption); // Display only the selected option in the input field
+        document.cookie = "selectedAirport=" + selectedOption; // Store the selected option in a cookie
         $('.select-options8').hide();
         event.stopPropagation();
     });
@@ -3945,206 +3865,246 @@ $(document).ready(function() {
     // Filter options based on search input
     $('.select-input8').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option8').hide(); // Initially hide all options
+
+        // First, check for matches in airport codes
         $('.option8').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
 
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input8').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option8:visible').length === 0) {
+            $('.option8').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options9');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option9" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option9" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input9').attr('placeholder', 'Select Option');
-    $('.select-options9').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input9').on('click', function(event) {
         $('.select-options9').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options9').hide();
     });
 
     // Handle option selection
-    $('.option9').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input9').val(airportCode); // Set input value to the airport code
-        $('.select-input9').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options9').on('click', '.option9', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input9').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options9').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input9').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option9').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option9').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input9').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option9:visible').length === 0) {
+            $('.option9').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
 <script>
 $(document).ready(function() {
     // Fetch data from Laravel backend and initialize select options
     $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
+        url: '/fetch-airport-data',
         type: 'GET',
         success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
+            console.log("Raw data received:", data); // Log raw data for debugging
             var selectOptions = $('.select-options10');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option10" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option10" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
         },
         error: function(xhr, status, error) {
             console.error('Error fetching airport data:', error);
         }
     });
 
-    // Set default placeholder value and hide options
-    $('.select-input10').attr('placeholder', 'Select an option');
-    $('.select-options10').hide();
-
-    // Show options when input is clicked
+    // Setup UI interactions
     $('.select-input10').on('click', function(event) {
         $('.select-options10').show();
         event.stopPropagation();
     });
 
-    // Hide options when clicking outside
     $(document).on('click', function() {
         $('.select-options10').hide();
     });
 
     // Handle option selection
-    $('.option10').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input10').val(airportCode); // Set input value to the airport code
-        $('.select-input10').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
+    $('.select-options10').on('click', '.option10', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input10').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
         $('.select-options10').hide();
         event.stopPropagation();
     });
-
+    
     // Filter options based on search input
     $('.select-input10').on('input', function() {
         var searchText = $(this).val().toUpperCase();
+        $('.option10').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
         $('.option10').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
                 $(this).show();
-            } else {
-                $(this).hide();
             }
         });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input10').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option10:visible').length === 0) {
+            $('.option10').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
         }
-        return "";
-    }
+    });
 });
 </script>
+
+
+
+
+<script>
+        class InputInterchanger {
+            constructor() {
+                this.fromInput = document.querySelector(".fromInput");
+                this.toInput = document.querySelector(".toInput");
+                this.interchangeButton = document.querySelector(".interchangeButton");
+
+                this.interchangeButton.addEventListener("click", () => this.interchangeValues());
+            }
+
+            interchangeValues() {
+                const fromValue = this.fromInput.value;
+                const toValue = this.toInput.value;
+
+                this.fromInput.value = toValue;
+                this.toInput.value = fromValue;
+            }
+        }
+
+        // Instantiate the class
+        const interchanger = new InputInterchanger();
+    </script>
+    
+<script>
+        class InputInterchanger1 {
+            constructor() {
+                this.fromInput1 = document.querySelector(".fromInput1");
+                this.toInput1 = document.querySelector(".toInput1");
+                this.interchangeButton1 = document.querySelector(".interchangeButton1");
+
+                this.interchangeButton1.addEventListener("click", () => this.interchangeValues());
+            }
+
+            interchangeValues() {
+                const fromValue = this.fromInput1.value;
+                const toValue = this.toInput1.value;
+
+                this.fromInput1.value = toValue;
+                this.toInput1.value = fromValue;
+            }
+        }
+
+        // Instantiate the class
+        const interchanger1 = new InputInterchanger1();
+    </script>
+    <script>
+        class InputInterchanger2 {
+            constructor() {
+                this.fromInput2 = document.querySelector(".fromInput2");
+                this.toInput2 = document.querySelector(".toInput2");
+                this.interchangeButton2 = document.querySelector(".interchangeButton2");
+
+                this.interchangeButton2.addEventListener("click", () => this.interchangeValues());
+            }
+
+            interchangeValues() {
+                const fromValue = this.fromInput2.value;
+                const toValue = this.toInput2.value;
+
+                this.fromInput2.value = toValue;
+                this.toInput2.value = fromValue;
+            }
+        }
+
+        // Instantiate the class
+        const interchanger2 = new InputInterchanger2();
+    </script>
+
 
    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 

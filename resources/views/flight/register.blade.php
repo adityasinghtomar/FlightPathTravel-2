@@ -54,20 +54,20 @@
                             <form action="{{url('/user-register')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                             <div class="row">                          
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-6 " style="margin-bottom:15px;">
                                     <input type="text" class="form-control" name="name" placeholder="Enter first name*" required/>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-6" style="margin-bottom:15px;">
                                     <input type="text" class="form-control" name="lname" placeholder="Enter last name*" required/>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-6" style="margin-bottom:15px;">
                                     <input type="email" name="email" class="form-control"
                                         placeholder="your email address" required/>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-6" style="margin-bottom:15px;">
                                     <input type="number" class="form-control" name="mobile" placeholder="Mobile number*" required/>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-6" style="margin-bottom:15px;">
                                     <input type="password" class="form-control" name="password" placeholder="Password" required/>
                                 </div>
                                 </div>

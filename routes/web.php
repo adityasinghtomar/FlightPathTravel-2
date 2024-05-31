@@ -38,17 +38,30 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\MollieController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\staticController;
+use App\Http\Controllers\apikeycontroller;
 use App\Http\Controllers\PostAutherController;
 use App\Http\Controllers\PostCategoriesController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\detinationcontroller;
+use App\Http\Controllers\testimonialcontroller;
+use App\Http\Controllers\testcontroller;
 use App\Http\Middleware\adminmiddleware;
 
 // Route::get('/', function () {
 //     //return view('welcome');
 // 	return redirect('/login');
 // }); 
+// routes/web.php
+Route::get('/clear-search', [staticController::class, 'clearSearch'])->name('clear.search');
+
+Route::get('/flight_search_form', function () {
+    return view('flight.flight_search_form');
+});
+Route::get('/search-cities', [staticController::class, 'search']);
 
 Route::get('/',[staticController::class, 'index'])->name('/');
+Route::get('/blog{slug}',[staticController::class, 'viewblog'])->name('blog');
+Route::get('/destination{slug}',[staticController::class, 'viewdest'])->name('destination');
 // Static page start
 Route::get('/about-us',[staticController::class, 'aboutus'])->name('about-us');
 Route::get('/search-hotel',[staticController::class, 'search_hotel'])->name('search-hotel');
@@ -59,15 +72,41 @@ Route::get('/flight-form-search',[staticController::class, 'flightview'])->name(
 Route::get('/teams',[staticController::class, 'teams'])->name('teams');
 Route::get('/testimonials',[staticController::class, 'testimonials'])->name('testimonials');
 Route::get('/faq',[staticController::class, 'faq'])->name('faq');
-Route::get('/blogs',[staticController::class, 'blogs'])->name('blogs');
+Route::get('/news',[staticController::class, 'news'])->name('news');
+Route::get('/mail',[FlightController::class, 'mail'])->name('mail');
 
 // Static page end
 
 Route::get('/Visa-list',[VisaController::class, 'visa_list']);
 Route::post('/visa-search-list',[VisaController::class, 'visa_search_list']);
 Route::post('/preparePayment',[MollieController::class, 'preparePayment']);
-Route::get('payment-success',[MollieController::class, 'paymentSuccess'])->name('payment.success');
+
+
+//COOKIES TEST
+Route::get('/cookie', function () {
+    return view('cooketest');
+});
+
+Route::post('/set-cookie', [testcontroller::class, 'setCookie'])->name('set.cookie');
+Route::get('/next-page', [testcontroller::class, 'nextPage'])->name('next-page');
+
+Route::get('/error-page', function () {
+    return view('error-page');
+})->name('error-page');
+
+
+
+Route::post('/payment-success', [MollieController::class, 'paymentSuccesseasebuzz'])
+    ->middleware('web', \App\Http\Middleware\EnsureSession::class)
+    ->name('payment.easybuzzsuccess'); 
+// Route::get('/payment-success', [MollieController::class, 'paymentSuccess'])->withoutMiddleware(['csrf'])->name('payment.success');
+// Route::match(['get', 'post'], '/payment-success', [MollieController::class, 'paymentSuccess'])->name('payment.success');
+
+Route::get('/payment-success',[MollieController::class, 'paymentSuccess'])->name('payment.success');
+// Route::get('/payment-success',[MollieController::class, 'paymentSuccess']);
 Route::get('payment-cancel',[MollieController::class, 'paymentCancel'])->name('payment.cancel');
+
+
 
 // Route::get('/Visa-list',['as'=>'Visa-list','uses'=>'VisaController::class, 'visa_list']);
 
@@ -76,34 +115,23 @@ Route::get('/razorpay',[RazorpayPaymentController::class, 'viewPayment'])->name(
 Route::post('/orderid-generate',[RazorpayPaymentController::class, 'orderIdGenerate'])->name('payment');
 // Setting
 // Blog 
-Route::get('/all-blog', [PostController::class,'index']);
-Route::get('/create-blog', [PostController::class,'create']);
-Route::post('/store-blog', [PostController::class,'store']);
-Route::get('/edit-blog{id}', [PostController::class,'edit']);
-Route::post('/update-blog', [PostController::class,'update']);
-Route::get('/blog-delete{id}', [PostController::class,'delete']);
 
-Route::get('/all-author', [PostAutherController::class,'index']);
-Route::get('/create-author', [PostAutherController::class,'create']);
-Route::post('/store-author', [PostAutherController::class,'store']);
-Route::get('/edit-author{id}', [PostAutherController::class,'edit']);
-Route::post('/update-author', [PostAutherController::class,'update']);
-Route::get('/author-delete{id}', [PostAutherController::class,'delete']);
 
-Route::get('/all-category', [PostCategoriesController::class,'index']);
-Route::get('/create-category', [PostCategoriesController::class,'create']);
-Route::post('/store-category', [PostCategoriesController::class,'store']);
-Route::get('/edit-category{id}', [PostCategoriesController::class,'edit']);
-Route::post('/update-category', [PostCategoriesController::class,'update']);
-Route::get('/category-delete{id}', [PostCategoriesController::class,'delete']);
+
+Route::get('/all-key', [apikeycontroller::class,'index']);
+Route::post('/api-update-test',[apikeycontroller::class, 'update'])->name('api-update-tes');
+
+
 // Flight 
 Route::get('/easebuzz',[EasebuzzController::class, 'initiate_payment_ebz'])->name('easebuzz');
 Route::post('/filter',[FlightController::class, 'filter'])->name('flight-search');
 Route::post('/city_details',[HotelController::class, 'city_details'])->name('flight-search');
+Route::get('/static_hotel',[HotelController::class, 'static_hotel'])->name('static-hotel');
 Route::get('/autocomplete-search',[FlightController::class, 'autocompleteSearch']);
 Route::get('/flight-search-result',[FlightController::class, 'flight_search_result'])->name('flight-search-result');
 Route::get('/flight_booking',[FlightController::class, 'flight_booking'])->name('flight-booking');
 Route::post('/flight_search',[FlightController::class, 'flight'])->name('flight-search');
+Route::get('/firerule',[FlightController::class, 'firerule'])->name('firerule');
 Route::post('/return-flight-search',[FlightController::class, 'return_flight'])->name('return-flight-search'); 
 Route::post('/multi-city-flight-search',[FlightController::class, 'multi_city_flight'])->name('multi-city-flight-search');
 Route::post('/book_now',[FlightController::class, 'flight_booking_details'])->name('flight-booking-details');
@@ -119,12 +147,19 @@ Route::post('/Refundable',[FlightController::class, 'refundable'])->name('Refund
 Route::post('/Airlines',[FlightController::class, 'airlines'])->name('Airlines');
 Route::get('/ticket-cancel{id}',[FlightController::class, 'ticket_cancel'])->name('ticket_cancel');
 Route::get('/ticket-details{id}',[FlightController::class, 'ticket_details'])->name('ticket_details');
+Route::get('/pnr-search',[FlightController::class, 'pnr_search'])->name('pnr-search');
+Route::post('/pnr-search-result',[FlightController::class, 'pnr_search_result']);
+
+Route::get('/ticket_status',[FlightController::class, 'ticket_status'])->name('ticket_status');
 
 Route::get('/hotel-cancel{id}',[HotelController::class, 'hotel_cancel'])->name('hotel_cancel');
 Route::get('/hotel-booking-details{id}',[HotelController::class, 'hotel_booking_details'])->name('hotel_booking_details');
 
 Route::post('/currency-change',[FlightController::class, 'currency_change'])->name('currency_change');
 // Tour 
+
+Route::get('/tour-enquiry-details',[TourController::class, 'tour_enquiry_details'])->name('tour_enquiry_details');
+Route::post('/tour-enquiry',[TourController::class, 'tour_enquiry'])->name('tour_enquiry');
 Route::get('/tour-search',[TourController::class, 'tour_search']);
 Route::get('/tour-details',[TourController::class, 'tour_details'])->name('tour_details');
 Route::get('/tour-list',[TourController::class, 'tour_search_list'])->name('tour_search_list');
@@ -163,12 +198,14 @@ Route::get('/book-visa',[VisaController::class, 'book_visa'])->name('book-visa')
 Route::post('/book-visa-payment',[VisaController::class, 'preparePayment'])->name('book-visa');
 Route::get('/visa-view{id}',[VisaController::class, 'view_visa'])->name('view_visa');
 // Hotel 
+// Route::get('/filter-hotels', [HotelController::class, 'filterHotelsByName']);
 Route::get('/hotel',[HotelController::class, 'hotel'])->name('Hotel');
 Route::post('/hotel_search',[HotelController::class, 'hotel_search'])->name('hotel-search');
 Route::post('/hotel_information',[HotelController::class, 'hotel_information'])->name('hotel-Information');
 Route::post('/room_information',[HotelController::class, 'room_information'])->name('room-Information');
 Route::post('/room_book_now',[HotelController::class, 'room_book_now'])->name('room-book-now');
-Route::get('/room_book_confirm',[HotelController::class, 'room_book_confirm'])->name('room-book-confirm');
+Route::post('/room_book_confirm',[HotelController::class, 'room_book_confirm'])->name('room-book-confirm');
+Route::get('/room_book_confirmmolie',[HotelController::class, 'room_book_confirmmolie'])->name('room.success');
 Route::post('/room_book_payment',[HotelController::class, 'preparePayment'])->name('preparePayment');
 // Report 
 Route::get('/Flight-report',[ReportController::class, 'flight_report'])->name('Flight-report');
@@ -177,6 +214,7 @@ Route::get('/Hotel-report',[ReportController::class, 'hotel_report'])->name('Hot
 Route::post('/wallet-payment',[PaymentController::class, 'wallet_payment'])->name('wallet_payment');
 // Admin 
 Route::get('/admin-login',[AdminController::class, 'admin_login'])->name('admin-login');
+Route::post('/admin-logout',[AdminController::class, 'logout'])->name('admin-logout');
 Route::get('/User-login',[AdminController::class, 'index'])->name('User-Login');
 Route::get('/User-Register',[AdminController::class, 'register'])->name('Register');
 Route::post('/user-register',[AdminController::class, 'user_register'])->name('user-register');
@@ -185,16 +223,58 @@ Route::post('/user_login',[AdminController::class, 'user_login'])->name('user-lo
 
 Route::post('/login-admin',[AdminController::class, 'login_admin'])->name('login-admin');
 // Route::get('/login-admin',[AdminController::class, 'login_admin'])->name('login-Admin');
+Route::post('/login-form',[AdminController::class, 'login_form'])->name('login_form');
+Route::post('/signup-form',[AdminController::class, 'signup_form'])->name('signup-form');
 
 
 //Middleware admin control session
 Route::group(['middleware' => ['admin.auth']], function () {
+    
+    Route::get('/all-blog', [PostController::class,'index']);
+Route::get('/create-blog', [PostController::class,'create']);
+Route::post('/store-blog', [PostController::class,'store']);
+Route::get('/edit-blog{id}', [PostController::class,'edit']);
+Route::post('/update-blog', [PostController::class,'update']);
+Route::get('/blog-delete{id}', [PostController::class,'delete']);
+
+
+Route::get('/all-review', [testimonialcontroller::class,'index']);
+Route::get('/create-review', [testimonialcontroller::class,'create']);
+Route::post('/store-review', [testimonialcontroller::class,'store']);
+Route::get('/edit-review{id}', [testimonialcontroller::class,'edit']);
+Route::post('/update-review', [testimonialcontroller::class,'update']);
+Route::get('/review-delete{id}', [testimonialcontroller::class,'delete']);
+
+
+Route::get('/all-author', [PostAutherController::class,'index']);
+Route::get('/create-author', [PostAutherController::class,'create']);
+Route::post('/store-author', [PostAutherController::class,'store']);
+Route::get('/edit-author{id}', [PostAutherController::class,'edit']);
+Route::post('/update-author', [PostAutherController::class,'update']);
+Route::get('/author-delete{id}', [PostAutherController::class,'delete']);
+
+Route::get('/all-category', [PostCategoriesController::class,'index']);
+Route::get('/create-category', [PostCategoriesController::class,'create']);
+Route::post('/store-category', [PostCategoriesController::class,'store']);
+Route::get('/edit-category{id}', [PostCategoriesController::class,'edit']);
+Route::post('/update-category', [PostCategoriesController::class,'update']);
+Route::get('/category-delete{id}', [PostCategoriesController::class,'delete']);
+
+
+
+
+Route::get('/all-destination', [detinationcontroller::class,'index']);
+Route::get('/create-destination', [detinationcontroller::class,'create']);
+Route::post('/store-destination', [detinationcontroller::class,'store']);
+Route::get('/edit-destination{id}', [detinationcontroller::class,'edit']);
+Route::post('/update-destination', [detinationcontroller::class,'update']);
+Route::get('/destination-delete{id}', [detinationcontroller::class,'delete']);
+    
+    
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     
     Route::get('/Setting',[AdminController::class, 'setting'])->name('setting');
 Route::post('/setting-update',[AdminController::class, 'setting_update'])->name('setting_update');
-Route::post('/login-form',[AdminController::class, 'login_form'])->name('login_form');
-Route::post('/signup-form',[AdminController::class, 'signup_form'])->name('signup-form');
 
 Route::get('/Api-Setting',[AdminController::class, 'api_setting'])->name('api_setting');
 Route::post('/setting-api-update',[AdminController::class, 'api_setting_update'])->name('api_setting_update');

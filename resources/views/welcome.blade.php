@@ -5,49 +5,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>flight</title>
     </head>
-    <style>
-    .bodys{
-        margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff;color: #000000
-    }
-    .tblbody{
-        border-collapse: collapse;table-layout: fixed;border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #ffffff;width:100%;
-    }
-    .trset{
-        word-break: break-word;border-collapse: collapse !important;vertical-align: top 
-    }
-    .u-row{
-        Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;
-    }
-    .collapse{
-        border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;
-    }
-    .u-col-100{
-        max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top; 
-    }
-    .u-divset{
-        background-color: #e6f4ff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;
-    }
-    .v-col-borderst{
-        box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;
-    }
-   
-</style>
-    <body class="bodys">
-        <table class="tblbody" id="u_body"
+  
+    <body class="bodys" style=" margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #ffffff;color: #000000;">
+        <table class="tblbody" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #ffffff;width:100%;" id="u_body"
             cellpadding="0" cellspacing="0">
             <tbody>
                 <tr style="vertical-align: top">
                     <td
-                        class="trset">
+                        class="trset" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top; ">
 
                         <div class="u-row-container"
-                            style="padding: 0px;background-color: transparent">
-                            <div class="u-row">
-                                <div class="collapse">
-                                    <div class="u-col u-col-100">
-                                        <div class="u-divset">
+                            style="padding: 0px;background-color: transparent;">
+                            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
+                                <div class="collapse" style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                                    <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top; ">
+                                        <div class="u-divset" style="background-color: #e6f4ff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                                             <div
-                                                class="v-col-border v-col-borderst">
+                                                class="v-col-border v-col-borderst" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                                                
 
                                                 <table id="u_content_heading_3"
@@ -66,9 +40,8 @@
                                                                 <h1
                                                                     class="v-color v-text-align v-font-size"
                                                                     style="margin: 0px; color: #e98c06; line-height: 140%; text-align: center; word-wrap: break-word; font-size: 30px; "><strong>Your
-                                                                        eTicket
-                                                                        Code:
-                                                                        1071222</strong></h1>
+                                                                        PNR No:
+                                                                        {{$pnr_no}}</strong></h1>
 
                                                             </td>
                                                         </tr>
@@ -85,14 +58,14 @@
 
                         <div class="u-row-container"
                             style="padding: 0px;background-color: transparent">
-                            <div class="u-row">
+                            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
                                 <div
-                                    class="collapse">
-                                    <div class="u-col u-col-100">
+                                    class="collapse" style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                                    <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top; ">
                                         <div
                                             style="background-color: #e98c06;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                                             <div
-                                                class="v-col-border  v-col-borderst">
+                                                class="v-col-border  v-col-borderst" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
 
                                                 <table id="u_content_heading_2"
                                                     style="font-family:'Open Sans',sans-serif;"
@@ -125,15 +98,15 @@
 
                         <div class="u-row-container"
                             style="padding: 0px;background-color: transparent">
-                            <div class="u-row no-stack">
+                            <div class="u-row no-stack" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
                                 <div
-                                    class="collapse">
+                                    class="collapse" style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
                                     <div class="u-col u-col-50"
                                         style="max-width: 320px;min-width: 300px;display: table-cell;vertical-align: top;">
                                         <div
                                             style="background-color: #e98c06;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                                             <div
-                                                class="v-col-border  v-col-borderst">
+                                                class="v-col-border  v-col-borderst" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
 
                                                 <table
                                                     style="font-family:'Open Sans',sans-serif;"
@@ -152,9 +125,7 @@
                                                                     class="v-color v-text-align v-font-size"
                                                                     style="color: #ffffff; line-height: 140%; text-align: left; word-wrap: break-word;">
                                                                     <p
-                                                                        style="line-height: 140%;">Tue,
-                                                                        20 Feb,
-                                                                        2023</p>
+                                                                        style="line-height: 140%;">{{$ticket_date}}</p>
                                                                 </div>
 
                                                             </td>
@@ -170,7 +141,7 @@
                                         <div
                                             style="background-color: #e98c06;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                                             <div
-                                                class="v-col-border  v-col-borderst">
+                                                class="v-col-border  v-col-borderst" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
 
                                                 <table
                                                     style="font-family:'Open Sans',sans-serif;"
@@ -189,9 +160,7 @@
                                                                     class="v-color v-text-align v-font-size"
                                                                     style="color: #ffffff; line-height: 140%; text-align: right; word-wrap: break-word;">
                                                                     <p
-                                                                        style="line-height: 140%;">Time
-                                                                        :
-                                                                        9:00pm</p>
+                                                                        style="line-height: 140%;"></p>
                                                                 </div>
 
                                                             </td>
@@ -208,9 +177,9 @@
 
                         <div class="u-row-container"
                             style="padding: 0px;background-color: transparent">
-                            <div class="u-row">
+                            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
                                 <div
-                                    class="collapse">
+                                    class="collapse" style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
                                     <div id="u_column_8"
                                         class="u-col u-col-33p33"
                                         style="max-width: 320px;min-width: 200px;display: table-cell;vertical-align: top;">
@@ -239,9 +208,7 @@
                                                                     <p
                                                                         style="line-height: 140%;">Departure</p>
                                                                     <p
-                                                                        style="line-height: 140%;">Tue,
-                                                                        20 Feb
-                                                                        2023</p>
+                                                                        style="line-height: 140%;">{{$Origin}}</p>
                                                                 </div>
 
                                                             </td>
@@ -265,15 +232,15 @@
                                                                 <div
                                                                     class="v-color v-text-align v-font-size"
                                                                     style="font-size: 13px; color: #22255e; line-height: 140%; text-align: left; word-wrap: break-word;">
-                                                                    <p
-                                                                        style="line-height: 140%;">This
-                                                                        is a new
-                                                                        Text
-                                                                        block.</p>
-                                                                    <p
-                                                                        style="line-height: 140%;">Change
-                                                                        the
-                                                                        text.</p>
+                                                                    <!--<p-->
+                                                                    <!--    style="line-height: 140%;">This-->
+                                                                    <!--    is a new-->
+                                                                    <!--    Text-->
+                                                                    <!--    block.</p>-->
+                                                                    <!--<p-->
+                                                                    <!--    style="line-height: 140%;">Change-->
+                                                                    <!--    the-->
+                                                                    <!--    text.</p>-->
                                                                 </div>
 
                                                             </td>
@@ -298,9 +265,7 @@
                                                                     class="v-color v-text-align v-font-size"
                                                                     style="font-size: 18px; color: #e98c06; line-height: 140%; text-align: left; word-wrap: break-word;">
                                                                     <p
-                                                                        style="line-height: 140%;"><strong>Time
-                                                                            :
-                                                                            9:00pm</strong></p>
+                                                                        style="line-height: 140%;"><strong>{{$DepTime}}</strong></p>
                                                                 </div>
 
                                                             </td>
@@ -344,15 +309,11 @@
                                                                                 style="padding-right: 0px;padding-left: 0px;"
                                                                                 align="center">
 
-                                                                                <img
-                                                                                    align="center"
-                                                                                    border="0"
-                                                                                    src="public/plane.png"
-                                                                                    alt="image"
-                                                                                    title="image"
-                                                                                    style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 20%;max-width: 36px;"
-                                                                                    width="36"
-                                                                                    class="v-src-width v-src-max-width">
+                                                                                <img src="https://elw.flightpathtravel.com/public/plane.png"
+                                                                                     alt="flight path travel"
+                                                                                     title="flight path travel"
+                                                                                     style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; clear: both; display: inline-block; border: none; height: auto; width: 20%; max-width: 36px; text-align: center;"
+                                                                                     width="36">
 
                                                                             </td>
                                                                         </tr>
@@ -394,9 +355,7 @@
                                                                     <p
                                                                         style="line-height: 140%;">Arrival</p>
                                                                     <p
-                                                                        style="line-height: 140%;">Tue,
-                                                                        20 Feb
-                                                                        2023</p>
+                                                                        style="line-height: 140%;">{{$Destination}}</p>
                                                                 </div>
 
                                                             </td>
@@ -420,15 +379,15 @@
                                                                 <div
                                                                     class="v-color v-text-align v-font-size"
                                                                     style="font-size: 13px; color: #22255e; line-height: 140%; text-align: right; word-wrap: break-word;">
-                                                                    <p
-                                                                        style="line-height: 140%;">This
-                                                                        is a new
-                                                                        Text
-                                                                        block.</p>
-                                                                    <p
-                                                                        style="line-height: 140%;">Change
-                                                                        the
-                                                                        text.</p>
+                                                                    <!--<p-->
+                                                                    <!--    style="line-height: 140%;">This-->
+                                                                    <!--    is a new-->
+                                                                    <!--    Text-->
+                                                                    <!--    block.</p>-->
+                                                                    <!--<p-->
+                                                                    <!--    style="line-height: 140%;">Change-->
+                                                                    <!--    the-->
+                                                                    <!--    text.</p>-->
                                                                 </div>
 
                                                             </td>
@@ -453,9 +412,7 @@
                                                                     class="v-color v-text-align v-font-size"
                                                                     style="font-size: 18px; color: #e98c06; line-height: 140%; text-align: right; word-wrap: break-word;">
                                                                     <p
-                                                                        style="line-height: 140%;"><strong>Time
-                                                                            :
-                                                                            9:00pm</strong></p>
+                                                                        style="line-height: 140%;"><strong>{{$ArrTime}}</strong></p>
                                                                 </div>
 
                                                             </td>
@@ -473,14 +430,14 @@
 
                         <div class="u-row-container"
                             style="padding: 0px;background-color: transparent">
-                            <div class="u-row">
+                            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
                                 <div
-                                    class="collapse">
-                                    <div class="u-col u-col-100">
+                                    class="collapse" style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                                    <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top; ">
                                         <div
-                                            class="u-divset">
+                                            class="u-divset" style="background-color: #e6f4ff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                                             <div
-                                                class="v-col-border  v-col-borderst">
+                                                class="v-col-border  v-col-borderst" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
 
                                                 <table id="u_content_button_1"
                                                     style="font-family:'Open Sans',sans-serif;"
@@ -498,16 +455,16 @@
                                                                 <div
                                                                     class="v-text-align"
                                                                     align="center">
-                                                                    <a
-                                                                        href="#"
-                                                                        target="_blank"
-                                                                        class="v-button v-size-width v-font-size"
-                                                                        style="box-sizing: border-box;display: inline-block;font-family:'Open Sans',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #e98c06; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:30%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
-                                                                        <span
-                                                                            style="display:block;padding:10px 20px;line-height:120%;"><strong><span
-                                                                                    style="line-height: 16.8px;">Confirm
-                                                                                    Now</span></strong></span>
-                                                                    </a>
+                                                                    <!--<a-->
+                                                                    <!--    href="#"-->
+                                                                    <!--    target="_blank"-->
+                                                                    <!--    class="v-button v-size-width v-font-size"-->
+                                                                    <!--    style="box-sizing: border-box;display: inline-block;font-family:'Open Sans',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #e98c06; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:30%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">-->
+                                                                    <!--    <span-->
+                                                                    <!--        style="display:block;padding:10px 20px;line-height:120%;"><strong><span-->
+                                                                    <!--                style="line-height: 16.8px;">Confirm-->
+                                                                    <!--                Now</span></strong></span>-->
+                                                                    <!--</a>-->
 
                                                                 </div>
 
@@ -525,14 +482,14 @@
 
                         <div class="u-row-container"
                             style="padding: 0px;background-color: transparent">
-                            <div class="u-row">
+                            <div class="u-row" style="Margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
                                 <div
-                                    class="collapse">
-                                    <div class="u-col u-col-100">
+                                    class="collapse" style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                                    <div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top; ">
                                         <div
                                             style="background-color: #e98c06;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                                             <div
-                                                class="v-col-border  v-col-borderst">
+                                                class="v-col-border  v-col-borderst" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
 
                                                 <table id="u_content_social_1"
                                                     style="font-family:'Open Sans',sans-serif;"
@@ -564,13 +521,13 @@
                                                                                     style="vertical-align: top"><td
                                                                                         align="left"
                                                                                         valign="middle"
-                                                                                        class="trset">
+                                                                                        class="trset" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top; ">
                                                                                         <a
                                                                                             href
                                                                                             title="Facebook"
                                                                                             target="_blank">
                                                                                             <img
-                                                                                                src="public/facebook.png"
+                                                                                                src="https://elw.flightpathtravel.com/public/facebook.png"
                                                                                                 alt="Facebook"
                                                                                                 title="Facebook"
                                                                                                 width="32"
@@ -590,13 +547,13 @@
                                                                                     style="vertical-align: top"><td
                                                                                         align="left"
                                                                                         valign="middle"
-                                                                                        class="trset">
+                                                                                        class="trset" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top; ">
                                                                                         <a
                                                                                             href="#"
                                                                                             title="Twitter"
                                                                                             target="_blank">
                                                                                             <img
-                                                                                                src="public/twitter.png"
+                                                                                                src="https://elw.flightpathtravel.com/public/twitter.png"
                                                                                                 alt="Twitter"
                                                                                                 title="Twitter"
                                                                                                 width="32"
@@ -616,13 +573,13 @@
                                                                                     style="vertical-align: top"><td
                                                                                         align="left"
                                                                                         valign="middle"
-                                                                                        class="trset">
+                                                                                        class="trset" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top; ">
                                                                                         <a
                                                                                             href="#"
                                                                                             title="LinkedIn"
                                                                                             target="_blank">
                                                                                             <img
-                                                                                                src="public/linkedin.png"
+                                                                                                src="https://elw.flightpathtravel.com/public/linkedin.png"
                                                                                                 alt="LinkedIn"
                                                                                                 title="LinkedIn"
                                                                                                 width="32"
@@ -642,13 +599,13 @@
                                                                                     style="vertical-align: top"><td
                                                                                         align="left"
                                                                                         valign="middle"
-                                                                                        class="trset">
+                                                                                        class="trset" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top; ">
                                                                                         <a
                                                                                             href="#"
                                                                                             title="Instagram"
                                                                                             target="_blank">
                                                                                             <img
-                                                                                                src="public/instagram.png"
+                                                                                                src="https://elw.flightpathtravel.com/public//instagram.png"
                                                                                                 alt="Instagram"
                                                                                                 title="Instagram"
                                                                                                 width="32"

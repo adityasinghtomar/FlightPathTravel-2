@@ -44,7 +44,7 @@
                 <div class="col-lg-4">
                     <div class="dashboard_sidebar">
                         <div class="dashboard_sidebar_user">
-                            <img src="assets/img/common/dashboard-user.png" alt="img">
+                            <img src="public/assets/img/user.jpg" alt="img">
                             <h3>@if(isset($customer->name))<?php echo $customer->name; ?>@endif @if(isset($customer->lname))<?php echo $customer->lname; ?> @endif</h3>
                             <p><a href="tel:+00-123-456-789">@if(isset($customer->mobile))<?php echo $customer->mobile; ?>@endif</a></p>
                             <p><a href="mailto:sherlyn@domain.com">@if(isset($customer->email))<?php echo $customer->email; ?>@endif</a></p>
@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="dashboard_top_text">
                                         <h3>Total bookings</h3>
-                                        <h1>231</h1>
+                                        <h1>  {{ count($flight) }}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -130,10 +130,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(isset($flight))    
+                                    @if(isset($flight))  
+                                  
                     @foreach($flight as $flights)    
                      <tr>
-                       
+         
                         <td><?php print_r($flights->name);?> <?php print_r($flights->lname);?></td>
                         
                         <td> <?php print_r($flights->booking_id);?></td>
@@ -211,59 +212,18 @@
     </div>
 
     <!-- Logout Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body logout_modal_content">
-                    <div class="btn_modal_closed">
-                        <button type="button" data-bs-dismiss="modal" aria-label="Close"><i
-                                class="fas fa-times"></i></button>
-                    </div>
-                    <h3>
-                        Are you sure? <br>
-                        you want to log out.
-                    </h3>
-                    <div class="logout_approve_button">
-                        <button data-bs-dismiss="modal" class="btn btn_theme btn_md">Yes Confirm</button>
-                        <button data-bs-dismiss="modal" class="btn btn_border btn_md">No Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-
-
-    <script src="public/assets/js/jquery-3.6.0.min.js"></script>
-
+<script src="assets/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap js -->
-
-    <script src="public/assets/js/bootstrap.bundle.js"></script>
-
+    <script src="assets/js/bootstrap.bundle.js"></script>
     <!-- Meanu js -->
-
-    <script src="public/assets/js/jquery.meanmenu.js"></script>
-
+    <script src="assets/js/jquery.meanmenu.js"></script>
     <!-- owl carousel js -->
-
-    <script src="public/assets/js/owl.carousel.min.js"></script>
-
+    <script src="assets/js/owl.carousel.min.js"></script>
     <!-- wow.js -->
-
-    <!--<script src="public/assets/js/wow.min.js"></script>-->
-
-    <!-- Select2 -->
-
-    <script src="public/assets/js/select2.min.js"></script>
- 
+    <script src="assets/js/wow.min.js"></script>
     <!-- Custom js -->
-
-    <script src="public/assets/js/custom.js"></script>
-
-    <!--<script src="public/assets/js/add-form.js"></script>-->
-
-    <!--<script src="public/assets/js/form-dropdown.js"></script>-->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/add-form.js"></script>
 
 </body>
 

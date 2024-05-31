@@ -40,6 +40,7 @@
                         <th>Trace Id</th>
                         <th>Amount</th>
                         <th>Status</th>
+                        <th>Ticket Status</th>
                         <th>Cancel Ticket</th>
                         <th>Ticket</th>
                         
@@ -61,7 +62,8 @@
                         <td> <?php print_r($flights->booking_id);?></td>
                         <td><?php print_r($flights->trace_id);?></td>
                         <td><?php print_r($flights->amount);?></td>
-                        <td><span class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">Confirmed</span></td>
+                        <td><span class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3"></span></td>
+                        <td><span class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3"></span></td>
                        <td> <div class="col-auto">
                            <a href="{{url('/ticket-cancel'.$flights->booking_id)}}"  class="btn btn_theme btn_md addAttr" 
                                 style="background-color:blue; color:white;border-radius: 12px;padding: 12px 28px;">Cancel</a>

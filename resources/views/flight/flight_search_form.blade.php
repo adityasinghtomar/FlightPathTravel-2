@@ -1,3 +1,583 @@
+ 
+<style>
+   
+.custom-model-main {
+  text-align: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; /* z-index: 1050; */
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear, z-index 0.15;
+  -o-transition: opacity 0.15s linear, z-index 0.15;
+  transition: opacity 0.15s linear, z-index 0.15;
+  z-index: -1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.custom-model-main1 {
+  text-align: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; /* z-index: 1050; */
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear, z-index 0.15;
+  -o-transition: opacity 0.15s linear, z-index 0.15;
+  transition: opacity 0.15s linear, z-index 0.15;
+  z-index: -1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.model-open {
+  z-index: 99999;
+  opacity: 1;
+  overflow: hidden;
+}
+.custom-model-inner {
+  -webkit-transform: translate(0, -25%);
+  -ms-transform: translate(0, -25%);
+  transform: translate(0, -25%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  -o-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  display: inline-block;
+  vertical-align: middle;
+  width: 600px;
+  margin: 0px auto;
+  max-width: 99%;
+}
+
+.custom-model-wrap {
+     /*position: fixed;*/
+    top: 0;
+    left: 0;
+   
+
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust the background color and opacity */
+    backdrop-filter: blur(10px); /* Adjust the blur intensity */
+    z-index: 9999; /* Set a high z-index to ensure it appears above other elements */
+    overflow: auto; /* Allow scrolling if the content exceeds the viewport */
+  display: block;
+  width: 100%;
+  position: relative;
+  height:100vh;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
+  text-align: left;
+  padding: -20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.model-open .custom-model-inner {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  position: relative;
+  z-index: 999;
+}
+  
+    .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: auto; /* Adjust as needed */
+    }
+
+    .loader {
+      width: 150px;
+      height: 150px;
+    }
+
+ 
+  
+    
+   .flight-card {
+  width: 805px;
+  height: 100%;
+  margin: 100px auto;
+  border-radius: 50px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+}
+
+.flight-card .flight-card-header {
+  height: 250px;
+  width: 100%;
+  background: linear-gradient(to bottom, #264b76 0%, #002c5f 100%);
+  padding: 30px 50px;
+  border-bottom: 7px solid #6DBE47;
+  position: relative;
+}
+.flight-card .flight-card-header1 {
+  height: 420px;
+  width: 100%;
+  background: url('https://elw.flightpathtravel.com/public/tourhotel.jpg');
+  background-size:cover;
+  padding: 30px 50px;
+  border-bottom: 7px solid #6DBE47;
+  position: relative;
+}
+
+.flight-card .flight-card-header .flight-logo {
+  height: 110px;
+  width: 100%;
+}
+
+.flight-card .flight-card-header .flight-logo img {
+  width: 150px;
+}
+
+.flight-card .flight-card-header .flight-data {
+  height: auto;
+  border-top: 2px solid #3E5177;
+  padding-top: 1em;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  text-align: left;
+}
+
+.flight-card .flight-card-header .flight-data span {
+  display: block;
+}
+
+.flight-card .flight-card-header .flight-data .title {
+  color: #838EA8;
+  font-size: 16px;
+}
+
+.flight-card .flight-card-header .flight-data .detail {
+  font-size: 18px;
+  padding-top: 3px;
+  color: white;
+}
+
+ .flight-card-content {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.flight-card-content .flight-row {
+  width: 100%;
+  padding: 50px 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.flight-card-content .flight-row .plane {
+  text-align: center;
+  position: relative;
+}
+
+.flight-card-content .flight-row .plane img {
+  width: 90px;
+}
+
+.flight-card-content .flight-row .plane:before {
+  content: '';
+  width: 135px;
+  height: 3px;
+  background: #efefef;
+  position: absolute;
+  top: 45px;
+  left: -75px;
+}
+
+.flight-card-content .flight-row .plane:after {
+  content: '';
+  width: 135px;
+  height: 3px;
+  background-color: #efefef;
+  position: absolute;
+  top: 45px;
+  right: -75px;
+}
+
+.flight-card-content .flight-from {
+  text-align: left;
+  float: left;
+}
+
+.flight-card-content .flight-to {
+  text-align: right;
+  float: right;
+}
+
+.flight-card-content .flight-from span,
+.flight-card-content .flight-to span {
+  display: block;
+}
+
+.flight-card-content .flight-from .from-code,
+.flight-card-content .flight-to .to-code {
+  font-size: 60px;
+  color: #002C5F;
+  font-weight: 200;
+}
+
+.flight-card-content .flight-from .from-city,
+.flight-card-content .flight-to .to-city {
+  font-size: 18px;
+  color: #002C5F;
+  font-weight: 400;
+}
+
+.flight-card-content .flight-details-row {
+  width: 100%;
+  display: grid;
+  padding: 30px 50px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.flight-card-content .flight-details-row span {
+  display: block;
+}
+
+.flight-card-content .flight-details-row .title {
+  color: #6a8597;
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+.flight-card-content .flight-details-row .detail {
+  margin-top: .2em;
+  color: #002C5F;
+  font-size: 18px;
+}
+
+.flight-card-content .flight-details-row .flight-operator {
+  text-align: left;
+  float: left;
+}
+
+.flight-card-content .flight-details-row .flight-class {
+  float: right;
+  text-align: right;
+}
+
+.flight-card-content .flight-details-row .flight-number {
+  padding-left: 80px;
+}
+
+  
+     @media only screen and (max-width: 600px) {
+   .flight-card{
+  width:100%;
+  height: auto;
+  margin: 100px auto;
+  border-radius: 50px;
+  background:#fff;
+  overflow:hidden;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+       
+   }
+   .flight-card-content .flight-details-row .flight-number {
+    padding-left: 46px;
+}
+.flight-card-content .flight-row .plane:after {
+    content: '';
+    width: 32px;
+    height: 3px;
+    background-color: #efefef;
+    position: absolute;
+    top: 45px;
+    right: 1px;
+}
+.flight-card-content .flight-row .plane:before {
+  content: '';
+  width: 35px;
+  height: 3px;
+  background: #efefef;
+  position: absolute;
+  top: 45px;
+  left: -5px;
+}
+   
+}
+    #sky {
+  /*animation: skycolor;*/
+  animation-direction: alternate-reverse;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+@keyframes skycolor {
+  0%   { background-color: #D4DDE6; }
+  10%  { background-color: #95B3D2; }
+  20%  { background-color: #419FEE; }
+  30%  { background-color: #4E85D3; }
+  40%  { background-color: #2259B9; }
+  50%  { background-color: #385fa3; }
+  60%  { background-color: #2b497d; }
+  70%  { background-color: #1e3357; }
+  80%  { background-color: #111d31; }
+  90%  { background-color: #030241; }
+  100% { background-color: #010123; }
+}
+
+.cloud,
+.cloud:before,
+.cloud:after {
+  animation: cloudcolor;
+  animation-direction: alternate;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  position: absolute;
+}
+
+.cloud {
+  border-radius: 2em;
+  height: 30px;
+  width: 100px;
+}
+
+@keyframes cloudcolor {
+  0%   { background-color: #D4DDE6; }
+  100% { background-color: #95B3D2; }
+}
+
+.cloud:before,
+.cloud:after {
+  content: '';
+  border-radius: 50%;
+}
+
+.cloud:before {
+  height: 40px;
+  width: 40px;
+  left: 1em;
+  bottom: .5em;
+}
+
+.cloud:after {
+  height: 50px;
+  width: 50px;
+  right: 1em;
+  bottom: .4em;
+}
+
+#plane:after,
+#plane:before {
+  position: absolute;
+  font-size: 100px;
+}
+
+#plane:after {
+  color: #eceff1;
+  content: '✈';
+  text-shadow: 4px 1px 0 #01579b;
+  transition-property: 'transform';
+}
+
+#plane:before {
+  content: '✈';
+  color: #c51162;
+  left: -3px;
+  text-shadow: -5px 1px 0px #0091ea;
+}
+   
+</style>   
+<div class="custom-model-main1" style="width:100%; height:100%">
+    <div class="custom-model-inner" style="width:100%;">        
+    <!--<div class="close-btn">×</div>-->
+        <div class="custom-model-wrap">
+            <div class="pop-up-content-wrap">
+       <style>
+           .hidden {
+    display: none;
+}
+       </style>     
+
+  <mains class="">
+      
+       <div class="custom-modal-contenttt">
+      
+      <div class="flight-card">
+          <div style="background:#ff9300;height:67px">
+              <div style="float:left;margin:9px">
+              
+              </div>
+              <div style="float:right;margin:23px;color:#fff;">
+                  <h5>Contact No. <span> +44 (0) 203 463 7788</span></h5>
+              </div>
+          </div>
+   <div class="flight-card-header1">
+      
+   </div>
+  <div class="flight-card-content">
+  
+    <div class="flight-details-row">
+      <div class="flight-operator">
+        <span class="title">City</span>
+        <p id="cityDisplay"></p>
+      </div>
+      <div class="flight-number"> 
+        <span class="title">Check In</span>
+     <p id="hoteldaete1"></p>
+      </div>
+      <div class="flight-class">
+        <span class="title" style="margin-right:20px;">Check Out</span>
+      <p id="hoteldaete2"></p>
+      </div>
+     
+    </div>
+  </div>
+   <div style="background:#ff9300;height:100%;">
+       <diV style="margin: auto;
+  width: 80%;
+  padding:11px 50px 5px 52px;">
+           <table>
+               <tr>
+                   <td>
+                       <div style="
+                        /* padding: 10px; */
+                        border-radius: 20px;
+                        margin:-12px 0px 0px 0px;">
+                            <img src="https://elw.flightpathtravel.com/public/images/flex/logo.png" style="width:100px;">
+                         
+                       </div>
+                     
+                   </td> 
+                  
+                    <td>
+                       <div style="
+                            /* padding: 10px; */
+                            border-radius: 20px;
+                            margin:-15px 43px 5px 45px">
+                            <img src="https://elw.flightpathtravel.com/public/images/flex/expertise.png"style="width:55px;">
+                       </div>
+                       <div><p style="text-align: center;
+                            color: #fff;
+                            font-family: 'Roboto';">Expertise</p></div>
+                   </td> 
+                    <td>
+                       <div style="
+                            /* padding: 10px; */
+                            border-radius: 20px;
+                            margin:-15px 43px 5px 45px;">
+                            <img src="https://elw.flightpathtravel.com/public/images/flex/payment.png"style="width:55px;">
+                       </div>
+                       <div><p style="text-align: center;
+                        color: #fff;
+                        font-family: 'Roboto';">Flexible Payment</p></div>
+                   </td> 
+                    <td>
+                       <div style="
+                                /* padding: 10px; */
+                                border-radius: 20px;
+                                margin:10px 0px 0px 48px;">
+                            <img src="https://elw.flightpathtravel.com/public/images/flex/availability.png"style="width:61px;">
+                       </div>
+                       <div><p style="text-align: center;
+                            color: #fff;
+                            font-family: 'Roboto';">24X7 Customer Support</p></div>
+                   </td> 
+               </tr>
+           </table>
+       </diV>
+   </div>
+</div>
+      
+    </div>
+      
+   
+  </mains>
+            </div>
+        </div>  
+    </div>  
+</div>
+
+    <!-- Header Area -->
+<div class="custom-model-main" style="width:100%; height:100%">
+    <div class="custom-model-inner" style="width:100%;">        
+    <!--<div class="close-btn">×</div>-->
+        <div class="custom-model-wrap">
+            <div class="pop-up-content-wrap">
+       <style>
+           .hidden {
+    display: none;
+}
+       </style>     
+
+  <mains class="">
+      
+       <div class="custom-modal-contenttt">
+      
+      <div class="flight-card">
+   <div class="flight-card-header">
+      
+    <div id="sky">
+  <div id="plane"></div>
+</div>
+   </div>
+  <div class="flight-card-content">
+    <div class="flight-row">
+      <div class="flight-from">
+        <!--<span class="from-code">TIA</span>-->
+        <span class="from-city"><p id="fromdisplay"> </p></span>
+      </div>
+      <div class="plane">
+        <img src="https://www.flightofox.ca/Content/Assets/images/flight-loading.gif" alt="">
+      </div>
+      <div class="flight-to">
+        <!--<span class="to-code">MUC</span>-->
+        <span class="to-city"><p id="todisplay"></p></span>
+        <span>
+            
+        </span>
+      </div>
+    </div>
+    <div class="flight-details-row rowone flight-card-content">
+      <div class="flight-operator">
+        <span class="title">Departure</span>
+        <span class="detail"><p id="dateDisplay"></p></span>
+        
+       
+      </div>
+      <div class="flight-number"> 
+        <span class="title">Travellers</span>
+        <span class="detail" style="margin-left: 48px;"><p id="totalTravellers"></span>
+      </div>
+      <div class="flight-class hidden" id="returnDetail">
+       <span class="title">Return</span>
+
+    <span class="detail " ><p id="returnDate" class=""></p></span>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    </div>
+      
+   
+  </mains>
+            </div>
+        </div>  
+    </div>  
+</div>
 <style>
         .custom-select-wrapper {
             position: relative;
@@ -168,6 +748,29 @@
         .option6:hover {
             background-color: #f8f9fa;
         }
+         .select-options11 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option11 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option11:hover {
+            background-color: #f8f9fa;
+        }
         .select-options7 {
             position: absolute;
             top: 100%;
@@ -237,7 +840,7 @@
         .option9:hover {
             background-color: #f8f9fa;
         }
-          .select-options10 {
+         .select-options10 {
             position: absolute;
             top: 100%;
             left: 0;
@@ -260,7 +863,297 @@
         .option10:hover {
             background-color: #f8f9fa;
         }
+          .select-options12 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option12 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option12:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options11 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option11 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option11:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options13 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option13 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option13:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options14 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option14 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option14:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options15 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option15 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option15:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options16 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option16 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option16:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options17 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option17 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option17:hover {
+            background-color: #f8f9fa;
+        }
+           .select-options18 {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            border: 1px solid #ced4da;
+            border-top: none;
+            border-radius: 0 0 0.25rem 0.25rem;
+            background-color: #fff;
+        }
+
+        .option18 {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .option18:hover {
+            background-color: #f8f9fa;
+        }
     </style>
+       <script>
+    // helpers
+const get = (id) => document.getElementById(id);
+const create = (type) => document.createElement(type);
+const createArr = (val) => new Array(val).fill(undefined);
+const randomInRange = (min, max) => Math.round(min + Math.random() * (max - min));
+const randomHPos = (parent) => `${randomInRange(100, parent.clientWidth - 100)}px`;
+const randomVPos = (parent) => `${randomInRange(100, parent.clientHeight - 100)}px`;
+const transFuncs = ['linear', 'ease', 'ease-in', 'ease-in-out', 'ease-out'];
+const randomTimingFunction = () => transFuncs[randomInRange(0, transFuncs.length - 1)];
+const randomDuration = () => `${randomInRange(.5, 3)}s`;
+const randomSkew = () => `${randomInRange(-20, 20)}deg`;
+const randomRotate = () => `${randomInRange(-5, 5)}deg`;
+const randomScale = () => `scale(${randomInRange(3, 10) / 10})`;
+const randomMarginLeft = (parent) => `${randomInRange(10, parent.clientWidth - 10)}px`;
+const randomMarginTop = () => `${randomInRange(10, 200)}px`;
+
+// obtain DOM refs
+const sky = get('sky');
+const plane = get('plane');
+
+// init plane animation
+plane.addEventListener('transitionend', planeAnimation);
+
+// add 10 clouds to DOM and start their animations
+addClouds(20).forEach(cloudAnimation);
+
+// start plane animation
+planeAnimation();
+
+// animate plane transition
+function planeAnimation() {
+  requestAnimationFrame(doPlaneTransition);
+}
+
+function doPlaneTransition() {
+  const { style } = plane;
+  style.transitionTimingFunction = randomTimingFunction();
+  style.transitionDuration = randomDuration();
+  style.transform = `
+    translateX(${randomHPos(sky)})   
+    translateY(${randomVPos(sky)})
+    skew(${randomSkew()})
+    rotate(${randomRotate()})
+  `;
+}
+
+// animate a cloud transition
+function cloudAnimation(c) {
+  requestAnimationFrame(() => {
+    doCloudTransition(c);
+  });
+}
+
+function doCloudTransition({ style }) {
+  style.marginLeft = '-100px';
+}
+
+// reset cloud transition
+function onCloudTransitionend() {
+  const { style } = this;
+
+  // make transition instant and move of screen to the right
+  style.marginLeft = `${sky.clientWidth + 100}px`;
+  style.transitionDuration = '0s';
+  
+  setTimeout(() => {
+    initCloud(this);
+    cloudAnimation(this);    
+  }, 1000);
+}
+
+// initialize cloud with random props
+function initCloud({ style }) {
+  style.transform = randomScale();
+  style.transitionProperty = 'margin-left';
+  style.transitionDuration = `${randomInRange(3, 60)}s`;
+  style.transitionTimingFunction = randomTimingFunction();
+  style.marginTop = randomMarginTop();
+}
+
+// create cloud dom element
+function createCloud() {
+  const c = create('div');
+
+  // set class and initial position
+  c.className = 'cloud';
+  c.style.marginLeft = randomMarginLeft(sky);
+
+  // initialize random props
+  initCloud(c);
+
+  // setup listener and return
+  c.addEventListener('transitionend', onCloudTransitionend);
+  return c;
+}
+
+// add clouds to the DOM
+function addClouds(amt) {
+  return createArr(amt).map(() => {
+    const c = createCloud();
+    sky.appendChild(c);
+    return c;
+  });
+}
+</script>
 <script>
  document.addEventListener('DOMContentLoaded', function() {
     const adultInput = document.querySelector('.getadult_data');
@@ -325,7 +1218,7 @@
 
 
 </script>
-<section class="sec-booking">
+  <section class="sec-booking">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -365,8 +1258,8 @@
                                     </svg>
                                     <span>Hotels</span>
                                 </button>
-                                <button class="nav-link" id="nav-tours-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-tours <?if($form_status1 =="tour_form"){ echo "active"; }?>" type="button" role="tab" aria-controls="nav-tours"
+                                <button class="nav-link  <?if($form_status1 =="tour_form"){ echo "active"; }?>" id="nav-tours-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-tours" type="button" role="tab" aria-controls="nav-tours"
                                     aria-selected="false">
                                     <svg width="25" height="25" viewBox="0 0 30 30" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -384,22 +1277,26 @@
                                 </button>
                             </div>
                         </nav>
+                        
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade <?if(isset($form_status)){ echo "show"; }?> <?if(isset($form_status)){echo "active"; }?>" id="nav-flights" role="tabpanel"
                                 aria-labelledby="nav-flights-tab">
+                            
                                 <div class="row">
                                     <div class="col-sm-auto mb-20">
                                         <label for="exampleInputEmail1" class="form-label fw-bold">Select your
                                             destination</label>
                                         <div>
+                                            
+                                        
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="flighttrip"
-                                                    id="tripOneway" value="One Way" checked>
+                                                    id="tripOneway" value="One Way"  <?php if(isset($journey_date) && !isset($return_date)){ echo 'checked'; } ?>>
                                                 <label class="form-check-label" for="tripOneway">One Way</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="flighttrip"
-                                                    id="tripRoundtrip" value="Round Trip">
+                                                    id="tripRoundtrip" value="Round Trip"<?php if(isset($journey_date) && isset($return_date)){ echo 'checked'; } ?> >
                                                 <label class="form-check-label" for="tripRoundtrip">Round Trip</label>
                                             </div>
                                             <div class="form-check form-check-inline">
@@ -415,11 +1312,10 @@
                                     <div class="col-auto mb-20">
                                         <label for="exampleInputEmail1" class="form-label fw-bold">Passengers</label>
                                         <div class="dropdown dropdown-style-1">
-                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span>Adult <span id="adultCount">1</span></span>
-    <span>Child <span id="childCount">0</span></span>
-                                            </button>
+                                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span>Adult <span id="adultCount">1</span></span>
+                                            <span>Child <span id="childCount">0</span></span>
+                                        </button>
                                             <ul class="dropdown-menu pt-0 pb-0" aria-labelledby="dropdownMenuButton1">
                                                 <li>
                                                     <!-- <a class="dropdown-item" href="javascript:void(0)">Action</a> -->
@@ -437,8 +1333,9 @@
                                                                         <i class="fas fa-minus"></i>
                                                                     </div>
                                                                     <div class="inc-dec-count-box__value">
-                                                                        <input type="email" class="form-control  getadult_data"
-                                                                            id="exampleFormControlInput1" name="adult" value="1">
+                                                                        <input type="text" class="form-control getadult_data"
+                                                                            id="exampleFormControlInput1"  value="1">
+                                                                           
                                                                     </div>
                                                                     <div class="inc-dec-count-box__plus">
                                                                         <i class="fas fa-plus"></i>
@@ -452,6 +1349,7 @@
                                                                 <div class="block-title"><span>Child</span></div>
                                                                 <div class="block-sub-title"><span><small>Age 0 -
                                                                             17</small></span></div>
+                                                                            
                                                             </div>
                                                             <div
                                                                 class="dropdown-menu-passenger-selection__block__right">
@@ -460,8 +1358,9 @@
                                                                         <i class="fas fa-minus"></i>
                                                                     </div>
                                                                     <div class="inc-dec-count-box__value">
-                                                                        <input type="email" class="form-control"
-                                                                            id="exampleFormControlInput1" name="child" value="0">
+                                                                        <input type="text" class="form-control childget"
+                                                                            id="exampleFormControlInput1"  value="0">
+                                                                          
                                                                     </div>
                                                                     <div class="inc-dec-count-box__plus1">
                                                                         <i class="fas fa-plus"></i>
@@ -471,7 +1370,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                              
+                                               
                                             </ul>
                                         </div>
                                     </div>
@@ -480,71 +1379,70 @@
                                     </div>
                                     <div class="col-auto mb-20">
                                         <label for="exampleInputEmail1" class="form-label fw-bold">Cabin Class</label>
-                                        <div class="dropdown dropdown-style-1">
-                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span>Economy</span>
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li>
-                                                    <a class="dropdown-item" href="javascript:void(0)">Economy</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="javascript:void(0)">Premium
-                                                        Economy</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="javascript:void(0)">Business</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="javascript:void(0)">First Class</a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                       <div class="dropdown dropdown-style-1">
+                                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span id="selectedClass">Economy</span> <!-- Update this line if needed -->
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li>
+                                                        <a class="dropdown-item dropdown-item11" href="javascript:void(0)">Economy</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item dropdown-item11" href="javascript:void(0)">Premium Economy</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item dropdown-item11" href="javascript:void(0)">Business</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item dropdown-item11" href="javascript:void(0)">First Class</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                     </div>
                                 </div>
-                              <form action="{{url('/flight_search')}}" enctype="multipart/form-data" method="post">
+                                <form action="{{url('/flight_search')}}" enctype="multipart/form-data" method="post">
                                          @csrf
                                 <div class="row opt-one-way onChangeOneWay">
                                     
                                     <div class="col-xxl-4 col-xl-3 col-lg-3 mb-10">
                                         <div class="custom-select-wrapper">
-                    <input type="text" class="form-control select-input" name="from" value="<?if(isset($from)){ echo $from; }?>" id="from" placeholder="Select an option">
+                    <input type="text" class="form-control select-input fromInput" name="from" value="<?if(isset($from)){ echo $from; }?>"id="from" placeholder="Select an option">
                       <?php $filterResult =\App\Airport_Model::get(); ?>
                     <ul class="list-unstyled select-options">
-                            
+                        
                           @foreach($filterResult as $state_)
-                         
+                                
                             <li class="option" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
                         @endforeach
-                    </ul>
-                </div>
+                                    </ul>
+                                </div>
                                     </div>
                                     <div class="col-xxl-auto col-xl-auto col-lg-auto col-md mb-10 d-flex justify-content-center">
-                                        <button class="btn btn-interchange px-10 py-10">
-                                               <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
-                                        </button>
+                                        <a class="btn btn-interchange px-10 py-10 interchangeButton">
+                                           <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                        </a>
                                     </div>
                                     <div class="col-xxl-4 col-xl-3 col-lg-3 mb-10 mb-md-20">
                                       <div class="custom-select-wrapper">
-                    <input type="text" class="form-control select-input1" name="to" value="<?if(isset($to)){ echo $to; }?>" id="to" placeholder="Select an option">
+                    <input type="text" class="form-control select-input1 toInput"  value="<?if(isset($to)){ echo $to; }?>" name="to" id="to" placeholder="Select an option">
                      
                     <ul class="list-unstyled select-options1">
                         
                           @foreach($filterResult as $state_)
-                            <li class="option1" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                            <li class="option1" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->CITYNAME }} - {{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - ({{ $state_->COUNTRYCODE }})</li>
                         @endforeach
                     </ul>
                 </div>
                                     </div>
                                     <div class="col-xxl-2 col-xl-3 col-lg mb-10 mb-md-20">
-                                        <input type="date" id="demo11"
-                                            name="journey_date" value="<?if(isset($journey_date)){ echo $journey_date; }?>" class="txtDate form-control getDate" required>
+                                        <input type="date" value="<?if(isset($journey_date)){ echo $journey_date; }else{ echo date('Y-m-d'); }?>" id="demo11"
+                                            name="journey_date" class="txtDate form-control getDate" required>
                                     </div>
-                                      <input type="hidden" name="adult" value="1">
-                                      <input type="hidden" name="children" value="0">
+                                      <input type="hidden" id="adultCount1" name="adult" value="1">
+                                      <input type="hidden" id="childCount1" name="children" value="0">
                                       <input type="hidden" name="infant" value="0">
-                                      <input type="hidden" name="cabin_class" value="2">
+                                      <input type="hidden" name="cabin_class"  id="classDisplay">
                                       <input type="hidden" name="form_status" value="one"> 
                                     <div class="col mb-10 d-flex justify-content-lg-end justify-content-center">
                                         <button type="submit" class="btn btn-theme-blue px-30 py-10 Click-here">Search</button>
@@ -555,9 +1453,9 @@
                                 <form action="{{url('/return-flight-search')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                 <div class="row opt-round-trip onChangeRoundTrip">
-                                    <div class="col-xxl-3 mb-10">
+                                    <div class="col-md-3 mb-10">
                                              <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input2" name="from" value="<?if(isset($from)){ echo $from; }?>" placeholder="Select an option">
+                                            <input type="text" class="form-control select-input2 fromInput1" value="<?if(isset($from)){ echo $from; }?>" name="from"  id="from1"placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options2">
                                                 
@@ -567,14 +1465,14 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-auto mb-10 d-flex justify-content-center">
-                                        <button class="btn btn-interchange px-10 py-10">
-                                              <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
-                                        </button>
+                                    <div class="col-sm-auto mb-10 d-flex justify-content-center">
+                                        <a class="btn btn-interchange px-10 py-10 interchangeButton1">
+                                          <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                        </a>
                                     </div>
-                                    <div class="col-xxl-3 mb-10 mb-md-20">
+                                    <div class="col-md-3 mb-10 mb-md-20">
                                              <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input3" name="to" value="<?if(isset($to)){ echo $to; }?>"  placeholder="Select an option">
+                                            <input type="text" class="form-control select-input3 toInput1"value="<?if(isset($to)){ echo $to; }?>" name="to" id="to1" placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options3">
                                                 
@@ -588,29 +1486,29 @@
                                     
                                     
                                     
-                                    <div class="col-xxl-2 col-md-6 mb-10 mb-md-20 position-relative">
-                                         <input type="date" id="demo1"
-                                                        name="journey_date" value="<?if(isset($journey_date)){ echo $journey_date; }?>" class="txtDate form-control getDate" required>
+                                    <div class="col-md-2 col-md-2 mb-10 mb-md-20 position-relative">
+                                         <input type="date" value="<?if(isset($journey_date)){ echo $journey_date; }else{ echo date('Y-m-d'); }?>" id="demo1"
+                                                        name="journey_date" class="txtDate form-control getDate" required>
                                         <!--<input type="text" id="demo" value="" name="journey_date"-->
                                         <!--    class="txtDate form-control date-box getDate" placeholder="Journey Date"-->
                                         <!--    min="date()" required>-->
                                         <!--<i class="far fa-calendar"></i>-->
                                     </div>
-                                    <div class="col-xxl-2 col-md-6 mb-10 mb-md-20 position-relative">
-                                       <input type="date" id="demo2"
-                                                        name="return_date" value="<?if(isset($return_date)){ echo $return_date; }?>" class="txtDate form-control getDate" required>
+                                    <div class="col-md-2 col-md-2 mb-10 mb-md-20 position-relative">
+                                       <input type="date" value="<?if(isset($return_date)){ echo $return_date; }else{ echo date('Y-m-d'); }?>" id="demo3"
+                                                        name="return_date" class="txtDate form-control getDate" required>
                                        <!--<input type="text" value="" name="return_date"-->
                                        <!--     class="txtDate form-control date-box" placeholder="Return Date" min="date()"-->
                                        <!--     required>-->
                                         <!--<i class="far fa-calendar"></i>-->
                                     </div>
-                                    <input type="hidden" id="adultCount1" name="adult" value="1">
-                                      <input type="hidden" id= "childCount1" name="children" value="0">
+                                    <input type="hidden" name="adult" value="1">
+                                      <input type="hidden" name="children" value="0">
                                       <input type="hidden" name="infant" value="0">
                                       <input type="hidden" name="cabin_class" value="2">
                                       <input type="hidden" name="form_status" value="return">
                                     <div class="col mb-10 d-flex justify-content-xxl-end justify-content-center">
-                                        <button type="submit" class="btn btn-theme-blue px-30 py-10">Search</button>
+                                        <button type="submit" class="btn btn-theme-blue px-30 py-10 Click-here">Search</button>
                                     </div>
                                 </div>
                                 </form>
@@ -622,7 +1520,7 @@
                                             <div class="row child-flight-row childFlightRow">
                                                 <div class="col-lg-4 mb-20 mb-md-10">
                                                      <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input4" name="from" value="<?if(isset($from)){ echo $from; }?>"  placeholder="Select an option">
+                                            <input type="text" class="form-control select-input4 fromInput2"value="<?if(isset($from)){ echo $from; }?>" name="from[]"id="from5" placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options4">
                                                 
@@ -634,13 +1532,13 @@
                                                    
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
-                                                    <button class="btn btn-interchange px-10 py-10">
-                                                           <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
-                                                    </button>
+                                                    <a class="btn btn-interchange px-10 py-10 interchangeButton2">
+                                                       <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                                    </a>
                                                 </div>
                                                 <div class="col-lg-4 mb-20">
                                                      <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input5" name="to" value="<?if(isset($to)){ echo $to; }?>" placeholder="Select an option">
+                                            <input type="text" class="form-control select-input5 toInput2"value="<?if(isset($to)){ echo $to; }?>" name="to[]" id="to5" placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options5">
                                                 
@@ -652,8 +1550,8 @@
                                                 </div>
                                                 <div class="col-lg mb-20 mb-md-10">
                                                     
-                                                    <input type="date" id="demo1"
-                                                        name="journey_date" value="<?if(isset($journey_date)){ echo $journey_date; }?>" class="txtDate form-control getDate" required>
+                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" id="demo2"
+                                                        name="journey_date[]" class="txtDate form-control getDate" required>
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10">
                                                     <button type="submit"
@@ -670,7 +1568,7 @@
                                             <div class="row child-flight-row childFlightRow">
                                                 <div class="col-lg-4 mb-20 mb-md-10">
                                                      <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input6" name="from1" value="<?if(isset($from1)){ echo $from1; }?>"  placeholder="Select an option">
+                                            <input type="text" class="form-control select-input6" name="from[]"  placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options6">
                                                 
@@ -682,12 +1580,12 @@
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
                                                     <button class="btn btn-interchange px-10 py-10">
-                                                          <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                                       <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
                                                     </button>
                                                 </div>
                                                 <div class="col-lg-4 mb-20">
                                                     <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input7" name="to1" value="<?if(isset($to1)){ echo $to1; }?>" placeholder="Select an option">
+                                            <input type="text" class="form-control select-input7" name="to[]" placeholder="Select an option">
                                               <?php $filterResult =\App\Airport_Model::get(); ?>
                                             <ul class="list-unstyled select-options7">
                                                 
@@ -698,8 +1596,168 @@
                                         </div>
                                                 </div>
                                                 <div class="col-lg mb-20 mb-md-10">
-                                                    <input type="date" id="demo2"
-                                                        name="journey_date1" value="<?if(isset($journey_date1)){ echo $journey_date1; }?>" class="txtDate form-control getDate" required>
+                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" 
+                                                        name="journey_date[]" class="txtDate form-control getDate" required>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10">
+                                                    <button type="submit"
+                                                        class="btn btn-th-outline-danger btnRemove py-10 px-20"><i
+                                                            class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                             <div class="row child-flight-row childFlightRow">
+                                                <div class="col-lg-4 mb-20 mb-md-10">
+                                                     <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input11" name="from[]"  placeholder="Select an option">
+                                                    
+                                             <ul class="list-unstyled select-options11">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option11" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
+                                                    <button class="btn btn-interchange px-10 py-10">
+                                                       <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-4 mb-20">
+                                                    <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input12" name="to[]" placeholder="Select an option">
+                                            
+                                            <ul class="list-unstyled select-options12">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option12" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg mb-20 mb-md-10">
+                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" 
+                                                        name="journey_date[]" class="txtDate form-control getDate" required>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10">
+                                                    <button type="submit"
+                                                        class="btn btn-th-outline-danger btnRemove py-10 px-20"><i
+                                                            class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                             <div class="row child-flight-row childFlightRow">
+                                                <div class="col-lg-4 mb-20 mb-md-10">
+                                                     <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input13" name="from[]"  placeholder="Select an option">
+                                                    
+                                             <ul class="list-unstyled select-options13">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option13" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
+                                                    <button class="btn btn-interchange px-10 py-10">
+                                                       <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-4 mb-20">
+                                                    <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input14" name="to[]" placeholder="Select an option">
+                                            
+                                            <ul class="list-unstyled select-options14">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option14" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg mb-20 mb-md-10">
+                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" 
+                                                        name="journey_date[]" class="txtDate form-control getDate" required>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10">
+                                                    <button type="submit"
+                                                        class="btn btn-th-outline-danger btnRemove py-10 px-20"><i
+                                                            class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                             <div class="row child-flight-row childFlightRow">
+                                                <div class="col-lg-4 mb-20 mb-md-10">
+                                                     <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input15" name="from[]"  placeholder="Select an option">
+                                                    
+                                             <ul class="list-unstyled select-options15">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option15" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
+                                                    <button class="btn btn-interchange px-10 py-10">
+                                                       <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-4 mb-20">
+                                                    <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input16" name="to[]" placeholder="Select an option">
+                                            
+                                            <ul class="list-unstyled select-options16">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option16" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg mb-20 mb-md-10">
+                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" 
+                                                        name="journey_date[]" class="txtDate form-control getDate" required>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10">
+                                                    <button type="submit"
+                                                        class="btn btn-th-outline-danger btnRemove py-10 px-20"><i
+                                                            class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                             <div class="row child-flight-row childFlightRow">
+                                                <div class="col-lg-4 mb-20 mb-md-10">
+                                                     <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input17" name="from[]"  placeholder="Select an option">
+                                                    
+                                             <ul class="list-unstyled select-options17">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option17" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg-auto mb-20 mb-md-10 d-flex justify-content-center">
+                                                    <button class="btn btn-interchange px-10 py-10">
+                                                       <i class="fas fa-exchange-alt" style="font-size: 25px;"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-4 mb-20">
+                                                    <div class="custom-select-wrapper"style="margin-bottom:10px;" >
+                                            <input type="text" class="form-control select-input18" name="to[]" placeholder="Select an option">
+                                            
+                                            <ul class="list-unstyled select-options18">
+                                                
+                                                  @foreach($filterResult as $state_)
+                                                    <li class="option18" data-value="{{ $state_->AIRPORTCODE }}">{{ $state_->AIRPORTCODE }} - {{ $state_->AIRPORTNAME }} - {{ $state_->CITYNAME }} ({{ $state_->COUNTRYCODE }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                                </div>
+                                                <div class="col-lg mb-20 mb-md-10">
+                                                    <input type="date" value="<?php echo date('Y-m-d'); ?>" 
+                                                        name="journey_date[]" class="txtDate form-control getDate" required>
                                                 </div>
                                                 <div class="col-lg-auto mb-20 mb-md-10">
                                                     <button type="submit"
@@ -711,35 +1769,147 @@
                                         
                                         <div class="row mb-20">
                                             <div class="col-md-12">
-                                                <a href="javascript:void(0)" id="btnAddNewFlight">
-                                                    <div
-                                                        class="border-box-radius-10 d-flex justify-content-center align-items-center">
-                                                        <i class="fas fa-plus"></i> <span class="pl-10">Add a new
-                                                            flight</span>
-                                                    </div>
-                                                </a>
+                                                <!--<a href="javascript:void(0)" id="btnAddNewFlight">-->
+                                                <!--    <div-->
+                                                <!--        class="border-box-radius-10 d-flex justify-content-center align-items-center">-->
+                                                <!--        <i class="fas fa-plus"></i> <span class="pl-10">Add a new-->
+                                                <!--            flight</span>-->
+                                                <!--    </div>-->
+                                                <!--</a>-->
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12 d-flex justify-content-center">
+                                            <div class="col-md-12 d-flex justify-content-center"  style="margin-top:15px;">
                                                 <button type="submit"
-                                                    class="btn btn-theme-blue px-30 py-10">Search</button>
+                                                    class="btn btn-theme-blue px-30 py-10 Click-here">Search</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 </form>
+                          
                             </div>
-                                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <div class="tab-pane fade  <?if($form_status1 =="hotel_form"){ echo "active"; }?> <?if($form_status1 =="hotel_form"){ echo "show"; }?>" id="nav-hotels" role="tabpanel" aria-labelledby="nav-hotels-tab">
+                               <form action="{{url('/hotel_search')}}" enctype="multipart/form-data" method="post">
+                                                      @csrf
+                                <div class="row">
+                                    
+                                    <div class="col-xxl-4 col-xl-3 col-lg-4 mb-20">
+                                        <div class="custom-select-wrapper">
+                                            <label>City</label>
+                                          <input type="text" class="form-control select-input8 hoteldate1" id="hoteldate" name="city_display"  placeholder="Select an option" autocomplete="off">
+                                                <input type="hidden" name="city_name" class="hoteldate2" id="city_name">
+                                                <ul class="list-unstyled select-options8" id="city_list">
+                                                    <?php $data =\App\Hotel_City_Model::select()->take(500)->get(); ?>
+                                                    @foreach($data as $state_)
+                                                        <li class="option8" data-value="{{$state_->name}}">{{$state_->name}} - {{$state_->CountryName}}</li>
+                                                    @endforeach
+                                                </ul>
+                                        </div>
+                                       
+                                    </div>
+                                 
+                                     <div class="col-xl-2 col-md-6 col-lg-4 mb-20 position-relative">
+                                        <label>Check In</label>
+                                                <input type="date"  value="<?if(isset($checkin_date)){ echo $checkin_date; }?>" id="demo7"
+                                            name="checkin_date" class="txtDate form-control getDate" required>
+                                      
+                                    </div>
+                                    <div class="col-xl-2 col-md-6 col-lg-4 mb-20 position-relative">
+                                        <label>Check Out</label>
+                                                <input type="date" vavalue="<?if(isset($checkout_date)){ echo $checkout_date; }?>" id="demo8"
+                                            name="checkout_date" class="txtDate form-control getDate" required>
+                                     
+                                    </div>
+                                    <div class="col-xl-auto col-md-6 mb-20">
+                                        <label>Rooms</label>
+                                        <input type="number" name="NoOfRoom" class="form-control" value="<?if(isset($NoOfRoom)){ echo $NoOfRoom; }else{ echo '1';}?>" id="exampleFormControlInput1" placeholder="Rooms" required>
+                                    </div>
+                                    
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+ document.addEventListener('DOMContentLoaded', function() {
+    const adultInput = document.querySelector('.getadult_data');
+    const childInput = document.querySelector('.childget');
+    const adultCountDisplay = document.getElementById('adultCount');
+    const childCountDisplay = document.getElementById('childCount');
+    const adult1CountDisplay = document.getElementById('adultCount1');
+    const child1CountDisplay = document.getElementById('childCount1');
+    const totalTravellersDisplay = document.getElementById('totalTravellers');
+    const doneButton = document.getElementById('doneButton');
+
+    // Set default values
+    if (!adultInput.value) adultInput.value = 1; // Ensure default value is set for adults
+    if (!childInput.value) childInput.value = 0; // Ensure default value is set for children
+
+    // Function to update the display for both adult and child counts
+    const updateDisplay = () => {
+        const adultCount = parseInt(adultInput.value) || 1; // Default to 1 if parsing fails
+        const childCount = parseInt(childInput.value) || 0; // Default to 0 if parsing fails
+        const totalTravellers = adultCount + childCount;
+
+        adultCountDisplay.textContent = adultCount;
+        childCountDisplay.textContent = childCount;
+        adult1CountDisplay.value = adultCount;
+        child1CountDisplay.value = childCount;
+        totalTravellersDisplay.textContent = totalTravellers;
+    };
+
+    // Initial display update to reflect default values
+    updateDisplay();
+
+    // Increase Adult count
+    document.querySelector('.inc-dec-count-box__plus').addEventListener('click', function() {
+        adultInput.value = parseInt(adultInput.value) + 1;
+        updateDisplay(); // Update the display
+    });
+
+    // Decrease Adult count
+    document.querySelector('.inc-dec-count-box__minus').addEventListener('click', function() {
+        const currentValue = parseInt(adultInput.value);
+        if (currentValue > 1) {
+            adultInput.value = currentValue - 1;
+        } else {
+            adultInput.value = 1; // Ensure adult count doesn't go below 1
+        }
+        updateDisplay(); // Update the display
+    });
+
+    // Increase Child count
+    document.querySelector('.inc-dec-count-box__plus1').addEventListener('click', function() {
+        childInput.value = parseInt(childInput.value) + 1;
+        updateDisplay(); // Update the display
+    });
+
+    // Decrease Child count
+    document.querySelector('.inc-dec-count-box__minus1').addEventListener('click', function() {
+        const currentValue = parseInt(childInput.value);
+        if (currentValue > 0) {
+            childInput.value = currentValue - 1;
+        }
+        updateDisplay(); // Update the display
+    });
+
+    // Done button click event (you can replace this with your actual logic)
+    doneButton.addEventListener('click', function() {
+        alert('Passenger selection done!');
+    });
+});
+
+</script>
 <script>
  document.addEventListener('DOMContentLoaded', function() {
     const adultInput = document.querySelector('.getadult_data1');
     const childInput = document.querySelector('.getchild_data1');
-    const adultCountDisplay = document.getElementById('adultCount1');
-    const childCountDisplay = document.getElementById('childCount1');
+    const adultCountDisplay = document.getElementById('adultCount2');
+    const childCountDisplay = document.getElementById('childCount2');
+    
+     const adult3CountDisplay = document.getElementById('adultCount3');
+    const child3CountDisplay = document.getElementById('childCount3');
     const totalTravellersDisplay = document.getElementById('totalTravellers');
     const doneButton = document.getElementById('doneButton');
+    
 
     // Function to update the display for both adult and child counts
     const updateDisplay = () => {
@@ -750,6 +1920,9 @@
         adultCountDisplay.textContent = adultCount;
         childCountDisplay.textContent = childCount;
         totalTravellersDisplay.textContent = totalTravellers;
+        
+        adult3CountDisplay.value = adultCount;
+        child3CountDisplay.value = childCount;
     };
 
     // Increase Adult count
@@ -790,54 +1963,19 @@
     });
 });
 </script>
-                            
-                            
-                            <div class="tab-pane fade <?if($form_status1 =="hotel_form"){ echo "active"; }?> <?if($form_status1 =="hotel_form"){ echo "show"; }?>" id="nav-hotels" role="tabpanel" aria-labelledby="nav-hotels-tab">
-                               <form action="{{url('/hotel_search')}}" enctype="multipart/form-data" method="post">
-                                                      @csrf
-                                <div class="row">
+                
                                     
-                                    <div class="col-xxl-4 col-xl-3 col-lg-4 mb-20">
-                                          <div class="custom-select-wrapper">
-                                              <label>City</label>
-                                            <input type="text" class="form-control select-input8" value="<?if(isset($city_name)){ echo $city_name; }?>" name="city_name" placeholder="Select an option">
-                                          <?php $data =\App\Hotel_City_Model::get(); ?>
-                                            <ul class="list-unstyled select-options8">
-                                                
-                                                   @foreach($data as $state_)
-                                                    <li class="option8" data-value="{{$state_->name}}">{{__($state_->name)}} {{__($state_->CountryName)}} ( {{__($state_->CountryCode)}} )</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-2 col-md-6 col-lg-4 mb-20 position-relative">
-                                           <label>Check In</label>
-                                        <input type="text" id="demo" value="<?if(isset($checkin_date)){ echo $checkin_date; }?>" name="checkin_date"
-                                            class="txtDate form-control date-box" placeholder="Check In Date"
-                                            min="date()" required>
-                                        <i class="far fa-calendar"></i>
-                                    </div>
-                                    <div class="col-xl-2 col-md-6 col-lg-4 mb-20 position-relative">
-                                           <label>Check out</label>
-                                        <input type="text" value="<?if(isset($checkout_date)){ echo $checkout_date; }?>" name="checkout_date"
-                                            class="txtDate form-control date-box" placeholder="Check Out Date" min="date()"
-                                            required>
-                                        <i class="far fa-calendar"></i>
-                                    </div>
-                                    <div class="col-xl-auto col-md-6 mb-20">
-                                           <label>Rooms</label>
-                                        <input type="number" name="NoOfRoom" class="form-control" value="<?if(isset($NoOfRoom)){ echo $NoOfRoom; }else{ echo '1'; }?>" id="exampleFormControlInput1" placeholder="Rooms"  required>
-                                    </div>
                                     <div class="col-md mb-20 mb-20">
                                         <div class="dropdown dropdown-style-2">
-                                               <label>Guest</label>
-                                            <button class="btn dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                               <span>Adult:<span id="adultCount1">2</span></span>
-    <span>Child: <span id="childCount1">0</span></span>
-                                            </button>
+                                            <label>Guest</label>
+                                          <button class="btn dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                       <span>Adult:<span id="adultCount2">2</span></span>
+                                        <span>Child: <span id="childCount2">0</span></span>
+                                    </button>
+
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 <li>
-                                                    <!-- <a class="dropdown-item" href="#">Action</a> -->
+                                                     <a class="dropdown-item" href="#">Action</a> 
                                                     <div class="dropdown-menu-passenger-selection">
                                                         <div class="dropdown-menu-passenger-selection__block mb-20">
                                                             <div class="dropdown-menu-passenger-selection__block__left">
@@ -886,16 +2024,27 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                               
+                                                <li>
+                                                    <div class="dropdown-menu-footer">
+                                                        <div class="dropdown-menu-footer__total-travellers">
+                                                            <span class="fw-bold">6</span> 
+                                                            <span>People</span>
+                                                        </div>
+                                                        <div class="dropdown-menu-footer__done-selected-travellers">
+                                                            <a href="javascript:void(0)" class="btn btn-theme-blue">
+                                                                Done </a>
+                                                        </div>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="adult" value="1">
-                                    <input type="hidden" name="children" value="0">
+                                    <input type="hidden" id="adultCount3" name="adult" value="1">
+                                    <input type="hidden" id="childCount3" name="children" value="0">
                                     <input type="hidden" name="infant" value="0">
                                     <input type="hidden" name="form_status" id="hostels">
-                                    <div class="col-md-12 d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-theme-blue px-30 py-10">Search</button>
+                                    <div class="col-md-12 d-flex justify-content-center" style="margin-top:15px;">
+                                        <button type="submit" class="btn btn-theme-blue px-30 py-10 Click-here1">Search</button>
                                     </div>
                                 
                                 
@@ -909,27 +2058,30 @@
                                                         @csrf
                                 <div class="row">
                                     <div class="col-lg-4 mb-md-20">
-                                       <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input9" value="<?if(isset($city_name)){ echo $city_name; }?>"  name="city_name" placeholder="Select an option">
-                                          <?php $data =\App\Hotel_City_Model::get(); ?>
+                                        
+                                        <div class="custom-select-wrapper">
+                                          
+                                                <input type="text" class="form-control select-input9" name="city_name" placeholder="Select an option">
+                                          <?php $data =\App\CountryCode_Model::get(); ?>
                                             <ul class="list-unstyled select-options9">
                                                 
                                                    @foreach($data as $state_)
-                                                    <li class="option9" data-value="{{$state_->name}}">{{__($state_->name)}} {{__($state_->CountryName)}} ( {{__($state_->CountryCode)}} )</li>
+                                                    <li class="option9" data-value="{{$state_->name}}">{{__($state_->name)}}</li>
                                                 @endforeach
                                             </ul>
                                         </div>
+                                     
                                     </div>
                                     <div class="col-lg-3 mb-md-20">
                                         <select class="select-tours select2-style-2" name="tour_type" required>
-                                            <option value="<?if(isset($tour_type)){ echo $tour_type; }?>"><?if(isset($tour_type)){ echo $tour_type; }?></option>
+                                             <option value="<?if(isset($tour_type)){ echo $tour_type; }?>"><?if(isset($tour_type)){ echo $tour_type; }?></option>
                                             <option value="single">Single</option>
                                             <option value="group">Group</option>
                                             <option value="couple">Couple</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-3 mb-md-20">
-                                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Days" value="<?if(isset($day)){ echo $day; }?>" name="day" required>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1" value="<?if(isset($day)){ echo $day; }?>" placeholder="Days" name="day" required>
                                     </div>  
                                     <div class="col d-flex justify-content-lg-end justify-content-center">
                                         <button type="submit" class="btn btn-theme-blue px-30 py-10">Search</button>
@@ -943,19 +2095,21 @@
                                 <div class="row">
                                     <div class="col-lg-4 mb-md-20">
                                         <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input10" value="<?if(isset($country_name)){ echo $country_name; }?>" name="country_name" placeholder="Select an option">
-                                          <?php $data =\App\Hotel_City_Model::get(); ?>
+                                           
+                                                <input type="text" class="form-control select-input10" name="city_name" placeholder="Select an option">
+                                          <?php $data =\App\CountryCode_Model::get(); ?>
                                             <ul class="list-unstyled select-options10">
                                                 
                                                    @foreach($data as $state_)
-                                                    <li class="option10" data-value="{{$state_->name}}">{{__($state_->name)}} {{__($state_->CountryName)}} ( {{__($state_->CountryCode)}} )</li>
+                                                    <li class="option10" data-value="{{$state_->name}}">{{__($state_->name)}}</li>
                                                 @endforeach
                                             </ul>
                                         </div>
+                                        
                                     </div>
                                     <div class="col-lg-3 mb-md-20">
                                         <select class="select-visa-type select2-style-2" name="visa_type" required>
-                                            <option value="<?if(isset($visa_type)){ echo $visa_type; }?>"><?if(isset($visa_type)){ echo $visa_type; }?></option>
+                                          <option value="<?if(isset($visa_type)){ echo $visa_type; }?>"><?if(isset($visa_type)){ echo $visa_type; }?></option>
                                              <option value="single">Single Visa</option>
                                                                     <option value="Business visa">Business visa</option>
                                                                    <option value="Education visa">Education visa</option>
@@ -966,7 +2120,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-3 mb-md-20">
-                                    <input type="number" name="day" value="<?if(isset($day)){ echo $day; }?>" class="form-control" id="exampleFormControlInput1" placeholder="Days" required>
+                                    <input type="number" name="day" class="form-control"value="<?if(isset($day)){ echo $day; }?>" id="exampleFormControlInput1" placeholder="Days" required>
                                     </div>
                                     <div class="col d-flex justify-content-lg-end justify-content-center">
                                         <button type="submit" class="btn btn-theme-blue px-30 py-10">Search</button>
@@ -979,934 +2133,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
+
+   
     
     
-    
-    
-    
-    
-     
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Include Select2 JS -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-<script>
-$(document).ready(function() {
-      
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input').attr('placeholder', 'From');
-    $('.select-options').hide();
-
-    // Show options when input is clicked
-    $('.select-input').on('click', function(event) {
-        $('.select-options').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options').hide();
-    });
-
-    // Handle option selection
-    $('.option').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input').val(airportCode); // Set input value to the airport code
-        $('.select-input').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-
-
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options1');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option1" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input1').attr('placeholder', 'Where To ?');
-    $('.select-options1').hide();
-
-    // Show options when input is clicked
-    $('.select-input1').on('click', function(event) {
-        $('.select-options1').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options1').hide();
-    });
-
-    // Handle option selection
-    $('.option1').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input1').val(airportCode); // Set input value to the airport code
-        $('.select-input1').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options1').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input1').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option1').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input1').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options2');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option2" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input2').attr('placeholder', 'From');
-    $('.select-options2').hide();
-
-    // Show options when input is clicked
-    $('.select-input2').on('click', function(event) {
-        $('.select-options2').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options2').hide();
-    });
-
-    // Handle option selection
-    $('.option2').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input2').val(airportCode); // Set input value to the airport code
-        $('.select-input2').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options2').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input2').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option2').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input2').attr('placeholder', 'From');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-
-
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options3');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option3" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input3').attr('placeholder', 'Where To?');
-    $('.select-options3').hide();
-
-    // Show options when input is clicked
-    $('.select-input3').on('click', function(event) {
-        $('.select-options3').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options3').hide();
-    });
-
-    // Handle option selection
-    $('.option3').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input3').val(airportCode); // Set input value to the airport code
-        $('.select-input3').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options3').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input3').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option3').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input3').attr('placeholder', 'Where To?');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options4');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option4" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input4').attr('placeholder', 'From');
-    $('.select-options4').hide();
-
-    // Show options when input is clicked
-    $('.select-input4').on('click', function(event) {
-        $('.select-options4').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options4').hide();
-    });
-
-    // Handle option selection
-    $('.option4').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input4').val(airportCode); // Set input value to the airport code
-        $('.select-input4').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options4').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input4').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option4').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input4').attr('placeholder', 'From');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options5');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option5" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input5').attr('placeholder', 'Where To ?');
-    $('.select-options5').hide();
-
-    // Show options when input is clicked
-    $('.select-input5').on('click', function(event) {
-        $('.select-options5').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options5').hide();
-    });
-
-    // Handle option selection
-    $('.option5').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input5').val(airportCode); // Set input value to the airport code
-        $('.select-input5').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options5').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input5').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option5').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input5').attr('placeholder', 'Where To ?');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options6');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option6" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input6').attr('placeholder', 'From');
-    $('.select-options6').hide();
-
-    // Show options when input is clicked
-    $('.select-input6').on('click', function(event) {
-        $('.select-options6').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options6').hide();
-    });
-
-    // Handle option selection
-    $('.option6').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input6').val(airportCode); // Set input value to the airport code
-        $('.select-input6').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options6').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input6').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option6').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input6').attr('placeholder', 'From');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options7');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option7" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input7').attr('placeholder', 'Where To ?');
-    $('.select-options7').hide();
-
-    // Show options when input is clicked
-    $('.select-input7').on('click', function(event) {
-        $('.select-options7').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options7').hide();
-    });
-
-    // Handle option selection
-    $('.option7').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input7').val(airportCode); // Set input value to the airport code
-        $('.select-input7').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options7').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input7').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option7').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input7').attr('placeholder', 'Where To ?');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options8');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option8" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input8').attr('placeholder', 'Select Option');
-    $('.select-options8').hide();
-
-    // Show options when input is clicked
-    $('.select-input8').on('click', function(event) {
-        $('.select-options8').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options8').hide();
-    });
-
-    // Handle option selection
-    $('.option8').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input8').val(airportCode); // Set input value to the airport code
-        $('.select-input8').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options8').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input8').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option8').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input8').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options9');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option9" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input9').attr('placeholder', 'Select Option');
-    $('.select-options9').hide();
-
-    // Show options when input is clicked
-    $('.select-input9').on('click', function(event) {
-        $('.select-options9').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options9').hide();
-    });
-
-    // Handle option selection
-    $('.option9').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input9').val(airportCode); // Set input value to the airport code
-        $('.select-input9').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options9').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input9').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option9').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input9').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
-
-            // Initialize select options
-            var selectOptions = $('.select-options10');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option10" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input10').attr('placeholder', 'Select an option');
-    $('.select-options10').hide();
-
-    // Show options when input is clicked
-    $('.select-input10').on('click', function(event) {
-        $('.select-options10').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options10').hide();
-    });
-
-    // Handle option selection
-    $('.option10').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input10').val(airportCode); // Set input value to the airport code
-        $('.select-input10').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options10').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input10').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option10').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input10').attr('placeholder', 'Select an option');
-    }
-
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return "";
-    }
-});
-</script>
+   
+ 

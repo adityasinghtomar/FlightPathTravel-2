@@ -50,7 +50,7 @@
                         <td><?php print_r($flights->api_type);?></td>
                         <td><?php print_r($flights->api);?></td>
                         <td><?php print_r($flights->booking_api);?></td>
-                        <td>@if($flights->status =='0')<span class="px-10 text-center text-14 fw-500 bg-green-4 text-green-3">Active</span>@else <span class="px-10 text-center text-14 fw-500 bg-red-4 text-red-3">In-Active</span> @endif</td>
+                        <td>@if($flights->status =='active')<span class="px-10 text-center text-14 fw-500 bg-green-4 text-green-3">Active</span>@else <span class="px-10 text-center text-14 fw-500 bg-red-4 text-red-3">In-Active</span> @endif</td>
                         <td>
                           <div class="row x-gap-10 y-gap-10 items-center">
 
@@ -83,8 +83,8 @@
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1" style="padding:16px 1px 15px 12px;">Status</label>
                         <select class="form-control demo-select2-placeholder" name="status" style="margin-left:0px;">
-                            <option value="0">Active</option>
-                           <option value="1">In-active</option>
+                            <option value="active">Active</option>
+                           <option value="inactive">In-active</option>
                         </select>
                       </div>
                     </div>

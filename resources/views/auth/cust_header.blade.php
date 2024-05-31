@@ -2,8 +2,6 @@
 
 <html lang="zxx">
 
-
-
 <head>
  
     <meta charset="utf-8">
@@ -66,7 +64,7 @@
     <link rel="icon" type="image/png" href="public/assets/img/favicon.png">
 
 
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>
 
@@ -79,7 +77,21 @@
 
     <!-- preloader Area -->
 
-    
+    <?php 
+ $ip = $_SERVER['SERVER_ADDR'];
+$ipdat = @json_decode(file_get_contents( 
+	"http://www.geoplugin.net/json.gp?ip=" . $ip)); 
+
+// echo 'Country Name: ' . $ipdat->geoplugin_countryName . "\n"; 
+// echo 'City Name: ' . $ipdat->geoplugin_city . "\n"; 
+// echo 'Continent Name: ' . $ipdat->geoplugin_continentName . "\n"; 
+// echo 'Latitude: ' . $ipdat->geoplugin_latitude . "\n"; 
+// echo 'Longitude: ' . $ipdat->geoplugin_longitude . "\n"; 
+$Currency_Symbol= "dd"; 
+ $Currency = "d"; 
+// echo 'Timezone: ' . $ipdat->geoplugin_timezone; 
+
+?> 
 
     <?php 
 
@@ -238,7 +250,7 @@ $Currency_Symbol= "df";
 
                             <a href="/">
 
-                                <img src="public/assets/img/logo.png" alt="logo">
+                                <img src="public/assets/flplogo.png" alt="flightpath travel">
 
                             </a>
 
@@ -262,7 +274,7 @@ $Currency_Symbol= "df";
 
                         <a class="navbar-brand" href="/">
 
-                            <img src="public/assets/img/logo.png" alt="logo">
+                            <img src="public/assets/flplogo.png" alt="flightpath travel">
 
                         </a>
 
@@ -341,6 +353,13 @@ $Currency_Symbol= "df";
                                             </a>
 
                                         
+
+                                        </li>
+                                        <li class="nav-item">
+
+                                            <a href="{{ route('pnr-search') }}" class="nav-link">
+PNR Search
+                                            </a>
 
                                         </li>
 
@@ -493,41 +512,41 @@ $Currency_Symbol= "df";
                                         </li>
 
 
-                                        <li class="nav-item">
+                                        <!--<li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">User Pages</a>
+                                        <!--    <a href="#" class="nav-link">User Pages</a>-->
 
-                                            <ul class="dropdown-menu">
+                                        <!--    <ul class="dropdown-menu">-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="{{url('/User-login')}}" class="nav-link">Login</a>
+                                        <!--            <a href="{{url('/User-login')}}" class="nav-link">Login</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="#" class="nav-link">Register</a>
+                                        <!--            <a href="#" class="nav-link">Register</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="#" class="nav-link">Forget Password</a>
+                                        <!--            <a href="#" class="nav-link">Forget Password</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="#" class="nav-link">Verify OTP</a>
+                                        <!--            <a href="#" class="nav-link">Verify OTP</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
                                               
 
-                                            </ul>
+                                        <!--    </ul>-->
 
-                                        </li>
+                                        <!--</li>-->
 
 
 
@@ -601,7 +620,7 @@ $Currency_Symbol= "df";
 
                                  <li class="nav-item">
 
-                                    <a href="{{url('/blogs') }}" class="nav-link">Blogs</a>
+                                    <a href="{{url('/news') }}" class="nav-link">Blogs</a>
 
 
                                 </li>
@@ -765,3 +784,37 @@ $Currency_Symbol= "df";
         </div>
 
     </header>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+<script>
+   
+        $(document).ready(function () {
+  
+            /*------------------------------------------
+            --------------------------------------------
+            Country Dropdown Change Event
+            --------------------------------------------
+            --------------------------------------------*/
+            $('#country-dropdown').on('change', function () {
+                var idCountry = this.value;
+               $.ajax({
+                    url: "{{url('/currency-change')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        location.reload();
+                    //     $('#state-dropdown').html('<option value="">-- Select State --</option>');
+                    //     $.each(result.states, function (key, value) {
+                    //         $("#state-dropdown").append('<option value="' + value
+                    //             .id + '">' + value.name + '</option>');
+                    //     });
+                    }
+                });
+            });
+        });
+    </script> 
+ 

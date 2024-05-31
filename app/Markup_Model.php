@@ -8,6 +8,6 @@ class Markup_Model extends Model
 {
     protected $table='markup';
     protected $primaryKey='id';
-    protected $fillable=['name','markup_amount','markup_type','status'];
+    protected $fillable=['name','markup_amount','markup_type','status','currency_code'];
     
 }

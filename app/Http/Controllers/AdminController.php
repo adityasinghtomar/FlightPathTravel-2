@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Mail; 
+use App\Mail\DemoMail;
 use Illuminate\Http\Request;
 use App\User_Model; 
 use App\Http\Middleware\adminmiddleware;
@@ -20,6 +21,8 @@ use App\Setting_Api_Model;
 use App\Setting_General_Model;
 use DateTime;
 use App\Flight_Model;
+use App\Flight_Log_Model;
+use App\Hotel_Details_Model;
 use Illuminate\Support\Facades\Session;
 use App\Hotel_Model;
 class AdminController extends Controller
@@ -112,7 +115,16 @@ $data = $ress->Destinations;
 			$data['role'] = 'customer';
 			$data['user_id'] = session()->get('user_id');
 // 			print_r($data);die;
-			$contact_id = UserDetails_Model::create($data);
+			$contact_id = UserDetails_Model::create($data); 
+			$email = $contact_id->email;
+			$password = $contact_id->password;
+			$data = ['email' =>"$email", 'password'=>"$password"];
+                    $user['to'] = $email;
+                Mail::send('user_password',$data,function($messages) use ($user){
+                    
+                    $messages->to($user['to']); 
+                    $messages->subject('flightPathTravel Login Credentials');   
+                });	  
             return view('flight/login')->with('message',"User Register Successfull...");    
         // return view('flight/login');
       }
@@ -130,7 +142,8 @@ $data = $ress->Destinations;
             return view('flight/partner/db-dashboard',compact('data'));
             }else
             {
-                return view('auth/login',compact('data'));
+                return redirect()->route('/');
+                // return view('customer-dashboard',compact('data'));
             }
         }else{
             return view('flight/login');
@@ -185,8 +198,12 @@ $data = $ress->Destinations;
     public function logout(Request $request)
     {
        
-        session()->forget(['name','commision','user_id']);
-       return view('auth/login'); 
+         $request->session()->forget(['id', 'role']); // Remove session variables
+        $request->session()->flush(); // Clear all session data
+        return redirect('/')->with('success', 'You have been logged out');
+    //     session()->forget(['name','commision','user_id']);
+    // //   return view('auth/login'); 
+    //      return redirect()->route('/');
     }
     
     // Admin Side 
@@ -231,7 +248,7 @@ $data = $ress->Destinations;
     }
 
     // If authentication fails, redirect back with an error message
-    return redirect()->route('login')->with('error', 'Invalid email or password');
+    return redirect()->route('/')->with('error', 'Invalid email or password');
     }
   
     /**
@@ -244,7 +261,11 @@ $data = $ress->Destinations;
      
      public function dashboard()
 {
+    $flight_log = Flight_Log_Model::count();
     
+    // $flight_log1 = Flight_Log_Model::get();
+     $hotel_log = Hotel_Details_Model::count();
+    // $flight_log_count = count($flight_logs);
     $flight_data = Flight_Model::get(); 
     $flight_data1 = Flight_Model::get(); 
     $flight_data2 = Flight_Model::select('origin', \DB::raw('count(*) as count'))->groupBy('origin')->get();
@@ -260,9 +281,31 @@ $data = $ress->Destinations;
     // Aggregate flight and hotel data by month
     $flight_revenue_by_month = $this->groupByMonth($flight_data);
     $hotel_revenue_by_month = $this->groupByMonth($hotel_data);
+    // $flight_log_by_month = $this->groupByMonth($flight_log1);
+    
+    
+     $flightLogData = Flight_Log_Model::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
+        ->groupBy('month')
+        ->get();
+
+    // Prepare data for Highcharts
+    $flightLogByMonth = [];
+    foreach ($flightLogData as $data) {
+        $flightLogByMonth[$data->month] = $data->count;
+}
+
+ $HotelLogData = Hotel_Details_Model::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
+        ->groupBy('month')
+        ->get();
+
+    // Prepare data for Highcharts
+    $HotelLogByMonth = [];
+    foreach ($HotelLogData as $data) {
+        $HotelLogByMonth[$data->month] = $data->count;
+}
 
     // Return the dashboard view with aggregated revenue data
-    return view('flight.admin.db-dashboard', compact('flight_revenue_by_month', 'hotel_revenue_by_month','total_flight_amount','top_10_flight_data','total_flight_amount1', 'total_flight_amount2','total_hotel_amount','flight_data1'));
+    return view('flight.admin.db-dashboard', compact('flight_revenue_by_month', 'hotel_revenue_by_month','total_flight_amount','top_10_flight_data','total_flight_amount1', 'total_flight_amount2','total_hotel_amount','flight_data1','flight_log','hotel_log','flightLogByMonth','HotelLogByMonth'));
 
 }
 private function groupByMonth($data) {
@@ -392,6 +435,8 @@ private function groupByMonth($data) {
     {
             $data['name']= $request->input('name');
 			$data['markup_amount']= $request->input('markup_amount');
+			$data['markup_type']= $request->input('markup_type');
+			$data['currency_code']= $request->input('currency_code');
 			$contact_id = Markup_Model::create($data);
            
         $users =UserDetails_Model::get();

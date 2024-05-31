@@ -1,4 +1,4 @@
-@include('flight.header')
+@include('auth.cust_header')
 
  
     <style>
@@ -301,10 +301,12 @@ h3 {
 }
 
 .search-card-result {
-  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  /*box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);*/
   margin: 1rem 0;
   padding: 0.5rem 0;
-  background-color: #fff;
+ border: 1px solid #cccc;
+    background-color: #fff;
+    border-radius: 10px;
 }
 .search-card-result img {
   height: 190px;
@@ -350,12 +352,15 @@ h3 {
 .filter-card h5 {
   margin: 10px 0;
   padding: 1rem;
-
-  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+border: 1px solid #d6d6d6;
+    border-radius: 10px;
+  /*box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);*/
   color: #000;
 }
 .filter-card form {
-  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
+  /*box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);*/
+  border: 1px solid #d6d6d6;
+    border-radius: 10px;
   padding: 0.5rem 2rem;
 }
 .map-btn {
@@ -465,7 +470,7 @@ h3 {
            
         </div>
           <div style="float:left;margin: 65px 0px 0px 20px;">
-                <a href="#" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back Button</a>
+                <!--<a href="#" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Back Button</a>-->
             </div>
     </section>
 <?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
@@ -588,35 +593,100 @@ for(let i=0;i<imgs.length;i++){
 							<h5>Hotel Description</h5>
 							<form action="#">
 							    
-					   <p>
-                 <?php echo $ress_info->HotelInfoResult->HotelDetails->Description; ?> </p>
+					   <p style="text-align:justify;">
+			        	     
+         <?php
+$description = $ress_info->HotelInfoResult->HotelDetails->Description;
+$description = str_replace(['<b>','<br><br>'],'', $description);
+$description = str_replace(['Property Description:','<b>','general:'], '', $description);
+
+if (strlen($description) > 200) {
+    $truncated_description = substr($description, 0, 200);
+    $remaining_description = substr($description, 200);
+} else {
+    $truncated_description = $description;
+    $remaining_description = '';
+}
+?>
+<div id="description">
+    {!! $truncated_description !!}
+    @if ($remaining_description)
+        <span id="remaining-description" style="display: none;">
+            <?php echo $remaining_description; ?>
+        </span>
+        <a href="#" id="read-more">Read more</a>
+    @endif
+</div>
             
+                        </p>
+                       
 					            
 							</form>
 						</div>
 					 @endif
 
 					</div>
-					 @if(isset($ress_info->HotelInfoResult->HotelDetails->HotelFacilities))
-					<div class="row mt-2 justify-content-between" style="margin-bottom:20px;">
-					    <div class="filter-card">
-							<h5>Hotel Facilities</h5>
-							<form action="#">
-							
-                                    <p><?php $fac = $ress_info->HotelInfoResult->HotelDetails->HotelFacilities; ?>
-                                        @foreach($fac as $facs)
-                                         <style>.hidden { display: none;}
-                                        .readmore { margin: 0 5px;}</style>
-							  <div class="content1"> <li><?php echo $facs; ?></li> </div>
-                                        @endforeach</p>
-    
-							</form>
-						</div>
-					@endif 
+				@if(isset($ress_info->HotelInfoResult->HotelDetails->HotelFacilities))
+    <div class="row mt-2 justify-content-between" style="margin-bottom:20px;">
+        <div class="filter-card">
+            <h5>Hotel Facilities</h5>
+            <form action="#">
+                <p>
+                    <?php
+                    $desc = $ress_info->HotelInfoResult->HotelDetails->HotelFacilities;
+                    // If HotelFacilities is an array, convert it to a string
+                    if(is_array($desc)) {
+                        $desc = implode(' ', $desc);
+                    }
+                    $desc = str_replace('<br /><b>general:</b> <br />', '', $desc);
+                    
+                    if (strlen($desc) > 300) {
+                        $truncated_description1 = substr($desc, 0, 300);
+                        $remaining_description1 = substr($desc, 300);
+                    } else {
+                        $truncated_description1 = $desc;
+                        $remaining_description1 = '';
+                    }
+                    ?> 
+                    
+                    <div id="description">
+                        {!! $truncated_description1 !!}
+                        @if ($remaining_description1)
+                            <span id="remaining-descript" style="display: none;">
+                                {!! $remaining_description1 !!}
+                            </span>
+                            <a href="#" class="read-m">Read more</a>
+                        @endif
+                    </div>
+                </p>
+            </form>
+        </div>
+    </div>
+@endif
 
-					</div>
+				
 					
+<script>
+  $(document).ready(function() {
+    $('#read-more').on('click', function(e) {
+        e.preventDefault();
+        $('#remaining-description').toggle(); // Toggle visibility of the remaining description
+        $(this).text(function(_, text) {
+            return text === 'Read more' ? 'Read less' : 'Read more'; // Toggle link text
+        });
+    });
+});
 
+$(document).ready(function() {
+    $('.read-m').on('click', function(e) {
+        e.preventDefault();
+        $('#remaining-descript').toggle(); // Toggle visibility of the remaining description
+        $(this).text(function(_, text) {
+            return text === 'Read more' ? 'Read less' : 'Read more'; // Toggle link text
+        });
+    });
+});
+</script>
 <script>
 var acc = document.getElementsByClassName("accordion");
 var i;
@@ -687,17 +757,25 @@ echo '</div>';
 ?>
 
 							</div>
-							<p><i class="fas fa-map-marker-alt"></i> <?php echo $Hoteladdress?></p>
+							<p style="font-size:15px;font-weight:600;"><i class="fas fa-map-marker-alt"></i> <?php echo $Hoteladdress?></p>
+							<p style="font-size:15px;font-weight:600;">
+						    	<?php echo $room_data1->RoomTypeName; ?>
+							<?php $Amenities = $room_data1->Amenities; ?>
+							(
+								@foreach($Amenities as $Amenitie)
+								<i> <?php echo $Amenitie; ?> , </i>
+								@endforeach
+							)	
+							</p>
 							<p>
-							<?php echo $room_data1->RoomTypeName; ?></p>
-							<p>
-							     <h5>Free cancellation</h5>
-                                                        <p>Cancel your booking at any time</p>
+				
 							    
 								<i class="fa fa-bath"></i>
 								<i class="fa fa-phone"></i>
 								<i class="fa fa-wifi"></i>
 								<i class="fa fa-tv"></i>
+								
+								 <!--<button type="button" id="openModal<?php echo $room_data1->RoomIndex; ?>" class="btn btn-info btn-lg">Room Details</button>-->
 							</p>
 						</div>
 						
@@ -709,26 +787,26 @@ echo '</div>';
 
 							</div>
 							<div class="text-success">
-							                            <p>Pub.Rate<del> {{ $Currency_active->currency_symbol}} <?php echo $room_data1->Price->PublishedPriceRoundedOff; ?></del></p>
+							                            <!--<p>Pub.Rate<del> {{ $Currency_active->currency_symbol}}-->
+							                            <?php 
+							                         //   echo round($room_data1->Price->PublishedPriceRoundedOff/$Currency_active->currency_rates,2);
+							                            ?>
+							                            <!--</del></p>-->
                                                         <p>Off.Rate {{ $Currency_active->currency_symbol}}
-                                                        <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
+                                                        <?php $mark_up= \App\Markup_Model::where('currency_code',$Currency_active->currency_code)->where('markup_type','hotel')->first();?>
                                  
                                 <?php if($mark_up) { 
-                                            if($mark_up->markup_type =='fixed'){
                                                 $mark_up->markup_amount;
-                                                $subtotal= $room_data1->Price->OfferedPriceRoundedOff + $mark_up->markup_amount;
-                                                echo round($subtotal, 2);
+                                                $subtotal= $room_data1->Price->OfferedPriceRoundedOff;
+                                                // echo round($subtotal, 2);
+                                                $subtotal1w= $subtotal / $Currency_active->currency_rates ;
+                                                $subtotal1 = $subtotal1w + $mark_up->markup_amount; 
+                                                 echo round($subtotal1, 2);
                                             }
-                                            else {
-                                              $percentage = ($mark_up->markup_amount / 100) * $room_data1->Price->OfferedPriceRoundedOff; 
-                                              $subtotal= $room_data1->Price->OfferedPriceRoundedOff + $percentage;
-                                                echo round($subtotal);
-                                            //   echo $percentage;
-                                            }
-                                            }   
                                             else{
                                                  $subtotal= $room_data1->Price->OfferedPriceRoundedOff;
-                                                echo round($subtotal);
+                                                // echo round($subtotal);
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;echo round($subtotal1, 2);
                                               }
                                             ?>
                                                         </p>
@@ -770,6 +848,61 @@ echo '</div>';
 						</div>
 					</div>
 					
+					
+					 <div class="" style="margin-top:-20px;">
+                            <div class="">
+                                <div class="">
+                                    <div class="" id="accordionExampleTwo">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOnef1">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOnef1<?php echo $room_data1->RoomIndex; ?>" aria-expanded="true"
+                                                    aria-controls="collapseOnef1<?php echo $room_data1->RoomIndex; ?>">
+                                                   Room Detail
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOnef1<?php echo $room_data1->RoomIndex; ?>" class="accordion-collapse collapse "
+                                                aria-labelledby="headingOnef1" data-bs-parent="#accordionExampleTwo">
+                                                <div class="accordion-body">
+                                                    <p id="modalContent"><?php echo $room_data1->RoomDescription; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+					<div class="modal fade" id="myModal<?php echo $room_data1->RoomIndex; ?>" role="dialog">
+  <div class="modal-dialog" style="max-width: 800px !important;">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="modalContent"><?php echo $room_data1->RoomDescription; ?></p>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-default close" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+    // Trigger modal to show when the button is clicked
+    $('#openModal<?php echo $room_data1->RoomIndex; ?>').click(function() {
+        $('#myModal<?php echo $room_data1->RoomIndex; ?>').modal('show');
+    });
+
+    // Close modal when the close button is clicked
+    $('.close').click(function() {
+        $('#myModal<?php echo $room_data1->RoomIndex; ?>').modal('hide');
+    });
+});
+</script>
 					 @endforeach
                                 @endif
 				</div>
@@ -777,7 +910,15 @@ echo '</div>';
 
 		</div>
 	</section>
-   
+    <!-- Button to trigger modal -->
+
+
+<!-- Include jQuery -->
+
+
+<!-- Modal -->
+
+
   
     <style>
 
@@ -975,7 +1116,7 @@ body {
 .close {
    position: relative;
     top: -13px;
-    right: -904px;
+
     padding: 3px;
     border-radius: 5px;
     background: #d95313f2;

@@ -54,6 +54,16 @@
                         </select>
                       </div>
                     </div>
+                     <div class="col-6">
+                      <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Country</label>
+                        <select class="form-control demo-select2-placeholder" name="country" id="state_id" >
+                            @foreach($country as $row)
+                            <option value="{{ $row->name }}">{{ $row->name }}</option>
+                           @endforeach
+                        </select>
+                      </div>
+                    </div>
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Duration</label>

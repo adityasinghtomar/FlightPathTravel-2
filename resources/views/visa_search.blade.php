@@ -480,8 +480,8 @@
                                 <div class="row">
                                     <div class="col-lg-4 mb-md-20">
                                         <div class="custom-select-wrapper">
-                                            <input type="text" class="form-control select-input10" name="country_name" placeholder="Select an option">
-                                          <?php $data =\App\Hotel_City_Model::get(); ?>
+                                           <input type="text" class="form-control select-input10" name="city_name" placeholder="Select an option">
+                                          <?php $data =\App\CountryCode_Model::get(); ?>
                                             <ul class="list-unstyled select-options10">
                                                 
                                                    @foreach($data as $state_)
@@ -2635,7 +2635,162 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#hoteldate').on('input', function() {
+        var searchText = $(this).val();
+        $.ajax({
+            url: '/search-cities', // Backend URL that returns filtered cities
+            type: 'GET',
+            data: { query: searchText },
+            success: function(data) {
+                var selectOptions = $('#city_list');
+                selectOptions.empty(); // Clear existing options
 
+                data.forEach(function(item) {
+                    selectOptions.append($('<li class="option8" data-value="' + item.name + '">')
+                        .text(item.name + ' - ' + item.CountryName + ''));
+                });
+            }
+        });
+    });
+
+    $('#city_list').on('click', 'li', function() {
+        var selectedText = $(this).text();
+        var selectedValue = $(this).attr('data-value');
+        $('#hoteldate').val(selectedText); // Display the selected text in the input
+        $('#city_name').val(selectedValue); // Store the data-value in the hidden input
+        $('#city_list').hide(); // Hide the list after selection
+    });
+
+    // Additional code to manage showing and hiding the list
+    $('#hoteldate').on('focus', function() {
+        $('#city_list').show();
+    });
+
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.custom-select-wrapper').length) {
+            $('#city_list').hide();
+        }
+    });
+});
+
+</script>
+<script>
+$(document).ready(function() {
+    $('#hoteldate3').on('input', function() {
+        var searchText = $(this).val();
+        $.ajax({
+            url: '/search-cities', // Backend URL that returns filtered cities
+            type: 'GET',
+            data: { query: searchText },
+            success: function(data) {
+                var selectOptions = $('#city_list1');
+                selectOptions.empty(); // Clear existing options
+
+                data.forEach(function(item) {
+                    selectOptions.append($('<li class="option9" data-value="' + item.name + '">')
+                        .text(item.name + ' - ' + item.CountryName + ''));
+                });
+            }
+        });
+    });
+
+    $('#city_list1').on('click', 'li', function() {
+        var selectedText = $(this).text();
+        var selectedValue = $(this).attr('data-value');
+        $('#hoteldate3').val(selectedText); // Display the selected text in the input
+        $('#city_name1').val(selectedValue); // Store the data-value in the hidden input
+        $('#city_list1').hide(); // Hide the list after selection
+    });
+
+    // Additional code to manage showing and hiding the list
+    $('#hoteldate3').on('focus', function() {
+        $('#city_list1').show();
+    });
+
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.custom-select-wrapper').length) {
+            $('#city_list1').hide();
+        }
+    });
+});
+
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from Laravel backend and initialize select options
+    $.ajax({
+        url: '/fetch-airport-data',
+        type: 'GET',
+        success: function(data) {
+            console.log("Raw data received:", data); // Log raw data for debugging
+            var selectOptions = $('.select-options10');
+            if (Array.isArray(data)) {
+                data.forEach(function(option) {
+                    if (option && option.AIRPORTCODE && option.AIRPORTNAME) {
+                        selectOptions.append('<li class="option10" data-value="' + option.AIRPORTCODE + '">' +
+                            option.AIRPORTCODE + ' - ' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' +
+                            '</li>');
+                    } else {
+                        console.log("Invalid or incomplete data:", option); // Log problematic data
+                    }
+                });
+            } else {
+                console.error("Expected an array but received:", data);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching airport data:', error);
+        }
+    });
+
+    // Setup UI interactions
+    $('.select-input10').on('click', function(event) {
+        $('.select-options10').show();
+        event.stopPropagation();
+    });
+
+    $(document).on('click', function() {
+        $('.select-options10').hide();
+    });
+
+    // Handle option selection
+    $('.select-options10').on('click', '.option10', function(event) {
+        var selectedOption = $(this).text() || 'Unknown';
+        var airportCode = $(this).data('value') || 'NoCode';
+        $('.select-input10').val(airportCode); // Display only the code in the input field
+        document.cookie = "selectedAirport=" + airportCode; // Store the airport code in a cookie
+        $('.select-options10').hide();
+        event.stopPropagation();
+    });
+    
+    // Filter options based on search input
+    $('.select-input10').on('input', function() {
+        var searchText = $(this).val().toUpperCase();
+        $('.option10').hide(); // Initially hide all options
+        
+        // First, check for matches in airport codes
+        $('.option10').each(function() {
+            var code = $(this).data('value').toUpperCase();
+            if (code.startsWith(searchText)) {
+                $(this).show();
+            }
+        });
+        
+        // Then, if no match in codes, check for matches in city names
+        if ($('.option10:visible').length === 0) {
+            $('.option10').each(function() {
+                var city = $(this).text().toUpperCase();
+                if (city.includes(searchText)) {
+                    $(this).show();
+                }
+            });
+        }
+    });
+});
+</script>
     <script>
 
         function myDate() {

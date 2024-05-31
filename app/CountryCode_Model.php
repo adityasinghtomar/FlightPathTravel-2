@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Countries_Model extends Model
+class CountryCode_Model extends Model
 {
     protected $table='country';
     protected $primaryKey='id';

@@ -30,6 +30,7 @@
         <thead>
             <tr>
                         <th>Mark-Up Name</th>
+                        <th>Mark-Up Currency Code</th>
                         <th>Mark-Up Type</th>
                         <th>Mark-Up Amount</th>
                         <th>Mark-Up Status</th>
@@ -42,6 +43,7 @@
                     @foreach($commision as $flights)    
                      <tr>
                        <td><?php echo $flights->name; ?></td>
+                       <td><?php echo $flights->currency_code; ?></td>
                        <td><?php echo $flights->markup_type; ?></td>
                         <td><?php echo $flights->markup_amount; ?></td>
                         <td><?php echo $flights->status; ?></td>

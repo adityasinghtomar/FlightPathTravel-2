@@ -218,6 +218,62 @@
             </div>
           </div>
         </div>
+        <div class="sidebar__item ">
+          <div class="accordion -db-sidebar js-accordion">
+            <div class="accordion__item">
+              <div class="accordion__button">
+                <div class="sidebar__button col-12 d-flex items-center justify-between">
+                  <div class="d-flex items-center text-15 lh-1 fw-500">
+                    <i class="fas fa-flag  mr-15"></i>
+                    Manage Review
+                  </div>
+                  <div class="icon-chevron-sm-down text-7"></div>
+                </div>
+              </div>
+
+              <div class="accordion__content">
+                <ul class="list-disc pb-5 pl-40">
+
+                  <li>
+                    <a href="{{url('/all-review')}}" class="text-15">All Review</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/create-review')}}" class="text-15">Add Review</a>
+                  </li>
+                
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="sidebar__item ">
+          <div class="accordion -db-sidebar js-accordion">
+            <div class="accordion__item">
+              <div class="accordion__button">
+                <div class="sidebar__button col-12 d-flex items-center justify-between">
+                  <div class="d-flex items-center text-15 lh-1 fw-500">
+                    <i class="fas fa-flag  mr-15"></i>
+                    Manage Destination
+                  </div>
+                  <div class="icon-chevron-sm-down text-7"></div>
+                </div>
+              </div>
+
+              <div class="accordion__content">
+                <ul class="list-disc pb-5 pl-40">
+
+                  <li>
+                    <a href="{{url('/all-destination')}}" class="text-15">All Desination</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/create-destination')}}" class="text-15">Add Destination</a>
+                  </li>
+                
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
          
                 <div class="sidebar__item ">
           <div class="accordion -db-sidebar js-accordion">
@@ -630,10 +686,13 @@
         </div>
         <div class="sidebar__item">
           <div class="sidebar__button ">
-            <a href="#" class="d-flex items-center text-15 lh-1 fw-500">
-              <i class="fas fa-sign-out-alt mr-15"></i>
-              Logout
-            </a>
+                 <form id="logout-form" action="{{ route('admin-logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+               <button onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
+           
           </div>
         </div>
         <div class="sidebar__item ">
@@ -659,6 +718,9 @@
                   </li>
                   <li>
                     <a href="{{url('/Api-Setting')}}" class="text-15">API Setting</a>
+                  </li>
+                    <li>
+                    <a href="{{url('/all-key')}}" class="text-15">API credentials</a>
                   </li>
                    <li>
                     <a href="{{url('/flight-Setting')}}" class="text-15">Flight Setting</a>

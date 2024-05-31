@@ -8,6 +8,6 @@ class API_credential_Model extends Model
 {
     protected $table='api_credentials';
     protected $primaryKey='id';
-    protected $fillable=['api_name','ClientId','UserName','Password','EndUserIp'];
+    protected $fillable=['api_name','ClientId','UserName','Password','EndUserIp','status'];
     
 }

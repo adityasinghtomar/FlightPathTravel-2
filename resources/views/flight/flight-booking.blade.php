@@ -39,6 +39,80 @@
             </div>
         </div>
     </section>
+    <div style="float:left;margin-left:15px;">
+           <button class="btn btn-theme-blue px-25 py-10">Back To find</button>
+    </div>
+    <div style="float:right;margin-right:15px;">
+        <form action="{{url('/book_now')}}" enctype="multipart/form-data" method="post">
+
+                        @csrf
+
+                        <input type="hidden" name="ResultIndex" value="<?php echo $ResultIndex;?>">
+
+                        <input type="hidden" name="TraceId" value="<?php echo $TraceId;?>">
+
+                        <input type="hidden" name="token_id" value="<?php echo $token_id; ?>">
+
+                        <input type="hidden" name="EndUserIp" value="192.168.11.120">
+
+                        <input type="hidden" name="BaseFare" value="<?php echo $BaseFare;?>">
+
+                        <input type="hidden" name="Currency" value="<?php echo $Currency ;?>">
+
+                        <input type="hidden" name="Tax" value="<?php echo $Tax ;?>">
+
+                        <input type="hidden" name="YQTax" value="<?php echo $YQTax;?>">
+
+                        <input type="hidden" name="AdditionalTxnFeeOfrd"
+                            value="<?php echo $AdditionalTxnFeeOfrd;?>">
+
+                        <input type="hidden" name="AdditionalTxnFeePub"
+                            value="<?php echo $AdditionalTxnFeePub;?>">
+
+                        <input type="hidden" name="OtherCharges" value="<?php echo $OtherCharges;?>">
+
+                        <input type="hidden" name="Discount" value="<?php echo $Discount;?>">
+
+                        <input type="hidden" name="PublishedFare" value="<?php echo $PublishedFare;?>">
+
+                        <input type="hidden" name="OfferedFare" value="<?php echo $OfferedFare;?>">
+
+                        <input type="hidden" name="TdsOnCommission" value="<?php echo $TdsOnCommission;?>">
+
+                        <input type="hidden" name="TdsOnPLB" value="<?php echo $TdsOnPLB;?>">
+
+                        <input type="hidden" name="TdsOnIncentive" value="<?php echo $TdsOnIncentive;?>">
+
+                        <input type="hidden" name="ServiceFee" value="<?php echo $ServiceFee;?>">
+
+                        <input type="hidden" name="Destination_name"
+                            value="<?php echo $Destination_name;?>">
+
+                        <input type="hidden" name="Destination_address"
+                            value="<?php echo $Destination_address;?>">
+
+                        <input type="hidden" name="Source_name" value="<?php echo $Source_name;?>">
+
+                        <input type="hidden" name="Source_address" value="<?php echo $Source_address;?>">
+
+                        <input type="hidden" name="Duration" value="<?php echo $Duration;?>">
+
+                        <input type="hidden" name="AirlineName" value="<?php echo $AirlineName;?>">
+
+                        <input type="hidden" name="DepTime" value="<?php echo $DepTime;?>">
+
+                        <input type="hidden" name="ArrTime" value="<?php echo $ArrTime;?>">
+
+                        <input type="hidden" name="adult" value="<?php echo $adult;?>">
+
+                        <input type="hidden" name="count" value="<?php echo $count;?>">
+
+                        <input type="hidden" name="Duration_time" value="<?php echo $Duration_time;?>">
+                        <button class="btn btn-theme-blue px-25 py-10">Skip & Book Now</button>
+
+                    </form>
+
+    </div>
 
     <!-- Dashboard Area -->
     

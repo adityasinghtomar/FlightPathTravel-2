@@ -1,43 +1,5 @@
 @include('auth.cust_header')
-<div class="preloader">
 
-        <div class="d-table">
-
-            <div class="d-table-cell">
-
-                <div class="lds-spinner">
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                    <div></div>
-
-                </div>
- <h3>Loading..</h3>
-            </div>
-
-        </div>
-
-    </div>
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -60,7 +22,11 @@
     </div>
 
     <!-- Common Banner Area -->
-    <section id="common_banner">
+    <section id=""style="background-image: url(public/assets/img/common/big_banner.png);
+    padding: 200px 0 130px 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -361,98 +327,7 @@ summary:after {
     </section>
 
     <!-- Customer Area -->
-    <section id="customer_reviews" class="section_padding_bottom">
-        <div class="container">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="section_heading_center">
-                    <h2>Customer review</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review6.png" alt="img">
-                            <h4>Jesica simpsn</h4>
-                            <span>Tourist</span>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review6.png" alt="img">
-                            <h4>Santa mariam</h4>
-                            <span>traveler</span>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review7.png" alt="img">
-                            <h4>Jack cremer</h4>
-                            <span>Manager</span>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+ 
 
     <!-- Cta Area -->
     <section id="cta_area">
@@ -489,6 +364,9 @@ summary:after {
         <i class="fas fa-chevron-up"></i>
         <i class="fas fa-chevron-up"></i>
     </div>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
 
     <script src="public/assets/js/jquery-3.6.0.min.js"></script>
 

@@ -36,7 +36,11 @@
             </div>
         </div>
     </section>
-
+<style>
+    .checked {
+  color: orange;
+}
+</style>
     <!-- Testimonials Area -->
     <section id="testimonials_main_arae" class="section_padding">
         <div class="container">
@@ -48,285 +52,46 @@
                 </div>
             </div>
             <div class="row">
+                 @foreach($review as $tours)
                 <div class="col-lg-4 col-md-6">
                     <div class="all_review_box">
                         <div class="all_review_date_area">
                             <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
+                            
                             </div>
                             <div class="all_review_star">
-                                <h5>Excellent</h5>
+                                
                                 <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                   @php
+                                    $rating = $tours->ratting;
+                                    $checkedStars = min(5, max(0, $rating)); // Making sure the rating is between 0 and 5
+                                @endphp
+                                @for($i = 0; $i < 5; $i++)
+                                    @if($i < $checkedStars)
+                                        <span class="fa fa-star checked"></span>
+                                    @else
+                                        <span class="fa fa-star"></span>
+                                    @endif
+                                @endfor
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="all_review_text">
-                            <img src="assets/img/review/review2.png" alt="img">
-                            <h4>Michel falak</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
+                            <img src="public/images/flex/user.webp" alt="img">
+                            <h4>{{ $tours->name}}</h4>
+                            <p>{{ $tours->content}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review3.png" alt="img">
-                            <h4>Chester dals</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review4.png" alt="img">
-                            <h4>Casper mike</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review5.png" alt="img">
-                            <h4>Jason bruno</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review2.png" alt="img">
-                            <h4>Michel falak</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="all_review_box">
-                        <div class="all_review_date_area">
-                            <div class="all_review_date">
-                                <h5>08 Dec, 2021</h5>
-                            </div>
-                            <div class="all_review_star">
-                                <h5>Excellent</h5>
-                                <div class="review_star_all">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="all_review_text">
-                            <img src="assets/img/review/review3.png" alt="img">
-                            <h4>Chester dals</h4>
-                            <p>" Loved the overall tour for all 6 days covering jaipur jodhpur and jaisalmer. worth ur
-                                money for sure. thanks. Driver was very good and polite and safe driving for all 6 days.
-                                on time pickup and drop overall. Thanks for it. "</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="pagination_area">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+              @endforeach
+               
             </div>
         </div>
     </section>
 
     <!--Top tour packages Area -->
-    <section id="top_tour_packages" class="section_padding_bottom">
-        <div class="container">
-            <!-- Section Heading -->
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section_heading_center">
-                        <h2>Top tour packages</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="promotional_tour_slider owl-theme owl-carousel dot_style">
-                        <div class="theme_common_box_two">
-                            <div class="theme_two_box_img">
-                                <a href="tour-details.html"><img src="assets/img/tab-img/hotel1.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>New beach, Thailand</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="tour-details.html">Kantua hotel, Thailand</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two">
-                            <div class="theme_two_box_img">
-                                <a href="tour-details.html"><img src="assets/img/tab-img/hotel2.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Indonesia</p>
-                                <div class="discount_tab">
-                                    <span>50%</span>
-                                </div>
-
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="tour-details.html">Hotel paradise international</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two">
-                            <div class="theme_two_box_img">
-                                <a href="tour-details.html"><img src="assets/img/tab-img/hotel3.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Kualalampur</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="tour-details.html">Hotel kualalampur</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two">
-                            <div class="theme_two_box_img">
-                                <a href="tour-details.html"><img src="assets/img/tab-img/hotel4.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Mariana island</p>
-                                <div class="discount_tab">
-                                    <span>50%</span>
-                                </div>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="tour-details.html">Hotel deluxe</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two">
-                            <div class="theme_two_box_img">
-                                <a href="tour-details.html"><img src="assets/img/tab-img/hotel6.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Beach view</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="tour-details.html">Thailand grand suit</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                        <div class="theme_common_box_two">
-                            <div class="theme_two_box_img">
-                                <a href="tour-details.html"><img src="assets/img/tab-img/hotel7.png" alt="img"></a>
-                                <p><i class="fas fa-map-marker-alt"></i>Long island</p>
-                            </div>
-                            <div class="theme_two_box_content">
-                                <h4><a href="tour-details.html">Zefi resort and spa</a></h4>
-                                <p><span class="review_rating">4.8/5 Excellent</span> <span class="review_count">(1214
-                                        reviewes)</span></p>
-                                <h3>$99.00 <span>Price starts from</span></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   
 
     <!-- Cta Area -->
     <section id="cta_area">

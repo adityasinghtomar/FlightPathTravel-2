@@ -270,7 +270,7 @@
                                                     <form action="{{url('/return-flight-search')}}" enctype="multipart/form-data" method="post">
                                                       @csrf
                                                         <div class="row">
-                                                            <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                                                            <div class="col-md-3 col-md-6 col-sm-12 col-12">
                                                                 <div class="flight_Search_boxed">
                                                                     <p>From</p>
                                                                     <?php $filterResult =\App\Airport_Model::get(); ?>
@@ -286,7 +286,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                                                            <div class="col-md-2 col-md-2 col-sm-12 col-12">
                                                                 <div class="flight_Search_boxed">
                                                                     <p>To</p>
                                                                      <?php $filterResult =\App\Airport_Model::get(); ?>
@@ -306,7 +306,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                                    <div class="col-md-2 col-md-2 col-sm-12 col-12">
                                                         <div class="form_search_date">
                                                             <div class="flight_Search_boxed date_flex_area">
                                                                 <div class="Journey_date">

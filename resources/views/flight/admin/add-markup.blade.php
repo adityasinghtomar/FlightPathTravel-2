@@ -42,6 +42,28 @@
                     </div>
                     <div class="col-sm-6">
                       <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Mark-Up Type </label>
+                       <select class="form-control demo-select2-placeholder" name="markup_type" id="state_id" >
+                           <option value="flight">Flight</option>
+                           <option value="hotel">Hotel</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>    
+                <div class="row">    
+                    <div class="col-sm-6">
+                      <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Mark-Up Currency Code</label>
+                        <?php $country =\App\Currency_Model::get(); ?>
+                        <select class="form-control demo-select2-placeholder" name="currency_code" id="state_id" >
+                            @foreach($country as $row)
+                            <option value="{{ $row->currency_code }}">{{ $row->currency_code }}</option>
+                           @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Mark-Up % </label>
                         <input type="number" name="markup_amount" required>
                       </div>

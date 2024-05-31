@@ -7,7 +7,7 @@ class Visa_Model extends Model
 {
     protected $table='visa';
     protected $primaryKey='id';
-    protected $fillable=['visa_name','visa_type','duration','overview','documents','include','exclude','why_choose_us','amount','image','currency_type'];
+    protected $fillable=['visa_name','visa_type','duration','overview','documents','include','exclude','why_choose_us','amount','image','currency_type','country'];
 	
 
 }

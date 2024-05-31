@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Mail; 
+use App\Mail\DemoMail;
 use Illuminate\Http\Request;
 use App\Category_Model;
 use App\State_Model;
@@ -14,6 +15,7 @@ use App\Flight_Model;
 use App\Flight_Log_Model;
 use App\Wallet_Model;
 use App\Api_Model;
+use App\API_credential_Model;
 use App\Currency_Model;
 use App\Wallet_Transaction_Model;
 use Illuminate\Support\Facades\Http;
@@ -60,11 +62,12 @@ class FlightController extends Controller
     }
  public function flight(Request $request)
     {
-       $api_authentic = Api_Model::where('api_name','Authentic')->first(); 
-       $api_search = Api_Model::where('api_name','Flight')->first(); 
+      $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+      $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
     //   print_r($request->from);die;
     $form_status = $request->form_status;    
-
+ 
 $from = $request->from;
 $to = $request->to;
 $journey_date = $request->journey_date;
@@ -75,17 +78,18 @@ $cabin_class = $request->cabin_class;
 $from1 = "";
  $to1 = "";
  $journey_date1 = ""; 
- 
+ if(isset($from) && isset($to) && isset($journey_date)  ){
+    
 // Endpoint you want to access
 $endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
 // Define your search parameters as an array
 // print_r($endpoint);die;
 $url = $endpoint;
                 $json='{
-"ClientId": "tboprod",
-"UserName": "AMDF361",
-"Password": "TravelInd@#361$", 
-"EndUserIp": "101.53.132.121"
+"ClientId": "'.$API_credential->ClientId.'",
+"UserName": "'.$API_credential->UserName.'",
+"Password": "'.$API_credential->Password.'", 
+"EndUserIp": "'.$API_credential->EndUserIp.'"
 }';
 // $url = 'https://www.example.com/api';
 
@@ -157,57 +161,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 // Execute the POST request
 $ss = curl_exec($ch);
 $ress = json_decode($ss);
-// print_r($ss);die;
-// foreach($ress as $res){
-//     $dat = $res->Results;
-//     foreach($dat as $dat1){
-//         foreach($dat1 as $dat2){
-//          $Segments = $dat2->Segments;
-//         //  print_r($Segments->Baggage);
-//          foreach( $Segments as $Segment){
-//             foreach( $Segment as $Segm){
-//           $Origin = $Segm->Origin;
-//           $Destination = $Segm->Destination;
-//           $Airportcode[] = $Origin->Airport->AirportCode;
-//           $AirportName[] = $Origin->Airport->AirportName;
-//           $DepTime[] = $Origin->DepTime;
-          
-//           $DestinationDepTime = $Destination->ArrTime;
-//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
-//           $DestinationAirportName[] = $Destination->Airport->AirportName;
-        //   foreach($Airport as $Origin1){
-        //   print_r( $Airport);
-        // } 
-    //     }
-        
-    //     }
-
-    //     }
-    // }
-// }
-// foreach($daa as $dat2){
-//          $Segments = $dat2->Segments;
-//         //  print_r($Segments->Baggage);
-//          foreach( $Segments as $Segment){
-//             foreach( $Segment as $Segm){
-//           $Origin = $Segm->Origin;
-//           $Destination = $Segm->Destination;
-//           $Airportcode[] = $Origin->Airport->AirportCode;
-//           $AirportName[] = $Origin->Airport->AirportName;
-//           $DepTime[] = $Origin->DepTime;
-          
-//           $DestinationDepTime[] = $Destination->ArrTime;
-//           $DestinationAirportcode[] = $Destination->Airport->AirportCode;
-//           $DestinationAirportName[] = $Destination->Airport->AirportName;
-//         //   foreach($Airport as $Origin1){
-//         //   print_r( $Airport);
-//         // } 
-//         }
-//         }
-//         } 
-        // print_r($DestinationDepTime);
-//  die;
-//  print_r($ress);die;
+// print_r($ress);die;
 if(isset($ress)){
 foreach($ress as $res){
     $TraceId = $res->TraceId;
@@ -236,17 +190,33 @@ if(isset($res->Results)) {
             foreach($dat1 as $key=>$dat2){
                 $Segments = $dat2->Segments;
             
-          $unique_fareclasses = collect($dat)->flatMap(function($item) {
-                            return collect($item)->filter(function ($value, $key) {
-                                foreach($value->Segments as $Segment){
-                                     foreach( $Segment as $keyys => $Segm){
-                                return isset($Segm->Origin->DepTime);
-                                     }
+        //   $unique_fareclasses = collect($dat)->flatMap(function($item) {
+        //                     return collect($item)->filter(function ($value, $key) {
+        //                         foreach($value->Segments as $Segment){
+        //                              foreach( $Segment as $keyys => $Segm){
+        //                         if(isset($Segm->Origin->DepTime) && isset($value->Fare->PublishedFare)){
+        //                              return $Segm->Origin->DepTime;
+        //                         }
+        //                              }
                                     
-                                }
-                            })->pluck('Fare.PublishedFare');
-                        })->unique();
+        //                         }
+                                
+        //                     })->pluck('Fare.PublishedFare');
+        //                 })->unique();
+      $unique_fareclasses = collect($dat)->flatMap(function($item) {
+    return collect($item)->filter(function ($value, $key) {
+        foreach ($value->Segments as $Segment) {
+            foreach ($Segment as $keyys => $Segm) {
+                if (isset($Segm->Origin->DepTime) && isset($value->Fare->PublishedFare) && isset($Segm->Airline->FlightNumber)) {
+                    return $Segm->Origin->DepTime;
+                }
+            }
+        }
+    })->pluck('Fare.PublishedFare');
+})->unique();
                     }
+                    
+                    
             
         
     }
@@ -267,11 +237,25 @@ if(isset($res->Results)) {
 //             $messages->subject('flight Booking');   
 //         });	
 // Close cURL resource 
-//   print_r($res);die;
+//   print_r($ress);die;
+// print_r($endpoint);
+// print_r($json);
+
+// print_r($search);
+// print_r($json1);
+// print_r($ress);die;
 curl_close($ch); 
 $filterResult = Airport_Model::get(); 
+if(isset($unique_fareclasses)){
         return view('flight/flight_search_result',compact('unique_fareclasses','form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
-    } 
+    } else{
+        return redirect()->back()->with('success', 'Data Not Found'); 
+    }
+ }
+else{
+    return redirect()->back()->with('success', 'Invalid Search Data');
+}    
+    }
  
     /**
      * Show the form for creating a new resource.
@@ -334,6 +318,10 @@ $url = $endpoint;
 
  public function flight_booking_details(Request $request)
     {
+          $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+      $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
+    
      session()->put('ResultIndex',$request->ResultIndex);
      session()->put('TraceId',$request->TraceId);
      session()->put('token_id',$request->token_id);
@@ -410,6 +398,24 @@ $url = $endpoint;
     $adult = session()->get('adult');
     $count = session()->get('count');
     $success = '';
+    
+    // FireRule
+$endpoint11 = "$api_search->api/rest/FareRule/"; 
+$json11='{
+"EndUserIp": "'.$EndUserIp.'",
+"TokenId": "'.$token_id.'",
+"TraceId": "'.$TraceId.'",
+"ResultIndex": "'.$ResultIndex.'",
+	}';
+// print_r($TraceId);die;
+$ch11 = curl_init($endpoint11);
+$data1 =$json11;
+curl_setopt($ch11, CURLOPT_POSTFIELDS, $data1);
+curl_setopt($ch11, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch11, CURLOPT_RETURNTRANSFER, true);
+$result11 = curl_exec($ch11);
+$result111    = json_decode($result11); 
+// print_r($result111);die; 
     return view('flight/flight_booking_submission',compact('Duration_time','convertedAmount','success','Duration','count','adult','ArrTime','DepTime','AirlineName','all_state','all_countries','all_city','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
     }	
 	
@@ -679,30 +685,67 @@ foreach($result1 as $res){
     // Ticket Choose 
      public function select_seat(Request $request)
     {
-        $api_search = Api_Model::where('api_name','Flight')->first();  
-    $ResultIndex = $request->ResultIndex;
-    $TraceId = $request->TraceId;
-    $token_id = $request->token_id;
-    $EndUserIp = $request->EndUserIp;
-    $BaseFare = $request->BaseFare;
-    $Currency = $request->Currency;
-    $Tax = $request->Tax;
-    $YQTax = $request->YQTax;
-    $AdditionalTxnFeeOfrd = $request->AdditionalTxnFeeOfrd;
-    $AdditionalTxnFeePub = $request->AdditionalTxnFeePub;
-    $OtherCharges = $request->OtherCharges;
-    $Discount = $request->Discount;
-    $PublishedFare = $request->PublishedFare;
-    $TdsOnCommission = $request->TdsOnCommission;
-    $TdsOnPLB = $request->TdsOnPLB;
-    $TdsOnIncentive = $request->TdsOnIncentive;
-    $ServiceFee = $request->ServiceFee;
-    $Destination_name = $request->Destination_name;
-    $Destination_address = $request->Destination_address;
-    $Source_name = $request->Source_name;
-    $Source_address = $request->Source_address;
-    $Duration = $request->Duration; 
-    $AirlineName = $request->AirlineName; 
+        $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first();  
+        
+    session()->put('ResultIndex',$request->ResultIndex);
+    session()->put('TraceId',$request->TraceId);
+    session()->put('token_id',$request->token_id);
+    session()->put('EndUserIp',$request->EndUserIp);
+    session()->put('BaseFare',$request->BaseFare);
+    session()->put('Currency',$request->Currency);
+    session()->put('Tax',$request->Tax);
+    session()->put('YQTax',$request->YQTax);
+    session()->put('AdditionalTxnFeeOfrd',$request->AdditionalTxnFeeOfrd);
+    session()->put('AdditionalTxnFeePub',$request->AdditionalTxnFeePub);
+    session()->put('OtherCharges',$request->OtherCharges);
+    session()->put('Discount',$request->Discount);
+    session()->put('PublishedFare',$request->PublishedFare);
+    session()->put('TdsOnCommission',$request->TdsOnCommission);
+    session()->put('TdsOnPLB',$request->TdsOnPLB);
+    session()->put('TdsOnIncentive',$request->TdsOnIncentive);
+    session()->put('ServiceFee',$request->ServiceFee);
+    session()->put('Destination_name',$request->Destination_name);
+    session()->put('Destination_address',$request->Destination_address);
+    session()->put('Source_name',$request->Source_name);
+    session()->put('Source_address',$request->Source_address);
+    session()->put('Duration',$request->Duration); 
+    session()->put('AirlineName',$request->AirlineName); 
+    
+    session()->put('adult',$request->adult);
+    session()->put('DepTime',$request->DepTime);
+    session()->put('ArrTime',$request->ArrTime); 
+    session()->put('count',$request->count);
+    session()->put('Duration_time',$request->Duration_time);
+    session()->put('OfferedFare',$request->OfferedFare);
+    $OfferedFare = session()->get('OfferedFare');
+    $ResultIndex = session()->get('ResultIndex');
+    $TraceId = session()->get('TraceId');
+    $token_id = session()->get('token_id');
+    $EndUserIp = session()->get('EndUserIp');
+    $BaseFare = session()->get('BaseFare');
+    $Currency = session()->get('Currency');
+    $Tax = session()->get('Tax');
+    $YQTax = session()->get('YQTax');
+    $AdditionalTxnFeeOfrd = session()->get('AdditionalTxnFeeOfrd');
+    $AdditionalTxnFeePub = session()->get('AdditionalTxnFeePub');
+    $OtherCharges = session()->get('OtherCharges');
+    $Discount = session()->get('Discount');
+    $PublishedFare = session()->get('PublishedFare');
+    $TdsOnCommission = session()->get('TdsOnCommission');
+    $TdsOnPLB = session()->get('TdsOnPLB');
+    $TdsOnIncentive = session()->get('TdsOnIncentive');
+    $ServiceFee = session()->get('ServiceFee');
+    $Destination_name = session()->get('Destination_name');
+    $Destination_address = session()->get('Destination_address');
+    $Source_name = session()->get('Source_name');
+    $Source_address = session()->get('Source_address');
+    $Duration = session()->get('Duration'); 
+    $AirlineName = session()->get('AirlineName'); 
+    $Duration_time =session()->get('Duration_time');
+    $adult = session()->get('adult');
+    $DepTime = session()->get('DepTime');
+    $ArrTime = session()->get('ArrTime'); 
+    $count = session()->get('count');
 // FireRule
 $endpoint11 = "$api_search->api/rest/FareRule/"; 
 $json11='{
@@ -800,7 +843,7 @@ $result23    = json_decode($result2);
 // die;
 // 
     
-    return view('flight/flight-booking',compact('AirlineName','result23','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount'));
+    return view('flight/flight-booking',compact('OfferedFare','Duration_time','count','ArrTime','DepTime','AirlineName','result23','token_id','Duration','Source_address','Source_name','Destination_address','Destination_name','ServiceFee','TdsOnIncentive','TdsOnPLB','TdsOnCommission','PublishedFare','ResultIndex','TraceId','EndUserIp','BaseFare','Currency','Tax','YQTax','AdditionalTxnFeeOfrd','AdditionalTxnFeePub','OtherCharges','Discount','adult'));
     }
     
     // LCC Flight Booking
@@ -879,7 +922,7 @@ $result23    = json_decode($result2);
     }
     public function lcc_ticket_booking(Request $request)
     {
-$api_search = Api_Model::where('api_name','Flight')->first(); 
+$api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
     $ResultIndex = $request->ResultIndex;
     $TraceId = $request->TraceId;
     $token_id = $request->token_id;
@@ -2101,8 +2144,9 @@ $filterResult = Airport_Model::get();
     
  public function return_flight(Request $request)
     {
-     $api_authentic = Api_Model::where('api_name','Authentic')->first(); 
-       $api_search = Api_Model::where('api_name','Flight')->first();     
+    $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+    $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
+    $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first();     
     //   print_r($request->from);die;
 $form_status = $request->form_status;    
 $from = $request->from;
@@ -2112,7 +2156,7 @@ $return_date = $request->return_date;
  $from1 = "";
  $to1 = "";
  $journey_date1 = "";
- 
+if(isset($from) && isset($to) && isset($journey_date) && isset($return_date)  ){
 $adult = $request->adult;
 $children = $request->children;
 $infant = $request->infant;
@@ -2125,10 +2169,10 @@ $endpoint = "$api_authentic->api/rest/Authenticate";  // Replace with the actual
 
 $url = $endpoint;
                 $json='{
-"ClientId": "tboprod",
-"UserName": "AMDF361",
-"Password": "TravelInd@#361$", 
-"EndUserIp": "101.53.132.121"
+"ClientId": "'.$API_credential->ClientId.'",
+"UserName": "'.$API_credential->UserName.'",
+"Password": "'.$API_credential->Password.'", 
+"EndUserIp": "'.$API_credential->EndUserIp.'"
 }';
 // $url = 'https://www.example.com/api';
 
@@ -2214,9 +2258,62 @@ $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
 curl_close($ch); 
+foreach($ress as $res){
+if(isset($res->Results)) {
+    $dat = $res->Results;
+        foreach($dat as $dat1){
+            // print_r($dat1);
+            // die;
+            foreach($dat1 as $key=>$dat2){
+            //       print_r($dat2);
+            // die;
+                $Segments = $dat2->Segments;
+            
+        //   $unique_fareclasses = collect($dat)->flatMap(function($item) {
+        //                     return collect($item)->filter(function ($value, $key) {
+        //                         foreach($value->Segments as $Segment){
+        //                              foreach( $Segment as $keyys => $Segm){
+        //                         if(isset($Segm->Origin->DepTime) && isset($value->Fare->PublishedFare)){
+        //                              return $Segm->Origin->DepTime;
+        //                         }
+        //                              }
+                                    
+        //                         }
+                                
+        //                     })->pluck('Fare.PublishedFare');
+        //                 })->unique();
+      $unique_fareclasses = collect($dat)->flatMap(function($item) {
+    return collect($item)->filter(function ($value, $key) {
+        foreach ($value->Segments as $Segment) {
+            foreach ($Segment as $keyys => $Segm) {
+                if (isset($value->Fare->PublishedFare)) {
+                    return $value->Fare->PublishedFare;
+                }
+            }
+        }
+    })->pluck('Fare.PublishedFare');
+})->unique();
+                    }
+        // print_r($unique_fareclasses);die;
+                    
+                    
+            
+        
+    }
+}
+} 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('return_date','form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
-    } 
+     if(isset($unique_fareclasses)){
+        return view('flight/return-flight-search-resault',compact('unique_fareclasses','return_date','form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
+} else{
+        return redirect()->back()->with('success', 'Data Not Found'); 
+    }   
+}
+else{
+    return redirect()->back()->with('success', 'Invalid Search Data');
+}       
+}
+    
     
     //Multi City 
      
@@ -2236,7 +2333,7 @@ $filterResult = Airport_Model::get();
  $journey_date1 = $request->journey_date1;
 // print_r($itemCount);die;
  $results = [];
-
+if(isset($request->from['0']) && isset($request->to['0']) && isset($request->journey_date['0']) ){
 // Process each item in the input arrays
 for($i = 0; $i < $itemCount; $i++) {
     if($i==$itemCount)
@@ -2261,8 +2358,9 @@ $adult = $request->adult;
 $children = $request->children;
 $infant = $request->infant;
 $cabin_class = $request->cabin_class;
-       $api_authentic = Api_Model::where('api_name','Authentic')->first(); 
-       $api_search = Api_Model::where('api_name','Flight')->first(); 
+      $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+       $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
 // Endpoint you want to access
 $endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
 
@@ -2270,10 +2368,10 @@ $endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual 
 
 $url = $endpoint;
                 $json='{
-"ClientId": "tboprod",
-"UserName": "AMDF361",
-"Password": "TravelInd@#361$", 
-"EndUserIp": "101.53.132.121"
+"ClientId": "'.$API_credential->ClientId.'",
+"UserName": "'.$API_credential->UserName.'",
+"Password": "'.$API_credential->Password.'", 
+"EndUserIp": "'.$API_credential->EndUserIp.'"
 }';
 // $url = 'https://www.example.com/api';
 
@@ -2344,8 +2442,56 @@ $token_id = $result->TokenId;
 // Close cURL resource 
 //  print_r($ress);die;
 curl_close($ch); 
+
+foreach($ress as $res){
+if(isset($res->Results)) {
+    $dat = $res->Results;
+        foreach($dat as $dat1){
+            foreach($dat1 as $key=>$dat2){
+                $Segments = $dat2->Segments;
+            
+        //   $unique_fareclasses = collect($dat)->flatMap(function($item) {
+        //                     return collect($item)->filter(function ($value, $key) {
+        //                         foreach($value->Segments as $Segment){
+        //                              foreach( $Segment as $keyys => $Segm){
+        //                         if(isset($Segm->Origin->DepTime) && isset($value->Fare->PublishedFare)){
+        //                              return $Segm->Origin->DepTime;
+        //                         }
+        //                              }
+                                    
+        //                         }
+                                
+        //                     })->pluck('Fare.PublishedFare');
+        //                 })->unique();
+      $unique_fareclasses = collect($dat)->flatMap(function($item) {
+    return collect($item)->filter(function ($value, $key) {
+        foreach ($value->Segments as $Segment) {
+            foreach ($Segment as $keyys => $Segm) {
+                if (isset($Segm->Origin->DepTime) && isset($value->Fare->PublishedFare) && isset($Segm->Airline->FlightNumber)) {
+                    return $Segm->Origin->DepTime;
+                }
+            }
+        }
+    })->pluck('Fare.PublishedFare');
+})->unique();
+                    }
+                    
+                    
+            
+        
+    }
+}
+} 
 $filterResult = Airport_Model::get(); 
-        return view('flight/flight_search_result',compact('form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
+if(isset($unique_fareclasses)){
+        return view('flight/flight_search_result',compact('unique_fareclasses','form_status1','form_status','fli_data','ress','token_id','filterResult','journey_date','from','to','journey_date1','from1','to1','adult','children','infant','cabin_class')); 
+} else{
+        return redirect()->back()->with('success', 'Data Not Found'); 
+    } 
+    }
+else{
+    return redirect()->back()->with('success', 'Invalid Search Data');
+}    
     }
     
     // 
@@ -2439,19 +2585,22 @@ die;
      public function ticket_cancel(Request $request ,$id)
     {
     //   print_r($request->from);die;
+     $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+      $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
     $booking_id = $id;    
-
+    $flight_details = Flight_Model::where('booking_id',$booking_id)->first();
 // Endpoint you want to access
-$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+$endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
 
 // Define your search parameters as an array
 
 $url = $endpoint;
                 $json='{
-"ClientId": "ApiIntegrationNew",
-"UserName": "Flightpath",
-"Password": "Flight@1234", 
-"EndUserIp": "192.168.11.120"
+"ClientId": "'.$API_credential->ClientId.'",
+"UserName": "'.$API_credential->UserName.'",
+"Password": "'.$API_credential->Password.'", 
+"EndUserIp": "'.$API_credential->EndUserIp.'"
 }';
 // $url = 'https://www.example.com/api';
 
@@ -2474,46 +2623,80 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 // Execute the POST request
 $result1 = curl_exec($ch);
 $result = json_decode($result1);
-// print_r($result->TokenId);die;
-// Search 
-$search = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/GetCancellationCharges/'; // Replace with the actual flight search endpoint
+//  print_r($result->TokenId);die;
 
-// Define your search parameters as an array
+// Send Cancellation API  
+$search = "$api_search->api/rest/SendChangeRequest/"; // Replace with the actual flight search endpoint
 $json1='{
 "EndUserIp": "192.168.11.120",
 "TokenId": "'.$result->TokenId.'",
 "BookingId": "'.$booking_id.'",
 "RequestType": "1",
-"BookingMode": "5",
+"CancellationType": 3,
+"Remarks": "Test remarks",
 }';
-// $url = 'https://www.example.com/api';
-
-// Create a new cURL resource
 $ch = curl_init($search);
-
-// Setup request to send json via POST
-// $data =$json1;
-// print_r($json1);die;
 $payload1 = $json1;
-
-// Attach encoded JSON string to the POST fields
 curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
-
-// Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-
-// Return response instead of outputting
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-// print_r("ddw");die; 
-// Execute the POST request
 $ss = curl_exec($ch);
 $ress = json_decode($ss);
-
 $token_id = $result->TokenId;
 curl_close($ch); 
-print_r($ress);die;
-        return view('flight/flight_search_result',compact('form_status')); 
+ 
+
+$ddd = $ress->Response->TicketCRInfo;
+foreach($ddd as $dd){
+    $ChangeRequestId = $dd->ChangeRequestId;
+    $ChangeRequestStatus = $dd->Status;
+    $TicketId = $dd->TicketId;
+    $RefundedAmount = $dd->RefundedAmount;
+    $CancellationCharge = $dd->CancellationCharge;
+    $CreditNoteNo = $dd->CreditNoteNo;
+    $CreditNoteCreatedOn = $dd->CreditNoteCreatedOn;
+    break ;
+}
+print_r($ChangeRequestId);
+$data = array();
+ $data['TicketChangeRequestId']= $ChangeRequestId; 
+ $data['ticket_cancel_request_send_status_']= $ChangeRequestStatus;
+		$contact_id = Flight_Model::where('booking_id',$booking_id)->update($data);
+// Send Cancellation API  
+$searchd = "$api_search->api/rest/GetChangeRequestStatus/"; // Replace with the actual flight search endpoint
+$json1d='{
+"EndUserIp": "192.168.11.120",
+"TokenId": "'.$result->TokenId.'",
+"ChangeRequestId": "12526422",
+}';
+$ch = curl_init($searchd);
+$payload1d = $json1d;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1d);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$ssd = curl_exec($ch);
+$ressd = json_decode($ssd);
+$token_id = $result->TokenId;
+curl_close($ch); 
+print_r($ressd);
+$pnr_no =$flight_details->pnr_no;
+$email =$flight_details->email;
+ $data = ['CreditNoteCreatedOn' =>"$CreditNoteCreatedOn",'PNR_no' =>"$pnr_no",'ChangeRequestId' =>"$ChangeRequestId", 'ChangeRequestStatus'=>"$ChangeRequestStatus" ,'TicketId'=>"$TicketId" ,'RefundedAmount'=>"$RefundedAmount",'CancellationCharge'=>"$CancellationCharge",'CreditNoteNo'=>"$CreditNoteNo"];
+                    $user['to'] = $email;
+                Mail::send('ticket_cancel_mail',$data,function($messages) use ($user){
+                    
+                    $messages->to($user['to']);
+                    $messages->subject('flight Ticket Cancel Details');   
+                });	  
+                return redirect()->back()->with('success', 'Ticket Cancel Successfull');
     } 
+    
+    
+   public function pnr_search()
+    {
+       
+        return view('flight.pnr-search');
+    }
  public function currency_change(Request $request)
     {
         
@@ -2529,17 +2712,21 @@ print_r($ress);die;
     //   print_r($request->from);die;
     $booking_id = $id;    
     $flight_details =Flight_Model::where('booking_id',$booking_id)->first();
+    
+       $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+      $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
 // Endpoint you want to access
-$endpoint = 'http://api.tektravels.com/SharedServices/SharedData.svc/rest/Authenticate'; // Replace with the actual flight search endpoint
+$endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
 
 // Define your search parameters as an array
 
 $url = $endpoint;
                 $json='{
-"ClientId": "ApiIntegrationNew",
-"UserName": "Flightpath",
-"Password": "Flight@1234", 
-"EndUserIp": "192.168.11.120"
+"ClientId": "'.$API_credential->ClientId.'",
+"UserName": "'.$API_credential->UserName.'",
+"Password": "'.$API_credential->Password.'", 
+"EndUserIp": "'.$API_credential->EndUserIp.'"
 }';
 // $url = 'https://www.example.com/api';
 
@@ -2564,11 +2751,11 @@ $result1 = curl_exec($ch);
 $result = json_decode($result1);
 // print_r($result->TokenId);die;
 // Search 
-$search = 'http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/GetBookingDetails/'; // Replace with the actual flight search endpoint
+$search = "$api_search->booking_api/rest/GetBookingDetails/"; // Replace with the actual flight search endpoint
 
 // Define your search parameters as an array
 $json1='{
-"EndUserIp": "192.168.11.120",
+"EndUserIp": "'.$API_credential->EndUserIp.'",
 "TokenId": "'.$result->TokenId.'",
 "BookingId": "'.$booking_id.'",
 "PNR": "'.$flight_details->pnr_no.'",
@@ -2599,6 +2786,240 @@ $ress = json_decode($ss);
 $token_id = $result->TokenId;
 curl_close($ch); 
 // print_r($ress);die;
-        return view('flight/flight_ticket_booking',compact('ress')); 
+        if(isset($ress->Response->FlightItinerary->Passenger)){
+        return view('flight/flight_ticket_booking',compact('ress'));
+    }else{
+        return redirect()->back()->with('success', 'Invalid Search Data');
+    }
     } 
+ public function pnr_search_result(Request $request)
+    {
+    //   print_r($request->from);die;
+    $pnr = $request->pnr;
+    $lname = $request->lname;
+    $flight_details =Flight_Model::where('pnr_no',$pnr)->where('lname',$lname)->first();
+    if($flight_details){
+       $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+      $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
+// Endpoint you want to access
+$endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+
+$url = $endpoint;
+                $json='{
+"ClientId": "'.$API_credential->ClientId.'",
+"UserName": "'.$API_credential->UserName.'",
+"Password": "'.$API_credential->Password.'", 
+"EndUserIp": "'.$API_credential->EndUserIp.'"
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($url);
+
+// Setup request to send json via POST
+$data =$json;
+$payload = $json;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Execute the POST request
+$result1 = curl_exec($ch);
+$result = json_decode($result1);
+// print_r($result->TokenId);die;
+// Search 
+$search = "$api_search->booking_api/rest/GetBookingDetails/"; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+$json1='{
+"EndUserIp": "'.$API_credential->EndUserIp.'",
+"TokenId": "'.$result->TokenId.'",
+"BookingId": "'.$flight_details->booking_id.'",
+"PNR": "'.$flight_details->pnr_no.'",
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($search);
+
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
+$payload1 = $json1;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// print_r("ddw");die; 
+// Execute the POST request
+$ss = curl_exec($ch);
+$ress = json_decode($ss);
+
+$token_id = $result->TokenId;
+curl_close($ch); 
+// print_r($ress);die;
+    if(isset($ress->Response->FlightItinerary->Passenger)){
+        return view('flight/flight_ticket_booking',compact('ress'));
+    }else{
+        return redirect()->back()->with('success', 'Invalid Search Data');
+    }
+         
+    }  
+    else{
+    return redirect()->back()->with('success', 'Invalid Search Data');
+}  
+    }
+    // cron job 
+      public function ticket_status(Request $request)
+    {
+    //   print_r($request->from);die;
+       $i = 0;
+    $flight_details =Flight_Model::where('booking_status','0')->orderBy('id', 'DESC')->get();
+    foreach($flight_details as $flight_detailss){
+       $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+      $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
+// Endpoint you want to access
+$endpoint = "$api_authentic->api/rest/Authenticate"; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+
+$url = $endpoint;
+                $json='{
+"ClientId": "'.$API_credential->ClientId.'",
+"UserName": "'.$API_credential->UserName.'",
+"Password": "'.$API_credential->Password.'", 
+"EndUserIp": "'.$API_credential->EndUserIp.'"
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($url);
+
+// Setup request to send json via POST
+$data =$json;
+$payload = $json;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// Execute the POST request
+$result1 = curl_exec($ch);
+$result = json_decode($result1);
+// print_r($result->TokenId);die;
+// Search 
+$search = "$api_search->booking_api/rest/GetBookingDetails/"; // Replace with the actual flight search endpoint
+
+// Define your search parameters as an array
+$json1='{
+"EndUserIp": "'.$API_credential->EndUserIp.'",
+"TokenId": "'.$result->TokenId.'",
+"BookingId": "'.$flight_detailss->booking_id.'",
+"PNR": "'.$flight_detailss->pnr_no.'",
+}';
+// $url = 'https://www.example.com/api';
+
+// Create a new cURL resource
+$ch = curl_init($search);
+
+// Setup request to send json via POST
+// $data =$json1;
+// print_r($json1);die;
+$payload1 = $json1;
+
+// Attach encoded JSON string to the POST fields
+curl_setopt($ch, CURLOPT_POSTFIELDS, $payload1);
+
+// Set the content type to application/json
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+
+// Return response instead of outputting
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// print_r("ddw");die; 
+// Execute the POST request
+$ss = curl_exec($ch);
+$ress = json_decode($ss);
+
+$token_id = $result->TokenId;
+curl_close($ch); 
+
+        if(isset($ress->Response->FlightItinerary->Passenger)){
+           print_r("hh");die; 
+        return view('flight/flight_ticket_booking',compact('ress'));
+    }else{
+        
+       print_r($flight_detailss->booking_id);"</br>";
+       print_r($i++);"</br>";
+        // return redirect()->back()->with('success', 'Invalid Search Data');
+    }
+    } 
+    }  
+    
+ public function firerule(Request $request)
+    {
+        
+       $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
+       $api_search = Api_Model::where('api_name','Flight')->where('status','active')->first(); 
+      $API_credential = API_credential_Model::where('api_name','Flight')->where('status','active')->first();
+        // print_r("ff");die;
+        $ResultIndex = $request->ResultIndex;
+         $TraceId = $request->TraceId;
+        $token_id = $request->token_id;
+        $EndUserIp = $request->EndUserIp;
+        // FireRule
+$endpoint11 = "$api_search->api/rest/FareRule/"; 
+$json11='{
+"EndUserIp": "'.$EndUserIp.'",
+"TokenId": "'.$token_id.'",
+"TraceId": "'.$TraceId.'",
+"ResultIndex": "'.$ResultIndex.'",
+	}';
+// print_r($TraceId);die;
+$ch11 = curl_init($endpoint11);
+$data1 =$json11;
+curl_setopt($ch11, CURLOPT_POSTFIELDS, $data1);
+curl_setopt($ch11, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+curl_setopt($ch11, CURLOPT_RETURNTRANSFER, true);
+$result11 = curl_exec($ch11);
+$result111    = json_decode($result11); 
+
+$ddd = $result111->Response->FareRules;
+foreach($ddd as $dd){
+    $result = $dd->FareRuleDetail;
+    break ;
+}
+print_r($result);
+die; 
+        return response()->json($result);
+    }    
+  public function mail()
+    {  
+ $data = ['pnr_no' =>"GHJ&&*", 'booking_id'=>"678678" ,'amount'=>"6667" ,'ticket_date'=>"10-12-2024",'fname'=>"umesh",'lname'=>"mandrai",'Origin'=>"DELHI",'Destination'=>"BHOPAL",'DepTime'=>"20-10-2024:10:20", 'ArrTime'=>"20-10-2024:12:20" ];
+                    $user['to'] = "umeshmandrai98@gmail.com";
+                Mail::send('welcome',$data,function($messages) use ($user){
+                    
+                    $messages->to($user['to']);
+                    $messages->subject('flight Ticket Booking Details');   
+                });	  
+    }            
 }

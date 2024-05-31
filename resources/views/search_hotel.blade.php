@@ -488,14 +488,14 @@
                                     <div class="col-xxl-4 col-xl-3 col-lg-4 mb-20">
                                         <div class="custom-select-wrapper">
                                             <label>City</label>
-                                            <input type="text" class="form-control select-input8" name="city_name" id="hoteldate" placeholder="Select an option">
-                                          <?php $data =\App\Hotel_City_Model::get(); ?>
-                                            <ul class="list-unstyled select-options8">
-                                                
-                                                   @foreach($data as $state_)
-                                                    <li class="option8" data-value="{{$state_->name}}">{{__($state_->name)}} {{__($state_->CountryName)}} ( {{__($state_->CountryCode)}} )</li>
-                                                @endforeach
-                                            </ul>
+                                           <input type="text" class="form-control select-input8 hoteldate1" id="hoteldate" name="city_display"  placeholder="Select an option" autocomplete="off">
+                                                <input type="hidden" name="city_name" class="hoteldate2" id="city_name">
+                                                <ul class="list-unstyled select-options8" id="city_list">
+                                                    <?php $data =\App\Hotel_City_Model::orderBy('name','ASC')->take(200)->get(); ?>
+                                                    @foreach($data as $state_)
+                                                        <li class="option8" data-value="{{$state_->name}}">{{$state_->name}} ({{$state_->CountryCode}})</li>
+                                                    @endforeach
+                                                </ul>
                                         </div>
                                        
                                     </div>
@@ -2077,10 +2077,11 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var input = document.getElementById('hoteldate');
+    var input = document.querySelector('.hoteldate1');
     var options = document.querySelectorAll('.option8');
-    var display = document.getElementById('hotellocation');
-    
+    var cityNameInput = document.querySelector('.hoteldate2');
+    var cityDisplay = document.getElementById('cityDisplay');
+
     input.addEventListener('input', function() {
         var filter = input.value.toUpperCase();
         options.forEach(function(option) {
@@ -2092,11 +2093,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-    
-    options.forEach(function(option) {
-        option.addEventListener('click', function() {
-            display.textContent = option.textContent;
-        });
+
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('option8')) {
+            var selectedOption = event.target;
+            cityNameInput.value = selectedOption.getAttribute('data-value');
+            input.value = selectedOption.textContent.match(/^[^\(]+/)[0].trim();
+            cityDisplay.textContent = selectedOption.textContent;
+        }
     });
 });
 </script>
@@ -3740,86 +3744,44 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-    // Fetch data from Laravel backend and initialize select options
-    $.ajax({
-        url: '/fetch-airport-data', // Adjust the URL to your Laravel route
-        type: 'GET',
-        success: function(data) {
-            var options = data; // Assuming data is an array of airport objects
+    $('#hoteldate').on('input', function() {
+        var searchText = $(this).val();
+        $.ajax({
+            url: '/search-cities', // Backend URL that returns filtered cities
+            type: 'GET',
+            data: { query: searchText },
+            success: function(data) {
+                var selectOptions = $('#city_list');
+                selectOptions.empty(); // Clear existing options
 
-            // Initialize select options
-            var selectOptions = $('.select-options8');
-            options.forEach(function(option) {
-                selectOptions.append('<li class="option8" data-value="' + option.AIRPORTCODE + '">' + option.AIRPORTNAME + ' - ' + option.CITYNAME + ' (' + option.COUNTRYCODE + ')' + '</li>');
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching airport data:', error);
-        }
-    });
-
-    // Set default placeholder value and hide options
-    $('.select-input8').attr('placeholder', 'Select Option');
-    $('.select-options8').hide();
-
-    // Show options when input is clicked
-    $('.select-input8').on('click', function(event) {
-        $('.select-options8').show();
-        event.stopPropagation();
-    });
-
-    // Hide options when clicking outside
-    $(document).on('click', function() {
-        $('.select-options8').hide();
-    });
-
-    // Handle option selection
-    $('.option8').on('click', function(event) {
-        var selectedOption = $(this).text();
-        var airportCode = $(this).data('value'); // Get the airport code from data-value attribute
-        $('.select-input8').val(airportCode); // Set input value to the airport code
-        $('.select-input8').attr('data-value', airportCode); // Set data-value attribute to the airport code
-        document.cookie = "selectedAirport=" + airportCode; // Store selected airport code in cookie
-        $('.select-options8').hide();
-        event.stopPropagation();
-    });
-
-    // Filter options based on search input
-    $('.select-input8').on('input', function() {
-        var searchText = $(this).val().toUpperCase();
-        $('.option8').each(function() {
-            var optionText = $(this).text().toUpperCase();
-            if (optionText.indexOf(searchText) > -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
+                data.forEach(function(item) {
+                    selectOptions.append($('<li class="option8" data-value="' + item.name + '">')
+                        .text(item.name + ' (' + item.CountryCode + ')'));
+                });
             }
         });
     });
 
-    // Retrieve selected option from cookie on page load
-    var selectedAirport = getCookie("selectedAirport");
-    if (!selectedAirport) {
-        $('.select-input8').attr('placeholder', 'Select an option');
-    }
+    $('#city_list').on('click', 'li', function() {
+        var selectedText = $(this).text();
+        var selectedValue = $(this).attr('data-value');
+        $('#hoteldate').val(selectedText); // Display the selected text in the input
+        $('#city_name').val(selectedValue); // Store the data-value in the hidden input
+        $('#city_list').hide(); // Hide the list after selection
+    });
 
-    // Function to retrieve cookie value by name
-    function getCookie(name) {
-        var cookieName = name + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var cookieArray = decodedCookie.split(';');
-        for (var i = 0; i < cookieArray.length; i++) {
-            var cookie = cookieArray[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(cookieName) == 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
+    // Additional code to manage showing and hiding the list
+    $('#hoteldate').on('focus', function() {
+        $('#city_list').show();
+    });
+
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.custom-select-wrapper').length) {
+            $('#city_list').hide();
         }
-        return "";
-    }
+    });
 });
+
 </script>
 <script>
 $(document).ready(function() {

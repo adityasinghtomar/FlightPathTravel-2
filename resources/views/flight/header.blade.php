@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="public/assets/css/select2.min.css" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/assets/img/favicon.png">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
 
 </head>
 
@@ -248,6 +248,13 @@ $Currency_Symbol= "dd";
                                         
 
                                         </li>
+                                         <li class="nav-item">
+
+                                            <a href="{{ route('pnr-search') }}" class="nav-link">
+PNR Search
+                                            </a>
+
+                                        </li>
 
                                         <!--<li class="nav-item">
 
@@ -398,41 +405,41 @@ $Currency_Symbol= "dd";
                                         </li>
 
 
-                                        <li class="nav-item">
+                                        <!--<li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">User Pages</a>
+                                        <!--    <a href="#" class="nav-link">User Pages</a>-->
 
-                                            <ul class="dropdown-menu">
+                                        <!--    <ul class="dropdown-menu">-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="{{url('/User-login')}}" class="nav-link">Login</a>
+                                        <!--            <a href="{{url('/User-login')}}" class="nav-link">Login</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="#" class="nav-link">Register</a>
+                                        <!--            <a href="#" class="nav-link">Register</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="#" class="nav-link">Forget Password</a>
+                                        <!--            <a href="#" class="nav-link">Forget Password</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
-                                                <li class="nav-item">
+                                        <!--        <li class="nav-item">-->
 
-                                                    <a href="#" class="nav-link">Verify OTP</a>
+                                        <!--            <a href="#" class="nav-link">Verify OTP</a>-->
 
-                                                </li>
+                                        <!--        </li>-->
 
                                               
 
-                                            </ul>
+                                        <!--    </ul>-->
 
-                                        </li>
+                                        <!--</li>-->
 
 
 
@@ -506,51 +513,51 @@ $Currency_Symbol= "dd";
 
 
 
-                                <li class="nav-item">
+                                <!--<li class="nav-item">-->
 
-                                    <a href="#" class="nav-link">News <i class="fas fa-angle-down"></i></a>
+                                <!--    <a href="#" class="nav-link">News <i class="fas fa-angle-down"></i></a>-->
 
-                                    <ul class="dropdown-menu">
+                                <!--    <ul class="dropdown-menu">-->
 
-                                        <li class="nav-item">
+                                <!--        <li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">News</a>
+                                <!--            <a href="#" class="nav-link">News</a>-->
 
-                                        </li>
+                                <!--        </li>-->
 
-                                        <li class="nav-item">
+                                <!--        <li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">News v2</a>
+                                <!--            <a href="#" class="nav-link">News v2</a>-->
 
-                                        </li>
+                                <!--        </li>-->
 
-                                        <li class="nav-item">
+                                <!--        <li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">News v3</a>
+                                <!--            <a href="#" class="nav-link">News v3</a>-->
 
-                                        </li>
+                                <!--        </li>-->
 
-                                        <li class="nav-item">
+                                <!--        <li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">News v4</a>
+                                <!--            <a href="#" class="nav-link">News v4</a>-->
 
-                                        </li>
+                                <!--        </li>-->
 
-                                        <li class="nav-item">
+                                <!--        <li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">News Details</a>
+                                <!--            <a href="#" class="nav-link">News Details</a>-->
 
-                                        </li>
+                                <!--        </li>-->
 
-                                        <li class="nav-item">
+                                <!--        <li class="nav-item">-->
 
-                                            <a href="#" class="nav-link">News Details v2</a>
+                                <!--            <a href="#" class="nav-link">News Details v2</a>-->
 
-                                        </li>
+                                <!--        </li>-->
 
-                                    </ul>
+                                <!--    </ul>-->
 
-                                </li>
+                                <!--</li>-->
 
                                 <li class="nav-item">
 
@@ -698,41 +705,4 @@ $Currency_Symbol= "dd";
             });
         });
     </script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
- <!-- Bootstrap js -->
-
-    <script src="public/assets/js/bootstrap.bundle.js"></script>
-
-    <!-- Meanu js -->
-
-    <script src="public/assets/js/jquery.meanmenu.js"></script>
-
-    <!-- Range js -->
-
-    <script src="public/assets/js/nouislider.min.js"></script>
-
-    <script src="public/assets/js/wNumb.js"></script>
-
-    <!-- owl carousel js -->
-
-    <script src="public/assets/js/owl.carousel.min.js"></script>
-
-    <!-- wow.js -->
-
-    <script src="public/assets/js/wow.min.js"></script>
-
-    <!-- Select2 -->
-
-    <script src="public/assets/js/select2.min.js"></script>
-
-    <!-- Custom js -->
-
-    <script src="public/assets/js/custom.js"></script>
-
-    <script src="public/assets/js/add-form.js"></script>
-
-    <script src="public/assets/js/form-dropdown.js"></script>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>    
+ 
