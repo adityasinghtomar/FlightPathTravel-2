@@ -235,7 +235,7 @@ public function currency_update(Request $request)
 		    $data['price'] = $request->input('price');
 			$data['tax'] = $request->input('tax');
 			$data['other_facilities'] = $request->input('other_facilities');
-			$data['tour_type'] = $request->input('tour_type');
+			$data['tour_type'] = 'single';
 			$data['no_of_people'] = $request->input('no_of_people');
 			$data['overview'] = $request->input('overview');
 			$data['included'] = $request->input('included');

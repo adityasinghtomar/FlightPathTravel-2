@@ -78,12 +78,7 @@
                         <input type="number" name="price" value="{{$flight->price}}" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Other Facilities</label>
-                        <input type="text" name="other_facilities" value="{{$flight->other_facilities}}" required>
-                      </div>
-                    </div>
+                   
                     <!--<div class="col-6">-->
                     <!--  <div class="form-input ">-->
                     <!--    <label class="lh-1 text-16 text-light-1">Tour Type</label>-->
@@ -135,29 +130,39 @@
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Overview</label>
-                        <input type="text" name="overview" value="{{$flight->overview}}" required>
+                       
+                        <textarea rows="2" cols="60" id="" class="default" name="overview" required>{{$flight->overview}}</textarea>
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Included</label>
-                        <input type="text"  name="included" value="{{$flight->included}}" required>
+                        
+                               <textarea rows="2" cols="60" id="" class="default" name="included" required>{{$flight->included}}</textarea>
                       </div>
                     </div>
                     
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Excluded</label>
-                        <input type="text" name="excluded" value="{{$flight->excluded}}" required>
+                        
+                          <textarea rows="2" cols="60" id="" class="default" name="excluded" required>{{$flight->excluded}}</textarea>
+                      </div>
+                    </div>
+                     <div class="col-6">
+                      <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Other Facilities</label>
+                        
+                        <textarea rows="2" cols="60" id="" class="default" name="other_facilities" required>{{$flight->other_facilities}}</textarea>
                       </div>
                     </div>
                     
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">why choose us</label>
-                        <input type="text"  name="why_choose_us" value="{{$flight->why_choose_us}}" required>
-                      </div>
-                    </div>
+                    <!--<div class="col-6">-->
+                    <!--  <div class="form-input ">-->
+                    <!--    <label class="lh-1 text-16 text-light-1">why choose us</label>-->
+                    <!--    <input type="text"  name="why_choose_us" value="{{$flight->why_choose_us}}" required>-->
+                    <!--  </div>-->
+                    <!--</div>-->
                 <style>
 * {
   box-sizing: border-box;
@@ -184,7 +189,7 @@
                 @foreach($itinerary as $itinerarys)
               <tr>
                 <td> <label class="lh-1 text-16 text-light-1">Day</label><input type="text" name="day[]" value="{{$i}}" placeholder="" class="form-control form-input name_list" readonly/></td>
-                <td> <label class="lh-1 text-16 text-light-1">Details</label><input type="text" name="itinerary[]" value="{{$itinerarys}}" placeholder="Enter itinerary" class="form-control name_email"/></td>
+                <td> <label class="lh-1 text-16 text-light-1">Details</label><textarea rows="2" class="default" cols="60"  type="text" name="itinerary[]" placeholder="Enter itinerary" class="form-control name_email"/>{{$itinerarys}}</textarea></td>
 				<!--<td> <label class="lh-1 text-16 text-light-1">Image</label><input type="file" name="amount[]" value="700" placeholder="Enter your Money" class="form-control total_amount"/></td>-->
                 <td><button type="button" name="add" id="add" class="button h-50 px-24 -dark-1 bg-blue-1 text-white">Add More</button></td>  
               </tr>
@@ -208,7 +213,9 @@
           </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>   
-   
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="{{ asset('public/assets/tinmace/tinymce.min.js') }}"></script>
+    <script src="{{ asset('public/assets/script.js') }}"></script>
 <script>
      $(document).ready(function(){
    

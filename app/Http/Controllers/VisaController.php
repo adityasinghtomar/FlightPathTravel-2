@@ -13,6 +13,7 @@ use App\ContactUs_Model;
 use App\Tour_Model;
 use App\Tour_Detail_Model;
 use App\Visa_Model;
+use App\Visa_Enquiry_Model;
 use App\Visa_Package_Model;
 use App\Visa_Booking_Model;
 use App\CountryCode_Model;
@@ -164,7 +165,7 @@ public function visa_list()
         $visa_id= $request->input('visa_id');
         $visa_package_id= $request->input('visa_package_id');
         $visa_package = Visa_Package_Model::where('id',$visa_package_id)->first();
-        $visa = Visa_Model::where('id',$visa_id)->first();
+        $visa = Visa_Model::select()->get();
         return view('flight/visa-booking-submission',compact('visa','visa_package'));
     }    
 public function book_visa(Request $request)
@@ -371,5 +372,24 @@ public function view_visa($id)
 
         
     }
+        public function visa_enquiry(Request $request)
+    {
+            $data['Country']= $request->input('Country');
+			$data['Visa_type']= $request->input('Visa_type');
+			$data['Title']= $request->input('Title');
+			$data['full_name']= $request->input('full_name');
+			$data['email']= $request->input('email');
+			$data['mobile']= $request->input('mobile');
+			$data['message']= $request->input('message');
+				$contact_id = Visa_Enquiry_Model::create($data);
+			return redirect('/');
+// 	 return redirect()->back()->with('message',"Tour Enquiry successfull");
+}
+
+ public function visa_enquiry_details(Request $request)
+    {
+            $Visa_Enquiry = Visa_Enquiry_Model::get();
+		return view('flight/admin/visa_enquiry_details',compact('Visa_Enquiry'));
+}
 
 }

@@ -422,7 +422,7 @@ h3 {
 
  
     </style>
-
+ <?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
     <!-- search -->
     <div class="search-overlay">
         <div class="d-table">
@@ -698,24 +698,21 @@ for (i = 0; i < acc.length; i++) {
 						
 						<div class="col-md-3 border-left text-center more-offers" style="background:#a7a7a757;">
 							<div class="text-warning">
-                                  @foreach($tour_package as $tour_packages)
-                                   <div class="tour_details_right_box_heading">
-                                    <h3  style="color:#000;">{{$tour_packages->tour_package_name}}</h3>
-                                </div>
-                                
-                                <h3 style="color:#000;">{{$tour_packages->amount}}<sub>/Per serson</sub> </h3>
+                                  
+                                <p style="margin-top:10px;">Visa Service</p>
+                                <h3 style="color:#000;">{{ $Currency_active->currency_symbol}} <?php $subtotal1= $flight->amount / $Currency_active->currency_rates ;echo round($subtotal1, 2);?><sub>/Per serson</sub> </h3>
                                 
                             <form action="{{url('/book-visa-package')}}" enctype="multipart/form-data" method="post">
                                                       @csrf   
                  
                             <input type="hidden" name="visa_id" value="{{$flight->id}}">
-                            <input type="hidden" name="visa_package_id" value="{{$tour_packages->id}}">
-                            <input type="hidden" name="tour_package_amount" value="{{$tour_packages->amount}}">
+                            <input type="hidden" name="visa_package_id" value="{{$flight->id}}">
+                            <input type="hidden" name="tour_package_amount" value="{{$flight->amount}}">
                             <div class="tour_select_offer_bar_bottom">
-                                <button class="button btn btn_theme btn_md w-100">Select Package</button>
+                                <button class="button btn btn_theme btn_md w-100">Enquiry Now</button>
                             </div>
                 </form>
-                    @endforeach
+                   
 							</div>
 							
 						</div>

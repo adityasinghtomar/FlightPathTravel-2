@@ -122,12 +122,7 @@
                         <input type="number" name="price" required>
                       </div>
                     </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Extra information</label>
-                        <input type="text" name="other_facilities" required>
-                      </div>
-                    </div>
+                   
                     <!--<div class="col-6">-->
                     <!--  <div class="form-input ">-->
                     <!--    <label class="lh-1 text-16 text-light-1">Tour Type</label>-->
@@ -139,16 +134,7 @@
                     <!--    </select>-->
                     <!--  </div>-->
                     <!--</div>-->
-                     <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Country</label>
-                        <select class="form-control demo-select2-placeholder" name="country" id="state_id" >
-                            @foreach($country as $row)
-                            <option value="{{ $row->name }}">{{ $row->name }}</option>
-                           @endforeach
-                        </select>
-                      </div>
-                    </div>
+                    
                     <!--<div class="col-6">-->
                     <!--  <div class="form-input ">-->
                     <!--    <label class="lh-1 text-16 text-light-1">Tax</label>-->
@@ -158,6 +144,34 @@
                    
                     
                     
+                    
+                    <div class="col-6">
+                      <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Overview</label>
+                        <textarea rows="2" cols="60"class="default" name="overview" required></textarea>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Included</label>
+                        <textarea rows="2" cols="60"class="default"   name="included" required></textarea>
+                      </div>
+                    </div>
+                    
+                    <div class="col-6">
+                      <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Excluded</label>
+                        <textarea rows="2" cols="60" id="" class="default" name="excluded" required></textarea>
+                      </div>
+                    </div>
+                    
+                     <div class="col-6">
+                      <div class="form-input ">
+                        <label class="lh-1 text-16 text-light-1">Extra information</label>
+               
+                         <textarea rows="2" cols="60" id="" class="default" name="other_facilities" required></textarea>
+                      </div>
+                    </div>
                     <div class="col-6">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Main Image</label>
@@ -171,30 +185,14 @@
                         <input type="file" name="images[]" multiple="multiple">
                       </div>
                     </div>
-                    <div class="col-6">
+                     <div class="col-6">
                       <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Overview</label>
-                        <textarea rows="2" cols="60" name="overview" required></textarea>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Included</label>
-                        <textarea rows="2" cols="60"  name="included" required></textarea>
-                      </div>
-                    </div>
-                    
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Excluded</label>
-                        <textarea rows="2" cols="60" name="excluded" required></textarea>
-                      </div>
-                    </div>
-                    
-                    <div class="col-6">
-                      <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">why choose us</label>
-                        <textarea rows="2" cols="60"  name="why_choose_us" required></textarea>
+                        <label class="lh-1 text-16 text-light-1">Country</label>
+                        <select class="form-control demo-select2-placeholder" name="country" id="state_id" >
+                            @foreach($country as $row)
+                            <option value="{{ $row->name }}">{{ $row->name }}</option>
+                           @endforeach
+                        </select>
                       </div>
                     </div>
                 <style>
@@ -220,7 +218,7 @@
             <table id="dynamic_field">
               <tr>
                 <td> <label class="lh-1 text-16 text-light-1">Day</label><input type="text"  name="day[]" value="1" placeholder="" class="form-control form-input name_list" readonly/></td>
-                <td> <label class="lh-1 text-16 text-light-1">Details</label><textarea rows="2"id="default" cols="60"  type="text" name="itinerary[]" placeholder="Enter itinerary" class="form-control name_email"/></textarea></td>
+                <td> <label class="lh-1 text-16 text-light-1">Details</label><textarea rows="2" class="default" cols="60"  type="text" name="itinerary[]" placeholder="Enter itinerary" class="form-control name_email"/></textarea></td>
 				<!--<td> <label class="lh-1 text-16 text-light-1">Image</label><input type="file" name="amount[]" value="700" placeholder="Enter your Money" class="form-control total_amount"/></td>-->
                 <td><button type="button" name="add" id="add" class="button h-50 px-24 -dark-1 bg-blue-1 text-white">Add More</button></td>  
               </tr>
@@ -315,7 +313,7 @@
 	 var days = + addamount;
    i++;
  
-      $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" placeholder="" name="day[]" id="day" class="form-control name_list" readonly/></td><td><textarea rows="2" cols="60"  type="text" name="itinerary[]" placeholder="Enter itinerary" class="form-control name_email"/></textarea></td>	<td><button type="button" name="remove" id="'+i+'" class="button h-50 px-24 -dark-1 bg-red-1 text-white btn_remove">Remove</button></td></tr>');  
+      $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" placeholder="" name="day[]" id="day" class="form-control name_list" readonly/></td><td><textarea rows="2" cols="60"  type="text" class="default" name="itinerary[]" placeholder="Enter itinerary" class="form-control name_email"/></textarea></td>	<td><button type="button" name="remove" id="'+i+'" class="button h-50 px-24 -dark-1 bg-red-1 text-white btn_remove">Remove</button></td></tr>');  
       document.getElementById( 
             "day").value = days ;      
     });

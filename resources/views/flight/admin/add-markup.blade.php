@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-sm-6">
                       <div class="form-input ">
-                        <label class="lh-1 text-16 text-light-1">Mark-Up % </label>
+                        <label class="lh-1 text-16 text-light-1">Mark-Up Amount </label>
                         <input type="number" name="markup_amount" required>
                       </div>
                     </div>

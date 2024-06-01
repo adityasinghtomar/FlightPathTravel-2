@@ -158,7 +158,7 @@
 
               <div class="accordion__content">
                 <ul class="list-disc pb-5 pl-40">
-
+                    
                   <li>
                     <a href="{{url('/tour')}}" class="text-15">All tour</a>
                   </li>
@@ -213,6 +213,34 @@
                    <li>
                     <a href="{{url('/create-category')}}" class="text-15">Add Blog Categories</a>
                   </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+         <div class="sidebar__item ">
+          <div class="accordion -db-sidebar js-accordion">
+            <div class="accordion__item">
+              <div class="accordion__button">
+                <div class="sidebar__button col-12 d-flex items-center justify-between">
+                  <div class="d-flex items-center text-15 lh-1 fw-500">
+                    <i class="fas fa-flag  mr-15"></i>
+                    Enquiry
+                  </div>
+                  <div class="icon-chevron-sm-down text-7"></div>
+                </div>
+              </div>
+
+              <div class="accordion__content">
+                <ul class="list-disc pb-5 pl-40">
+
+                   <li>
+                    <a href="{{url('/tour-enquiry-details')}}" class="text-15">Tour Enquiry Details</a>
+                  </li>
+                  <li>
+                    <a href="{{url('/visa-enquiry-details')}}" class="text-15">Visa Enquiry Details</a>
+                  </li>
+                
                 </ul>
               </div>
             </div>
@@ -290,7 +318,7 @@
 
               <div class="accordion__content">
                 <ul class="list-disc pb-5 pl-40">
-
+                     
                   <li>
                     <a href="{{url('/Visa')}}" class="text-15">All Visa</a>
                   </li>
@@ -335,9 +363,9 @@
                   <li>
                     <a href="{{url('/add-markup')}}" class="text-15">Add Mark-up</a>
                   </li>
-                  <li>
-                    <a href="{{url('/all-markup-apply')}}" class="text-15">All Apply Mark-up</a>
-                  </li>
+                  <!--<li>-->
+                  <!--  <a href="{{url('/all-markup-apply')}}" class="text-15">All Apply Mark-up</a>-->
+                  <!--</li>-->
 
                   <li>
                     <a href="{{url('/apply-markup')}}" class="text-15">Apply Mark-up</a>
@@ -347,34 +375,34 @@
             </div>
           </div>
         </div>
-        <div class="sidebar__item ">
-          <div class="accordion -db-sidebar js-accordion">
-            <div class="accordion__item">
-              <div class="accordion__button">
-                <div class="sidebar__button col-12 d-flex items-center justify-between">
-                  <div class="d-flex items-center text-15 lh-1 fw-500">
-                    <i class="fas fa-bus-alt mr-15"></i>
-                    Manage bus
-                  </div>
-                  <div class="icon-chevron-sm-down text-7"></div>
-                </div>
-              </div>
+        <!--<div class="sidebar__item ">-->
+        <!--  <div class="accordion -db-sidebar js-accordion">-->
+        <!--    <div class="accordion__item">-->
+        <!--      <div class="accordion__button">-->
+        <!--        <div class="sidebar__button col-12 d-flex items-center justify-between">-->
+        <!--          <div class="d-flex items-center text-15 lh-1 fw-500">-->
+        <!--            <i class="fas fa-bus-alt mr-15"></i>-->
+        <!--            Manage bus-->
+        <!--          </div>-->
+        <!--          <div class="icon-chevron-sm-down text-7"></div>-->
+        <!--        </div>-->
+        <!--      </div>-->
 
-              <div class="accordion__content">
-                <ul class="list-disc pb-5 pl-40">
+        <!--      <div class="accordion__content">-->
+        <!--        <ul class="list-disc pb-5 pl-40">-->
 
-                  <li>
-                    <a href="#" class="text-15">All bus</a>
-                  </li>
+        <!--          <li>-->
+        <!--            <a href="#" class="text-15">All bus</a>-->
+        <!--          </li>-->
 
-                  <li>
-                    <a href="#" class="text-15">Add bus</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!--          <li>-->
+        <!--            <a href="#" class="text-15">Add bus</a>-->
+        <!--          </li>-->
+        <!--        </ul>-->
+        <!--      </div>-->
+        <!--    </div>-->
+        <!--  </div>-->
+        <!--</div>-->
         <div class="sidebar__item ">
           <div class="accordion -db-sidebar js-accordion">
             <div class="accordion__item">

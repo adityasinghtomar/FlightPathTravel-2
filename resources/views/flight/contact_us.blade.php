@@ -208,7 +208,7 @@ padding-left: 0;
               <div class="contact-info-text">
                 <h2>Contact Us</h2>
                 <span>+91 2634 277277</span></span>
-                <span>+91 9081986645</span>
+                <span>+91 9924 231122</span>
               </div>
             </div>            
           </div>          

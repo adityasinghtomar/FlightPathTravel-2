@@ -1,5 +1,5 @@
 tinymce.init({
-    selector: 'textarea#default',
+    selector: 'textarea.default',
     height: 400,
     plugins:[
         'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
@@ -48,3 +48,4 @@ tinymce.init({
         xhr.send(formData);
     }
 });
+

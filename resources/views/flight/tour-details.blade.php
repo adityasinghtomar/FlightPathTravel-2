@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="tour_details_top_bottom_text">
                                     <h5>Location</h5>
-                                    <p>Private Tour</p>
+                                    <p>{{ $flight->country }}</p>
                                 </div>
                             </div>
                           
@@ -184,12 +184,12 @@ foreach ($flg as $row) {
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingFour">
                                                 <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                                    data-bs-toggle="collapsed" data-bs-target="#collapseFour"
                                                     aria-expanded="false" aria-controls="collapseFour">
-                                                    Wise Itinerary
+                                                    Day Wise Itinerary
                                                 </button>
                                             </h2>
-                                            <div id="collapseFour" class="accordion-collapse collapse"
+                                            <div id="collapseFour" class="accordion-collapse collapsed"
                                                 aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <div class="accordion_itinerary_list">
@@ -237,13 +237,14 @@ foreach ($flg as $row) {
                             </div>
                          </form>
                             </div>
+                          
                      <div class="tour_detail_right_sidebar" style="margin-top:10px;">
                             <div class="tour_details_right_boxed">
                                 <div class="tour_details_right_box_heading">
                                     <h3>Overview</h3>
                                 </div>
-                                 <p>{{$flight->overview}}
-                                </p>
+                                {!! $flight->overview !!}
+                                
                             </div>
                           
                         </div>
@@ -252,8 +253,8 @@ foreach ($flg as $row) {
                                 <div class="tour_details_right_box_heading">
                                     <h3>Inclusions</h3>
                                 </div>
-                                 <p>{{$flight->included}}
-                                </p>
+                                 {!! $flight->included !!}
+                               
                             </div>
                           
                         </div>
@@ -262,8 +263,8 @@ foreach ($flg as $row) {
                                 <div class="tour_details_right_box_heading">
                                     <h3>Exclusions</h3>
                                 </div>
-                                 <p>{{$flight->excluded}}
-                                </p>
+                                {!! $flight->excluded !!}
+                                
                             </div>
                           
                         </div>

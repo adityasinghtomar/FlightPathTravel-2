@@ -98,7 +98,7 @@
                      <div class="col-12">
                       <div class="form-input ">
                         <label class="lh-1 text-16 text-light-1">Content</label>
-                        <textarea rows="2" cols="60" id="default" name="content" required></textarea>
+                        <textarea rows="2" cols="60" class="default" name="content" required></textarea>
                       </div>
                     </div>
               

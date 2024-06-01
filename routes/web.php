@@ -181,6 +181,9 @@ Route::post('/tour-update',[TourController::class, 'tour_update'])->name('tour-u
 Route::post('/tour-search-list',[TourController::class, 'tour_list_search'])->name('tour-search-list');
 Route::post('/book-tour-payment',[TourController::class, 'preparePayment'])->name('tour-update');
 // Visa 
+
+Route::get('/visa-enquiry-details',[VisaController::class, 'visa_enquiry_details'])->name('visa_enquiry_details');
+Route::post('/visa-enquiry',[VisaController::class, 'visa_enquiry'])->name('visa_enquiry');
 Route::get('/Visa',[VisaController::class, 'index'])->name('visa');
 Route::get('/Add-visa',[VisaController::class, 'add_visa'])->name('visa');
 Route::get('/Visa-Package',[VisaController::class, 'visa_package'])->name('visa');

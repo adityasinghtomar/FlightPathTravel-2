@@ -6748,6 +6748,17 @@ textarea {
     font-weight: 400;
     color: var(--blue-color);
 }
+
+
 /* flight-list-grid End */
+
+/* Custome css */
+.tour_details_right_boxed ul li {
+    list-style: revert-layer;
+    line-height: 1.7em;
+}
+.tour_details_right_boxed ul {
+    padding:10px;
+}
 
 /* Denish Custom Code End */

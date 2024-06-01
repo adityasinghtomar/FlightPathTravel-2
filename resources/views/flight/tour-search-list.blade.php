@@ -66,6 +66,8 @@
 }
 </style>
     <!-- Flight Search Areas -->
+    
+       <?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
     <section id="explore_area" class="section_padding">
         <div class="container">
             <!-- Section Heading -->
@@ -76,213 +78,21 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3">
-                        <div class="filter-card">
-							<h5>Tour Description</h5>
-							<form action="#">
-							 FlightPath Travel is an agency dedicated to offering customers exceptional tour packages. With a focus on creating memorable travel experiences, they provide a wide range of customized trips tailored to meet individual preferences and budgets. Whether you're seeking adventure, relaxation, or cultural exploration, FlightPath Travel ensures a seamless and enjoyable journey from start to finish.
-							</form>
-						</div>
-					 
-
-					</div>
-               
-                 <?php $Currency_active =\App\Currency_Model::where('currency_active','0')->first(); ?>
-                     <style>
-        .content {
-
-  display: none;
-}
-#loadMore {
-  width: 200px;
-  color: #fff;
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  background-color: blue;
-  transition: .3s;
-}
-#loadMore:hover {
-  color: blue;
-  background-color: #fff;
-  border: 1px solid blue;
-  text-decoration: none;
-}
-.noContent {
-  color: #000 !important;
-  background-color: transparent !important;
-  pointer-events: none;
-}
-    </style> 
-     <style>
-        
-.search-card-result {
-  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
-  margin: 1rem 0;
-  padding: 0.5rem 0;
-  background-color: #fff;
-}
-.search-card-result img {
-  height: 190px;
-}
-.search-card-result h5 {
-  font-style: 1.1rem;
-  font-weight: 700;
-}
-.search-card-result p {
-  font-size: 0.9rem;
-}
-
-.search-card-result .more-offers p {
-  margin-bottom: 0.3rem;
-}
-
-.more-offers .additional {
-  padding-top: 0.2rem;
-  font-weight: 700;
-}
-
-.fa.checked {
-  color: orange;
-}
-
-.map-container-btn {
-  height: 100px;
-
-  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
-  background-color: wheat;
-}
-
-.map-container-btn .btn {
-  margin-top: 30px;
-}
-
-.filter-card {
-  padding: 0;
-  background: #fff;
-  color: black;
-}
-
-.filter-card h5 {
-  margin: 10px 0;
-  padding: 1rem;
-
-  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
-  color: #000;
-}
-.filter-card form {
-  box-shadow: 0px 1px 4px rgba(41, 51, 57, 0.5);
-  padding: 0.5rem 2rem;
-}
-.map-btn {
-  background-color: #fff !important;
-}
-
-/* SOCIAL ICONS.CSS */
-
-  .nav .fa {
-    margin: 5px 2px;
-    padding: 20px;
-    
-    font-size: 30px;
-    text-align: center;
-    text-decoration: none;
-  }
-  
-  .fa:hover {
-      opacity: 0.7;
-  }
-  
-  .fa-facebook {
-    background: #3B5998;
-    color: white;
-  }
-  
-  .fa-twitter {
-    background: #55ACEE;
-    color: white;
-  }
-  
-  .fa-google {
-    background: #dd4b39;
-    color: white;
-  }
-  
-  .fa-linkedin {
-    background: #007bb5;
-    color: white;
-  }
-  
-  .fa-youtube {
-    background: #bb0000;
-    color: white;
-  }
-  
-  .fa-instagram {
-    background: #DA4453;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #89216B, #DA4453);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #89216B, #DA4453); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    color: white;
-  }
-  
-  .fa-pinterest {
-    background: #cb2027;
-    color: white;
-  }
-  
-  .fa-snapchat-ghost {
-    background: #fffc00;
-    color: white;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  }
-    </style>
-    
-    
-                <div class="col-lg-9">
-                    <div class="row">
-                         <div class="col-lg-12">
-                             
-         @foreach($flight as $tour_list)
- 
-					<div class="row search-card-result">
-						<div class="col-md-3">
-						 
-							<img class="img-fluid"src="public/images/{{$tour_list->image}}" onerror="this.src='public/assets/img/hote.avif'" alt="">
-						</div>
-						<div class="col-md-6">
-						    <h5>{{$tour_list->tour_name}} </h5>
-						     <ul>
-                                                            <li><i class="fas fa-circle" style="font-size:10px;"></i> {{$tour_list->no_of_day}} days {{$tour_list->no_of_people}} Night tour </li>
-                                                            
-                                                        </ul>
-							
-							<div class="review">
-
-							</div>
-							<p><i class="fas fa-map-marker-alt"></i> {{$tour_list->country}}</p>
-					
-					
-							<div>
-							    	 <div class="cruise_content_bottom_left">
-                                                        <ul>
-                                                            <li>{{$tour_list->other_facilities}}</li>
-                                                            
-                                                        </ul>
-                                                    </div>
-							</div>
-						</div>
-						
-						<div class="col-md-3 border-left text-center more-offers" style="border-left: 1px solid #ababab;
-    background: #f1f1f1;">
-							<h3 style="margin:10px 0px 15px 0px;">
-								Starting From
-							</h3>
-							 <div class="cruise_content_middel_right">
-                                            @if(session()->get('user_id')) <?php $comm= \App\Commision_Add_Model::where('user_id',session()->get('user_id'))->where('commision_type','tour')->first();  ?> <?php $markup= \App\Markup_Apply_Model::where('user_id',session()->get('user_id'))->first();  ?>
+          
+                <div class="row">
+                      @foreach($flight as $tour_list)
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                                    <div class="theme_common_box_two img_hover">
+                                        <div class="theme_two_box_img">
+                                            <a href="#">
+                                                <img src="public/images/{{$tour_list->image}}" onerror="this.src='public/assets/img/hote.avif'" alt="img">
+                                            </a>
+                                            <p><i class="fas fa-map-marker-alt"></i>{{$tour_list->tour_name}}</p>
+                                        </div>
+                                        <div class="theme_two_box_content">
+                                            <h4><a href="hotel-details.html">{{$tour_list->country}}</a></h4>
+                                            <p><span class="review_rating">{{$tour_list->no_of_day}} days {{$tour_list->no_of_people}} Night tour</span> </p>
+                                            <h3><span>Price starts from</span>  @if(session()->get('user_id')) <?php $comm= \App\Commision_Add_Model::where('user_id',session()->get('user_id'))->where('commision_type','tour')->first();  ?> <?php $markup= \App\Markup_Apply_Model::where('user_id',session()->get('user_id'))->first();  ?>
                                             <?php if($comm) {  
                                             $commision= \App\Commision_Model::where('id',$comm->commision_id)->first();
                                             if($commision){
@@ -296,27 +106,15 @@
                                             @else
                                             <h3>{{ $Currency_active->currency_symbol}} <?php  $subtotal= $tour_list->price / $Currency_active->currency_rates ;echo round($subtotal, 2); ?> 	<sub>/Per person</sub></h3>
                                             <!--<p>+ ${{$tour_list->tax}} tax and vat</p>-->
-                                            @endif
-                                                    </div>
-							<div class="text-success">
-							    
-						
-                                                    <div class="cruise_content_bottom_right" style="margin-top:20px;">
+                                            @endif </h3>
+                                              <div class="cruise_content_bottom_right" style="margin-top:20px;">
                                                         <a href="{{url('/tour-detail'.$tour_list->id)}}" class="btn btn_theme btn_md">View details</a>
                                                      </div>
-
-					
-						</div>
-					</div>
-					
-				</div>
-				@endforeach
-				</div>
-                        
-                       
-                    </div>
-                </div>
-            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        @endforeach
+                            </div>
         </div>
     </section>
 

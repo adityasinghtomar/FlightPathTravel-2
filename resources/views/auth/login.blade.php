@@ -169,7 +169,7 @@
     /* padding: 10px; */
     border-radius: 20px;
     margin:-12px 0px 0px 0px;">
-                            <img src="https://elw.flightpathtravel.com/public/images/flex/logo.png" style="width:100px;">
+                            <img src="https://elw.flightpathtravel.com/public/images/flex/flplogo1.png" style="width:100px;">
                          
                        </div>
                      
