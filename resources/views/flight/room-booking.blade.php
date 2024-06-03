@@ -539,7 +539,8 @@ input:focus-visible + label {
                            <h3 class="heading_theme">Booking submission</h3>
                             <div class="tour_booking_form_box">
                                 
-                                <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post">
+                                <!-- <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post"> -->
+                                <form action="{{url('/room_book_confirm')}}" enctype="multipart/form-data" method="post">
                                      @csrf
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -608,8 +609,6 @@ input:focus-visible + label {
                                         @endif
                                         
 
-                                       
-                                        
                                         
                                     </div>
                                             <input type="hidden" name="arrivalDate" value="{{ $preBooking['arrivalDate'] ?? ''}}">
@@ -628,9 +627,6 @@ input:focus-visible + label {
                                             <input type="hidden" name="totalRooms" value="{{  $preBooking['roomDetails']['totalRooms'] ?? ''}} ">
                                             <input type="hidden" name="totalRate" value="{{ $preBooking['roomDetails']['totalRate'] ?? ''}} ">
                                             <input type="hidden" name="hotelName" value="{{ $preBooking['hotelName'] ?? ''}} ">
-                                           
-
-                                
                             </div>
                         </div>
                         <div class="booking_tour_form">
@@ -669,10 +665,16 @@ input:focus-visible + label {
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultf1">
                                 <label class="form-check-label" for="flexCheckDefaultf1">
                                     <span class="main_spical_check">
-                                        <span>I read and accept all <a href="terms-service.html">Terms and
-                                                conditios</a></span>
+                                        <span>I read and accept all 
+                                            <!-- <a href="/terms-service/{{$termsAndConditions ?? ''}}">Terms and conditios</a> -->
+                                            <a href="{{ route('terms-service', ['termsAndConditions' => $termsAndConditions ?? '' , 'cancellation' => $preBooking['cancellation'] ?? '' , 'info' => $info ?? '' ]) }}">Terms and conditions</a>
+                                        </span>
+
                                     </span>
                                 </label>
+                                <div>
+                                    
+                                </div>
                             </div>
                         
                             <button class="btn btn_theme btn_md">Book Now</button>

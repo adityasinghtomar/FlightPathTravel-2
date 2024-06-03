@@ -41,6 +41,9 @@
     </section>
 
     <!-- Tour Booking Submission Areas -->
+
+    <!-- TBO API  -->
+    @if(isset($ress))
     <section id="tour_booking_submission" class="section_padding">
         <div class="container">
             <div class="row">
@@ -63,7 +66,51 @@
                         </div>
                     </div>
     </section>
+    @endif
+    <!-- TBO API END -->
 
+
+    <!-- REZLIVE API START  -->
+    <section id="tour_booking_submission" class="section_padding">
+        <div class="container">
+            <div class="row">
+                        <div class="tour_detail_right_sidebar">
+                            <div class="tour_details_right_boxed">
+                                <div class="tour_details_right_box_heading">
+                                    <h3>Booking Details</h3>
+                                </div>
+
+                                <div class="tour_booking_amount_area">
+                                    @if(isset($apiResponse) && isset($apiResponse['BookingDetails']))
+                                        @if($apiResponse['BookingDetails']->BookingStatus == 'Fail')
+                                        <li class="">Hotel Booking Status :<span> {{$apiResponse['BookingDetails']->BookingStatus}} </span></li>
+                                        <li class="">Reason :<span> {{$apiResponse['BookingDetails']->BookingReason}} </span></li>
+                                        @else
+                                    <ul class="text-start">
+                                        <li>Hotel Name : <span class="text-start"> {{$apiResponse['BookingRequest']->Booking->Name}}  </span></li>
+                                        <li>ArrivalDate : <span class="text-start"> {{$apiResponse['BookingRequest']->Booking->ArrivalDate}}  </span></li>
+                                        <li>DepartureDate : <span class="text-start"> {{$apiResponse['BookingRequest']->Booking->DepartureDate}}  </span></li>
+
+                                        <li>Hotel Booking Status :<span class="text-start"> {{$apiResponse['BookingDetails']->BookingStatus}} </span></li>
+                                        <li>InvoiceNumber :<span class="text-start">  </span></li>
+                                        <li>ConfirmationNo : <span class="text-start">    </span></li>
+                                        <li>BookingRefNo : <span class="text-start">   </span></li>
+                                        <li>BookingId :<span class="text-start"> {{$apiResponse['BookingDetails']->BookingId}}  </span></li>
+
+                                        <li>Booking Price : <span class="text-start"> {{ round($apiResponse['BookingDetails']->BookingPrice , 2)}}  </span></li>
+                                        <li>Booking Code : <span class="text-start"> {{$apiResponse['BookingDetails']->BookingCode}}  </span></li>
+                                         @endif
+                                       
+                                    </ul>
+
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </section>
+    <!-- REZLIVE API END  -->
     <!-- Cta Area -->
     <section id="cta_area">
         <div class="container">
@@ -99,19 +146,48 @@
         <i class="fas fa-chevron-up"></i>
     </div>
 
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+    <script src="public/assets/js/jquery-3.6.0.min.js"></script>
+
     <!-- Bootstrap js -->
-    <script src="assets/js/bootstrap.bundle.js"></script>
+
+    <script src="public/assets/js/bootstrap.bundle.js"></script>
+
     <!-- Meanu js -->
-    <script src="assets/js/jquery.meanmenu.js"></script>
+
+    <script src="public/assets/js/jquery.meanmenu.js"></script>
+
+    <!-- Range js -->
+
+    <script src="public/assets/js/nouislider.min.js"></script>
+
+    <script src="public/assets/js/wNumb.js"></script>
+
     <!-- owl carousel js -->
-    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="public/assets/js/owl.carousel.min.js"></script>
+
     <!-- wow.js -->
-    <script src="assets/js/wow.min.js"></script>
+
+    <script src="public/assets/js/wow.min.js"></script>
+
+    <!-- Select2 -->
+
+    <script src="public/assets/js/select2.min.js"></script>
+
     <!-- Custom js -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/add-form.js"></script>
-    <script src="assets/js/payment-form.js"></script>
+
+    <script src="public/assets/js/custom.js"></script>
+
+    <script src="public/assets/js/add-form.js"></script>
+
+    <script src="public/assets/js/form-dropdown.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 
 </body>
 

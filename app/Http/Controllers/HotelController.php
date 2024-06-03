@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Http\Controllers;
 
 use Mail; 
@@ -415,6 +413,7 @@ print_r("done");die;
     public function hotel_search(Request $request)
     {
       // Artisan::call('optimize');
+      // dd($request->all());
         return $this->rezLiveFindHotelAPIResponse($request);
 
         $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
@@ -553,7 +552,6 @@ print_r("done");die;
             $ss = curl_exec($ch);
 
             $ress = json_decode($ss);   
-            dd($ress);
 
 
             // 
@@ -892,7 +890,7 @@ $ress = json_decode($ss);
       </RoomDetails>
       </PreBooking>
       </PreBookingRequest>";
-
+      
       $curl = curl_init();
       curl_setopt_array($curl, array(
         CURLOPT_URL => 'http://test.xmlhub.com/testpanel.php/action/prebook',
@@ -922,10 +920,9 @@ $ress = json_decode($ss);
       if (isset($preBookingDetails['Status']) && $preBookingDetails['Status'])
       {
           $roomDetails = (array) $preBookingRequest['PreBooking']->RoomDetails;
-          $cancellationInformations = (array) $preBookingRequest['PreBooking']->CancellationInformations;
-          $info = $cancellationInformations['Info'];
+          $cancellationInformations = $preBookingRequest['PreBooking']->CancellationInformations;
+          $info = $cancellationInformations->Info;
           $roomDetails = current($roomDetails);
-          $cancellationInformations = current($cancellationInformations);
 
           $preBooking['hotelName'] = $hotelName;
           $preBooking['arrivalDate'] = (string) $preBookingRequest['PreBooking']->ArrivalDate;
@@ -946,28 +943,42 @@ $ress = json_decode($ss);
           $preBooking['roomDetails']['totalRate'] = (string) $roomDetails->TotalRate;
           $termsAndConditions = (string) $roomDetails->TermsAndConditions;
 
+          $termsAndConditions = htmlentities($termsAndConditions);
           $termsAndConditions = html_entity_decode($termsAndConditions);
-          $termsAndConditions = preg_replace('/[^\w\s.,\/-]/', '', $termsAndConditions);
-          
-          // Replace encoded <br> tags with new lines
-          $termsAndConditions = preg_replace('/&lt;br&gt;&amp;/', "\n", $termsAndConditions);
-          
-          $termsAndConditions = nl2br($termsAndConditions);
-        
+          $termsAndConditions = html_entity_decode($termsAndConditions);
+          $termsAndConditions = html_entity_decode($termsAndConditions);
+    
+          $termsAndConditions = preg_replace('/<br>/', "\n", $termsAndConditions);
 
-          $preBooking['cancellationInformations']['startDate'] = (string) $cancellationInformations->StartDate;
-          $preBooking['cancellationInformations']['endDate'] = (string) $cancellationInformations->EndDate;
-          $preBooking['cancellationInformations']['chargeType'] = (string) $cancellationInformations->ChargeType;
-          $preBooking['cancellationInformations']['chargeAmount'] = (string) $cancellationInformations->ChargeAmount;
-          $preBooking['cancellationInformations']['currency'] = (string) $cancellationInformations->Currency;
-          $preBooking['cancellationInformations']['info'] = $info;  
+          
+          $i = 0;
 
+          foreach ($cancellationInformations->CancellationInformation as $information)
+          {
+            $preBooking['cancellation'][$i]['StartDate'] = (string) $information->StartDate;
+            $preBooking['cancellation'][$i]['EndDate'] = (string)  $information->EndDate;
+            $preBooking['cancellation'][$i]['ChargeType'] = (string)  $information->ChargeType;
+            $preBooking['cancellation'][$i]['ChargeAmount'] = (string)  $information->ChargeAmount;
+            $preBooking['cancellation'][$i]['Currency'] = (string)  $information->Currency;
+            $preBooking['cancellation'][$i]['info'] = (string)  $info;
+            $i++;
+          }
+          // dd($preBookingRequest,$preBookingDetails , $preBooking,$termsAndConditions , $info);
           return view('flight.room-booking' ,compact('preBooking','termsAndConditions','info'));
       }
 
       $warning = ['message'=> 'This Room Is Note Available for now'];
       return view('flight.room-details',compact('warning'));
      
+    }
+
+    public function termsAndConditions(Request $request)
+    {
+      $termsAndConditions = $request->query('termsAndConditions');
+      $cancellation = $request->query('cancellation');
+      $info = $request->query('info');
+
+      return view('flight.terms', compact('termsAndConditions','cancellation','info'));
     }
  public function room_book_now(Request $request)
     {
@@ -1192,10 +1203,14 @@ $ress = json_decode($ss);
     }        
 
     // Booking API 
-
-public function room_book_confirm(Request $request)
-
+    public function roomBookRezliveApi($request)
     {
+      return $this->preparePayment($request);
+    }
+public function room_book_confirm(Request $request)
+    {
+
+      return $this->roomBookRezliveApi($request);
 
         $data='fvdffgdfgfg';
 
@@ -1223,7 +1238,7 @@ public function room_book_confirm(Request $request)
 
       
 
-             $name = $ticket->name;
+        $name = $ticket->name;
 
         $lname = $ticket->lname;
 
@@ -1606,9 +1621,21 @@ $data = array();
     
 
     public function room_book_confirmmolie(Request $request)
-
     {
-
+      $bookingData = session()->get('hotel_booking_data');
+      $apiResponse = $this->rezLiveHotelBookingAPIResponse($bookingData);
+      session()->forget('hotel_booking_data');
+      // dd($apiResponse);
+      if (isset($apiResponse['BookingDetails']) && $apiResponse['BookingDetails']->BookingStatus == 'Rejected')
+      {
+        dd((string) $apiResponse['BookingDetails']->BookingReason);
+      }
+      if (isset($response['head']))
+      {
+          return redirect()->back()->with('warning', 'Something went wrong..');
+      }
+      $ress = [];
+      return view('flight.hotel-confirm' ,compact('apiResponse'));
       
 
          $transaction_id = session()->get('paymentID');
@@ -2039,12 +2066,11 @@ $data = array();
 
     public function rezLiveHotelBookingAPIResponse($request)
     {
-        $requests = $request->all();
         $guest = '';
-        foreach($requests['AdultSalutation'] as $key => $value)
+        foreach($request['AdultSalutation'] as $key => $value)
         {
-          $firstName = $requests['name'][$key];
-          $lastName = $requests['lname'][$key];
+          $firstName = $request['name'][$key];
+          $lastName = $request['lname'][$key];
           $guest .= "<Guest><Salutation>$value</Salutation><FirstName>$firstName</FirstName><LastName>$lastName</LastName></Guest>";
         }
         $agentRefNo = rand(1, 100000);
@@ -2056,25 +2082,25 @@ $data = array();
         </Authentication>
         <Booking>
         <AgentRefNo>$agentRefNo</AgentRefNo>
-        <ArrivalDate>$request->arrivalDate</ArrivalDate>
-        <DepartureDate>$request->departureDate</DepartureDate>
-        <GuestNationality>$request->guestNationality</GuestNationality>
-        <CountryCode>$request->countryCode</CountryCode>
-        <City>$request->cityCode</City>
-        <HotelId>$request->hotelId</HotelId>
+        <ArrivalDate>".$request['arrivalDate']."</ArrivalDate>
+        <DepartureDate>".$request['departureDate']."</DepartureDate>
+        <GuestNationality>".$request['guestNationality']."</GuestNationality>
+        <CountryCode>".$request['countryCode']."</CountryCode>
+        <City>".$request['cityCode']."</City>
+        <HotelId>".$request['hotelId']."</HotelId>
         <Name>  
-        $request->hotelName
-        </Name><Currency>$request->currency</Currency>
+        ".$request['hotelName']."
+        </Name><Currency>".$request['currency']."</Currency>
         <RoomDetails>
         <RoomDetail>
         <Type>
-        $request->type
+        ".$request['type']."
         </Type>
-        <BookingKey>$request->bookingKey</BookingKey>
-        <Adults>$request->adults</Adults>
-        <Children>$request->children</Children>
-        <TotalRooms>$request->totalRooms</TotalRooms>
-        <TotalRate>$request->totalRate</TotalRate>
+        <BookingKey>".$request['bookingKey']."</BookingKey>
+        <Adults>".$request['adults']."</Adults>
+        <Children>".$request['children']."</Children>
+        <TotalRooms>".$request['totalRooms']."</TotalRooms>
+        <TotalRate>".$request['totalRate']."</TotalRate>
         <Guests>
         $guest
         </Guests>
@@ -2104,16 +2130,13 @@ $data = array();
 
         $xml = simplexml_load_string($response);
         $response = (array) $xml;
-        dd($response);
-        $response = current($response);
-        echo $response;
+
+        return $response;
 
     }
 
     public function preparePayment(Request $request)
     {   
-
-      $this->rezLiveHotelBookingAPIResponse($request);
 
      session()->put('fname',$request->name);
 
@@ -2466,7 +2489,7 @@ if (is_array($fnames) && is_array($lnames)) {
 }
 
    
-
+            session(['hotel_booking_data' => $request->all()]);
             return redirect($payment->getCheckoutUrl(), 303);
 
    }
