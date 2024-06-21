@@ -819,7 +819,9 @@ for ($i = 1; $i <= 5; $i++) {
 echo '</div>';
 ?>
 							</div>
-							<p><i class="fas fa-map-marker-alt"></i> <?php //print_r($data1->HotelAddress); ?></p>
+                          <p><i class="fas fa-map-marker-alt"></i> 
+                            <span style="color:orange;cursor: pointer;" id="{{$hotel['id']}}" class="getLocation">{{"View Localion"}}</span>
+                          </p>
 						
 							<p>
 							    <h5>Free cancellation</h5>
@@ -888,6 +890,7 @@ echo '</div>';
                                             <input type="hidden" name="CurrencyCode" value="<?php //echo $data1->Price->CurrencyCode;?>">
 
                                             <input type="hidden" name="hotelId" value="{{$hotel['id']}}">
+                                            <input type="hidden" name="sessionId" value="{{$sessionId}}">
                                             @php
                                             $rooms = json_encode($hotel['room']);
                                             @endphp
@@ -978,6 +981,32 @@ echo '</div>';
                    }
                 });
             });
+          
+          
+          $(document).on('click mouseenter','.getLocation', function(){
+            
+            	var id = $(this).attr('id');
+            
+            	if($(`#${id}`).hasClass('location-fetched') === false)
+                {
+                  
+                  $.ajax({
+                  url: "/hotel-location",
+                  type: "POST",
+                  data: {
+                      hotelId: id,
+                      _token: '{{csrf_token()}}'
+                  },
+                  beforeSend: function() {
+                      $(`#${id}`).text("Processing....");
+                  },
+                  success: function (result) {
+                      $(`#${id}`).text(result);
+                      $(`#${id}`).addClass('location-fetched');
+                  },
+          			});
+                }
+          });
         });
     </script> 
     <script>

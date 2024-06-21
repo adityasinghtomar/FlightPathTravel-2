@@ -312,6 +312,45 @@ print_r("done");die;
 
     }
 
+  	public function getHotelLocation(Request $request)
+    {
+      	$hotelId = $request->get('hotelId');
+      
+       	$curl = curl_init();
+  
+        $xmlRequest = "<HotelDetailsRequest>
+        <Authentication>
+        <AgentCode>CD32740</AgentCode>
+        <UserName>FLIGHTPATH</UserName>
+        </Authentication>
+        <Hotels>
+        <HotelId>$hotelId</HotelId>
+        </Hotels></HotelDetailsRequest>";
+
+      	curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://test.xmlhub.com/testpanel.php/action/gethoteldetails',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array('XML' => $xmlRequest),
+        CURLOPT_HTTPHEADER => array(
+          'x-api-key:cf7a091744591cadaf9be2d3c1dd1761'
+        ),
+      ));
+
+      $response = curl_exec($curl);
+
+      curl_close($curl);
+
+      $xml = simplexml_load_string($response);
+	  $xml = (array) $xml;
+      
+      return (string) $xml['Hotels']->HotelAddress;
+    }
     public function hotelDetail($hotelId)
     {
         return view('flight.hotel-details');
@@ -363,6 +402,7 @@ print_r("done");die;
       ));
 
       $response = curl_exec($curl);
+      //dd($response);
 
       curl_close($curl);
 
@@ -371,8 +411,8 @@ print_r("done");die;
       $hotels = [];
 
       $response = (array) $xml->Hotels;
+      $sessionId = (string) $xml->SearchSessionId;
       $response = current($response);
-
       if (!empty($response) && is_array($response))
       {
         foreach($response as $key => $hotel)
@@ -403,17 +443,24 @@ print_r("done");die;
                 $hotels[$key]['room'][$roomkey]['cityCode'] = $request->city_name;
                 $hotels[$key]['room'][$roomkey]['hotelId'] = (string) $hotel->Id;
                 $hotels[$key]['room'][$roomkey]['price'] = (string) $hotel->Price;
+                $hotels[$key]['room'][$roomkey]['sessionId'] = (string) $xml->SearchSessionId;
+                
             }
         }
+
       }
+     else
+     {
+       return redirect('/');
+     }
+        
       $form_status1 ="hotel_form";
-      return view('flight.hotel-search-list',compact('hotels','form_status1'));
+      return view('flight.hotel-search-list',compact('hotels','form_status1','sessionId'));
     }
 
     public function hotel_search(Request $request)
     {
-      // Artisan::call('optimize');
-      // dd($request->all());
+      //Artisan::call('optimize');
         return $this->rezLiveFindHotelAPIResponse($request);
 
         $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
@@ -676,6 +723,7 @@ $ress = json_decode($ss);
     {
       $request = $request->all();
       $hotelId = $request['hotelId'];
+      $sessionId = $request['sessionId'];
       $rooms = json_decode($request['room'] , true);
 
       $curl = curl_init();
@@ -686,6 +734,7 @@ $ress = json_decode($ss);
       <UserName>FLIGHTPATH</UserName>
       </Authentication>
       <Hotels>
+      <SearchSessionId>$sessionId</SearchSessionId>
       <HotelId>$hotelId</HotelId>
       </Hotels></HotelDetailsRequest>";
 
@@ -734,6 +783,7 @@ $ress = json_decode($ss);
       $hotelsDetails['hotelPostalCode'] = (string) $response->HotelPostalCode;
       $hotelsDetails['hotelAmenities'] = (string) $response->HotelAmenities;
       $hotelsDetails['roomAmenities'] = (string) $response->RoomAmenities;
+      $hotelsDetails['sessionId'] = $sessionId;
 
       return view('flight.room-details',compact('hotelId','rooms','hotelsDetails'));
     }
@@ -859,6 +909,7 @@ $ress = json_decode($ss);
       $childrenAges = $request['ChildrenAges'];
       $totalRooms = $request['TotalRooms'];
       $totalRate = $request['TotalRate'];
+      $sessionId = $request['sessionId'];
       
       $xmlRequest = "<PreBookingRequest>
       <Authentication>
@@ -866,6 +917,7 @@ $ress = json_decode($ss);
       <UserName>FLIGHTPATH</UserName>
       </Authentication>
       <PreBooking>
+      <SearchSessionId>$sessionId</SearchSessionId>
       <ArrivalDate>$arrivalDate</ArrivalDate>
       <DepartureDate>$departureDate</DepartureDate>
       <GuestNationality>$guestNationality</GuestNationality>
@@ -890,7 +942,7 @@ $ress = json_decode($ss);
       </RoomDetails>
       </PreBooking>
       </PreBookingRequest>";
-      
+
       $curl = curl_init();
       curl_setopt_array($curl, array(
         CURLOPT_URL => 'http://test.xmlhub.com/testpanel.php/action/prebook',
@@ -933,6 +985,7 @@ $ress = json_decode($ss);
           $preBooking['hotelId'] = (string) $preBookingRequest['PreBooking']->HotelId;
           $preBooking['price'] = (string) $preBookingRequest['PreBooking']->Price;
           $preBooking['currency'] = (string) $preBookingRequest['PreBooking']->Currency;
+          $preBooking['sessionId'] = (string) $preBookingRequest['PreBooking']->SearchSessionId;
 
           $preBooking['roomDetails']['type'] = (string) $roomDetails->Type;
           $preBooking['roomDetails']['bookingKey'] = (string) $roomDetails->BookingKey;
@@ -963,7 +1016,7 @@ $ress = json_decode($ss);
             $preBooking['cancellation'][$i]['info'] = (string)  $info;
             $i++;
           }
-          // dd($preBookingRequest,$preBookingDetails , $preBooking,$termsAndConditions , $info);
+          //dd($preBookingRequest,$preBookingDetails , $preBooking,$termsAndConditions , $info);
           return view('flight.room-booking' ,compact('preBooking','termsAndConditions','info'));
       }
 
@@ -1625,8 +1678,8 @@ $data = array();
       $bookingData = session()->get('hotel_booking_data');
       $apiResponse = $this->rezLiveHotelBookingAPIResponse($bookingData);
       session()->forget('hotel_booking_data');
-      // dd($apiResponse);
-      if (isset($apiResponse['BookingDetails']) && $apiResponse['BookingDetails']->BookingStatus == 'Rejected')
+
+      if (is_array($apiResponse) && isset($apiResponse['BookingDetails']) && $apiResponse['BookingDetails']->BookingStatus == 'Rejected')
       {
         dd((string) $apiResponse['BookingDetails']->BookingReason);
       }
@@ -1634,6 +1687,7 @@ $data = array();
       {
           return redirect()->back()->with('warning', 'Something went wrong..');
       }
+      //dd($apiResponse);
       $ress = [];
       return view('flight.hotel-confirm' ,compact('apiResponse'));
       
@@ -2066,6 +2120,10 @@ $data = array();
 
     public function rezLiveHotelBookingAPIResponse($request)
     {
+        if (empty($request))
+        {
+          return back();
+        }
         $guest = '';
         foreach($request['AdultSalutation'] as $key => $value)
         {
@@ -2081,6 +2139,7 @@ $data = array();
         <UserName>FLIGHTPATH</UserName>
         </Authentication>
         <Booking>
+        <SearchSessionId>".$request['sessionId']."</SearchSessionId>
         <AgentRefNo>$agentRefNo</AgentRefNo>
         <ArrivalDate>".$request['arrivalDate']."</ArrivalDate>
         <DepartureDate>".$request['departureDate']."</DepartureDate>
@@ -2107,7 +2166,7 @@ $data = array();
         </RoomDetail>
         </RoomDetails>
         </Booking></BookingRequest>";
-
+		
         curl_setopt_array($curl, array(
           CURLOPT_URL => 'http://test.xmlhub.com/testpanel.php/action/bookhotel',
           CURLOPT_RETURNTRANSFER => true,

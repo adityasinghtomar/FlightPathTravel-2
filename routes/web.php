@@ -170,6 +170,7 @@ Route::post('/room_information',[HotelController::class, 'room_information'])->n
 Route::post('/room_book_now',[HotelController::class, 'room_book_now'])->name('room-book-now');
 Route::get('/room_book_confirm',[HotelController::class, 'room_book_confirm'])->name('room-book-confirm');
 Route::post('/room_book_payment',[HotelController::class, 'preparePayment'])->name('preparePayment');
+Route::post('/hotel-location',[HotelController::class, 'getHotelLocation']);
 // Report 
 Route::get('/Flight-report',[ReportController::class, 'flight_report'])->name('Flight-report');
 Route::get('/Hotel-report',[ReportController::class, 'hotel_report'])->name('Hotel-report');
