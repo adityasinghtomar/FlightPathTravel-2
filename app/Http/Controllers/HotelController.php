@@ -4,40 +4,42 @@ namespace App\Http\Controllers;
 
 use Mail; 
 
-use Mollie\Laravel\Facades\Mollie;
+use DateTime;
 
-use Illuminate\Http\Request;
+use App\Api_Model;
 
 use App\Hotel_Model;
 
+use App\Markup_Model;
+
 use App\Mail\DemoMail;
+
+use Easebuzz\Easebuzz;
+
+use GuzzleHttp\Client;
+
+use App\HotelBookticket;
 
 use App\Hotel_City_Model;
 
 use App\UserDetails_Model;
 
-use App\Markup_Model;
-
 use App\Hotel_Details_Model;
+
+use Illuminate\Http\Request;
+
+use App\API_credential_Model;
+use Illuminate\Support\Facades\DB;
+use Mollie\Laravel\Facades\Mollie;
 
 use Illuminate\Support\Facades\Http;
 
-use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Facades\Config;
 
+use Illuminate\Support\Facades\Artisan;
+use Stevebauman\Location\Facades\Location;
 use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
 
-use Easebuzz\Easebuzz;
-
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Config;
-use DateTime;
-
-use App\HotelBookticket;
-
-use App\Api_Model;
-
-use App\API_credential_Model;
-use Illuminate\Support\Facades\Artisan;
 class HotelController extends Controller
 
 {
@@ -312,6 +314,37 @@ print_r("done");die;
 
     }
 
+    public function getCityList(Request $request)
+    {
+      	$searchText = $request->get('searchText');
+      	$columns = 'name';
+      
+      	return DB::table('hotel_city')->whereRaw("MATCH ({$columns}) AGAINST (? IN BOOLEAN MODE)", $this->fullTextWildcards($searchText))->select('name','city_id')->get()->toArray();
+      	
+    }
+
+    protected function fullTextWildcards($term)
+   	{
+       // removing symbols used by MySQL
+       $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
+       $term = str_replace($reservedSymbols, '', $term);
+
+       $words = explode(' ', $term);
+
+       foreach ($words as $key => $word) {
+           /*
+            * applying + operator (required word) only big words
+            * because smaller ones are not indexed by mysql
+            */
+           if (strlen($word) >= 1) {
+               $words[$key] = '+' . $word  . '*';
+           }
+       }
+       
+       $searchTerm = implode(' ', $words);
+
+       return $searchTerm;
+   	}
   	public function getHotelLocation(Request $request)
     {
       	$hotelId = $request->get('hotelId');

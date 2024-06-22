@@ -5362,20 +5362,31 @@
     
                  if (searchTerm) 
                  {
-                     var filteredOptions = options.filter(function (item) {
-                        return item.value.toLowerCase().includes(searchTerm);
-                     });
-    
-                     if (filteredOptions.length > 0) {
-                         filteredOptions.forEach(function (item) {
-                            $results.append('<li class="option8" data-value="' + item.key + '">' + item.value + '</li>');
-                         });
-                         $results.show();
-                     } 
-                     else 
-                     {
-                         $results.hide();
-                     }
+                    $.ajax({
+                    		url : "/hotel-city-search",
+                      		type : "POST",
+                      		data : {searchText : searchTerm , _token: '{{csrf_token()}}' },
+                      		success : function (response)
+                      		{
+                                
+                                $results.empty();
+
+                               if (response.length > 0) 
+                               {
+                                   response.forEach(function (item) {
+                                      $results.append('<li class="option8" data-value="' + item.city_id + '">' + item.name + '</li>');
+                                   });
+                                   $results.show();
+                               } 
+                               else 
+                               {
+                                   $results.hide();
+                               }
+
+                            }
+                    
+                    });
+
                  } 
                  else 
                  {
