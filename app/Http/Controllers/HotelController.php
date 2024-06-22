@@ -326,6 +326,7 @@ print_r("done");die;
     protected function fullTextWildcards($term)
    	{
        // removing symbols used by MySQL
+       // removing symbols used by MySQL
        $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
        $term = str_replace($reservedSymbols, '', $term);
 
@@ -337,13 +338,13 @@ print_r("done");die;
             * because smaller ones are not indexed by mysql
             */
            if (strlen($word) >= 1) {
-               $words[$key] = '+' . $word  . '*';
+               $words[$key] = $word;
            }
        }
        
-       $searchTerm = implode(' ', $words);
-
-       return $searchTerm;
+       //$searchTerm = implode(' ', $words);
+		    return "'+" . implode(' ', $words) . "'";
+      // return $searchTerm;
    	}
   	public function getHotelLocation(Request $request)
     {
