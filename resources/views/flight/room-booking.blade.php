@@ -540,7 +540,7 @@ input:focus-visible + label {
                             <div class="tour_booking_form_box">
                                 
                                 <!-- <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post"> -->
-                                <form action="{{url('/room_book_confirm')}}" enctype="multipart/form-data" method="post">
+                                <form action="{{url('/room_book_payment')}}" enctype="multipart/form-data" method="post">
                                      @csrf
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -627,6 +627,7 @@ input:focus-visible + label {
                                             <input type="hidden" name="totalRooms" value="{{  $preBooking['roomDetails']['totalRooms'] ?? ''}} ">
                                             <input type="hidden" name="totalRate" value="{{ $preBooking['roomDetails']['totalRate'] ?? ''}} ">
                                             <input type="hidden" name="hotelName" value="{{ $preBooking['hotelName'] ?? ''}} ">
+                                            <input type="hidden" name="sessionId" value="{{ $preBooking['sessionId'] ?? ''}} ">
                             </div>
                         </div>
                         <div class="booking_tour_form">
@@ -802,7 +803,7 @@ input:focus-visible + label {
                                 <?php if($mark_up) { 
                                             if($mark_up->markup_type =='fixed'){
                                                 $mark_up->markup_amount;
-                                                $OfferedPriceRoundedOff = $preBooking['roomDetails']['totalRate']; // defined
+                                                $OfferedPriceRoundedOff = $preBooking['price']; // defined
                                                 $subtotal= $OfferedPriceRoundedOff + $mark_up->markup_amount;
                                                
                                                 $subtotal1= $subtotal / $Currency_active->currency_rates ;
@@ -810,7 +811,7 @@ input:focus-visible + label {
                                                 
                                             }
                                             else {
-                                                $OfferedPriceRoundedOff = $preBooking['roomDetails']['totalRate']; // defined
+                                                $OfferedPriceRoundedOff = $preBooking['price']; // defined
                                               $percentage = ($mark_up->markup_amount / 100) * $OfferedPriceRoundedOff; 
                                               $subtotal= $OfferedPriceRoundedOff + $percentage;
                                                 $subtotal1= $subtotal / $Currency_active->currency_rates ;
@@ -819,7 +820,7 @@ input:focus-visible + label {
                                             }
                                             }  
                                             else{
-                                        $OfferedPriceRoundedOff = $preBooking['roomDetails']['totalRate']; // defined
+                                        $OfferedPriceRoundedOff = $preBooking['price']; // defined
 
                                          $subtotal= $OfferedPriceRoundedOff;
                                          

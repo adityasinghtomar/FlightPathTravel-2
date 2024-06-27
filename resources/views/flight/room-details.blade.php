@@ -1196,7 +1196,7 @@ echo '</div>';
 							                         //   echo round($room_data1->Price->PublishedPriceRoundedOff/$Currency_active->currency_rates,2);
 							                            ?>
 							                            <!--</del></p>-->
-                                                        <p>Off.Rate {{ $Currency_active->currency_symbol}} {{ round($room['totalRate'],2)}}
+                                                        <p>Off.Rate {{ $Currency_active->currency_symbol}} {{ round($room['price'],2)}}
                                                         <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
                                  
                                 <?php if($mark_up) { 
@@ -1244,6 +1244,9 @@ echo '</div>';
                                              <input type="hidden" name="ChildrenAges" value="{{$room['childrenAges'] ?? ''}}">
                                              <input type="hidden" name="TotalRooms" value="{{$room['totalRooms'] ?? ''}}">
                                              <input type="hidden" name="TotalRate" value="{{$room['totalRate'] ?? ''}}">
+                                             <input type="hidden" name="sessionId" value="{{$room['sessionId'] ?? ''}}">
+                                             <input type="hidden" name="travellers" value="{{$jsonData ?? ''}}">
+
 							 <button class="btn btn_theme btn_md">Book Now</button>
 							 </form>
 						</div>
@@ -1258,6 +1261,8 @@ echo '</div>';
       <div class="modal-body">
         <p> <strong>Room Type :</strong> {{$room['type'] ?? '' }}</p>
         <p> <strong>Board Basis :</strong> {{$room['boardBasis'] ?? '' }}</p>
+        <p> <strong>Total Rooms :</strong> {{$room['totalRooms'] ?? '' }}</p>
+        <p> <strong>Description :</strong> {{$room['roomDescription'] ?? '' }}</p>
         <p> <strong>Adults :</strong> {{$room['adults'] ?? '' }}</p>
         <p> <strong>Children :</strong> {{$room['children'] ?? '' }}</p>
         @if (strlen($hotelsDetails['roomAmenities']) > 0)

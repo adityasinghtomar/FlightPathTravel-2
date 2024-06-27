@@ -4,42 +4,41 @@ namespace App\Http\Controllers;
 
 use Mail; 
 
-use DateTime;
+use Mollie\Laravel\Facades\Mollie;
 
-use App\Api_Model;
+use Illuminate\Http\Request;
 
 use App\Hotel_Model;
 
-use App\Markup_Model;
-
 use App\Mail\DemoMail;
-
-use Easebuzz\Easebuzz;
-
-use GuzzleHttp\Client;
-
-use App\HotelBookticket;
 
 use App\Hotel_City_Model;
 
 use App\UserDetails_Model;
 
+use App\Markup_Model;
+
 use App\Hotel_Details_Model;
-
-use Illuminate\Http\Request;
-
-use App\API_credential_Model;
-use Illuminate\Support\Facades\DB;
-use Mollie\Laravel\Facades\Mollie;
 
 use Illuminate\Support\Facades\Http;
 
-use Illuminate\Support\Facades\Config;
-
-use Illuminate\Support\Facades\Artisan;
 use Stevebauman\Location\Facades\Location;
+
 use Easebuzz\PayWithEasebuzzLaravel\PayWithEasebuzzLib;
 
+use Easebuzz\Easebuzz;
+
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Config;
+use DateTime;
+
+use App\HotelBookticket;
+
+use App\Api_Model;
+use Illuminate\Support\Facades\DB;
+
+use App\API_credential_Model;
+use Illuminate\Support\Facades\Artisan;
 class HotelController extends Controller
 
 {
@@ -314,7 +313,7 @@ print_r("done");die;
 
     }
 
-    public function getCityList(Request $request)
+  	public function getCityList(Request $request)
     {
       	$searchText = $request->get('searchText');
       	$columns = 'name';
@@ -322,8 +321,8 @@ print_r("done");die;
       	return DB::table('hotel_city')->whereRaw("MATCH ({$columns}) AGAINST (? IN BOOLEAN MODE)", $this->fullTextWildcards($searchText))->select('name','city_id')->get()->toArray();
       	
     }
-
-    protected function fullTextWildcards($term)
+  
+  	protected function fullTextWildcards($term)
    	{
        // removing symbols used by MySQL
        $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
@@ -345,10 +344,12 @@ print_r("done");die;
 
        return $searchTerm;
    	}
+  
   	public function getHotelLocation(Request $request)
     {
+     
       	$hotelId = $request->get('hotelId');
-      
+      	
        	$curl = curl_init();
   
         $xmlRequest = "<HotelDetailsRequest>
@@ -397,6 +398,8 @@ print_r("done");die;
 
     public function rezLiveFindHotelAPIResponse($request)
     {
+      $jsonData = $request->get('travellers');
+      $travellers = json_decode($jsonData,true);
       $ip = $request->ip();
       $client = new Client();
       $response = $client->get("http://ip-api.com/json/{$ip}");
@@ -405,19 +408,54 @@ print_r("done");die;
       $currencyCode = $countryCode[$data['country']];
       $arrivalDate = $this->dateFormat($request->checkin_date);
       $departureDate = $this->dateFormat($request->checkout_date);
+	
+       
+      
+      if (!empty($travellers) && count($travellers) > 0)
+      {
+         $rooms = "";
+        
+        foreach ($travellers as $key => $traveller)
+        {
+          	
+			if(isset($traveller['adult']) && $traveller['adult'] > 0)
+            {
+              	$adultCount = $traveller['adult'];              	
+              	$childCount = $traveller['children'] ?? 0;
 
+           		$rooms .= "<Room><Type>Room-1</Type><NoOfAdults>$adultCount</NoOfAdults><NoOfChilds>$childCount</NoOfChilds>";
+            }
+           
+          	if (isset($traveller['children']) && $traveller['children'] > 0)
+            {
+              $rooms .='<ChildrenAges>';
+              $i = 0;
+                while (count($traveller['childrenAge']) > $i)
+                {
+                  	$childAge = $traveller['childrenAge'][$i];
+                    $rooms .= "<ChildAge>$childAge</ChildAge>";
+                    $i++;
+                }
+              $rooms .= "</ChildrenAges>";
+            }
+           $rooms .="</Room>";
+
+      	}
+        
+      }
       $curl = curl_init();
       $childCount = $request->child12;
-      $i = 0;
-      $childAgeRequest = '<ChildrenAges>';
-      while ($childCount > $i)
-      {
-          $childAgeRequest .= '<ChildAge>4</ChildAge>';
-          $i++;
-      }
-      $childAgeRequest .= '</ChildrenAges>';
+     
+      
 
-      $xmlRequest = "<HotelFindRequest><Authentication><AgentCode>CD32740</AgentCode><UserName>FLIGHTPATH</UserName></Authentication><Booking><ArrivalDate>$arrivalDate</ArrivalDate><DepartureDate>$departureDate</DepartureDate><CountryCode>IN</CountryCode><City>$request->city_name</City><GuestNationality>IN</GuestNationality><HotelRatings><HotelRating>3</HotelRating><HotelRating>4</HotelRating><HotelRating>5</HotelRating></HotelRatings><Rooms><Room><Type>Room-1</Type><NoOfAdults>$request->adult12</NoOfAdults><NoOfChilds>$childCount</NoOfChilds>$childAgeRequest</Room></Rooms></Booking></HotelFindRequest>";
+      $xmlRequest = "<HotelFindRequest><Authentication><AgentCode>CD32740</AgentCode><UserName>FLIGHTPATH</UserName></Authentication>
+      <Booking><ArrivalDate>$arrivalDate</ArrivalDate><DepartureDate>$departureDate</DepartureDate>
+      <CountryCode>IN</CountryCode><City>$request->city_name</City><GuestNationality>IN</GuestNationality>
+      <HotelRatings><HotelRating>3</HotelRating><HotelRating>4</HotelRating><HotelRating>5</HotelRating>
+      </HotelRatings>
+      <Rooms>
+      $rooms
+      </Rooms></Booking></HotelFindRequest>";
 
       curl_setopt_array($curl, array(
         CURLOPT_URL => 'http://test.xmlhub.com/testpanel.php/action/findhotel',
@@ -435,7 +473,7 @@ print_r("done");die;
       ));
 
       $response = curl_exec($curl);
-      //dd($response);
+
 
       curl_close($curl);
 
@@ -486,14 +524,14 @@ print_r("done");die;
      {
        return redirect('/');
      }
-        
       $form_status1 ="hotel_form";
-      return view('flight.hotel-search-list',compact('hotels','form_status1','sessionId'));
+      return view('flight.hotel-search-list',compact('hotels','form_status1','sessionId','jsonData'));
     }
 
     public function hotel_search(Request $request)
     {
-      //Artisan::call('optimize');
+      	//exec('composer dump-autoload');
+      	//Artisan::call('optimize');
         return $this->rezLiveFindHotelAPIResponse($request);
 
         $api_authentic = Api_Model::where('api_name','Authentic')->where('status','active')->first(); 
@@ -754,6 +792,7 @@ $ress = json_decode($ss);
 
     public function rezLiveHotelDetailsAPIResponse($request)
     {
+      $jsonData = $request->get('travellers');
       $request = $request->all();
       $hotelId = $request['hotelId'];
       $sessionId = $request['sessionId'];
@@ -818,7 +857,9 @@ $ress = json_decode($ss);
       $hotelsDetails['roomAmenities'] = (string) $response->RoomAmenities;
       $hotelsDetails['sessionId'] = $sessionId;
 
-      return view('flight.room-details',compact('hotelId','rooms','hotelsDetails'));
+        
+
+      return view('flight.room-details',compact('hotelId','rooms','hotelsDetails','jsonData'));
     }
 
  public function room_information(Request $request)
@@ -925,6 +966,9 @@ $ress = json_decode($ss);
 
     public function rezLiveHotelPreBookingAPIResponse($request)
     {
+      $jsonData = $request->get('travellers');
+      $travellers = json_decode($jsonData,true);
+      dd($travellers);
       $request = $request->all();
       $hotelName = $request['hotelName'];
       $arrivalDate = $request['ArrivalDate'];
@@ -1050,7 +1094,8 @@ $ress = json_decode($ss);
             $i++;
           }
           //dd($preBookingRequest,$preBookingDetails , $preBooking,$termsAndConditions , $info);
-          return view('flight.room-booking' ,compact('preBooking','termsAndConditions','info'));
+        
+          return view('flight.room-booking' ,compact('preBooking','termsAndConditions','info','travellers'));
       }
 
       $warning = ['message'=> 'This Room Is Note Available for now'];
@@ -1710,6 +1755,7 @@ $data = array();
     {
       $bookingData = session()->get('hotel_booking_data');
       $apiResponse = $this->rezLiveHotelBookingAPIResponse($bookingData);
+
       session()->forget('hotel_booking_data');
 
       if (is_array($apiResponse) && isset($apiResponse['BookingDetails']) && $apiResponse['BookingDetails']->BookingStatus == 'Rejected')
@@ -1720,7 +1766,6 @@ $data = array();
       {
           return redirect()->back()->with('warning', 'Something went wrong..');
       }
-      //dd($apiResponse);
       $ress = [];
       return view('flight.hotel-confirm' ,compact('apiResponse'));
       
@@ -2222,7 +2267,7 @@ $data = array();
 
         $xml = simplexml_load_string($response);
         $response = (array) $xml;
-
+		dd((string) $response['BookingRequest']->Booking->City,$xml->children('BookingResponse',true),$xml->children('Booking',true),$xml->attributes());
         return $response;
 
     }

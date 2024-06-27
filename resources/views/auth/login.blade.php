@@ -2388,158 +2388,29 @@
                                         <!--<i class="far fa-calendar"></i>-->
 
                                     </div>
-
-                                    <div class="col-xl-auto col-md-6 mb-20">
-
-                                        <label>Rooms</label>
-
-                                        <input type="number" name="NoOfRoom" class="form-control" value="1" id="exampleFormControlInput1" placeholder="Rooms" required>
-
-                                    </div>
-
-                                    
-
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
-
- document.addEventListener('DOMContentLoaded', function() {
-
-    const adultInput = document.querySelector('.getadult_data1');
-
-    const childInput = document.querySelector('.getchild_data1');
-
-    const adultCountDisplay = document.getElementById('adultCount1');
-
-    const childCountDisplay = document.getElementById('childCount1');
-
-    const totalTravellersDisplay = document.getElementById('totalTravellers');
-
-    const doneButton = document.getElementById('doneButton');
-
-
-
-    // Function to update the display for both adult and child counts
-
-    const updateDisplay = () => {
-
-        const adultCount = parseInt(adultInput.value) || 0;
-
-        const childCount = parseInt(childInput.value) || 0;
-
-        const totalTravellers = adultCount + childCount;
-
-
-
-        adultCountDisplay.textContent = adultCount;
-
-        childCountDisplay.textContent = childCount;
-
-        totalTravellersDisplay.textContent = totalTravellers;
-
-    };
-
-
-
-    // Increase Adult count
-
-    document.querySelector('.inc-dec-count-box__plus3').addEventListener('click', function() {
-
-        adultInput.value = parseInt(adultInput.value) + 1;
-
-        updateDisplay(); // Update the display
-
-    });
-
-
-
-    // Decrease Adult count
-
-    document.querySelector('.inc-dec-count-box__minus3').addEventListener('click', function() {
-
-        const currentValue = parseInt(adultInput.value);
-
-        if (currentValue > 1) {
-
-            adultInput.value = currentValue - 1;
-
-        } else {
-
-            adultInput.value = 1; // Ensure adult count doesn't go below 1
-
-        }
-
-        updateDisplay(); // Update the display
-
-    });
-
-
-
-    // Increase Child count
-
-    document.querySelector('.inc-dec-count-box__plus4').addEventListener('click', function() {
-
-        childInput.value = parseInt(childInput.value) + 1;
-
-        updateDisplay(); // Update the display
-
-    });
-
-
-
-    // Decrease Child count
-
-    document.querySelector('.inc-dec-count-box__minus4').addEventListener('click', function() {
-
-        const currentValue = parseInt(childInput.value);
-
-        if (currentValue > 0) {
-
-            childInput.value = currentValue - 1;
-
-        }
-
-        updateDisplay(); // Update the display
-
-    });
-
-
-
-    // Done button click event (you can replace this with your actual logic)
-
-    doneButton.addEventListener('click', function() {
-
-        alert('Passenger selection done!');
-
-    });
-
-});
-
-</script>
-
-                
-
+										
+                                  	<input type="hidden" name="travellers" class="travellers-input" id="travellers-input">
+                                   
+                                   
                                     
 
                                     <div class="col-md mb-20 mb-20">
 
                                         <div class="dropdown dropdown-style-2">
 
-                                            <label>Guest</label>
+                                            <label>Travellers</label>
 
                                           <button class="btn dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                       <span>Adult:<span id="adultCount1">2</span></span>
+                                       <span>Traveller:<span id="adultCount1" class="hotel-adult-count">2</span></span>
 
-                                        <span>Child: <span id="childCount1">0</span></span>
+                                        <span>Room: <span id="childCount1" class="hotel-children-count">1</span></span>
 
-                                    </button>
+                                    		</button>
 
+                                            <ul class="dropdown-menu adult-child-section" aria-labelledby="dropdownMenuButton1">
 
-
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-                                                <li>
+                                                <li class="hotel-room">
 
                                                     <!-- <a class="dropdown-item" href="#">Action</a> -->
 
@@ -2549,12 +2420,12 @@
 
                                                             <div class="dropdown-menu-passenger-selection__block__left">
 
+                                                              	<div class="block-title"><span class="room-no">Room 1</span></div>
                                                                 <div class="block-title"><span>Adults</span></div>
 
                                                                 <div class="block-sub-title"><span><small>Age
 
                                                                             18+</small></span></div>
-
                                                             </div>
 
                                                             <div
@@ -2565,13 +2436,13 @@
 
                                                                     <div class="inc-dec-count-box__minus3">
 
-                                                                        <i class="fas fa-minus"></i>
+                                                                        <i class="fas fa-minus decrease-adult"></i>
 
                                                                     </div>
 
                                                                     <div class="inc-dec-count-box__value">
 
-                                                                        <input type="number" class="form-control getadult_data1" name="adult12"
+                                                                        <input type="number" class="form-control getadult_data1 hotel-adult-input" name="adult12"
 
                                                                             id="exampleFormControlInput1" value="2" min="0" step="1">
 
@@ -2579,7 +2450,7 @@
 
                                                                     <div class="inc-dec-count-box__plus3">
 
-                                                                        <i class="fas fa-plus"></i>
+                                                                        <i class="fas fa-plus increase-adult"></i>
 
                                                                     </div>
 
@@ -2603,21 +2474,19 @@
 
                                                             </div> 
 
-                                                            <div
-
-                                                                class="dropdown-menu-passenger-selection__block__right">
+                                                            <div class="dropdown-menu-passenger-selection__block__right">
 
                                                                 <div class="inc-dec-count-box">
 
                                                                     <div class="inc-dec-count-box__minus4">
 
-                                                                        <i class="fas fa-minus"></i>
+                                                                        <i class="fas fa-minus decrease-children"></i>
 
                                                                     </div>
 
                                                                     <div class="inc-dec-count-box__value">
 
-                                                                        <input type="number" class="form-control getchild_data1"
+                                                                        <input type="number" class="form-control getchild_data1 hotel-children-input"
 
                                                                            name="child12" id="exampleFormControlInput1" value="0" min="0" step="1">
 
@@ -2625,43 +2494,31 @@
 
                                                                     <div class="inc-dec-count-box__plus4">
 
-                                                                        <i class="fas fa-plus"></i>
+                                                                        <i class="fas fa-plus increase-children"></i>
 
                                                                     </div>
 
                                                                 </div>
+                                                              	
+                                                              	
 
                                                             </div>
 
                                                         </div>
+                                                      	<br/>
+                                                      <span class="add-another-room" style="cursor:pointer;"> Add another room </span>
+                                                      	
 
                                                     </div>
 
                                                 </li>
+                                              
+                                              
+                                              
+                                              
+                                              
 
-                                                <li>
-
-                                                    <div class="dropdown-menu-footer">
-
-                                                        <div class="dropdown-menu-footer__total-travellers">
-
-                                                            <span class="fw-bold">6</span> 
-
-                                                            <span>People</span>
-
-                                                        </div>
-
-                                                        <div class="dropdown-menu-footer__done-selected-travellers">
-
-                                                            <a href="javascript:void(0)" class="btn btn-theme-blue">
-
-                                                                Done </a>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </li>
+                                                
 
                                             </ul>
 
@@ -8516,7 +8373,210 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         $(document).ready(function () {
+			
+          
+          	function getTravellersCalculation()
+          	{
+            	let adultCount = 0;
+                let childrenCount = 0;
+                let room = 0;
+                let roomJson = {};
+                $('.hotel-room').each(function(index, element) 
+                {
+                  let adultValue = parseInt($(element).find('.hotel-adult-input').val());
+                  let childrenValue = parseInt($(element).find('.hotel-children-input').val());
+                  adultCount = adultCount + adultValue;
+                  childrenCount = childrenCount + childrenValue;
+                  room = index + 1;
+                  
+                  var childrenAges = [];
+                  $(this).find('.children-dropdown').each(function(key, value) {
+                      let selectedValue = $(value).val();
+                      childrenAges.push(selectedValue);
+                      console.log('Dropdown ' + key + ': ' + selectedValue);
+                  });
+                    
+                  roomJson[index + 1] = {'adult' : adultValue , 'children': childrenValue , 'childrenAge' : childrenAges};
 
+                });
+
+                let totalTravellers = adultCount + childrenCount;
+
+                $('.hotel-adult-count').text(totalTravellers);
+                $('.hotel-children-count').text(room)
+                $('#travellers-input').val(JSON.stringify(roomJson));
+            
+          	}
+          
+          
+          	$(document).on('change','.children-dropdown', function(){
+            	getTravellersCalculation();
+            });
+          
+          
+          
+         $(document).on('click', '.increase-children', function() 
+         {
+         
+
+          // Increment the children value
+          var $parent = $(this).closest('.hotel-room');
+          var $childrenInput = $parent.find('.hotel-children-input');
+          var childrenValue = parseInt($childrenInput.val()) + 1;
+          $childrenInput.val(childrenValue);
+
+          // Create the dropdown element
+          var dropdownElement = `
+              <select name="child_age" class="form-control children-dropdown">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+              </select>`;
+
+          // Insert the dropdown element before the '.adult-child-section'
+          if ($parent.find('.remove-room').length === 1)
+          {
+            $parent.find('.remove-room').before(dropdownElement);
+          }
+          else
+          {
+            $parent.find('.add-another-room').before(dropdownElement);
+          }
+          
+          $('.children-dropdown').prev('br').remove();
+          getTravellersCalculation();
+          
+      });
+
+          
+           $(document).on('click','.remove-room', function() {
+             	console.log('.remove-room');
+             	let $hotelLength = $('.adult-child-section').find('.hotel-room');
+             	
+             	if ($hotelLength.length > 1)
+                {
+                  $(this).closest('.hotel-room').remove();
+                }
+             	
+             	$hotelLength = $('.adult-child-section').find('.hotel-room');
+             	
+             	if ($hotelLength.length == 1)
+                {
+                  	if ($hotelLength.find('.add-another-room').length == 0)
+                    {
+                      $hotelLength.find('.remove-room').after('<span class="add-another-room" style="cursor:pointer;">Add another room</span><br/>');
+                    }
+                  	$hotelLength.find('.remove-room').remove();
+                }
+             	
+             	getTravellersCalculation();
+             
+           });
+          $(document).on('click','.add-another-room', function() {
+            
+            let $element = $('.hotel-room').last().clone(true);
+            $element.find('.hotel-adult-input').val(2);            
+            $element.find('.hotel-children-input').val(0);
+            $element.find('.children-dropdown').remove();
+            let roomText = $element.find('.room-no').text();
+            
+            let $removeRooms = $element.find('.remove-room');
+            let $addRooms = $element.find('.add-another-room');
+            
+            console.log('removeRooms',$removeRooms.length);
+			if ($removeRooms.length > 1) 
+            {
+    			$removeRooms.not(':first').remove();
+              	$removeRooms.next('br').remove();
+              	$('.children-dropdown').prev('br').remove();
+			}
+            
+
+            if ($addRooms.length >= 1) 
+            {
+                $addRooms.not(':first').remove();
+              	$addRooms.next('br').remove();
+              	$('.children-dropdown').prev('br').remove();
+            }
+            
+            if ($addRooms.length === 1 && $removeRooms.length === 0) 
+            {
+                $element.find('.remove-room').after('<span class="add-another-room" style="cursor:pointer;">Add another room</span><br/>');
+            }
+            
+            if ($removeRooms.length === 0) 
+            {
+                $element.find('.add-another-room').before('<span class="remove-room" style="cursor:pointer;">Remove Room</span><br/>');
+            }
+
+   
+            $('.hotel-room').last().after($element);
+            $element.prev('.hotel-room').length;
+            if ($element.prev('.hotel-room').length === 1 && $removeRooms.length === 0)
+            {
+              $element.prev('.hotel-room').find('.add-another-room').after('<br/><span class="remove-room" style="cursor:pointer;">Remove Room<span>');
+              $element = $element.prev('.hotel-room').find('.add-another-room');
+              $element.prev('br').remove();
+              $('.children-dropdown').prev('br').remove();
+              $element.remove()
+            }
+            else
+            {
+              $element = $element.prev('.hotel-room').find('.add-another-room');
+              $element.prev('br').remove();
+              $('.children-dropdown').prev('br').remove();
+              $element.remove()
+            }
+           
+            switch(roomText)
+             {
+               case 'Room 1' : 
+                 	$element.find('.room-no').text("Room 2");
+                 	break;
+                 
+               case 'Room 2' : 
+                 	$element.find('.room-no').text("Room 3");
+                 	break;
+                 
+                case 'Room 3' : 
+                 	$element.find('.room-no').text("Room 4");
+                 	break;
+                 
+               case 'Room 4' : 
+                 	$element.find('.room-no').text("Room 5");
+                 	break;
+                
+               case 'Room 5' : 
+                 	$element.find('.room-no').text("Room 6");
+                 	break;
+               
+               case 'Room 6' : 
+                 	$element.find('.room-no').text("Room 7");
+                 	break;
+                 
+               case 'Room 7' : 
+                 	$element.find('.room-no').text("Room 8");
+                 	break;
+             }
+
+            
+           getTravellersCalculation();
+            
+          });
 
              // REZLIVE API 
              var $dropdown = $('#dropdown');
@@ -8574,15 +8634,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
             // Handle click event on the list items in the results
-            $(document).on('click', 'li', function () {
-                $('#search-input').val($(this).text());
-            
-                $('#search-input-code').val($(this).attr('data-value'));
-                $results.empty().hide();
-            });
+           $(document).on('click', '#results li', function () {
+              $('#search-input').val($(this).text());
+ 
+              $('#search-input-code').val($(this).attr('data-value'));
+              $results.empty().hide();
+          });
         
             // Hide the results when clicking outside
             $(document).on('click', function (e) {
+              	
                 if (!$(e.target).closest('#results, #search-input').length) {
                     $results.hide();
                 }

@@ -891,6 +891,8 @@ echo '</div>';
 
                                             <input type="hidden" name="hotelId" value="{{$hotel['id']}}">
                                             <input type="hidden" name="sessionId" value="{{$sessionId}}">
+                                            <input type="hidden" name="travellers" value="{{$jsonData}}">
+
                                             @php
                                             $rooms = json_encode($hotel['room']);
                                             @endphp
