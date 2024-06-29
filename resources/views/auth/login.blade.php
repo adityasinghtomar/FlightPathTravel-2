@@ -508,7 +508,7 @@
 
       <div class="plane">
 
-        <img src="https://www.flightofox.ca/Content/Assets/images/flight-loading.gif" alt="">
+        
 
       </div>
 
@@ -1153,6 +1153,23 @@
             background-color: #f8f9fa;
 
         }
+  
+  
+  .no-spinner {
+    -moz-appearance: textfield;
+}
+
+/* Hide arrows in Chrome, Safari, Edge, and Opera */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Optional: Hide the spinner in Internet Explorer 10+ */
+.no-spinner {
+    -ms-appearance: textfield;
+}
 
     </style>
 
@@ -2442,7 +2459,7 @@
 
                                                                     <div class="inc-dec-count-box__value">
 
-                                                                        <input type="number" class="form-control getadult_data1 hotel-adult-input" name="adult12"
+                                                                        <input type="number" class="no-spinner form-control getadult_data1 hotel-adult-input" name="adult12"
 
                                                                             id="exampleFormControlInput1" value="2" min="0" step="1">
 
@@ -2486,7 +2503,7 @@
 
                                                                     <div class="inc-dec-count-box__value">
 
-                                                                        <input type="number" class="form-control getchild_data1 hotel-children-input"
+                                                                        <input type="number" class="no-spinner form-control getchild_data1 hotel-children-input"
 
                                                                            name="child12" id="exampleFormControlInput1" value="0" min="0" step="1">
 
@@ -8374,7 +8391,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $(document).ready(function () {
 			
-          
+          	 // REZLIVE API 
           	function getTravellersCalculation()
           	{
             	let adultCount = 0;
@@ -8383,6 +8400,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let roomJson = {};
                 $('.hotel-room').each(function(index, element) 
                 {
+                  
                   let adultValue = parseInt($(element).find('.hotel-adult-input').val());
                   let childrenValue = parseInt($(element).find('.hotel-children-input').val());
                   adultCount = adultCount + adultValue;
@@ -8393,7 +8411,6 @@ document.addEventListener('DOMContentLoaded', function () {
                   $(this).find('.children-dropdown').each(function(key, value) {
                       let selectedValue = $(value).val();
                       childrenAges.push(selectedValue);
-                      console.log('Dropdown ' + key + ': ' + selectedValue);
                   });
                     
                   roomJson[index + 1] = {'adult' : adultValue , 'children': childrenValue , 'childrenAge' : childrenAges};
@@ -8408,25 +8425,95 @@ document.addEventListener('DOMContentLoaded', function () {
             
           	}
           
-          
+          getTravellersCalculation();
           	$(document).on('change','.children-dropdown', function(){
             	getTravellersCalculation();
             });
           
           
+          $(document).on('click', '.decrease-adult', function() 
+         {
+           	var $parent = $(this).closest('.hotel-room');
+            var $adultInput = $parent.find('.hotel-adult-input');
+            
+           	if (parseInt($adultInput.val()) > 1)
+            {
+              var adultValue = parseInt($adultInput.val()) - 1;
+              $adultInput.val(adultValue);
+              getTravellersCalculation();
+            }
+           
+            $parent.find('.full-passenger').next('br').remove();
+            $parent.find('.full-passenger').remove();
+         });
+          
+          
+         $(document).on('click', '.increase-adult', function() 
+         {
+           	var $parent = $(this).closest('.hotel-room');
+            var $adultInput = $parent.find('.hotel-adult-input');
+           	
+           var perRoomPassenger = parseInt($adultInput.val()) + parseInt($parent.find('.hotel-children-input').val());
+          if (perRoomPassenger > 5 && !$parent.find('.children-dropdown').last().next().hasClass('full-passenger')) 
+          {
+              return $parent.find('.children-dropdown').last().after('<span class="text-danger full-passenger">Only 6 passengers allowed in 1 room </span><br/>');
+          } 
+          
+          if (perRoomPassenger < 6)
+          {
+              $parent.find('.full-passenger').next('br').remove();
+              $parent.find('.full-passenger').remove();
+              var adultInputValue = parseInt($adultInput.val()) + 1;
+              $adultInput.val(adultInputValue);
+              
+          }
+           
+           getTravellersCalculation();
+            
+           
+         });
+          
+         $(document).on('click', '.decrease-children', function() 
+         {
+           	
+           var $parent = $(this).closest('.hotel-room');
+           var $childrenInput = $parent.find('.hotel-children-input');
+           
+           if (parseInt($childrenInput.val()) > 0 )
+           {
+             var childrenValue = parseInt($childrenInput.val()) - 1;
+             $childrenInput.val(childrenValue);
+             $parent.find('.children-dropdown').last().remove();
+             getTravellersCalculation();
+           }
+           $parent.find('.full-passenger').next('br').remove();
+           $parent.find('.full-passenger').remove();
+           
+         });
           
          $(document).on('click', '.increase-children', function() 
          {
          
-
           // Increment the children value
           var $parent = $(this).closest('.hotel-room');
+          var $adultInput = $parent.find('.hotel-adult-input')
           var $childrenInput = $parent.find('.hotel-children-input');
-          var childrenValue = parseInt($childrenInput.val()) + 1;
-          $childrenInput.val(childrenValue);
-
-          // Create the dropdown element
-          var dropdownElement = `
+          
+          var perRoomPassenger =  parseInt($childrenInput.val()) + parseInt($adultInput.val());
+          
+          if (perRoomPassenger > 5 && !$parent.find('.children-dropdown').last().next().hasClass('full-passenger')) 
+          {
+              return $parent.find('.children-dropdown').last().after('<span class="text-danger full-passenger">Only 6 passengers allowed in 1 room </span><br/>');
+          } 
+          
+          if (perRoomPassenger < 6)
+          {
+              $parent.find('.full-passenger').next('br').remove();
+              $parent.find('.full-passenger').remove();
+              var childrenValue = parseInt($childrenInput.val()) + 1;
+          	  $childrenInput.val(childrenValue);
+            	
+            var dropdownElement = `
               <select name="child_age" class="form-control children-dropdown">
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -8446,6 +8533,12 @@ document.addEventListener('DOMContentLoaded', function () {
                   <option value="16">16</option>
                   <option value="17">17</option>
               </select>`;
+          }
+
+          
+
+          // Create the dropdown element
+          
 
           // Insert the dropdown element before the '.adult-child-section'
           if ($parent.find('.remove-room').length === 1)
@@ -8482,22 +8575,32 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                   	$hotelLength.find('.remove-room').remove();
                 }
+             
+              	$('.hotel-room').each(function(index, element) 
+                {
+                  
+                  $(element).find('.room-no').text(`Room ${index + 1}`);
+    				console.log(index + 1);
+                  
+                });
              	
              	getTravellersCalculation();
              
            });
+          
           $(document).on('click','.add-another-room', function() {
             
             let $element = $('.hotel-room').last().clone(true);
+            console.log($element);
             $element.find('.hotel-adult-input').val(2);            
             $element.find('.hotel-children-input').val(0);
             $element.find('.children-dropdown').remove();
             let roomText = $element.find('.room-no').text();
-            
+
             let $removeRooms = $element.find('.remove-room');
             let $addRooms = $element.find('.add-another-room');
             
-            console.log('removeRooms',$removeRooms.length);
+           
 			if ($removeRooms.length > 1) 
             {
     			$removeRooms.not(':first').remove();
@@ -8522,26 +8625,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 $element.find('.add-another-room').before('<span class="remove-room" style="cursor:pointer;">Remove Room</span><br/>');
             }
-
-   
-            $('.hotel-room').last().after($element);
-            $element.prev('.hotel-room').length;
-            if ($element.prev('.hotel-room').length === 1 && $removeRooms.length === 0)
-            {
-              $element.prev('.hotel-room').find('.add-another-room').after('<br/><span class="remove-room" style="cursor:pointer;">Remove Room<span>');
-              $element = $element.prev('.hotel-room').find('.add-another-room');
-              $element.prev('br').remove();
-              $('.children-dropdown').prev('br').remove();
-              $element.remove()
-            }
-            else
-            {
-              $element = $element.prev('.hotel-room').find('.add-another-room');
-              $element.prev('br').remove();
-              $('.children-dropdown').prev('br').remove();
-              $element.remove()
-            }
-           
+			
             switch(roomText)
              {
                case 'Room 1' : 
@@ -8571,14 +8655,37 @@ document.addEventListener('DOMContentLoaded', function () {
                case 'Room 7' : 
                  	$element.find('.room-no').text("Room 8");
                  	break;
+               default:
+                	console.log("Unexpected room text: " + roomText);
+                break;
              }
+   
+            $('.hotel-room').last().after($element);
+            $element.prev('.hotel-room').length;
+            if ($element.prev('.hotel-room').length === 1 && $removeRooms.length === 0)
+            {
+              $element.prev('.hotel-room').find('.add-another-room').after('<br/><span class="remove-room" style="cursor:pointer;">Remove Room<span>');
+              $element = $element.prev('.hotel-room').find('.add-another-room');
+              $element.prev('br').remove();
+              $('.children-dropdown').prev('br').remove();
+              $element.remove()
+            }
+            else
+            {
+              $element = $element.prev('.hotel-room').find('.add-another-room');
+              $element.prev('br').remove();
+              $('.children-dropdown').prev('br').remove();
+              $element.remove()
+            }
+           
+            
 
             
            getTravellersCalculation();
             
           });
 
-             // REZLIVE API 
+            
              var $dropdown = $('#dropdown');
             var $results = $('#results');
             var $searchInput = $('#search-input');

@@ -798,7 +798,21 @@
     
     }
     
-       
+     .no-spinner {
+        -moz-appearance: textfield;
+    }
+    
+    /* Hide arrows in Chrome, Safari, Edge, and Opera */
+    .no-spinner::-webkit-outer-spin-button,
+    .no-spinner::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    /* Optional: Hide the spinner in Internet Explorer 10+ */
+    .no-spinner {
+        -ms-appearance: textfield;
+    }  
     
     </style>   
     
@@ -1109,10 +1123,6 @@
             <span class="title">Departure</span>
     
             <span class="detail"><p id="dateDisplay"></p></span>
-    
-            
-    
-           
     
           </div>
     
@@ -1696,7 +1706,7 @@
     
         const childCountDisplay = document.getElementById('childCount');
     
-           const adult1CountDisplay = document.getElementById('adultCount1');
+        const adult1CountDisplay = document.getElementById('adultCount1');
     
         const child1CountDisplay = document.getElementById('childCount1');
     
@@ -1718,11 +1728,11 @@
     
     
     
-             adultCountDisplay.textContent = adultCount;
+            adultCountDisplay.textContent = adultCount;
     
             childCountDisplay.textContent = childCount;
     
-                 adult1CountDisplay.value = adultCount;
+            adult1CountDisplay.value = adultCount;
     
             child1CountDisplay.value = childCount;
     
@@ -1994,9 +2004,9 @@
     
                                              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     
-                                                <span>Adult <span id="adultCount">1</span></span>
+                                                <span>Adult <span id="adultCount">{{$adult ?? 1}}</span></span>
     
-                                                <span>Child <span id="childCount">0</span></span>
+                                                <span>Child <span id="childCount">{{$child ?? 0}}</span></span>
     
                                             </button>
     
@@ -2036,7 +2046,7 @@
     
                                                                             <input type="text" class="form-control getadult_data"
     
-                                                                                id="exampleFormControlInput1"  value="1">
+                                                                                id="exampleFormControlInput1"  value="{{$adult ?? 1}}">
     
                                                                                
     
@@ -2086,7 +2096,7 @@
     
                                                                             <input type="text" class="form-control childget"
     
-                                                                                id="exampleFormControlInput1"  value="0">
+                                                                                id="exampleFormControlInput1"  value="{{$child ?? 0}}">
     
                                                                               
     
@@ -2372,9 +2382,9 @@
     
                                         </div>
     
-                                        <input type="hidden" name="adult" value="1">
+                                        <input type="hidden"  id="retuen-adult" name="adult" value="{{$adult ?? 1}}">
     
-                                          <input type="hidden" name="children" value="0">
+                                          <input type="hidden" id="retuen-child" name="children" value="{{$children ?? 0}}">
     
                                           <input type="hidden" name="infant" value="0">
     
@@ -2729,19 +2739,12 @@
     
                                         </div>
     
-                                        <div class="col-xl-auto col-md-6 mb-20">
-    
-                                            <label>Rooms</label>
-    
-                                            <input type="number" name="NoOfRoom" class="form-control" value="<?if(isset($NoOfRoom)){ echo $NoOfRoom; }else{ echo '1';}?>" id="exampleFormControlInput1" placeholder="Rooms" required>
-    
-                                        </div>
-    
+                                      
                                         
     
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
-                        <script>
+    <script>
     
      document.addEventListener('DOMContentLoaded', function() {
     
@@ -2761,6 +2764,11 @@
     
         const doneButton = document.getElementById('doneButton');
     
+        // added
+    
+        const adultHiddenInput = document.getElementById('retuen-adult');
+        const childHiddenInput = document.getElementById('retuen-child');
+    
     
     
         // Set default values
@@ -2776,7 +2784,6 @@
         const updateDisplay = () => {
     
             const adultCount = parseInt(adultInput.value) || 1; // Default to 1 if parsing fails
-    
             const childCount = parseInt(childInput.value) || 0; // Default to 0 if parsing fails
     
             const totalTravellers = adultCount + childCount;
@@ -2793,6 +2800,9 @@
     
             totalTravellersDisplay.textContent = totalTravellers;
     
+            adultHiddenInput.value = adultCount;
+            childHiddenInput.value = childCount;
+    
         };
     
     
@@ -2806,9 +2816,7 @@
         // Increase Adult count
     
         document.querySelector('.inc-dec-count-box__plus').addEventListener('click', function() {
-    
-            adultInput.value = parseInt(adultInput.value) + 1;
-    
+            adultInput.value = parseInt(adultInput.value);
             updateDisplay(); // Update the display
     
         });
@@ -2823,7 +2831,8 @@
     
             if (currentValue > 1) {
     
-                adultInput.value = currentValue - 1;
+                adultInput.value = currentValue;
+    
     
             } else {
     
@@ -2999,27 +3008,24 @@
     
                     
     
-                                        
-    
-                                        <div class="col-md mb-20 mb-20">
+                                        <input type="hidden" name="travellers" class="travellers-input" id="travellers-input">
+                                         <div class="col-md mb-20 mb-20">
     
                                             <div class="dropdown dropdown-style-2">
     
-                                                <label>Guest</label>
+                                                <label>Travellers</label>
     
                                               <button class="btn dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     
-                                           <span>Adult:<span id="adultCount1">2</span></span>
+                                           <span>Traveller:<span id="adultCount1" class="hotel-adult-count">2</span></span>
     
-                                            <span>Child: <span id="childCount1">0</span></span>
+                                            <span>Room: <span id="childCount1" class="hotel-children-count">1</span></span>
     
-                                        </button>
+                                                </button>
     
+                                                <ul class="dropdown-menu adult-child-section" aria-labelledby="dropdownMenuButton1">
     
-    
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    
-                                                    <li>
+                                                    <li class="hotel-room">
     
                                                         <!-- <a class="dropdown-item" href="#">Action</a> -->
     
@@ -3029,12 +3035,12 @@
     
                                                                 <div class="dropdown-menu-passenger-selection__block__left">
     
+                                                                      <div class="block-title"><span class="room-no">Room 1</span></div>
                                                                     <div class="block-title"><span>Adults</span></div>
     
                                                                     <div class="block-sub-title"><span><small>Age
     
                                                                                 18+</small></span></div>
-    
                                                                 </div>
     
                                                                 <div
@@ -3045,21 +3051,21 @@
     
                                                                         <div class="inc-dec-count-box__minus3">
     
-                                                                            <i class="fas fa-minus"></i>
+                                                                            <i class="fas fa-minus decrease-adult"></i>
     
                                                                         </div>
     
                                                                         <div class="inc-dec-count-box__value">
     
-                                                                            <input type="number" class="form-control getadult_data1" name="adult12"
+                                                                            <input type="number" class="no-spinner form-control getadult_data1 hotel-adult-input" name="adult12"
     
-                                                                                id="exampleFormControlInput1" value="2" min="1">
+                                                                                id="exampleFormControlInput1" value="2" min="0" step="1">
     
                                                                         </div>
     
                                                                         <div class="inc-dec-count-box__plus3">
     
-                                                                            <i class="fas fa-plus"></i>
+                                                                            <i class="fas fa-plus increase-adult"></i>
     
                                                                         </div>
     
@@ -3083,61 +3089,40 @@
     
                                                                 </div> 
     
-                                                                <div
-    
-                                                                    class="dropdown-menu-passenger-selection__block__right">
+                                                                <div class="dropdown-menu-passenger-selection__block__right">
     
                                                                     <div class="inc-dec-count-box">
     
                                                                         <div class="inc-dec-count-box__minus4">
     
-                                                                            <i class="fas fa-minus"></i>
+                                                                            <i class="fas fa-minus decrease-children"></i>
     
                                                                         </div>
     
                                                                         <div class="inc-dec-count-box__value">
     
-                                                                            <input type="number" class="form-control getchild_data1"
+                                                                            <input type="number" class="no-spinner form-control getchild_data1 hotel-children-input"
     
-                                                                               name="child12" id="exampleFormControlInput1" value="0" min="0">
+                                                                               name="child12" id="exampleFormControlInput1" value="0" min="0" step="1">
     
                                                                         </div>
     
                                                                         <div class="inc-dec-count-box__plus4">
     
-                                                                            <i class="fas fa-plus"></i>
+                                                                            <i class="fas fa-plus increase-children"></i>
     
                                                                         </div>
     
                                                                     </div>
+                                                                      
+                                                                      
     
                                                                 </div>
     
                                                             </div>
-    
-                                                        </div>
-    
-                                                    </li>
-    
-                                                    <li>
-    
-                                                        <div class="dropdown-menu-footer">
-    
-                                                            <div class="dropdown-menu-footer__total-travellers">
-    
-                                                                <span class="fw-bold">6</span> 
-    
-                                                                <span>People</span>
-    
-                                                            </div>
-    
-                                                            <div class="dropdown-menu-footer__done-selected-travellers">
-    
-                                                                <a href="javascript:void(0)" class="btn btn-theme-blue">
-    
-                                                                    Done </a>
-    
-                                                            </div>
+                                                              <br/>
+                                                          <span class="add-another-room" style="cursor:pointer;"> Add another room </span>
+                                                              
     
                                                         </div>
     
@@ -3163,10 +3148,7 @@
     
                                         </div>
     
-                                    
-    
-                                    
-    
+                                   
                                     </div>
     
                                     </form>
@@ -4620,14 +4602,16 @@
     document.addEventListener('DOMContentLoaded', function () {
     
         var dateInput = document.getElementById('demo1');
+        var returnDateInput = document.getElementById('demo3');
     
         var dateDisplay = document.getElementById('dateDisplay');
+        var returnDateDisplay = document.getElementById('returnDate');
     
     
     
        // Function to format date as "day-month-year"
     
-        function formatDate(dateString) {
+        function formatDate(dateString , isReturnDateLess = false) {
     
             // Create a Date object from the input value
     
@@ -4651,7 +4635,11 @@
     
             var year = date.getFullYear();
     
-    
+            if (isReturnDateLess)
+            {
+                date.setDate(date.getDate() + 1);
+                day = date.getDate();
+            }
     
             // Format the date string as "day-month-year"
     
@@ -4663,7 +4651,7 @@
     
         // Function to update the date display
     
-        function updateDateDisplay(date) {
+        function updateDateDisplay(date , isReturnDateLess = false) {
     
             // Format the date string
     
@@ -4674,6 +4662,11 @@
             // Update the display with the formatted date
     
             dateDisplay.textContent = formattedDate;
+    
+            if (isReturnDateLess)
+            {
+                returnDateDisplay.textContent = formatDate(date , isReturnDateLess);
+            }
     
         }
     
@@ -4689,7 +4682,14 @@
     
         dateInput.addEventListener('input', function() {
     
-            updateDateDisplay(this.value);
+            if (this.value > returnDateInput.value)
+            {
+                updateDateDisplay(this.value , true);
+            }
+            else
+            {
+                updateDateDisplay(this.value);
+            }
     
         });
     
@@ -5328,18 +5328,307 @@
         </script>
     
     
-    
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-    
-    
         <script>
     
     
     
-            $(document).ready(function () {
-                // REZLIVE API 
-                var $dropdown = $('#dropdown');
+    $(document).ready(function () {
+                               // REZLIVE API 
+                  function getTravellersCalculation()
+                  {
+                    let adultCount = 0;
+                    let childrenCount = 0;
+                    let room = 0;
+                    let roomJson = {};
+                    $('.hotel-room').each(function(index, element) 
+                    {
+                      
+                      let adultValue = parseInt($(element).find('.hotel-adult-input').val());
+                      let childrenValue = parseInt($(element).find('.hotel-children-input').val());
+                      adultCount = adultCount + adultValue;
+                      childrenCount = childrenCount + childrenValue;
+                      room = index + 1;
+                      
+                      var childrenAges = [];
+                      $(this).find('.children-dropdown').each(function(key, value) {
+                          let selectedValue = $(value).val();
+                          childrenAges.push(selectedValue);
+                      });
+                        
+                      roomJson[index + 1] = {'adult' : adultValue , 'children': childrenValue , 'childrenAge' : childrenAges};
+    
+                    });
+    
+                    let totalTravellers = adultCount + childrenCount;
+    
+                    $('.hotel-adult-count').text(totalTravellers);
+                    $('.hotel-children-count').text(room)
+                    $('#travellers-input').val(JSON.stringify(roomJson));
+                
+                  }
+              
+                  getTravellersCalculation();
+                  $(document).on('change','.children-dropdown', function(){
+                    getTravellersCalculation();
+                });
+              
+              
+              $(document).on('click', '.decrease-adult', function() 
+             {
+                   var $parent = $(this).closest('.hotel-room');
+                var $adultInput = $parent.find('.hotel-adult-input');
+                
+                   if (parseInt($adultInput.val()) > 1)
+                {
+                  var adultValue = parseInt($adultInput.val()) - 1;
+                  $adultInput.val(adultValue);
+                  getTravellersCalculation();
+                }
+               
+                $parent.find('.full-passenger').next('br').remove();
+                $parent.find('.full-passenger').remove();
+             });
+              
+              
+             $(document).on('click', '.increase-adult', function() 
+             {
+                   var $parent = $(this).closest('.hotel-room');
+                var $adultInput = $parent.find('.hotel-adult-input');
+                   
+               var perRoomPassenger = parseInt($adultInput.val()) + parseInt($parent.find('.hotel-children-input').val());
+              if (perRoomPassenger > 5 && !$parent.find('.children-dropdown').last().next().hasClass('full-passenger')) 
+              {
+                  return $parent.find('.children-dropdown').last().after('<span class="text-danger full-passenger">Only 6 passengers allowed in 1 room </span><br/>');
+              } 
+              
+              if (perRoomPassenger < 6)
+              {
+                  $parent.find('.full-passenger').next('br').remove();
+                  $parent.find('.full-passenger').remove();
+                  var adultInputValue = parseInt($adultInput.val()) + 1;
+                  $adultInput.val(adultInputValue);
+                  
+              }
+               
+               getTravellersCalculation();
+                
+               
+             });
+              
+             $(document).on('click', '.decrease-children', function() 
+             {
+                   
+               var $parent = $(this).closest('.hotel-room');
+               var $childrenInput = $parent.find('.hotel-children-input');
+               
+               if (parseInt($childrenInput.val()) > 0 )
+               {
+                 var childrenValue = parseInt($childrenInput.val()) - 1;
+                 $childrenInput.val(childrenValue);
+                 $parent.find('.children-dropdown').last().remove();
+                 getTravellersCalculation();
+               }
+               $parent.find('.full-passenger').next('br').remove();
+               $parent.find('.full-passenger').remove();
+               
+             });
+              
+             $(document).on('click', '.increase-children', function() 
+             {
+             
+              // Increment the children value
+              var $parent = $(this).closest('.hotel-room');
+              var $adultInput = $parent.find('.hotel-adult-input')
+              var $childrenInput = $parent.find('.hotel-children-input');
+              
+              var perRoomPassenger =  parseInt($childrenInput.val()) + parseInt($adultInput.val());
+              
+              if (perRoomPassenger > 5 && !$parent.find('.children-dropdown').last().next().hasClass('full-passenger')) 
+              {
+                  return $parent.find('.children-dropdown').last().after('<span class="text-danger full-passenger">Only 6 passengers allowed in 1 room </span><br/>');
+              } 
+              
+              if (perRoomPassenger < 6)
+              {
+                  $parent.find('.full-passenger').next('br').remove();
+                  $parent.find('.full-passenger').remove();
+                  var childrenValue = parseInt($childrenInput.val()) + 1;
+                    $childrenInput.val(childrenValue);
+                    
+                var dropdownElement = `
+                  <select name="child_age" class="form-control children-dropdown">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                  </select>`;
+              }
+    
+              
+    
+              // Create the dropdown element
+              
+    
+              // Insert the dropdown element before the '.adult-child-section'
+              if ($parent.find('.remove-room').length === 1)
+              {
+                $parent.find('.remove-room').before(dropdownElement);
+              }
+              else
+              {
+                $parent.find('.add-another-room').before(dropdownElement);
+              }
+              
+              $('.children-dropdown').prev('br').remove();
+              getTravellersCalculation();
+              
+          });
+    
+              
+               $(document).on('click','.remove-room', function() {
+                     console.log('.remove-room');
+                     let $hotelLength = $('.adult-child-section').find('.hotel-room');
+                     
+                     if ($hotelLength.length > 1)
+                    {
+                      $(this).closest('.hotel-room').remove();
+                    }
+                     
+                     $hotelLength = $('.adult-child-section').find('.hotel-room');
+                     
+                     if ($hotelLength.length == 1)
+                    {
+                          if ($hotelLength.find('.add-another-room').length == 0)
+                        {
+                          $hotelLength.find('.remove-room').after('<span class="add-another-room" style="cursor:pointer;">Add another room</span><br/>');
+                        }
+                          $hotelLength.find('.remove-room').remove();
+                    }
+                 
+                      $('.hotel-room').each(function(index, element) 
+                    {
+                      
+                      $(element).find('.room-no').text(`Room ${index + 1}`);
+                        console.log(index + 1);
+                      
+                    });
+                     
+                     getTravellersCalculation();
+                 
+               });
+              
+              $(document).on('click','.add-another-room', function() {
+                
+                let $element = $('.hotel-room').last().clone(true);
+                console.log($element);
+                $element.find('.hotel-adult-input').val(2);            
+                $element.find('.hotel-children-input').val(0);
+                $element.find('.children-dropdown').remove();
+                let roomText = $element.find('.room-no').text();
+    
+                let $removeRooms = $element.find('.remove-room');
+                let $addRooms = $element.find('.add-another-room');
+                
+               
+                if ($removeRooms.length > 1) 
+                {
+                    $removeRooms.not(':first').remove();
+                      $removeRooms.next('br').remove();
+                      $('.children-dropdown').prev('br').remove();
+                }
+                
+    
+                if ($addRooms.length >= 1) 
+                {
+                    $addRooms.not(':first').remove();
+                      $addRooms.next('br').remove();
+                      $('.children-dropdown').prev('br').remove();
+                }
+                
+                if ($addRooms.length === 1 && $removeRooms.length === 0) 
+                {
+                    $element.find('.remove-room').after('<span class="add-another-room" style="cursor:pointer;">Add another room</span><br/>');
+                }
+                
+                if ($removeRooms.length === 0) 
+                {
+                    $element.find('.add-another-room').before('<span class="remove-room" style="cursor:pointer;">Remove Room</span><br/>');
+                }
+                
+                switch(roomText)
+                 {
+                   case 'Room 1' : 
+                         $element.find('.room-no').text("Room 2");
+                         break;
+                     
+                   case 'Room 2' : 
+                         $element.find('.room-no').text("Room 3");
+                         break;
+                     
+                    case 'Room 3' : 
+                         $element.find('.room-no').text("Room 4");
+                         break;
+                     
+                   case 'Room 4' : 
+                         $element.find('.room-no').text("Room 5");
+                         break;
+                    
+                   case 'Room 5' : 
+                         $element.find('.room-no').text("Room 6");
+                         break;
+                   
+                   case 'Room 6' : 
+                         $element.find('.room-no').text("Room 7");
+                         break;
+                     
+                   case 'Room 7' : 
+                         $element.find('.room-no').text("Room 8");
+                         break;
+                   default:
+                        console.log("Unexpected room text: " + roomText);
+                    break;
+                 }
+       
+                $('.hotel-room').last().after($element);
+                $element.prev('.hotel-room').length;
+                if ($element.prev('.hotel-room').length === 1 && $removeRooms.length === 0)
+                {
+                  $element.prev('.hotel-room').find('.add-another-room').after('<br/><span class="remove-room" style="cursor:pointer;">Remove Room<span>');
+                  $element = $element.prev('.hotel-room').find('.add-another-room');
+                  $element.prev('br').remove();
+                  $('.children-dropdown').prev('br').remove();
+                  $element.remove()
+                }
+                else
+                {
+                  $element = $element.prev('.hotel-room').find('.add-another-room');
+                  $element.prev('br').remove();
+                  $('.children-dropdown').prev('br').remove();
+                  $element.remove()
+                }
+               
+                
+    
+                
+               getTravellersCalculation();
+                
+              });
+    
+                
+                 var $dropdown = $('#dropdown');
                 var $results = $('#results');
                 var $searchInput = $('#search-input');
                 var options = [];
@@ -5356,37 +5645,36 @@
         // Handle input event on the search box
         $(document).on('keyup','#search-input', function () 
         {
-            var searchTerm = $(this).val().toLowerCase();
-           
-            $results.empty();
+                var searchTerm = $(this).val().toLowerCase();
+            
+                $results.empty();
     
                  if (searchTerm) 
                  {
                     $.ajax({
-                    		url : "/hotel-city-search",
-                      		type : "POST",
-                      		data : {searchText : searchTerm , _token: '{{csrf_token()}}' },
-                      		success : function (response)
-                      		{
-                                
-                                $results.empty();
-
-                               if (response.length > 0) 
-                               {
-                                   response.forEach(function (item) {
-                                      $results.append('<li class="option8" data-value="' + item.city_id + '">' + item.name + '</li>');
-                                   });
-                                   $results.show();
-                               } 
-                               else 
-                               {
-                                   $results.hide();
-                               }
-
-                            }
-                    
-                    });
-
+                                url : "/hotel-city-search",
+                                  type : "POST",
+                                  data : {searchText : searchTerm , _token: '{{csrf_token()}}' },
+                                  success : function (response)
+                                  {
+                                    
+                                    $results.empty();
+    
+                                   if (response.length > 0) 
+                                   {
+                                       response.forEach(function (item) {
+                                          $results.append('<li class="option8" data-value="' + item.city_id + '">' + item.name + '</li>');
+                                       });
+                                       $results.show();
+                                   } 
+                                   else 
+                                   {
+                                       $results.hide();
+                                   }
+    
+                                }
+                        
+                        });
                  } 
                  else 
                  {
@@ -5394,21 +5682,61 @@
                  }
         });
     
-        // Handle click event on the list items in the results
-        $(document).on('click', 'li', function () {
-            $('#search-input').val($(this).text());
+                // Handle click event on the list items in the results
+               $(document).on('click', '#results li', function () {
+                  $('#search-input').val($(this).text());
+     
+                  $('#search-input-code').val($(this).attr('data-value'));
+                  $results.empty().hide();
+              });
+            
+                // Hide the results when clicking outside
+                $(document).on('click', function (e) {
+                      
+                    if (!$(e.target).closest('#results, #search-input').length) {
+                        $results.hide();
+                    }
+                });
+               
+        $(document).on('change','#adultCount',function () {
+                $('#retuen-adult').val($(this).val());
     
-            $('#search-input-code').val($(this).attr('data-value'));
-            $results.empty().hide();
+                });
+    
+        $(document).on('change','.childget',function () {
+                    
+                $('#retuen-child').val($(this).val());
+        
         });
     
-        // Hide the results when clicking outside
-        $(document).on('click', function (e) {
-            if (!$(e.target).closest('#results, #search-input').length) {
-                $results.hide();
+        $(document).on('input','#demo1', function () {
+            var journeyDate = $(this).val();
+            var returnDate = $('#demo3').val();
+    
+            if (journeyDate > returnDate)
+            {
+                const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+                var date = new Date(journeyDate);
+                date.setDate(date.getDate() + 1);
+                var monthSet = monthNames[date.getMonth()];
+    
+                var day = date.getDate().toString().padStart(2, '0');
+                var month = (date.getMonth() + 1).toString().padStart(2, '0');
+    
+                var year = date.getFullYear();
+    
+                console.log(day,month , journeyDate);
+    
+                var dateFormate = `${year}-${month}-${day}`;
+                var displayDate = `${day}-${monthSet}-${year}`;
+                console.log(dateFormate);
+                $('#demo3').val(dateFormate);
+                $('#returnDate').text(displayDate);
             }
         });
-                // REZLIVE API  END 
+    
+        
+    // REZLIVE API  END 
     
         // Initialize the autocomplete with the options array
                

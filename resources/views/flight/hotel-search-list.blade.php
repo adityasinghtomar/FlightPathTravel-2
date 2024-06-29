@@ -846,25 +846,25 @@ echo '</div>';
                                         <!-- <del><h5 style="margin-bottom:10px;">Pub.Rate 
                                         {{ $Currency_active->currency_symbol}} 
                                         <?php // $subtotal1= $data1->Price->PublishedPriceRoundedOff;echo round($subtotal1, 2); ?></h5></del> -->
-                                        <h5 style="margin-bottom:10px;">Off.Rate {{ $Currency_active->currency_symbol ?? ''}}  {{ round($hotel['price'] ,2 )}}
+                                        <h5 style="margin-bottom:10px;">Off.Rate {{ $Currency_active->currency_symbol ?? ''}}
                                          <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
                                  
                                 <?php if($mark_up) { 
                                             if($mark_up->markup_type =='fixed'){
-                                                // $mark_up->markup_amount;
-                                                // $subtotal= $data1->Price->OfferedPriceRoundedOff + $mark_up->markup_amount;
-                                                // echo round($subtotal, 2);
+                                                $mark_up->markup_amount;
+                                                $subtotal= $hotel['price'] + $mark_up->markup_amount;
+                                                echo round($subtotal, 2);
                                             }
                                             else {
-                                            //   $percentage = ($mark_up->markup_amount / 100) * $data1->Price->OfferedPriceRoundedOff; 
-                                            //   $subtotal= $data1->Price->OfferedPriceRoundedOff + $percentage;
-                                            //     echo round($subtotal);
-                                            //   echo $percentage;
+                                               $percentage = ($mark_up->markup_amount / 100) * $hotel['price']; 
+                                               $subtotal= $hotel['price'] + $percentage;
+                                               echo round($subtotal);
+                                               echo $percentage;
                                             }
                                             } 
                                              else{
-                                    // $subtotal= $data1->Price->OfferedPriceRoundedOff;
-                                    //             echo round($subtotal);
+                                    			   $subtotal= $hotel['price'];
+                                                 	echo round($subtotal);
                                               }   
                                             ?>
                                          </h5>

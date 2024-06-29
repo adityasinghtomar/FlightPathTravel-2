@@ -399,6 +399,7 @@ print_r("done");die;
     public function rezLiveFindHotelAPIResponse($request)
     {
       $jsonData = $request->get('travellers');
+      
       $travellers = json_decode($jsonData,true);
       $ip = $request->ip();
       $client = new Client();
@@ -479,9 +480,11 @@ print_r("done");die;
 
 
       $xml = simplexml_load_string($response);
+      
       $hotels = [];
 
       $response = (array) $xml->Hotels;
+      //dd($response);
       $sessionId = (string) $xml->SearchSessionId;
       $response = current($response);
       if (!empty($response) && is_array($response))
@@ -968,7 +971,6 @@ $ress = json_decode($ss);
     {
       $jsonData = $request->get('travellers');
       $travellers = json_decode($jsonData,true);
-      dd($travellers);
       $request = $request->all();
       $hotelName = $request['hotelName'];
       $arrivalDate = $request['ArrivalDate'];
@@ -1045,14 +1047,13 @@ $ress = json_decode($ss);
       $preBooking = [];
       $preBookingRequest = (array) $xml->PreBookingRequest;
       $preBookingDetails = (array) $xml->PreBookingDetails;
-
+	
       if (isset($preBookingDetails['Status']) && $preBookingDetails['Status'])
       {
           $roomDetails = (array) $preBookingRequest['PreBooking']->RoomDetails;
           $cancellationInformations = $preBookingRequest['PreBooking']->CancellationInformations;
           $info = $cancellationInformations->Info;
           $roomDetails = current($roomDetails);
-
           $preBooking['hotelName'] = $hotelName;
           $preBooking['arrivalDate'] = (string) $preBookingRequest['PreBooking']->ArrivalDate;
           $preBooking['departureDate'] = (string) $preBookingRequest['PreBooking']->DepartureDate;
@@ -1095,7 +1096,7 @@ $ress = json_decode($ss);
           }
           //dd($preBookingRequest,$preBookingDetails , $preBooking,$termsAndConditions , $info);
         
-          return view('flight.room-booking' ,compact('preBooking','termsAndConditions','info','travellers'));
+          return view('flight.room-booking' ,compact('preBooking','termsAndConditions','info','travellers','jsonData'));
       }
 
       $warning = ['message'=> 'This Room Is Note Available for now'];
@@ -1755,7 +1756,7 @@ $data = array();
     {
       $bookingData = session()->get('hotel_booking_data');
       $apiResponse = $this->rezLiveHotelBookingAPIResponse($bookingData);
-
+	  
       session()->forget('hotel_booking_data');
 
       if (is_array($apiResponse) && isset($apiResponse['BookingDetails']) && $apiResponse['BookingDetails']->BookingStatus == 'Rejected')
@@ -1767,7 +1768,7 @@ $data = array();
           return redirect()->back()->with('warning', 'Something went wrong..');
       }
       $ress = [];
-      return view('flight.hotel-confirm' ,compact('apiResponse'));
+      return view('flight.hotel-confirm' ,compact('apiResponse','bookingData'));
       
 
          $transaction_id = session()->get('paymentID');
@@ -2198,17 +2199,53 @@ $data = array();
 
     public function rezLiveHotelBookingAPIResponse($request)
     {
-        if (empty($request))
+      	
+      	if (empty($request))
         {
           return back();
         }
-        $guest = '';
-        foreach($request['AdultSalutation'] as $key => $value)
-        {
-          $firstName = $request['name'][$key];
-          $lastName = $request['lname'][$key];
-          $guest .= "<Guest><Salutation>$value</Salutation><FirstName>$firstName</FirstName><LastName>$lastName</LastName></Guest>";
-        }
+        $travellers = json_decode($request['travellers'], true);
+        $prepareGuests = [];
+
+          if (!empty($travellers)) {
+              $adultIndex = 0;
+              $childIndex = 0;
+              $guestXml = '';  // Use a different name to avoid confusion
+
+              foreach ($travellers as $room => $guest) {
+                  $guestXml .= "<Guests>";
+
+                  if (!empty($guest['adult'])) {
+                      for ($j = 0; $j < $guest['adult']; $j++) {
+                          $guestXml .= "<Guest>
+                              <Salutation>{$request['adult_salutation'][$adultIndex]}</Salutation>
+                              <FirstName>{$request['adult_fname'][$adultIndex]}</FirstName>
+                              <LastName>{$request['adult_lname'][$adultIndex]}</LastName>
+                          </Guest>";
+
+                          $adultIndex++;
+                      }
+                  }
+
+                  if (!empty($guest['children'])) {
+                      for ($j = 0; $j < $guest['children']; $j++) {
+                          $guestXml .= "<Guest>
+                              <Salutation>{$request['child_salutation'][$childIndex]}</Salutation>
+                              <FirstName>{$request['child_fname'][$childIndex]}</FirstName>
+                              <LastName>{$request['child_lname'][$childIndex]}</LastName>
+                              <IsChild>1</IsChild>
+                              <Age>{$request['child_age'][$childIndex]}</Age>
+                          </Guest>";
+
+                          $childIndex++;
+                      }
+                  }
+
+                  $guestXml .= "</Guests>";
+              }
+          }
+
+          
         $agentRefNo = rand(1, 100000);
         $curl = curl_init();
         $xmlRequest = "<BookingRequest>
@@ -2236,15 +2273,15 @@ $data = array();
         <BookingKey>".$request['bookingKey']."</BookingKey>
         <Adults>".$request['adults']."</Adults>
         <Children>".$request['children']."</Children>
+        <ChildrenAges>".$request['childrenAges']."</ChildrenAges>
         <TotalRooms>".$request['totalRooms']."</TotalRooms>
         <TotalRate>".$request['totalRate']."</TotalRate>
-        <Guests>
-        $guest
-        </Guests>
+        $guestXml
         </RoomDetail>
         </RoomDetails>
         </Booking></BookingRequest>";
 		
+     
         curl_setopt_array($curl, array(
           CURLOPT_URL => 'http://test.xmlhub.com/testpanel.php/action/bookhotel',
           CURLOPT_RETURNTRANSFER => true,
@@ -2267,14 +2304,14 @@ $data = array();
 
         $xml = simplexml_load_string($response);
         $response = (array) $xml;
-		dd((string) $response['BookingRequest']->Booking->City,$xml->children('BookingResponse',true),$xml->children('Booking',true),$xml->attributes());
+		
         return $response;
 
     }
 
     public function preparePayment(Request $request)
     {   
-
+		
      session()->put('fname',$request->name);
 
      session()->put('lname',$request->lname);

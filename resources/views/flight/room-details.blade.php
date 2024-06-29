@@ -898,7 +898,7 @@ $(document).ready(function() {
         @endif
 		         @if(isset($hotelsDetails))
 		        <div class="col-md-4">
-		             <img src="{{$hotelsDetails['mainImage']}}" style="width:100%;height:250px;" id="main">
+		             <img src="{{$hotelsDetails['mainImage']}}" onerror="this.src='public/assets/img/hote.avif'" style="width:100%;height:250px;" id="main">
 		        </div>
 		        <div class="col-md-8">
 		            <div class="filter-card" style="margin-top: 22px;">
@@ -906,7 +906,7 @@ $(document).ready(function() {
 		            <div id="thumbnails" style="margin: 64px 0px 48px 0px;">
 		                <div id="image-slider">
 		                    
-		                     <img src="{{$hotelsDetails['mainImage']}}">
+		                     <img src="{{$hotelsDetails['mainImage']}}" onerror="this.src='public/assets/img/hote.avif'" >
 		          
                     </div>
  
@@ -1196,29 +1196,32 @@ echo '</div>';
 							                         //   echo round($room_data1->Price->PublishedPriceRoundedOff/$Currency_active->currency_rates,2);
 							                            ?>
 							                            <!--</del></p>-->
-                                                        <p>Off.Rate {{ $Currency_active->currency_symbol}} {{ round($room['price'],2)}}
+                                                        <p>Off.Rate {{ $Currency_active->currency_symbol}}
                                                         <?php $mark_up= \App\Markup_Model::where('name','hotel')->where('status','active')->first();?>
                                  
                                 <?php if($mark_up) { 
                                             if($mark_up->markup_type =='fixed'){
                                             
-                                               // $mark_up->markup_amount;
-                                               // $subtotal= $room_data1->Price->OfferedPriceRoundedOff + $mark_up->markup_amount;
-                                                // echo round($subtotal, 2);
-                                               // $subtotal1= $subtotal / $Currency_active->currency_rates ;echo round($subtotal1, 2);
+                                               $mark_up->markup_amount;
+                                               $subtotal= $room['price'] + $mark_up->markup_amount;
+                                               //echo round($subtotal, 2);
+                                               $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                              echo round($subtotal1, 2);
                                             }
                                             else {
-                                              // $percentage = ($mark_up->markup_amount / 100) * $room_data1->Price->OfferedPriceRoundedOff; 
-                                              // $subtotal= $room_data1->Price->OfferedPriceRoundedOff + $percentage;
+                                              $percentage = ($mark_up->markup_amount / 100) * $room['price']; 
+                                              $subtotal= $room['price'] + $percentage;
                                                 // echo round($subtotal);
-                                                // $subtotal1= $subtotal / $Currency_active->currency_rates ;echo round($subtotal1, 2);
+                                               $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                              echo round($subtotal1, 2);
                                             //   echo $percentage;
                                             }
                                             }   
                                             else{
-                                                //  $subtotal= $room_data1->Price->OfferedPriceRoundedOff;
+                                                $subtotal= $room['price'];
                                                 // echo round($subtotal);
-                                                // $subtotal1= $subtotal / $Currency_active->currency_rates ;echo round($subtotal1, 2);
+                                                $subtotal1= $subtotal / $Currency_active->currency_rates ;
+                                              	echo round($subtotal1, 2);
                                               }
                                             ?>
                                                         </p>

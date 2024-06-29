@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="tour_booking_amount_area">
-                                    @if(isset($apiResponse) && isset($apiResponse['BookingDetails']))
+                                    @if(is_array($apiResponse) && isset($apiResponse) && isset($apiResponse['BookingDetails']))
                                         @if($apiResponse['BookingDetails']->BookingStatus == 'Fail')
                                         <li class="">Hotel Booking Status :<span> {{$apiResponse['BookingDetails']->BookingStatus}} </span></li>
                                         <li class="">Reason :<span> {{$apiResponse['BookingDetails']->BookingReason}} </span></li>
@@ -92,13 +92,11 @@
                                         <li>DepartureDate : <span class="text-start"> {{$apiResponse['BookingRequest']->Booking->DepartureDate}}  </span></li>
 
                                         <li>Hotel Booking Status :<span class="text-start"> {{$apiResponse['BookingDetails']->BookingStatus}} </span></li>
-                                        <li>InvoiceNumber :<span class="text-start">  </span></li>
-                                        <li>ConfirmationNo : <span class="text-start">    </span></li>
-                                        <li>BookingRefNo : <span class="text-start">   </span></li>
+                                     
                                         <li>BookingId :<span class="text-start"> {{$apiResponse['BookingDetails']->BookingId}}  </span></li>
 
-                                        <li>Booking Price : <span class="text-start"> {{ round($apiResponse['BookingDetails']->BookingPrice , 2)}}  </span></li>
-                                        <li>Booking Code : <span class="text-start"> {{$apiResponse['BookingDetails']->BookingCode}}  </span></li>
+                                        <li>Booking Price : <span class="text-start">{{$bookingData['currency'] ?? " "}} {{ round(floatval($apiResponse['BookingDetails']->BookingPrice) , 2) }}  </span></li>
+                                        <li>Booking Code : <span class="text-start"> {{$apiResponse['BookingDetails']->BookingCode ?? 0}}  </span></li>
                                          @endif
                                        
                                     </ul>

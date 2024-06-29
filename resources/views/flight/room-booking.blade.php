@@ -552,16 +552,19 @@ input:focus-visible + label {
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <input type="number" name="mobile" class="form-control bg_input"
-                                                    placeholder="Mobile number*">
+                                                    placeholder="Mobile number*" required>
                                             </div>
                                         </div>
                                         
+                                     @if (count($travellers) > 0)
+                                      @foreach ($travellers as $room => $passenger)
 
-                                    <h3 class="heading_theme mt-2">Adults</h3>
-                                        @for ($i = 0; $i < $preBooking['roomDetails']['adults']; $i++)
+                                    <h3 class="heading_theme mt-2">Room {{$room}} Passengers</h3>
+                                      
+                                        @for ($i = 0; $i < $passenger['adult']; $i++)
                                         
                                         <div class="col-lg-2 mt-2">
-                                            <select name="AdultSalutation[]" id="AdultSalutation" class="form-control bg_input">
+                                            <select name="adult_salutation[]" id="AdultSalutation" class="form-control bg_input">
                                                 <option value="Mr">Mr.</option>
                                                 <option value="Mrs">Mrs.</option>
                                                 <option value="Ms">Ms.</option>
@@ -570,46 +573,47 @@ input:focus-visible + label {
 
                                         <div class="col-lg-5 mt-2">
                                             <div class="form-group">
-                                                <input type="text" name="name[]" class="form-control bg_input" placeholder="First name*" required>
+                                                <input type="text" name="adult_fname[]" class="form-control bg_input" placeholder="First name*" required>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-5 mt-2">
                                             <div class="form-group">
-                                                <input type="text" name="lname[]" class="form-control bg_input" placeholder="Last name*" required>
+                                                <input type="text" name="adult_lname[]" class="form-control bg_input" placeholder="Last name*" required>
                                             </div>
                                         </div>
                                         @endfor
-                                        <h3 class="heading_theme"></h3>
-
-                                        @if ($preBooking['roomDetails']['children'] > 0)
-                                        
-                                            <h3 class="heading_theme">Child</h3>
-                                            @for ($i = 0; $i < $preBooking['roomDetails']['children']; $i++)
+                                  
+                                  		@if (isset($passenger['children']) && $passenger['children'] > 0)
+                                  			 @for ($i = 0; $i < $passenger['children']; $i++)
 
                                             <div class="col-lg-2 mt-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="ChildSalutation[]" class="form-control bg_input" value="Child" placeholder="First name*" readonly>
+                                                    <input type="text" name="child_salutation[]" class="form-control bg_input" value="Child" placeholder="First name*" readonly>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-5 mt-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="name[]" class="form-control bg_input" placeholder="First name*" required>
+                                                    <input type="text" name="child_fname[]" class="form-control bg_input" placeholder="First name*" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-5 mt-2">
+                                            <div class="col-lg-4 mt-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="lname[]" class="form-control bg_input" placeholder="Last name*" required>
+                                                    <input type="text" name="child_lname[]" class="form-control bg_input" placeholder="Last name*" required>
+                                                </div>
+                                            </div>
+                              				<div class="col-lg-1 mt-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="child_age[]" class="form-control bg_input" value="{{$passenger['childrenAge'][$i]}}"  required readonly>
                                                 </div>
                                             </div>
                                             
                                             @endfor
                                             <h3 class="heading_theme"></h3>
                                         @endif
-                                        
-
-                                        
+										@endforeach
+                                        @endif
                                     </div>
                                             <input type="hidden" name="arrivalDate" value="{{ $preBooking['arrivalDate'] ?? ''}}">
                                             <input type="hidden" name="departureDate" value="{{ $preBooking['departureDate'] ?? ''}}">
@@ -628,6 +632,10 @@ input:focus-visible + label {
                                             <input type="hidden" name="totalRate" value="{{ $preBooking['roomDetails']['totalRate'] ?? ''}} ">
                                             <input type="hidden" name="hotelName" value="{{ $preBooking['hotelName'] ?? ''}} ">
                                             <input type="hidden" name="sessionId" value="{{ $preBooking['sessionId'] ?? ''}} ">
+                                            <input type="hidden" name="childrenAges" value="{{ $preBooking['roomDetails']['childrenAges'] ?? ''}} ">
+
+                                            <input type="hidden" name="travellers" value="{{ $jsonData ?? ''}} ">
+
                             </div>
                         </div>
                         <div class="booking_tour_form">
