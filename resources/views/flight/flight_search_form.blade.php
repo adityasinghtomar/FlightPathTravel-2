@@ -5396,10 +5396,19 @@
                 var $adultInput = $parent.find('.hotel-adult-input');
                    
                var perRoomPassenger = parseInt($adultInput.val()) + parseInt($parent.find('.hotel-children-input').val());
-              if (perRoomPassenger > 5 && !$parent.find('.children-dropdown').last().next().hasClass('full-passenger')) 
-              {
-                  return $parent.find('.children-dropdown').last().after('<span class="text-danger full-passenger">Only 6 passengers allowed in 1 room </span><br/>');
-              } 
+               var dropDownLength = $parent.find('.children-dropdown').length;
+                if (perRoomPassenger > 5 && $parent.find('.full-passenger').length === 0) 
+                {
+                        if (dropDownLength > 0)
+                        {
+                        return $parent.find('.children-dropdown').last().after('<span class="text-danger full-passenger">Only 6 passengers allowed in 1 room </span><br/>');
+                        }
+                        else
+                        
+                        {
+                        return $parent.find('.add-another-room').before('<span class="text-danger full-passenger">Only 6 passengers allowed in 1 room </span><br/>');
+                        }
+                } 
               
               if (perRoomPassenger < 6)
               {
